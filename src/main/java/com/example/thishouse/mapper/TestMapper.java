@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-@Mapper
+@Mapper //Mapper.xml에 있는 것을 매핑
 public interface TestMapper {
 
     List<Test> test2();
