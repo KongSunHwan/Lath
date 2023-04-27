@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="UTF-8">
+<title>문의하기</title>
+
+<link rel="stylesheet" type="text/css"
+	href="/css/inquire.css">
+
+</head>
+<body>
+	<div class="title">
+		<span> 문의하기 </span>
+	</div>
+	<div class="wrapper">
+		<div class="wrap">
+			<div class="message-wrapper right">
+				<div class="message-title right">
+					<span>예시 질문</span>
+				</div>
+				<div class="message answer">부동산 거래 과정이 어떻게 되나요?</div>
+			</div>
+			<div class="message-wrapper left">
+				<div class="message-title left">
+					<span>예시 답변</span>
+				</div>
+				<div class="message question">
+					1.계약서 작성 <br /> 2.계약금 10% 납부<br /> 3.중도금 납부<br /> 4.입주 순으로 진행됩니다.
+				</div>
+			</div>
+
+			<!-- <c:forEach var="myinquire" items="${myinquire}">
+				<div class="message-wrapper right">
+					<div class="message-title right">
+						<span>질문</span>
+					</div>
+					<div class="message answer">${data}</div>
+				</div>
+				<div class="message-wrapper left">
+					<div class="message-title left">
+						<span>답변</span>
+					</div>
+					<div class="message question">${data}</div>
+				</div>
+			</c:forEach> -->
+		</div>
+	</div>
+
+	<form action="writeinquireOk">
+		<div class="input-wrapper">
+			<div class="input-wrap">
+				<div>
+					<input type="hidden" name="email" value="<%=email%>" />
+					<textarea id="area" name="question" placeholder="문의사항을 적어주세요."></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="button-wrapper">
+			<div class="button-wrap">
+				<button id="reset" type="button">다시쓰기</button>
+				<button id="submit" type="submit">제출하기</button>
+			</div>
+		</div>
+	</form>
+	<script>
+		const resetButton = document.getElementById("reset");
+		resetButton.addEventListener("click", function() {
+			let textInput = document.getElementById('area');
+			textInput.value = ""
+		})
+	</script>
+</body>
+</html>
