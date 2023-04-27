@@ -57,4 +57,24 @@ public class HelloController {
     public String footer() {
         return "footer";
     }
+
+    @RequestMapping("/notice_add")
+    public String notice_add() {
+        return "notice_add";
+    }
+
+    @RequestMapping("/notice_detail")
+    public String notice_detail() {
+        return "notice_detail";
+    }
+
+    @RequestMapping("/notice_edit")
+    public String notice_edit() {
+        return "notice_edit";
+    }
+
+    @RequestMapping("/notice_list")
+    public String notice_list() {
+        return "notice_list";
+    }
 }
