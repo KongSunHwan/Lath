@@ -38,10 +38,16 @@
             display: flex;
             justify-content: center;
         }
+        a {
+        text-decoration-line: none;
+        }
     </style>
 </head>
 
 <body>
+<!-- header 시작 -->
+<header th:replace="~{header/header}"></header>
+<!-- header 끝 -->
     <div class="container">
 
         <div class="py-5 text-center">
@@ -480,15 +486,12 @@
         </div>
         <br>
         <br>
-                            <div class="row gy-3">
-                            </div>
-
-                            <button type="submit" class="w-100 btn btn-primary btn-lg">등록하기</button>
-
-
-    
-
+        <div class="row gy-3">
+            <a th:href="@{/main}">
+        </div>
+    <button type="submit" class="w-100 btn btn-primary btn-lg">등록하기</button>
     </div>
+            </a>
     <!-- 컨테이너 -->
     </div>
 

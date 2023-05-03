@@ -45,7 +45,7 @@ public class HelloController {
 
     @RequestMapping("/real_estate_intro")
     public String real_estate_intro() {
-        return "real_estate_intro/real_estate_intro";
+        return "real_estate/real_estate_intro";
     }
 
     @RequestMapping("/header")
