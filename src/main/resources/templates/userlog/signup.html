@@ -66,14 +66,12 @@
       <div class="signup-main">
         <form class="signup-form">
           <div class="form-input">
-            <label for="email" class="form-label">아이디</label>
-            <input id="email" type="text" placeholder="example" />
+            <label for="id" class="form-label">아이디</label>
+            <input id="id" name="id" type="text" placeholder="example" class="form-control"  />
           </div>
 
-          <div class="form-input">
-            <label for="email-confirm" class="form-label">아이디 확인</label>
-            <input id="email-confirm" type="text" placeholder="example" />
-          </div>
+          <input type="button" id="btnCheck"
+                 value="중복확인"> <span id="result"></span>
 
           <div class="signup-main">
             <form class="signup-form">
@@ -81,6 +79,7 @@
                 <label for="name" class="form-label">이름</label>
                 <input id="name" type="text" placeholder="홍길동" />
               </div>
+
 
               <div class="form-input">
                 <label for="password" class="form-label">비밀번호</label>
@@ -136,6 +135,33 @@
     crossorigin="anonymous"></script>
   <script src="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.js"></script>
   <script src="/js/signup.js"></script>
+
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-3.4.1.js">
+    </script>
+    <script>
+		$('#btnCheck').click(function() {
+			if ($('#id').val() != '') {
+				$.ajax({
+					type : 'GET',
+					url : 'http://localhost:8082/idCk?id='+$('#id').val(),
+					success : function(result) {
+						if (result == '0') {
+							$('#result').text('사용 가능한 아이디입니다.');
+						} else {
+							$('#result').text('이미 사용중인 아이디입니다.');
+						}
+					},
+					error : function(a, b, c) {
+						console.log(a, b, c);
+					}
+				});
+			} else {
+				alert('id을 입력하세요.');
+				$('#id').focus();
+			}
+		});
+	</script>
 </body>
 
 </html>
