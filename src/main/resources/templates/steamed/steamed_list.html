@@ -25,6 +25,9 @@
         font-size: 3.5rem;
       }
     }
+    a {
+        text-decoration-line: none;
+       }
   </style>
 
 
@@ -32,64 +35,9 @@
 
 <body class="bg-light">
 
-  <header class="p-6 mb-3 border-bottom">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-          <img src="/img/logo.png" style="width: 100px; height: 100px; margin-top: -10px;">
-        </a>
-
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#" class="nav-link px-4 link-dark">지도</a></li>
-          <li><a href="#" class="nav-link px-4 link-dark">매물 등록</a></li>
-          <li><a href="#" class="nav-link px-4 link-dark">부동산 가이드</a></li>
-          <li><a href="#" class="nav-link px-4 link-dark">커뮤니티</a></li>
-          <li><a href="#" class="nav-link px-4 link-dark">공지사항</a></li>
-          <li><a href="#" class="nav-link px-4 link-dark">고객지원</a></li>
-        </ul>
-
-        <div class="dropdown text-end">
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            <img src="/img/user.png" alt="user" width="32" height="32" class="rounded-circle">
-            <span class="fs-6">회원아이디</span>
-          </a>
-          <ul class="dropdown-menu text-small">
-            <li>
-              <a class="dropdown-item" href="#">
-                <i class="bi bi-house-fill"></i> 마이페이지
-              </a>
-            </li>
-            <li><a class="dropdown-item" href="#">
-                <i class="bi bi-box2-heart-fill"></i> 찜한 목록
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">
-                <i class="bi bi-clipboard2-check"></i> 계약 내역
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">
-                <i class="bi bi-box-arrow-in-right"></i> 로그인
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">
-                <i class="bi bi-box-arrow-left"></i> 로그아웃
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">
-                <i class="bi bi-person-plus-fill"></i> 회원가입
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </header>
+  <!-- header 시작 -->
+  <header th:replace="~{header/header}"></header>
+  <!-- header 끝 -->
   <main class="container">
 
     <div class="my-3 p-3 bg-body rounded shadow-sm">
@@ -198,75 +146,9 @@
     </div>
   </main>
 
-  <footer class="footer mt-auto py-3">
-    <div class="container">
-      <div class="wrapper">
-        <div class="footer-bottom">
-          <div class="footer-bottom-left">
-            <div class="footer-info-top">
-              <span>
-                <a href="#" class="text-light">(주)이집봐라</a>
-              </span>
-              <span>
-                <a href="#" class="text-decoration-none">개인정보취급방침</a>
-              </span>
-              <span>
-                <a href="#" class="text-decoration-none">이용약관</a>
-              </span>
-            </div>
-            <div class="footer-info-bottom">
-              <div class="info-dropdown">
-                <span>(주)이집봐라 | </span>
-                <span>팀명: 공김정 | </span>
-                <span>
-                  사업자번호: 012-34-56789
-                  <a href="#" target="_blank" class="text-decoration-none text-white">사업자 정보 확인</a>
-                </span>
-                <br>
-                <span>통신판매업: 2023-경민대학교-23 | </span>
-                <span>개인정보보호책임자: 공선환, 김재호, 정성진 | </span>
-                <span>이메일: <a href="#" class="text-decoration-none text-white">tjsghks7878@kyungmin.ac.kr</a></span>
-                <br>
-                <span>주소: 경기도 의정부시 서부로 545 경민대학교 효행관 356호</span>
-              </div>
-              ©KongKimJeong. ALL RIGHTS RESERVED
-            </div>
-            <br>
-            <div>
-              <button class="btn btn-primary btn-sm">자주묻는 질문</button>
-              <button class="btn btn-primary btn-sm">1:1 문의</button>
-            </div>
-          </div>
-          <div class="footer-bottom-right">
-            <a href="#" class="text-decoration-none text-dark" id="#">
-              K
-            </a>
-            <a href="#" class="text-decoration-none text-dark" id="#">
-              Y
-            </a>
-            <a href="#" class="text-decoration-none text-dark" id="#">
-              U
-            </a>
-            <a href="#" class="text-decoration-none text-dark" id="#">
-              N
-            </a>
-            <a href="#" class="text-decoration-none text-dark" id="#">
-              G
-            </a>
-            <a href="#" class="text-decoration-none text-dark" id="#">
-              M
-            </a>
-            <a href="#" class="text-decoration-none text-dark" id="#">
-              I
-            </a>
-            <a href="#" class="text-decoration-none text-dark" id="#">
-              N
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <!-- footer 시작 -->
+  <footer th:replace="~{footer/footer}"></footer>
+  <!-- footer 끝 -->
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
