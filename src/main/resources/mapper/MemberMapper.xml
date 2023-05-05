@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.thishouse.mapper.MemberMapper">
+<mapper namespace="com.example.thishouse.mapper.MemberMapper"> <!-- "namespace" 속성을 사용하여 해당 매퍼 인터페이스의 네임스페이스를 지정 -->
     <select id="idCk" parameterType="String" resultType="int">
-        SELECT COUNT(*) FROM member
-        WHERE user_id = #{id}
+        <!-- "select" 엘리먼트에서는 "id" 속성을 사용하여 메서드 이름을 지정 -->
+        <!-- "parameterType" 속성을 사용하여 매개변수의 타입을 지정 -->
+        <!-- "resultType" 속성을 사용하여 반환값의 타입을 지정 -->
+        <!-- 쿼리는 "member" 테이블에서 "user_id"가 #{id}와 일치하는 레코드의 개수를 반환하는 쿼리 -->
+        SELECT COUNT(*)
+        FROM member
+        WHERE user_id = #{user_id}
     </select>
+
+    <insert id="signupMember" parameterType="com.example.thishouse.domain.Member">
+        INSERT INTO member (user_id, user_pw, user_name)
+        VALUES
+        (#{user_id}, #{user_pw}, #{user_name})
+    </insert>
+
+    <select id="loginMember" parameterType="String" resultType="Long">
+        SELECT *
+        FROM member
+        WHERE user_id = #{user_id} and user_pw = #{user_pw}
+    </select>
+
 </mapper>
