@@ -108,4 +108,9 @@ public class MainController {
     public String notice_list() {
         return "notice/notice_list";
     }
+
+    @RequestMapping("/mypage")
+    public String mypage() {
+        return "user_mypage/mypage";
+    }
 }
