@@ -31,7 +31,7 @@
 
 	<main>
 		<section class="login-wrapper">
-			<form action="loginOk" method="post" class="login-wrap">
+			<form th:action="@{login}" method="post" class="login-wrap">
 				<h1 class="title">
 					<div>
 						<a href="home"> <img src="/img/logo.png" width="250" height="250" />
@@ -40,21 +40,19 @@
 				</h1>
 				<div class="input-wrapper">
 					<div class="input-wrap">
-						<input type="id" class="login-input" id="id" name="id" placeholder="id">
+						<input type="id" class="login-input" id="id" name="user_id" placeholder="id">
 					</div>
 					<div class="input-wrap">
-						<input type="password" class="login-input" id="pw" name="pw" placeholder="Password">
+						<input type="password" class="login-input" id="pw" name="user_pw" placeholder="Password">
 					</div>
 				</div>
 
 				<div class="button-wrapper">
-					<a th:href="@{/main}">
 					<div class="button-wrap">
-						<button class="login-button" type="button">
+						<button class="login-button" type="submit">
 							<span>로그인</span>
 						</button>
 					</div>
-					</a>
 					<br>
 					<a th:href="@{/signup}">
 					<div class="button-wrap">

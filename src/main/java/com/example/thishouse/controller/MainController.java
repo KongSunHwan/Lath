@@ -1,11 +1,15 @@
 package com.example.thishouse.controller;
 
+import com.example.thishouse.domain.Member;
+import com.example.thishouse.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class HelloController {
+public class MainController {
 
 
     @RequestMapping("/map")
@@ -18,9 +22,30 @@ public class HelloController {
         return "inquire/inquire";
     }
 
-    @RequestMapping("/login")
-    public String login() {
-        return "userlog/login";
+    @GetMapping("/login")
+    public String login(HttpSession session) {
+        Long id = (Long) session.getAttribute("userId");
+        if (id != null) // 로그인된 상태
+        {
+            return "redirect:/";
+        }
+        return "userlog/login"; // 로그인되지 않은 상태
+    }
+
+    @PostMapping("/login")
+    public String login(String user_id, String user_pw, String user_name, HttpSession session) {
+        Long id =MemberService.loginMember(user_id, user_pw, user_name);
+        if (id == null) { // 로그인 실패
+            return "redirect:/login";
+        }
+        session.setAttribute("user_id", id);
+        return "redirect:/main";
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
     }
 
     @RequestMapping("/main")
@@ -28,9 +53,15 @@ public class HelloController {
         return "main/main";
     }
 
-    @RequestMapping("/signup")
-    public String signup() {
+    @GetMapping("/signup")
+    public String signupForm() {
         return "userlog/signup";
+    }
+
+    @PostMapping("/signup")
+    public String signup(Member member) {
+        MemberService.signupMember(member);
+        return "redirect:/login";
     }
 
     @RequestMapping("/steamed_list")
