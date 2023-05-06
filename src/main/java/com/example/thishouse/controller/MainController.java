@@ -1,7 +1,6 @@
 package com.example.thishouse.controller;
 
 import com.example.thishouse.domain.Member;
-import com.example.thishouse.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,15 +31,15 @@ public class MainController {
         return "userlog/login"; // 로그인되지 않은 상태
     }
 
-    @PostMapping("/login")
-    public String login(String user_id, String user_pw, String user_name, HttpSession session) {
-        Long id =MemberService.loginMember(user_id, user_pw, user_name);
-        if (id == null) { // 로그인 실패
-            return "redirect:/login";
-        }
-        session.setAttribute("user_id", id);
-        return "redirect:/main";
-    }
+//    @PostMapping("/login")
+//    public String login(String user_id, String user_pw, String user_name, HttpSession session) {
+//        Long id = MemberService_VER1.loginMember(user_id, user_pw, user_name);
+//        if (id == null) { // 로그인 실패
+//            return "redirect:/login";
+//        }
+//        session.setAttribute("user_id", id);
+//        return "redirect:/main";
+//    }
 
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
@@ -58,11 +57,11 @@ public class MainController {
         return "userlog/signup";
     }
 
-    @PostMapping("/signup")
-    public String signup(Member member) {
-        MemberService.signupMember(member);
-        return "redirect:/login";
-    }
+//    @PostMapping("/signup")
+//    public String signup(Member member) {
+//        MemberService_VER1.signupMember(member);
+//        return "redirect:/login";
+//    }
 
     @RequestMapping("/steamed_list")
     public String steamed_list() {
