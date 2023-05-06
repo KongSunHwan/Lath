@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="mapper.MemberMapper">
+<mapper namespace="com.example.thishouse.mapper.MemberMapper">
     <select id="idCk" parameterType="String" resultType="int">
         <!-- "select" 엘리먼트에서는 "id" 속성을 사용하여 메서드 이름을 지정 -->
         <!-- "parameterType" 속성을 사용하여 매개변수의 타입을 지정 -->

@@ -21,6 +21,7 @@ public class TestController {
 
     @PostMapping("/sign_up_test")
     public String sign_up(Member member) {
+        System.out.println("CON"+member);
         memberservice.sign_up(member);
         return "test_html/sign_up_complete";
     }
