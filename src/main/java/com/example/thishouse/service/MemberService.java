@@ -16,7 +16,19 @@ public class MemberService {
     //@Transactional => return없이 mapper내용 실행(void함수)
     @Transactional
     public void sign_up(Member member) {
-        System.out.println("SER : input : " + member);
         this.memberMapper.sign_up(member);
+    }
+
+    public int loginMember(Member member) {
+        int result = this.memberMapper.loginMember(member);
+        if(result == 1) {
+            return result;
+        }
+        return 0;
+    }
+
+    public int idCk(String user_id) {
+        int result = memberMapper.idCk(user_id);
+        return result;
     }
 }

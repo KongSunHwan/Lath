@@ -15,4 +15,17 @@ public class MemberMapper {
     public void sign_up(Member member) {
         sqlSession.insert(Namespace+".sign_up",member);
     }
+
+    public int loginMember(Member member) {
+        int result = sqlSession.selectOne(Namespace+".loginMember",member);
+        System.out.println("Mapper : "+result);
+        return result;
+    }
+
+    public int idCk(String user_id) {
+        int result = sqlSession.selectOne(Namespace+".idCk",user_id);
+        return result;
+    }
+
+
 }
