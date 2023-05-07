@@ -1,12 +1,31 @@
 package com.example.thishouse.mapper;
 
 import com.example.thishouse.domain.Member;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
+//interface사용시 오류 (required_bean error)
+@Repository
+@Mapper
+@RequiredArgsConstructor
+public class MemberMapper {
+    private final SqlSessionTemplate sqlSession;
+    private static final String Namespace = "com.example.thishouse.mapper.MemberMapper";
+    public void sign_up(Member member) {
+        sqlSession.insert(Namespace+".sign_up",member);
+    }
 
-@Mapper //Mapper.xml에 있는 것을 매핑 , "@Mapper" 어노테이션을 사용하여 해당 인터페이스가 MyBatis 매퍼 인터페이스임을 나타냄
-public interface MemberMapper {
+    public int loginMember(Member member) {
+        int result = sqlSession.selectOne(Namespace+".loginMember",member);
+        System.out.println("Mapper : "+result);
+        return result;
+    }
 
-    int idCk(String user_id); // "String" 타입의 "id" 매개변수를 받고, "int" 타입의 결과를 반환
-    void signupMember(Member member);
-    Long loginMember(String user_id, String user_pw, String user_name);
+    public int idCk(String user_id) {
+        int result = sqlSession.selectOne(Namespace+".idCk",user_id);
+        return result;
+    }
+
+
 }
