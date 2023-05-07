@@ -1,17 +1,23 @@
 package com.example.thishouse.controller;
 
 import com.example.thishouse.domain.Member;
+import com.example.thishouse.mapper.MemberMapper;
 import com.example.thishouse.service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequiredArgsConstructor
 public class MainController {
 
-
+    private final MemberService memberService;
     @RequestMapping("/map")
     public String map() {
             return "map/map";
@@ -24,7 +30,7 @@ public class MainController {
 
     @GetMapping("/login")
     public String login(HttpSession session) {
-        Long id = (Long) session.getAttribute("userId");
+        Long id = (Long) session.getAttribute("user_id");
         if (id != null) // 로그인된 상태
         {
             return "redirect:/";
@@ -33,12 +39,12 @@ public class MainController {
     }
 
     @PostMapping("/login")
-    public String login(String user_id, String user_pw, String user_name, HttpSession session) {
-        Long id =MemberService.loginMember(user_id, user_pw, user_name);
-        if (id == null) { // 로그인 실패
+    public String login(Member member, HttpSession session) {
+        int ck = memberService.loginMember(member);
+        if (ck == 0) { // 로그인 실패
             return "redirect:/login";
         }
-        session.setAttribute("user_id", id);
+        session.setAttribute("user_id", member.getUser_id());
         return "redirect:/main";
     }
 
@@ -60,8 +66,15 @@ public class MainController {
 
     @PostMapping("/signup")
     public String signup(Member member) {
-        MemberService.signupMember(member);
+        memberService.sign_up(member);
         return "redirect:/login";
+    }
+
+    @RequestMapping("idCk") // "idCk"라는 이름의 메서드는 HTTP 요청이 들어오면 실행
+    @ResponseBody //반환값은 숫자형태로, 클라이언트에서 받아서 처리할 수 있도록 해주는 "@ResponseBody" 어노테이션을 사용
+    public int idcheck(HttpServletRequest request, HttpServletResponse response, HttpSession session, String user_id) { // "id"라는 문자열 값을 매개변수로 받습니다.
+        int result = memberService.idCk(user_id); // 받은 "id" 값을 이용하여 "MemberService" 클래스에서 "idCk" 메서드를 호출하고, 그 결과를 반환합니다.
+        return result;
     }
 
     @RequestMapping("/steamed_list")
@@ -107,5 +120,10 @@ public class MainController {
     @RequestMapping("/notice_list")
     public String notice_list() {
         return "notice/notice_list";
+    }
+
+    @RequestMapping("/mypage")
+    public String mypage() {
+        return "user_mypage/mypage";
     }
 }
