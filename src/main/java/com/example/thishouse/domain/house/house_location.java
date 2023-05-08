@@ -1,4 +1,4 @@
-package com.example.thishouse.domain;
+package com.example.thishouse.domain.house;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class house_detail {
+public class house_location {
     private int house_num;
-    private String h_title;
-    private String h_content;
+    private String roadAddress;
+    private String jibunAddress;
 }
