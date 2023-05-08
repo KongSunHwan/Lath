@@ -18,7 +18,6 @@ public class MemberMapper {
 
     public int loginMember(Member member) {
         int result = sqlSession.selectOne(Namespace+".loginMember",member);
-        System.out.println("Mapper : "+result);
         return result;
     }
 
