@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class MemberService {
 
+    //테이블 Members(회원)
+
     private final MemberMapper memberMapper;
 
     //@Transactional => return없이 mapper내용 실행(void함수)
@@ -31,4 +33,15 @@ public class MemberService {
         int result = memberMapper.idCk(user_id);
         return result;
     }
+
+    //개인정보수정
+    //회원 1인 개인정보뽑기
+    //문의내역
+    //신고내역
+    //관심매물
+    //회원이 작성한 글
+    //거래상황
+    //등록한 매물
+
+
 }
