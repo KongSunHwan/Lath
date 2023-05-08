@@ -8,10 +8,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,29 +34,27 @@ public class MainController {
     }
 
     @GetMapping("/login")
-    public String login(HttpSession session) {
-        Long id = (Long) session.getAttribute("user_id");
-        if (id != null) // 로그인된 상태
-        {
-            return "redirect:/";
-        }
+    public String login() {
         return "userlog/login"; // 로그인되지 않은 상태
     }
 
-    @PostMapping("/login")
+    @PostMapping("/main/login")
     public String login(Member member, HttpSession session) {
+
         int ck = memberService.loginMember(member);
         if (ck == 0) { // 로그인 실패
             return "redirect:/login";
+
+        } else {
+            session.setAttribute("user_id", member.getUser_id());
+            return "main/main";
         }
-        session.setAttribute("user_id", member.getUser_id());
-        return "redirect:/main";
     }
 
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/login";
+        return "redirect:/main";
     }
 
     @RequestMapping("/main")
