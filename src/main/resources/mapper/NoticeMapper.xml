@@ -3,4 +3,33 @@
 
 <mapper namespace="com.example.thishouse.mapper.NoticeMapper">
     <!--qry-->
+    <select id="notice_select" parameterType="com.example.thishouse.domain.notice" resultType="com.example.thishouse.domain.notice">
+        SELECT *
+        FROM notice
+    </select>
+
+    <!--공지사항 작성-->
+    <insert id="notice_insert" parameterType="com.example.thishouse.domain.notice">
+        insert into notice(admin_id, notice_title, notice_content, notice_date)
+        values (#{admin_id}, #{notice_title}, #{notice_content}, now())
+    </insert>
+
+    <!--공지사항 삭제  -->
+    <delete id="notice_delete">
+        delete from notice where notice_num = #{notice_num}
+    </delete>
+
+    <!--  공지사항 수정  -->
+    <update id="notice_update">
+        update notice
+        set notice_title = #{notice_edit_title}, notice_content = #{notice_edit_content}, notice_date = now()
+        where notice_num = #{notice_num}
+    </update>
+
+    <!--  공지사항 검색 -->
+    <select id="notice_search">
+        select *
+        from notice
+        where #{서치.옵션변수} like '%#{서치.텍스트변수}%'
+    </select>
 </mapper>

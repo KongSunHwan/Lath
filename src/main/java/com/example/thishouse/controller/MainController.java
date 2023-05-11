@@ -9,10 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
@@ -38,7 +35,7 @@ public class MainController {
         return "userlog/login"; // 로그인되지 않은 상태
     }
 
-    @PostMapping("/main/login")
+    @PostMapping("/login")
     public String login(Member member, HttpSession session) {
 
         int ck = memberService.loginMember(member);
@@ -50,6 +47,7 @@ public class MainController {
             return "main/main";
         }
     }
+
 
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
@@ -120,13 +118,27 @@ public class MainController {
         return "notice/notice_edit";
     }
 
+
     @RequestMapping("/notice_list")
     public String notice_list() {
         return "notice/notice_list";
     }
 
+//    @RequestMapping("/notice_list")
+//    public String notiec_liset(@RequestParam String searchtype, @RequestParam String searchtext, Model model)
+//    {
+//        //List  a = Nservice.search(searchtype,searchtext);
+//        model.addAttribute("list",);
+//        // 쿼리
+//        return "notice/notice_list";
+//    }
+
+
+
     @RequestMapping("/mypage")
     public String mypage() {
         return "user_mypage/mypage";
     }
+
+
 }
