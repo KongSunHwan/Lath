@@ -27,4 +27,7 @@ public class MemberMapper {
     }
 
 
+    public void modify_user(String userId) {
+
+    }
 }
