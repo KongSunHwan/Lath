@@ -2,6 +2,8 @@ package com.example.thishouse.service;
 
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Inquire;
+import com.example.thishouse.domain.community.Community;
+import com.example.thishouse.mapper.BoardMapper;
 import com.example.thishouse.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -59,6 +61,10 @@ public class MemberService {
         return memberMapper.findInputMemberInquire();
     }
 
+    //내가 쓴 게시글
+    public List<Community> my_community(String user_id) {
+        return memberMapper.my_community(user_id);
+    }
     //회원 신고내역
 
     //회원 관심매물 내역

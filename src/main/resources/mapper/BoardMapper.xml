@@ -31,7 +31,7 @@
     </delete>
 
     <update id="modify_board">
-        //쿼리
+<!--//쿼리-->
     </update>
 
     <delete id="delete_reply_with_board">

@@ -2,6 +2,7 @@ package com.example.thishouse.mapper;
 
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Inquire;
+import com.example.thishouse.domain.community.Community;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -49,5 +50,9 @@ public class MemberMapper {
 
     public void modify_user(String userId) {
 
+    }
+
+    public List<Community> my_community(String user_id) {
+        return sqlSession.selectList(Namespace+".my_community",user_id);
     }
 }
