@@ -9,11 +9,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class report {
-    private int report_num;
-    private int house_num;
-    private String user_id;
-    private String report_title;
-    private String report_content;
-    private String report_pic;
+public class Notice {
+    private int notice_num;
+    private String admin_id;
+    private String notice_title;
+    private String notice_content;
+    private String notice_date;
 }

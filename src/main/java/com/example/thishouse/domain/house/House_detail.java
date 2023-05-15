@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class house_detail {
+public class House_detail {
     private int house_num;
     private String h_title;
     private String h_content;

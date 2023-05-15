@@ -1,7 +1,7 @@
 package com.example.thishouse.mapper;
 
 import com.example.thishouse.domain.Member;
-import com.example.thishouse.domain.inquire;
+import com.example.thishouse.domain.Inquire;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -43,7 +43,7 @@ public class MemberMapper {
         sqlSession.delete(Namespace+".deleteMember", user_id);
     }
     //회원 문의 내열 리스트 조회
-    public List<inquire> findInputMemberInquire() {
+    public List<Inquire> findInputMemberInquire() {
         return sqlSession.selectList(Namespace+".findInputMemberInquire");
     }
 

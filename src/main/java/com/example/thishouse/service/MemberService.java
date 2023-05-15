@@ -1,15 +1,13 @@
 package com.example.thishouse.service;
 
 import com.example.thishouse.domain.Member;
-import com.example.thishouse.domain.inquire;
+import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -57,7 +55,7 @@ public class MemberService {
 
 
     //회원 문의내역
-    public List<inquire> findInputMemberInquire() {
+    public List<Inquire> findInputMemberInquire() {
         return memberMapper.findInputMemberInquire();
     }
 
