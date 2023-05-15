@@ -1,6 +1,7 @@
 package com.example.thishouse.controller;
 
 import com.example.thishouse.domain.Member;
+import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -112,9 +113,13 @@ public class MainController {
     }
 
     @RequestMapping("/mypage")
-    public String mypage() {
+    public String mypage(String user_id, Model model) {
+        List<Community> comlist = memberService.my_community(user_id);
+        model.addAttribute("comlist", comlist);
+        model.addAttribute("Member", memberService.findInputMember(user_id));
         return "user_mypage/mypage";
     }
+    
     //회원 상세정보 조회
     @RequestMapping("/FindInputMember")
     public String getFindInputMember(String user_id, Model model) {

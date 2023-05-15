@@ -18,6 +18,11 @@ public class BoardService {
 
     private final BoardMapper boardMapper;
 
+    //게시판 리스트 조회 select_board_list
+    public List<Community> select_board_list() {
+        return this.boardMapper.select_board_list();
+    }
+
     //글작성 insert_board
     @Transactional
     public void insert_board(Community community) {

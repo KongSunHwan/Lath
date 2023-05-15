@@ -9,8 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class house_location {
+public class House_picture {
     private int house_num;
-    private String roadAddress;
-    private String jibunAddress;
+    private String house_thum;
+    private String house_pic2;
+    private String house_pic3;
+    private String house_pic4;
+    private String house_pic5;
 }

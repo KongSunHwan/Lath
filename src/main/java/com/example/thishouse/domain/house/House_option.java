@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class house_option {
+public class House_option {
     private int house_num;
     private String induction;
     private String microwave;

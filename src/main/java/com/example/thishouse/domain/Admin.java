@@ -1,4 +1,4 @@
-package com.example.thishouse.domain.house;
+package com.example.thishouse.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class house_type {
-    private int house_num;
-    private String s_type;
-    private String b_type;
+public class Admin {
+    private String admin_id;
+    private String admin_pwd;
 }

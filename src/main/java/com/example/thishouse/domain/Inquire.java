@@ -9,10 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class inquire {
+public class Inquire {
     private int inquire_num;
     private String user_id;
-    private String inquire_title;
     private String inquire_question;
     private String inquire_q_time;
     private String inquire_answer;

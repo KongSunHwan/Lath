@@ -56,11 +56,18 @@
     </delete>
 
     <!--회원 문의내역 조회-->
-    <select id="findInputMemberInquire" resultType="com.example.thishouse.domain.Member">
+    <select id="findInputMemberInquire" resultType="com.example.thishouse.domain.Inquire">
         SELECT *
         FROM inquire
         WHERE user_id = #{user_id}
         ORDER BY inquire_q_time DESC;
+    </select>
+
+    <!--내가 쓴 게시글-->
+    <select id = "my_community" resultType="com.example.thishouse.domain.community.Community">
+        select *
+        from community
+        WHERE user_id = #{user_id}
     </select>
 
 </mapper>

@@ -2,8 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.thishouse.mapper.BoardMapper">
-    <!--qry-->
-    <insert id="insert_board" parameterType="com.example.thishouse.domain.community.community">
+
+    <select id="select_board_list" resultType="com.example.thishouse.domain.community.Community">
+        select *
+        from community
+        ORDER BY community_num
+    </select>
+
+    <insert id="insert_board" parameterType="com.example.thishouse.domain.community.Community">
         insert into community (community_title,user_name,community_contents,community_date,community_hits)
         values(#{community_title},#{user_id},#{community_contents},now(),0);
     </insert>
@@ -31,7 +37,7 @@
     </delete>
 
     <update id="modify_board">
-        //쿼리
+<!--//쿼리-->
     </update>
 
     <delete id="delete_reply_with_board">
