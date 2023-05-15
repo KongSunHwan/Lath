@@ -5,17 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class community_reply {
-    private int reply_num;
+public class Community {
     private int community_num;
+    private String community_title;
     private String user_name;
-    private String reply_contents;
-    private int reply_level;
-    private Date reply_date;
+    private String community_contents;
+    private String community_date;
+    private String community_hits;
 }
