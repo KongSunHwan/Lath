@@ -57,8 +57,8 @@ public class MemberService {
 
 
     //회원 문의내역
-    public List<Inquire> findInputMemberInquire() {
-        return memberMapper.findInputMemberInquire();
+    public List<Inquire> findInputMemberInquire(String user_id) {
+        return memberMapper.findInputMemberInquire(user_id);
     }
 
     //내가 쓴 게시글
