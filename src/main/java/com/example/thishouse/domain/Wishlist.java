@@ -9,10 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class notice {
-    private int notice_num;
-    private String admin_id;
-    private String notice_title;
-    private String notice_content;
-    private String notice_date;
+public class Wishlist {
+    private int wish_num;
+    private String user_num;
+    private int house_num;
 }
