@@ -44,8 +44,8 @@ public class MemberMapper {
         sqlSession.delete(Namespace+".deleteMember", user_id);
     }
     //회원 문의 내열 리스트 조회
-    public List<Inquire> findInputMemberInquire() {
-        return sqlSession.selectList(Namespace+".findInputMemberInquire");
+    public List<Inquire> findInputMemberInquire(String user_id) {
+        return sqlSession.selectList(Namespace+".findInputMemberInquire",user_id);
     }
 
     public void modify_user(String userId) {
