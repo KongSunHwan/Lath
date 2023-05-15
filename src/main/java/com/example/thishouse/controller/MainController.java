@@ -1,6 +1,7 @@
 package com.example.thishouse.controller;
 
 import com.example.thishouse.domain.Member;
+import com.example.thishouse.mapper.MemberMapper;
 import com.example.thishouse.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import java.util.List;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @Controller
 @RequiredArgsConstructor
@@ -91,6 +95,16 @@ public class MainController {
         return "real_estate/real_estate_intro";
     }
 
+    @RequestMapping("/header")
+    public String header() {
+        return "header/header";
+    }
+
+    @RequestMapping("/footer")
+    public String footer() {
+        return "footer/footer";
+    }
+
     @RequestMapping("/notice_add")
     public String notice_add() {
         return "notice/notice_add";
@@ -110,17 +124,10 @@ public class MainController {
     public String notice_list() {
         return "notice/notice_list";
     }
-
+    //회원 마이 페이지
     @RequestMapping("/mypage")
-    public String mypage() {
-        return "user_mypage/mypage";
-    }
-    //회원 상세정보 조회
-    @RequestMapping("/FindInputMember")
-    public String getFindInputMember(String user_id, Model model) {
-        // 회원 정보를 model에 저장
+    public String mypage(String user_id , Model model) {
         model.addAttribute("Member", memberService.findInputMember(user_id));
-        System.out.println("클릭한 아이디 확인 : " + user_id);
-        return "user_mypage/find_input_member";
+        return "user_mypage/mypage";
     }
 }
