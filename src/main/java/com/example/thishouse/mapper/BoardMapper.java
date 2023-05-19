@@ -1,5 +1,6 @@
 package com.example.thishouse.mapper;
 
+import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +35,8 @@ public class BoardMapper {
     }
 
     //게시판 상세정보 조회
-    public List<Community> view_board(String communityNum) {
-        return sqlSession.selectList(Namespace+".view_board",communityNum);
+    public Community view_board(String community_num) {
+        return sqlSession.selectOne(Namespace+".view_board", community_num);
     }
     //게시판 상세정보 댓글 조회
     public List<Community_reply> view_reply(String communityNum) {
@@ -43,7 +44,7 @@ public class BoardMapper {
     }
     //게시판 삭제
     public void delete_board(String communityNum) {
-        sqlSession.insert(Namespace+".delete_board",communityNum);
+        sqlSession.delete(Namespace+".delete_board",communityNum);
     }
     //게시판 수정
     public void modify_board(String communityNum) {

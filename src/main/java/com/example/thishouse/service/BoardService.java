@@ -1,5 +1,6 @@
 package com.example.thishouse.service;
 
+import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
 import com.example.thishouse.mapper.BoardMapper;
@@ -23,7 +24,7 @@ public class BoardService {
         return this.boardMapper.select_board_list();
     }
 
-    //글작성 insert_board
+    //게시글 작성 insert_board
     @Transactional
     public void insert_board(Community community) {
         this.boardMapper.insert_board(community);
@@ -34,9 +35,9 @@ public class BoardService {
         this.boardMapper.insert_reply(community);
     }
 
-    //상세내용보기 view_board/ view_reply
-    List<Community> view_board(String community_num) {
-        return this.boardMapper.view_board(community_num);
+    //상세내용보기 view_board
+    public Community view_board(String community_num) {
+        return boardMapper.view_board(community_num);
     }
     //view_reply
     List<Community_reply> view_reply(String community_num) {
