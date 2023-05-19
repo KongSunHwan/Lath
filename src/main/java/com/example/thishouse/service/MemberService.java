@@ -70,7 +70,7 @@ public class MemberService {
     public List<Report> findInputMemberReport(String user_id) {
         return memberMapper.findInputMemberReport(user_id);
     }
-
+    //문의하기
     //회원 관심매물 내역
 
     //회원이 작성한 글

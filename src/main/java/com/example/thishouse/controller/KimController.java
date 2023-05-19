@@ -23,4 +23,11 @@ public class KimController {
         return "test_kim/test_inquire";
     }
 
+    @RequestMapping("/test2_inquire")
+    public String test2_inquire(String user_id, Model model) {
+        List<Inquire> my_inquire = memberService.findInputMemberInquire(user_id);
+        model.addAttribute("my_inquire",my_inquire);
+        return "test_kim/test2_inquire";
+    }
+
 }
