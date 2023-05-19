@@ -23,4 +23,20 @@ public class KimController {
         return "test_kim/test_inquire";
     }
 
+    @RequestMapping("/test2_inquire")
+    public String test2_inquire(String user_id, Model model) {
+        List<Inquire> my_inquire = memberService.findInputMemberInquire(user_id);
+        model.addAttribute("my_inquire",my_inquire);
+        return "test_kim/test2_inquire";
+    }
+
+    @RequestMapping("/inquire_insert")
+    public String inquire_insert(Inquire inquire, Model model) {
+        memberService.inquire_insert(inquire);
+        List<Inquire> my_inquire = memberService.findInputMemberInquire(inquire.getUser_id());
+        model.addAttribute("my_inquire",my_inquire);
+        return test2_inquire(inquire.getUser_id(),model);
+    }
+
+
 }
