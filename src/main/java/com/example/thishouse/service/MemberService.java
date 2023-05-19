@@ -71,6 +71,10 @@ public class MemberService {
         return memberMapper.findInputMemberReport(user_id);
     }
     //문의하기
+    @Transactional
+    public void inquire_insert (Inquire inquire) {
+        memberMapper.inquire_insert(inquire);
+    }
     //회원 관심매물 내역
 
     //회원이 작성한 글

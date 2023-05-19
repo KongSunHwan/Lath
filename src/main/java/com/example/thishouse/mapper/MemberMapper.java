@@ -60,4 +60,8 @@ public class MemberMapper {
     public List<Report> findInputMemberReport(String user_id) {
         return sqlSession.selectList(Namespace+".findInputMemberReport", user_id);
     }
+
+    public void inquire_insert(Inquire inquire) {
+        sqlSession.insert(Namespace+".inquire_insert",inquire);
+    }
 }

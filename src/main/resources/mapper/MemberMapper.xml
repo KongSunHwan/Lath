@@ -77,5 +77,11 @@
         WHERE user_id = #{user_id}
     </select>
 
+    <!--문의사항 작성-->
+    <insert id="inquire_insert" parameterType="com.example.thishouse.domain.Inquire">
+        INSERT INTO Inquire (user_id,inquire_question,inquire_q_time,inquire_answer)
+        VALUES (#{user_id},#{inquire_question},now(),"답변 대기중 입니다.")
+    </insert>
+
 
 </mapper>

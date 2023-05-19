@@ -53,12 +53,12 @@
 		</div>
 	</div>
 
-	<form action="writeinquireOk">
+	<form action="inquire_insert">
 		<div class="input-wrapper">
 			<div class="input-wrap">
 				<div>
-					<input type="hidden" name="email" value="<%=email%>" />
-					<textarea id="area" name="question" placeholder="문의사항을 적어주세요."></textarea>
+					<input type="hidden" name="user_id" value="${session.user_id}" />
+					<textarea id="area" name="inquire_question" placeholder="문의사항을 적어주세요."></textarea>
 				</div>
 			</div>
 		</div>
