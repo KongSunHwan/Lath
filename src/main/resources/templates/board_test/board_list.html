@@ -41,8 +41,8 @@
                     <li class="category" style="width: 200px;"><span class="badge bg-primary">커뮤니티</span></li>
                     <a th:href="@{'/board_detail?community_num=' + ${list.community_num}}"><li th:text="${list.community_title}" class="title">이집봐라 사용자 이용 가이드</li></a>
                     <li th:text="${list.user_id}" class="writer">공김정</li>
-                    <li class="count">10</li>
-                    <li class="date">2023-04-19</li>
+                    <li th:text="${list.community_hits}" class="count">10</li>
+                    <li th:text="${list.community_date}" class="date">2023-04-19</li>
                 </ul>
 
             </div>

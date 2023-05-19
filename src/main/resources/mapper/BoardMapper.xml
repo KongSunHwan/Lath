@@ -9,8 +9,9 @@
         ORDER BY community_num
     </select>
 
+    <!-- 게시판 등록-->
     <insert id="insert_board" parameterType="com.example.thishouse.domain.community.Community">
-        insert into community (community_title,user_name,community_contents,community_date,community_hits)
+        insert into community (community_title,user_id,community_contents,community_date,community_hits)
         values(#{community_title},#{user_id},#{community_contents},now(),0);
     </insert>
 

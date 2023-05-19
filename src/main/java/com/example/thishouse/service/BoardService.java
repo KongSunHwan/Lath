@@ -24,7 +24,7 @@ public class BoardService {
         return this.boardMapper.select_board_list();
     }
 
-    //글작성 insert_board
+    //게시글 작성 insert_board
     @Transactional
     public void insert_board(Community community) {
         this.boardMapper.insert_board(community);
