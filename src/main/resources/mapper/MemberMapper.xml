@@ -70,4 +70,12 @@
         WHERE user_id = #{user_id}
     </select>
 
+    <!--회원 신고내역 조회-->
+    <select id ="findInputMemberReport" resultType="com.example.thishouse.domain.Report">
+        SELECT *
+        FROM report
+        WHERE user_id = #{user_id}
+    </select>
+
+
 </mapper>

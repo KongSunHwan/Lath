@@ -1,6 +1,7 @@
 package com.example.thishouse.controller;
 
 import com.example.thishouse.domain.Member;
+import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -115,7 +116,9 @@ public class MainController {
     @RequestMapping("/mypage")
     public String mypage(String user_id, Model model) {
         List<Community> comlist = memberService.my_community(user_id);
+        List<Report> replist = memberService.findInputMemberReport(user_id);
         model.addAttribute("comlist", comlist);
+        model.addAttribute("replist", replist);
         model.addAttribute("Member", memberService.findInputMember(user_id));
         return "user_mypage/mypage";
     }

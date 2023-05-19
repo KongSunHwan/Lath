@@ -2,6 +2,7 @@ package com.example.thishouse.service;
 
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Inquire;
+import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.mapper.BoardMapper;
 import com.example.thishouse.mapper.MemberMapper;
@@ -66,6 +67,9 @@ public class MemberService {
         return memberMapper.my_community(user_id);
     }
     //회원 신고내역
+    public List<Report> findInputMemberReport(String user_id) {
+        return memberMapper.findInputMemberReport(user_id);
+    }
 
     //회원 관심매물 내역
 
