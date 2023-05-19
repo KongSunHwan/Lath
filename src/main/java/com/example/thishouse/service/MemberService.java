@@ -2,7 +2,9 @@ package com.example.thishouse.service;
 
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Inquire;
+import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
+import com.example.thishouse.domain.community.Community_reply;
 import com.example.thishouse.mapper.BoardMapper;
 import com.example.thishouse.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
@@ -66,10 +68,21 @@ public class MemberService {
         return memberMapper.my_community(user_id);
     }
     //회원 신고내역
+    public List<Report> findInputMemberReport(String user_id) {
+        return memberMapper.findInputMemberReport(user_id);
+    }
+    //문의하기
+    @Transactional
+    public void inquire_insert (Inquire inquire) {
+        memberMapper.inquire_insert(inquire);
+    }
 
+    //댓글 작성
+    @Transactional
+    public void community_reply (Community_reply reply) {
+        memberMapper.community_reply(reply);
+    }
     //회원 관심매물 내역
-
-    //회원이 작성한 글
     //회원 거래상황
     //회원 등록한 매물
 

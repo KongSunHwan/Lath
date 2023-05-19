@@ -2,7 +2,9 @@ package com.example.thishouse.mapper;
 
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Inquire;
+import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
+import com.example.thishouse.domain.community.Community_reply;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -51,8 +53,20 @@ public class MemberMapper {
     public void modify_user(String userId) {
 
     }
-
+    //회원 게시글 내역 조회
     public List<Community> my_community(String user_id) {
         return sqlSession.selectList(Namespace+".my_community",user_id);
+    }
+    //회원 신고 내역 조회
+    public List<Report> findInputMemberReport(String user_id) {
+        return sqlSession.selectList(Namespace+".findInputMemberReport", user_id);
+    }
+
+    public void inquire_insert(Inquire inquire) {
+        sqlSession.insert(Namespace+".inquire_insert",inquire);
+    }
+
+    public void community_reply(Community_reply reply) {
+        sqlSession.insert(Namespace+".community_reply",reply);
     }
 }

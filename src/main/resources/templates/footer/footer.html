@@ -34,14 +34,15 @@
               <span>개인정보보호책임자: 공선환, 김재호, 정성진 | </span>
               <span>이메일: <a href="#" class="text-decoration-none text-white">tjsghks7878@kyungmin.ac.kr</a></span>
               <br>
-              <span>주소: 경기도 의정부시 서부로 545 경민대학교 효행관 356호</span>
+              <span>주소: 경기도 의정부시 서부로 545 경민대학교 효행관 405호</span>
             </div>
             ©KongKimJeong. ALL RIGHTS RESERVED
           </div>
           <br>
           <div>
             <button class="btn btn-primary btn-sm">자주묻는 질문</button>
-            <button class="btn btn-primary btn-sm">1:1 문의</button>
+<!--            <button class="btn btn-primary btn-sm" onclick="@{/inquire}">1:1 문의</button>-->
+            <a th:href="@{'/test2_inquire?user_id=' + ${session.user_id}}"><button class="btn btn-primary btn-sm">1:1문의</button></a>
           </div>
         </div>
         <div class="footer-bottom-right">
