@@ -83,5 +83,10 @@
         VALUES (#{user_id},#{inquire_question},now(),"답변 대기중 입니다.")
     </insert>
 
+    <insert id="community_reply" parameterType="com.example.thishouse.domain.community.Community_reply">
+        INSERT INTO community_reply (community_num,user_id,reply_contents,reply_date)
+        values(#{community_num},#{user_id},#{reply_contents},now())
+    </insert>
+
 
 </mapper>

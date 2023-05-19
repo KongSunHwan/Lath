@@ -4,6 +4,7 @@ import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
+import com.example.thishouse.domain.community.Community_reply;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -63,5 +64,9 @@ public class MemberMapper {
 
     public void inquire_insert(Inquire inquire) {
         sqlSession.insert(Namespace+".inquire_insert",inquire);
+    }
+
+    public void community_reply(Community_reply reply) {
+        sqlSession.insert(Namespace+".community_reply",reply);
     }
 }

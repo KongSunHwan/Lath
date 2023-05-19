@@ -14,7 +14,7 @@ import java.util.Date;
 public class Community_reply {
     private int reply_num;
     private int community_num;
-    private String user_name;
+    private String user_id;
     private String reply_contents;
     private Date reply_date;
 }
