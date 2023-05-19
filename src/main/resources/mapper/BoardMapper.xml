@@ -19,7 +19,8 @@
         values(#{community_num},#{user_id},#{reply_contents},now());
     </insert>
 
-    <select id="view_board">
+    <!--게시판 상세조회-->
+    <select id="view_board" resultType="com.example.thishouse.domain.community.Community">
         select *
         from community
         where community_num = #{community_num}
@@ -49,7 +50,5 @@
         delete from community_reply
         where reply_num = #{reply_num}
     </delete>
-
-
 
 </mapper>

@@ -15,11 +15,16 @@ import java.util.List;
 public class TestKongController {
     private final BoardService boardService;
 
-    @RequestMapping("board_list_test")
+    @RequestMapping("board_list")
     public String BoardList(Model model) {
         List<Community> list = boardService.select_board_list();
         model.addAttribute("list", list);
         return "board_test/board_list";
     }
 
+    @RequestMapping("board_detail")
+    public String BoardDetail(Model model, String community_num) {
+        model.addAttribute("Board", boardService.view_board(community_num));
+        return "board_test/board_detail";
+    }
 }
