@@ -13,8 +13,7 @@ public class House_list {
     private int house_list_num;
     private int house_num;
     private String house_thum;
-    private String s_type;
-    private String b_type;
+    private String type;
     private String address;
     private String deal_type;
     private int deposit;

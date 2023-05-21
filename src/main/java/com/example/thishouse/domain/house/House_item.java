@@ -12,6 +12,7 @@ import lombok.Setter;
 public class House_item {
 
     private int house_num;
-    private String user_name;
+    private String user_id;
     private String regist_time;
+    private int valid;
 }

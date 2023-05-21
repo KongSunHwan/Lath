@@ -3,4 +3,55 @@
 
 <mapper namespace="com.example.thishouse.mapper.RealEstateMapper">
     <!--qry-->
+    <insert id="insert_house_item">
+        insert into insert_item(user_id,regist_time) values( #{user_id},now())
+    </insert>
+
+    <insert id="insert_house_type">
+        insert into house_type(house_num,house_type)
+        values(#{house_num},#{house_type})
+    </insert>
+
+    <insert id="insert_house_location">
+        insert into house_location(house_num,road_address,detail_address)
+        values(#{house_num},#{road_address},#{detail_address})
+    </insert>
+
+    <insert id="insert_house_deal">
+        insert into house_deal(house_num,deal_type,price)
+        values(#{house_num},#{deal_type},#{price})
+    </insert>
+
+    <insert id="insert_house_info">
+        insert into house_info (house_num,supply_area1,supply_area2,exclusive_area1,exclusive_area2, b_floors,heating_type,move_in_date)
+        values(#{house_num},#{supply_area1},#{supply_area2},#{exclusive_area1},#{exclusive_area2},#{b_floors},#{heating_type},#{move_in_date})
+    </insert>
+
+    <insert id="insert_house_addinfo">
+        insert into house_addinfo(house_num,m_cost,m_costx,m_internet,m_wiredtv,m_cleaning,m_watertax,m_citygas,e_elec, m_etc,elevator,v_b,parking,parkingfee,built_in,structure)
+        values(#{house_num},#{m_cost},#{m_costx},#{m_internet},#{m_wiredtv},#{m_cleaning},#{m_watertax},#{m_citygas},#{e_elec},#{m_etc},#{elevator},#{v_b},#{parking},#{parkingfee},#{built_in},#{structure})
+    </insert>
+
+    <insert id="insert_house_option">
+        insert into house_option
+        (house_num,induction ,microwave ,air_con,washing_machine,tv ,closet ,bed,a_table,shoe_closet,bidet ,gas_range,refrig)
+        values(#{house_num},#{induction},#{microwave},#{air_con},#{washing_machine},#{tv},#{closet},#{bed},#{a_table},#{shoe_closet},#{bidet},#{gas_range},#{refrig},#{electronic_door})
+
+    </insert>
+
+    <insert id="insert_house_detail">
+        insert into house_detail(house_num,h_title,h_content )
+        values(#{house_num},#{h_title},#{h_content})
+    </insert>
+
+    <insert id="insert_picture">
+        <!--qry-->
+    </insert>
+
+    <insert id="insert_house_list">
+        insert into house_list(house_num,house_thumb,type,road_address,price,b_floors,n_floors,m_cost,m_costx,h_title)
+        values(#{house_num},#{house_thumb},#{houtypese_num},#{road_address},#{price},#{b_floors},#{n_floors},#{m_cost},#{m_costx},#{h_title})
+    </insert>
+
+
 </mapper>
