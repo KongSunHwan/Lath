@@ -15,5 +15,5 @@ public class Community {
     private String user_id;
     private String community_contents;
     private String community_date;
-    private String community_hits;
+    private int community_hits;
 }
