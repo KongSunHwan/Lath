@@ -47,8 +47,8 @@ public class BoardMapper {
         sqlSession.delete(Namespace+".delete_board",communityNum);
     }
     //게시판 수정
-    public void modify_board(String communityNum) {
-        sqlSession.update(Namespace+".modify_board",communityNum);
+    public void update_board(String communityNum) {
+        sqlSession.update(Namespace+".update_board",communityNum);
     }
     //게시판이랑 댓글 같이 삭제
     public void delete_reply(String communityNum) {

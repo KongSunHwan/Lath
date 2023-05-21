@@ -37,9 +37,17 @@
         delete from community
         where community_num = #{community_num}
     </delete>
+    <!-- 게시판 수정처리 -->
+    <update id="update_board">
+        update community
+        SET
+            community_title = #{community_title},
+            user_id = #{user_id},
+            community_contents = #{community_contents},
+            community_date = now()
+        where
+            community_num = #{community_num}
 
-    <update id="modify_board">
-<!--//쿼리-->
     </update>
 
     <delete id="delete_reply_with_board">

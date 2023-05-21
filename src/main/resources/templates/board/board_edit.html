@@ -22,19 +22,20 @@
     <div class="px-4 py-5 my-5 text-lg-start">
         <h2 class="fw-bold text-center">공지사항 수정</h2>
         <div class="col-lg-6 mx-auto">
+            <form>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label fs-4 fw-bold">제목</label>
                 <input type="title" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력하세요.">
             </div>
 
             <div class="mb-3">
-                <label for="exampleFormControlInput2" class="form-label fs-4 fw-bold">작성자</label>
-                <input type="name" class="form-control" id="exampleFormControlInput2" placeholder="작성자를 입력하세요.">
+                <label for="name" class="form-label fs-4 fw-bold">작성자</label>
+                <input type="name" class="form-control" id="name" placeholder="작성자를 입력하세요.">
             </div>
 
             <div class="mb-3">
-                <label for="exampleFormControlInput3" class="form-label fs-4 fw-bold">조회수</label>
-                <input type="name" class="form-control" id="exampleFormControlInput3" value="10">
+                <label for="hits" class="form-label fs-4 fw-bold">조회수</label>
+                <input type="text" class="form-control" id="hits" value="10">
             </div>
 
             <div class="mb-3">
@@ -44,15 +45,15 @@
             </div>
 
             <div class="mb-3">
-                <label for="exampleFormControlInput4" class="form-label fs-4 fw-bold">작성일</label>
-                <input type="date" class="form-control" id="exampleFormControlInput4" placeholder="">
+                <label for="date" class="form-label fs-4 fw-bold">작성일</label>
+                <input type="date" class="form-control" id="date" placeholder="">
             </div>
 
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-                <a th:href="@{/notice_detail}"><button type="button" class="btn btn-primary">수정</button></a>
-                <a th:href="@{/notice_list}"><button type="button" class="btn btn-primary">취소</button></a>
+                <button type="submit" class="btn btn-primary">수정</button>
+                <a th:href="@{/board_detail}"><button type="button" class="btn btn-primary">취소</button></a>
             </div>
-
+            </form>
         </div>
     </div>
     <!-- footer 시작 -->

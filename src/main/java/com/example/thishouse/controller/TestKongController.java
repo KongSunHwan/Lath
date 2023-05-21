@@ -20,18 +20,18 @@ public class TestKongController {
     public String BoardList(Model model) {
         List<Community> list = boardService.select_board_list();
         model.addAttribute("list", list);
-        return "board_test/board_list";
+        return "board/board_list";
     }
 
     @RequestMapping("board_detail")
     public String BoardDetail(Model model, String community_num) {
         model.addAttribute("Board", boardService.view_board(community_num));
-        return "board_test/board_detail";
+        return "board/board_detail";
     }
 
     @GetMapping("board_add")
     public String BoardAddView() {
-        return "board_test/board_add";
+        return "board/board_add";
     }
 
     @PostMapping("board_add")
@@ -41,4 +41,10 @@ public class TestKongController {
         System.out.println(community);
         return "redirect:/board_list";
     }
+
+    @RequestMapping("board_edit")
+    public String BoardUpdate() {
+        return "board/board_edit";
+    }
+
 }

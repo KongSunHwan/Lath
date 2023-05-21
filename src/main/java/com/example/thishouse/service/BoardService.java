@@ -50,8 +50,8 @@ public class BoardService {
     }
     //글 수정 modify_board
     @Transactional
-    public void modify_board(String community_num){
-        this.boardMapper.modify_board(community_num); //쿼리 설정X
+    public void update_board(String community_num){
+        this.boardMapper.update_board(community_num);
     }
     //댓글 삭제 delete_reply
     @Transactional
