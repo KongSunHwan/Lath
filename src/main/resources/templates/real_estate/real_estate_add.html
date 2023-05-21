@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
-<html>
+<html lagn="ko"
+xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -56,59 +56,9 @@
 
 </head>
 <body>
-<header class="p-6 mb-3 border-bottom">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-
-            <a href="/main" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-                <img src="/img/logo.png" style="width: 100px; height: 100px; margin-top: -10px;">
-            </a>
-
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/map" class="nav-link px-4 link-dark">지도</a></li>
-                <li><a href="/real_estate_add" class="nav-link px-4 link-dark">매물 등록</a></li>
-                <li><a href="#" class="nav-link px-4 link-dark">부동산 가이드</a></li>
-                <li><a href="/board_list" class="nav-link px-4 link-dark">커뮤니티</a></li>
-                <li><a href="/notice_list" class="nav-link px-4 link-dark">공지사항</a></li>
-            </ul>
-
-            <div class="dropdown text-end">
-                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
-                   aria-expanded="false">
-                    <img src="/img/user.png" alt="user" width="32" height="32" class="rounded-circle">
-                    <span class="fs-6"></span>
-                </a>
-                <ul class="dropdown-menu text-small">
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
-                    <li>
-
-                    </li>
-                    <li>
-                        <a href="/login" class="dropdown-item">
-                            <i class="bi bi-box-arrow-in-right"></i> 로그인
-                        </a>
-                    </li>
-                    <li>
-
-                    </li>
-                    <li>
-                        <a href="/signup" class="dropdown-item">
-                            <i class="bi bi-person-plus-fill"></i> 회원가입
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</header>
-</body>
-</html>
+<header th:replace="~{header/header}"></header>
 <!-- header 끝 -->
+<form action="regist_real_estate">
 <div class="container">
 
     <div class="py-5 text-center">
@@ -147,14 +97,14 @@
             <tbody>
             <td>종류선택</td>
             <td>
-                <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="option1">원룸</label>
+                <input type="radio" class="btn-check" name="type" id="type1" autocomplete="off" value="원룸" checked>
+                <label class="btn btn-outline-primary" for="type1">원룸</label>
 
-                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
-                <label class="btn btn-outline-primary" for="option2">투룸</label>
+                <input type="radio" class="btn-check" name="type" id="type2" autocomplete="off" value="투룸">
+                <label class="btn btn-outline-primary" for="type2">투룸</label>
 
-                <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off">
-                <label class="btn btn-outline-primary" for="option3">오피스텔</label>
+                <input type="radio" class="btn-check" name="options" id="type3" autocomplete="off" value="오피스텔">
+                <label class="btn btn-outline-primary" for="type3">오피스텔</label>
             </td>
 
             </tbody>
@@ -176,18 +126,18 @@
                 <div style="width:50%;">
                     <p>도로명, 건물명, 지번에 대해 통합검색이 가능합니다.</p>
                     <div class="d-flex">
-                        <input type="text" class="form-control" id="sample6_postcode" name="lec_title"
+                        <input type="text" class="form-control" id="sample6_postcode" name="load_num"
                                placeholder="예)10-1, 강북구 번동" value="" > &nbsp;
                         <button class="btn btn-sm btn-primary" type="button" style="width:30%;" onclick="sample6_execDaumPostcode()">주소 찾기</button>
                     </div>
                     <br />
 
 
-                    <input type="text" class="form-control" id="sample6_address" placeholder="주소" style="width:100%">
+                    <input type="text" class="form-control" name="road_address" id="sample6_address" placeholder="주소" style="width:100%">
 
                     <br />
                     <div class="d-flex">
-                        <input type="text" class="form-control" id="sample6_extraAddress" name="lec_lecturer"
+                        <input type="text" class="form-control" id="sample6_extraAddress" name="detail_address"
                                placeholder="상세주소       예)101동 201호" value="" required>
 
                     </div>
@@ -215,11 +165,18 @@
                 <div style="margin-top:10px; width: 100%;" class="tac">거래 종류</div>
             </td>
             <td>
-                <input type="radio" class="btn-check" name="1options" id="1option" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="option1">월세</label>
-                <input type="radio" class="btn-check" name="2options" id="2option" autocomplete="off">
-                <label class="btn btn-outline-primary" for="option2">전세</label>
-                <span>단기가능</span>
+                <input type="radio" class="btn-check" name="deal_type" id="deal_type1" autocomplete="off" value="월세" checked
+                       onclick="document.getElementById('month_fee').style.display='block';
+                                document.getElementById('year_fee').style.display='none';">
+                <label class="btn btn-outline-primary" for="deal_type1">월세</label>
+                <input type="radio" class="btn-check" name="deal_type" id="deal_type2" autocomplete="off" value="전세"
+                       onclick="document.getElementById('year_fee').style.display='block';
+                                document.getElementById('month_fee').style.display='none';">
+                <label class="btn btn-outline-primary" for="deal_type2">전세</label>
+
+                <input type="text" class="form-control" id="month_fee" name="price" placeholder="보증금/월세 (만원)" style="display:block; width:200px;">
+                <input type="text" class="form-control" id="year_fee" name="price" placeholder="만원" style="display:none; width:200px;">
+                <!--<span>단기가능</span>-->
             </td>
 
             </tbody>
@@ -244,11 +201,12 @@
                 <td rowspan="2" style="width:15%;" class="align-middle text-center">
                     <p>건물크기</p><span>(1P = 3.3058m<sup>2</sup>)</span>
                 </td>
-                <td style="width: 35%;" class="align-middle">공급면적 <input type="text" size="10"> 평 <input type="text"
-                                                                                                         size="10"> m<sup>2</sup></td>
+                <td style="width: 35%;" class="align-middle">공급면적
+                    <input type="text" name="supply_area1" size="10"> 평
+                    <input type="text" name="supply_area2" size="10"> m<sup>2</sup></td>
                 <td rowspan="2" class="align-middle text-center" style="width:15%;">
                     건물층수</td>
-                <td style="width: 35%;" class="align-middle">건물층수 <select>
+                <td style="width: 35%;" class="align-middle">건물층수 <select name="b_floors">
                     <option value="1층">1층</option>
                     <option value="2층">2층</option>
                     <option value="3층">3층</option>
@@ -263,8 +221,10 @@
 
             </tr>
             <tr>
-                <td>전용면적 <input type="text" size="10"> 평 <input type="text" size="10"> m<sup>2</sup> </td>
-                <td>해당층수 <select>
+                <td>전용면적
+                    <input type="text" size="10"> 평
+                    <input type="text" size="10"> m<sup>2</sup> </td>
+                <td>해당층수 <select name="n_floors">
                     <option value="1층">1층</option>
                     <option value="2층">2층</option>
                     <option value="3층">3층</option>
@@ -281,11 +241,11 @@
             <tr>
                 <td class="align-middle text-center">난방종류</td>
                 <td colspan="3">
-                    <select class="form-select" aria-label="Default select example" style="width: 170px">
+                    <select class="form-select" name="heating_type" aria-label="Default select example" style="width: 170px">
                         <option selected>난방 종류 선택</option>
-                        <option value="1">중앙 난방</option>
-                        <option value="2">지역 난방</option>
-                        <option value="3">개별 난방</option>
+                        <option value="중앙 난방">중앙 난방</option>
+                        <option value="지역 난방">지역 난방</option>
+                        <option value="개별 난방">개별 난방</option>
                     </select>
 
                 </td>
@@ -294,19 +254,19 @@
             <tr>
                 <td class="align-middle text-center">입주가능일</td>
                 <td colspan="3">
-                    <input type="radio" class="btn-check" name="move_in_date" id="move_in1" autocomplete="off"
-                           onclick="document.getElementById('text1').style.display='none';">
+                    <input type="radio" class="btn-check" name="move_in" id="move_in1" autocomplete="off"
+                           onclick="document.getElementById('text1').style.display='none';" value="즉시 입주">
                     <label class="btn btn-outline-primary" for="move_in1">즉시 입주</label>
 
-                    <input type="radio" class="btn-check" name="move_in_date" id="move_in2" autocomplete="off"
-                           onclick="document.getElementById('text1').style.display='none';">
+                    <input type="radio" class="btn-check" name="move_in" id="move_in2" autocomplete="off"
+                           onclick="document.getElementById('text1').style.display='none';" value="날짜 협의">
                     <label class="btn btn-outline-primary" for="move_in2">날짜 협의</label>
 
-                    <input type="radio" class="btn-check" name="move_in_date" id="move_in3" autocomplete="off"
+                    <input type="radio" class="btn-check"  id="move_in3" autocomplete="off"
                            onclick="document.getElementById('text1').style.display='block';">
                     <label class="btn btn-outline-primary" for="move_in3" >날짜 선택</label>
 
-                    <input type="date" lass="form-control" name="move_in_date" id="text1" style="display:none">
+                    <input type="date" lass="form-control" name="move_in" id="text1" style="display:none" >
                 </td>
             </tr>
             </tbody>
@@ -328,14 +288,14 @@
                 </td>
                 <td colspan="3">
                     <div class="d-flex">
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="item_price" name="item_price" placeholder="만원"
-                                   value="" required>
-                        </div>
+<!--                        <div class="col-sm-3">-->
+<!--                            <input type="text" class="form-control" id="item_price" name="item_price" placeholder="만원"-->
+<!--                                   value="" required>-->
+<!--                        </div>-->
                         <!--                            <div style="font-size: 20px;">만원</div>-->
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="m_cost" value="" id="flexCheckDefault"
+                            <input class="form-check-input" type="radio" name="m_cost" value="" id="flexCheckDefault" checked
                                    onclick="document.getElementById('item_price').style.display='block';">
                             <label class="form-check-label" for="flexCheckDefault">
                                 협의가능
@@ -343,11 +303,16 @@
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="m_cost" value=""  id="flexCheckChecked" checked
+                            <input class="form-check-input" type="radio" name="m_cost" value="0"  id="flexCheckChecked"
                                    onclick="document.getElementById('item_price').style.display='none';">
                             <label class="form-check-label" for="flexCheckChecked">
                                 관리비 없음
                             </label>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="item_price" name="m_cost" placeholder="만원"
+                                   value="" required>
                         </div>
                     </div>
                 </td>
@@ -367,28 +332,32 @@
                         &nbsp;&nbsp;&nbsp;
                         <div class="input-group has-validation">
                             <div>
-                                <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                                <input type="checkbox" class="btn-check" id="btn-check-outlined" name="m_internet" autocomplete="off" value="인터넷">
                                 <label class="btn btn-outline-primary" for="btn-check-outlined">인터넷</label>
 
-                                <input type="checkbox" class="btn-check" id="btn-check-2-outlined"
-                                       autocomplete="off">
+                                <input type="checkbox" class="btn-check" id="btn-check-2-outlined" name="m_wiredtv"
+                                       autocomplete="off" value="유선TV">
                                 <label class="btn btn-outline-primary" for="btn-check-2-outlined">유선TV</label>
 
-                                <input type="checkbox" class="btn-check" id="btn-check-3-outlined"
-                                       autocomplete="off">
+                                <input type="checkbox" class="btn-check" id="btn-check-3-outlined" name="m_cleaning"
+                                       autocomplete="off" value="청소비">
                                 <label class="btn btn-outline-primary" for="btn-check-3-outlined">청소비</label>
 
-                                <input type="checkbox" class="btn-check" id="btn-check-4-outlined"
-                                       autocomplete="off">
+                                <input type="checkbox" class="btn-check" id="btn-check-4-outlined" name="m_watertax"
+                                       autocomplete="off" value="수도세">
                                 <label class="btn btn-outline-primary" for="btn-check-4-outlined">수도세</label>
 
-                                <input type="checkbox" class="btn-check" id="btn-check-5-outlined"
-                                       autocomplete="off">
+                                <input type="checkbox" class="btn-check" id="btn-check-5-outlined" name="m_citygas"
+                                       autocomplete="off" value="도시가스">
                                 <label class="btn btn-outline-primary" for="btn-check-5-outlined">도시가스</label>
 
-                                <input type="checkbox" class="btn-check" id="btn-check-6-outlined"
-                                       autocomplete="off">
+                                <input type="checkbox" class="btn-check" id="btn-check-6-outlined" name="m_elec"
+                                       autocomplete="off" value="전기세">
                                 <label class="btn btn-outline-primary" for="btn-check-6-outlined">전기세</label>
+
+                                <input type="checkbox" class="btn-check" id="btn-check-77-outlined" name="m_etc"
+                                       autocomplete="off" value="기타">
+                                <label class="btn btn-outline-primary" for="btn-check-77-outlined">기타</label>
                             </div>
                         </div>
                     </div>
@@ -432,7 +401,7 @@
                         <label class="btn btn-outline-primary" for="option6">가능</label>
 
                         <input type="text" class="form-control" id="parking_fee" name="parking_fee" placeholder="만원"
-                               value="" style="display: block;width: 136px;">
+                               value="" style="display:none ;width: 136px;">
                     </div>
                 </td>
                 <td class="align-middle text-center">빌트인</td>
@@ -587,13 +556,15 @@
     <br>
     <br>
     <div class="row gy-3">
-        <a href="/main">
+        <a href="/main"></a>
     </div>
     <button type="submit" class="w-100 btn btn-primary btn-lg">등록하기</button>
 </div>
 </a>
 <!-- 컨테이너 -->
+
 </div>
+</form>
 
 <footer class="my-5 pt-5 text-muted text-center text-small">
     <p class="mb-1">&copy; 2023 KKJ Admin</p>

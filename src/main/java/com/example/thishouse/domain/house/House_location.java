@@ -12,6 +12,7 @@ import lombok.Setter;
 public class House_location {
     private int house_location_num;
     private int house_num;
+    private String load_num;
     private String roadAddress;
     private String jibunAddress;
 }

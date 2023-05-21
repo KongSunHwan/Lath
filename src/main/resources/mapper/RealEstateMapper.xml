@@ -13,8 +13,8 @@
     </insert>
 
     <insert id="insert_house_location">
-        insert into house_location(house_num,road_address,detail_address)
-        values(#{house_num},#{road_address},#{detail_address})
+        insert into house_location(house_num,road_address,road_num,detail_address)
+        values(#{house_num},#{road_num},#{road_address},#{detail_address})
     </insert>
 
     <insert id="insert_house_deal">
@@ -23,13 +23,13 @@
     </insert>
 
     <insert id="insert_house_info">
-        insert into house_info (house_num,supply_area1,supply_area2,exclusive_area1,exclusive_area2, b_floors,heating_type,move_in_date)
-        values(#{house_num},#{supply_area1},#{supply_area2},#{exclusive_area1},#{exclusive_area2},#{b_floors},#{heating_type},#{move_in_date})
+        insert into house_info (house_num,supply_area1,supply_area2,exclusive_area1,exclusive_area2, b_floors, n_floors,heating_type,move_in_date)
+        values(#{house_num},#{supply_area1},#{supply_area2},#{exclusive_area1},#{exclusive_area2},#{b_floors},#{n_floors},#{heating_type},#{move_in_date})
     </insert>
 
     <insert id="insert_house_addinfo">
-        insert into house_addinfo(house_num,m_cost,m_costx,m_internet,m_wiredtv,m_cleaning,m_watertax,m_citygas,e_elec, m_etc,elevator,v_b,parking,parkingfee,built_in,structure)
-        values(#{house_num},#{m_cost},#{m_costx},#{m_internet},#{m_wiredtv},#{m_cleaning},#{m_watertax},#{m_citygas},#{e_elec},#{m_etc},#{elevator},#{v_b},#{parking},#{parkingfee},#{built_in},#{structure})
+        insert into house_addinfo(house_num,m_cost,m_internet,m_wiredtv,m_cleaning,m_watertax,m_citygas,e_elec, m_etc,elevator,v_b,parking,parkingfee,built_in,structure)
+        values(#{house_num},#{m_cost},#{m_internet},#{m_wiredtv},#{m_cleaning},#{m_watertax},#{m_citygas},#{e_elec},#{m_etc},#{elevator},#{v_b},#{parking},#{parkingfee},#{built_in},#{structure})
     </insert>
 
     <insert id="insert_house_option">
@@ -52,6 +52,5 @@
         insert into house_list(house_num,house_thumb,type,road_address,price,b_floors,n_floors,m_cost,m_costx,h_title)
         values(#{house_num},#{house_thumb},#{houtypese_num},#{road_address},#{price},#{b_floors},#{n_floors},#{m_cost},#{m_costx},#{h_title})
     </insert>
-
 
 </mapper>
