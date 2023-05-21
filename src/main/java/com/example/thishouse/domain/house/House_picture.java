@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class House_picture {
+    private int house_picture_num;
     private int house_num;
     private String house_thum;
     private String house_pic2;

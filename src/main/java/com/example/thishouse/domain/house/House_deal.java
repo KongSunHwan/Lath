@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class House_deal {
+    private int house_deal_num;
     private int house_num;
     private String deal_type;
     private int deposit;

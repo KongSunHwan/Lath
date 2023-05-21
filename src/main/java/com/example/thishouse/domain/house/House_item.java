@@ -10,6 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class House_item {
+
     private int house_num;
     private String user_name;
+    private String regist_time;
 }
