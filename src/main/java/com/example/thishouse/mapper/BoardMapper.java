@@ -43,16 +43,20 @@ public class BoardMapper {
         return sqlSession.selectList(Namespace+".view_reply",communityNum);
     }
     //게시판 삭제
-    public void delete_board(String communityNum) {
-        sqlSession.delete(Namespace+".delete_board",communityNum);
+    public void delete_board(String community_num) {
+        sqlSession.delete(Namespace+".delete_board",community_num);
     }
     //게시판 수정
-    public void modify_board(String communityNum) {
-        sqlSession.update(Namespace+".modify_board",communityNum);
+    public void update_board(Community community) {
+        sqlSession.update(Namespace+".update_board",community);
+    }
+    //게시판 조회수
+    public void update_board_hitCount(String community_num) {
+        sqlSession.update(Namespace + ".update_board_hitCount", community_num);
     }
     //게시판이랑 댓글 같이 삭제
-    public void delete_reply(String communityNum) {
-        sqlSession.insert(Namespace+".delete_reply",communityNum);
+    public void delete_reply(String community_num) {
+        sqlSession.insert(Namespace+".delete_reply",community_num);
     }
 
 }

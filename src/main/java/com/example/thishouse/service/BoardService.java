@@ -43,15 +43,15 @@ public class BoardService {
     List<Community_reply> view_reply(String community_num) {
         return this.boardMapper.view_reply(community_num);
     }
-    //글 삭제 delete_board/ delete_reply_with_board
+    //글 삭제 delete_board
     @Transactional
     public void delete_board(String community_num){
         this.boardMapper.delete_board(community_num);
     }
-    //글 수정 modify_board
+    //글 수정 update_board
     @Transactional
-    public void modify_board(String community_num){
-        this.boardMapper.modify_board(community_num); //쿼리 설정X
+    public void update_board(Community community){
+        this.boardMapper.update_board(community);
     }
     //댓글 삭제 delete_reply
     @Transactional
@@ -59,6 +59,11 @@ public class BoardService {
         this.boardMapper.delete_reply(community_num); //쿼리 설정X
     }
 
+    //게시판 조회수 update_board_hitCount
+    @Transactional
+    public void update_board_hitCount(String community_num) {
+        this.boardMapper.update_board_hitCount(community_num);
+    }
     // List 검색 search
     // List 페이징 리스트 page_list
 

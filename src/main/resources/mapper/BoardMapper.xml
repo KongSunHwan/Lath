@@ -33,13 +33,23 @@
         where community_num = #{community_num}
     </select>
 
+    <!-- 게시판 삭제처리 -->
     <delete id="delete_board">
         delete from community
         where community_num = #{community_num}
     </delete>
 
-    <update id="modify_board">
-<!--//쿼리-->
+    <!-- 게시판 수정처리 -->
+    <update id="update_board">
+        update community
+        SET
+            community_title = #{community_title},
+            user_id = #{user_id},
+            community_contents = #{community_contents},
+            community_date = now()
+        where
+            community_num = #{community_num}
+
     </update>
 
     <delete id="delete_reply_with_board">
@@ -51,5 +61,14 @@
         delete from community_reply
         where reply_num = #{reply_num}
     </delete>
+
+    <!-- 게시판 조회수 -->
+    <update id="update_board_hitCount">
+        update community
+        SET
+            community_hits=community_hits+1
+        where
+            community_num=#{community_num}
+    </update>
 
 </mapper>
