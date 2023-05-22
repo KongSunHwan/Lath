@@ -58,9 +58,9 @@ xmlns:th="http://www.thymeleaf.org">
 <body>
 <header th:replace="~{header/header}"></header>
 <!-- header 끝 -->
-<form action="regist_real_estate">
+<form action="real_estate_insert" method="post">
+    <input type="hidden" name="user_id" value="${session.user_id}">
 <div class="container">
-
     <div class="py-5 text-center">
         <h2>매물 등록</h2>
     </div>
@@ -152,7 +152,7 @@ xmlns:th="http://www.thymeleaf.org">
     <br><br>
     <!-- 거래종류 -->
     <div class="row">
-        <label for="#" class="form-label"></label>
+        <label class="form-label"></label>
         <table summary="This table shows how to create responsive tables using Datatables' extended functionality"
                class="table table-bordered .table-hover dt-responsive">
             <thead>
@@ -207,16 +207,16 @@ xmlns:th="http://www.thymeleaf.org">
                 <td rowspan="2" class="align-middle text-center" style="width:15%;">
                     건물층수</td>
                 <td style="width: 35%;" class="align-middle">건물층수 <select name="b_floors">
-                    <option value="1층">1층</option>
-                    <option value="2층">2층</option>
-                    <option value="3층">3층</option>
-                    <option value="4층">4층</option>
-                    <option value="5층">5층</option>
-                    <option value="6층">6층</option>
-                    <option value="7층">7층</option>
-                    <option value="8층">8층</option>
-                    <option value="9층">9층</option>
-                    <option value="10층">10층</option>
+                    <option value="1">1층</option>
+                    <option value="2">2층</option>
+                    <option value="3">3층</option>
+                    <option value="4">4층</option>
+                    <option value="5">5층</option>
+                    <option value="6">6층</option>
+                    <option value="7">7층</option>
+                    <option value="8">8층</option>
+                    <option value="9">9층</option>
+                    <option value="10">10층</option>
                 </select></td>
 
             </tr>
@@ -225,16 +225,16 @@ xmlns:th="http://www.thymeleaf.org">
                     <input type="text" size="10"> 평
                     <input type="text" size="10"> m<sup>2</sup> </td>
                 <td>해당층수 <select name="n_floors">
-                    <option value="1층">1층</option>
-                    <option value="2층">2층</option>
-                    <option value="3층">3층</option>
-                    <option value="4층">4층</option>
-                    <option value="5층">5층</option>
-                    <option value="6층">6층</option>
-                    <option value="7층">7층</option>
-                    <option value="8층">8층</option>
-                    <option value="9층">9층</option>
-                    <option value="10층">10층</option>
+                    <option value="1">1층</option>
+                    <option value="2">2층</option>
+                    <option value="3">3층</option>
+                    <option value="4">4층</option>
+                    <option value="5">5층</option>
+                    <option value="6">6층</option>
+                    <option value="7">7층</option>
+                    <option value="8">8층</option>
+                    <option value="9">9층</option>
+                    <option value="10">10층</option>
                 </select></td>
             </tr>
 
@@ -295,7 +295,7 @@ xmlns:th="http://www.thymeleaf.org">
                         <!--                            <div style="font-size: 20px;">만원</div>-->
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="m_cost" value="" id="flexCheckDefault" checked
+                            <input class="form-check-input" type="radio" name="m_cost"  id="flexCheckDefault" checked
                                    onclick="document.getElementById('item_price').style.display='block';">
                             <label class="form-check-label" for="flexCheckDefault">
                                 협의가능
@@ -367,22 +367,22 @@ xmlns:th="http://www.thymeleaf.org">
                 <td style="width: 15%;" class="align-middle text-center">엘레베이터</td>
                 <td style="width: 35%;">
                     <div>
-                        <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off"
-                               checked>
+                        <input type="radio" class="btn-check" name="elevator" id="option1" autocomplete="off"
+                               checked value="불가능">
                         <label class="btn btn-outline-primary" for="option1">불가능</label>
 
-                        <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
+                        <input type="radio" class="btn-check" name="elevator" id="option2" autocomplete="off" value="가능">
                         <label class="btn btn-outline-primary" for="option2">가능</label>
                     </div>
                 </td>
                 <td style="width: 15%;" class="align-middle text-center">베란다/발코니</td>
                 <td style="width: 35%;">
                     <div>
-                        <input type="radio" class="btn-check" name="options1" id="option3" autocomplete="off"
+                        <input type="radio" class="btn-check" name="v_b" id="option3" autocomplete="off" value="불가능"
                                checked>
                         <label class="btn btn-outline-primary" for="option3">불가능</label>
 
-                        <input type="radio" class="btn-check" name="options1" id="option4" autocomplete="off">
+                        <input type="radio" class="btn-check" name="v_b" id="option4" autocomplete="off" value="가능">
                         <label class="btn btn-outline-primary" for="option4">가능</label>
 
                     </div>
@@ -392,26 +392,26 @@ xmlns:th="http://www.thymeleaf.org">
                 <td class="align-middle text-center">주차여부</td>
                 <td>
                     <div>
-                        <input type="radio" class="btn-check" name="options2" id="option5" autocomplete="off"
+                        <input type="radio" class="btn-check" name="parking" id="option5" autocomplete="off" value="0"
                                checked onclick="document.getElementById('parking_fee').style.display='none';">
                         <label class="btn btn-outline-primary" for="option5">불가능</label>
 
-                        <input type="radio" class="btn-check" name="options2" id="option6" autocomplete="off"
+                        <input type="radio" class="btn-check"  id="option6" autocomplete="off" name="parking"
                                onclick="document.getElementById('parking_fee').style.display='block';">
                         <label class="btn btn-outline-primary" for="option6">가능</label>
 
                         <input type="text" class="form-control" id="parking_fee" name="parking_fee" placeholder="만원"
-                               value="" style="display:none ;width: 136px;">
+                               style="display:none ;width: 136px;">
                     </div>
                 </td>
                 <td class="align-middle text-center">빌트인</td>
                 <td>
                     <div>
-                        <input type="radio" class="btn-check" name="options3" id="option7" autocomplete="off"
+                        <input type="radio" class="btn-check" name="built_in" id="option7" autocomplete="off" value="없음"
                                checked>
                         <label class="btn btn-outline-primary" for="option7">없음</label>
 
-                        <input type="radio" class="btn-check" name="options3" id="option8" autocomplete="off">
+                        <input type="radio" class="btn-check" name="built_in" id="option8" autocomplete="off" value="있음">
                         <label class="btn btn-outline-primary" for="option8">있음</label>
                     </div>
                 </td>
@@ -421,10 +421,10 @@ xmlns:th="http://www.thymeleaf.org">
                 <td colspan="3">
                     <div class="input-group has-validation">
                         <div>
-                            <input type="radio" class="btn-check" name = "cst" id="btn-check-7-outlined" autocomplete="off">
+                            <input type="radio" class="btn-check" name ="structure" id="btn-check-7-outlined" autocomplete="off" value="복층">
                             <label class="btn btn-outline-primary" for="btn-check-7-outlined">복층</label>
 
-                            <input type="radio" class="btn-check" name = "cst" id="btn-check-8-outlined" autocomplete="off">
+                            <input type="radio" class="btn-check" name ="structure" id="btn-check-8-outlined" autocomplete="off" value="1.5룸/주방분리형">
                             <label class="btn btn-outline-primary" for="btn-check-8-outlined">1.5룸/주방분리형</label>
                         </div>
                     </div>
@@ -435,43 +435,43 @@ xmlns:th="http://www.thymeleaf.org">
                 <td colspan="3">
                     <div class="input-group has-validation">
                         <div>
-                            <input type="checkbox" class="btn-check" id="btn-check-9-outlined" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="btn-check-9-outlined" name="induction " value="인덕션" autocomplete="off">
                             <label class="btn btn-outline-primary" for="btn-check-9-outlined">인덕션</label>
 
-                            <input type="checkbox" class="btn-check" id="btn-check-10-outlined" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="btn-check-10-outlined"  name="microwave " value="전자레인지" autocomplete="off">
                             <label class="btn btn-outline-primary" for="btn-check-10-outlined">전자레인지</label>
 
-                            <input type="checkbox" class="btn-check" id="btn-check-11-outlined" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="btn-check-11-outlined" name="air_con" value="에어컨" autocomplete="off">
                             <label class="btn btn-outline-primary" for="btn-check-11-outlined">에어컨</label>
 
-                            <input type="checkbox" class="btn-check" id="btn-check-12-outlined" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="btn-check-12-outlined"  name="washing_machine" value="세탁기" autocomplete="off">
                             <label class="btn btn-outline-primary" for="btn-check-12-outlined">세탁기</label>
 
-                            <input type="checkbox" class="btn-check" id="btn-check-13-outlined" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="btn-check-13-outlined"  name="tv" value="TV" autocomplete="off">
                             <label class="btn btn-outline-primary" for="btn-check-13-outlined">TV</label>
 
-                            <input type="checkbox" class="btn-check" id="btn-check-14-outlined" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="btn-check-14-outlined"  name="closet" value="옷장" autocomplete="off">
                             <label class="btn btn-outline-primary" for="btn-check-14-outlined">옷장</label>
 
-                            <input type="checkbox" class="btn-check" id="btn-check-15-outlined" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="btn-check-15-outlined"  name="bed" value="침대" autocomplete="off">
                             <label class="btn btn-outline-primary" for="btn-check-15-outlined">침대</label>
 
-                            <input type="checkbox" class="btn-check" id="btn-check-16-outlined" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="btn-check-16-outlined"  name="a_table" value="책상" autocomplete="off">
                             <label class="btn btn-outline-primary" for="btn-check-16-outlined">책상</label>
 
-                            <input type="checkbox" class="btn-check" id="btn-check-17-outlined" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="btn-check-17-outlined"  name="shoe_closet" value="신발장" autocomplete="off">
                             <label class="btn btn-outline-primary" for="btn-check-17-outlined">신발장</label>
 
-                            <input type="checkbox" class="btn-check" id="btn-check-18-outlined" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="btn-check-18-outlined" name="bidet " value="비데" autocomplete="off">
                             <label class="btn btn-outline-primary" for="btn-check-18-outlined">비데</label>
 
-                            <input type="checkbox" class="btn-check" id="btn-check-19-outlined" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="btn-check-19-outlined" name="gas_range" value="가스레인지" autocomplete="off">
                             <label class="btn btn-outline-primary" for="btn-check-19-outlined">가스레인지</label>
 
-                            <input type="checkbox" class="btn-check" id="btn-check-20-outlined" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="btn-check-20-outlined" name="refrig" value="냉장고" autocomplete="off">
                             <label class="btn btn-outline-primary" for="btn-check-20-outlined">냉장고</label>
 
-                            <input type="checkbox" class="btn-check" id="btn-check-21-outlined" autocomplete="off">
+                            <input type="checkbox" class="btn-check" id="btn-check-21-outlined" name="electronic_door" value="전자도어락" autocomplete="off">
                             <label class="btn btn-outline-primary" for="btn-check-21-outlined">전자도어락</label>
                         </div>
                     </div>
@@ -496,15 +496,15 @@ xmlns:th="http://www.thymeleaf.org">
             <tr height="30px">
                 <td class="text-center align-middle" style="width: 150px;">제목</td>
                 <td>
-                    <input type="text" class="form-control" id="firstName" name="lec_title"
-                           placeholder="예)의정부역 도보3분거리, 혼자 살기 좋은 방 입니다." value="" style="width: 100%;">
+                    <input type="text" class="form-control" id="firstName" name="h_title"
+                           placeholder="예)의정부역 도보3분거리, 혼자 살기 좋은 방 입니다." style="width: 100%;">
 
                 </td>
             </tr>
             <tr height="300px">
                 <td class="text-center align-middle" style="width: 150px;">상세설명</td>
                 <td>
-                    <textarea class="form-control" id="firstName" name="lec_title"
+                    <textarea class="form-control" id="h_content" name="h_content"
                               placeholder="
                     [상세설명 작성 주의사항] &#13;&#10;
                     -매물 정보와관렵없는 홍보성정보는 입력할 수 없습니다. &#13;&#10;
@@ -558,7 +558,7 @@ xmlns:th="http://www.thymeleaf.org">
     <div class="row gy-3">
         <a href="/main"></a>
     </div>
-    <button type="submit" class="w-100 btn btn-primary btn-lg">등록하기</button>
+    <input type="submit" class="w-100 btn btn-primary btn-lg" value="등록하기">
 </div>
 </a>
 <!-- 컨테이너 -->

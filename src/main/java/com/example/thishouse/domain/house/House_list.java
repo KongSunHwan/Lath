@@ -21,7 +21,7 @@ public class House_list {
     private int charter_price;
     private String b_floors;
     private String n_floors;
-    private int m_cost;
+    private String m_cost;
     private String m_costx;
     private String h_title;
 }

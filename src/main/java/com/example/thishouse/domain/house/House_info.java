@@ -16,9 +16,8 @@ public class House_info {
     private int supply_area2;
     private int exclusive_area1;
     private int exclusive_area2;
-    private int b_floors;
-    private int n_floors;
+    private String b_floors;
+    private String n_floors;
     private String heating_type;
     private String move_in_date;
-
 }
