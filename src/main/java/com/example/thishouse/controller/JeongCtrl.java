@@ -54,4 +54,20 @@ public class JeongCtrl {
         model.addAttribute("pagination",pagination);
         return "notice/notice_list";
     }
+
+    //testCtrl
+    @RequestMapping("/jtest")
+    public String test1(){
+        return "z_JeongTest/Jtest";
+    }
+
+    @RequestMapping("/jtestmap")
+    public String test2(){
+        return "z_JeongTest/map1";
+    }
+
+    @RequestMapping("/jtestinput")
+    public String test3(){
+        return "z_JeongTest/putTest";
+    }
 }
