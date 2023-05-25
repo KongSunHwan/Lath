@@ -12,7 +12,8 @@ import lombok.Setter;
 public class House_addinfo {
     private int house_addinfo_num;
     private int house_num;
-    private int m_cost;
+    private String m_cost_type;
+    private String m_cost;
     private String m_internet;
     private String m_wiredtv;
     private String m_cleaning;
@@ -24,6 +25,6 @@ public class House_addinfo {
     private String v_b;
     private String parking;
     private String parkingfee;
-    private String bulit_in;
+    private String built_in;
     private String structure;
 }

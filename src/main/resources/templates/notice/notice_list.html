@@ -10,22 +10,59 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/css/footer.css" />
+
+<!--    제이쿼리-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style>
         a {
         text-decoration-line: none;
         }
     </style>
+    <script>
+
+$(document).ready(function() {
+    var thisIndex = parseInt([[${searchVO.pageIndex}]]);
+
+$(".pagination li a").each(function() {
+    var idx = $(this).parent().index();
+    var thistitle = $(this).attr("title");
+
+    if (thistitle === thisIndex.toString()) {
+        $(".pagination").find("li").eq(idx).addClass("active");
+    }
+});
+});
+
+
+
+
+function fn_go_page(pageNo) {
+$("#pageIndex").val(pageNo);
+$("#listForm").submit();
+return false;
+}
+
+function fn_search(){
+$("#pageIndex").val("1");
+$("#listForm").submit();
+return false;
+}
+
+</script>
 </head>
 <body>
 <!-- header 시작 -->
 <header th:replace="~{header/header}"></header>
 <!-- header 끝 -->
+<form method="get"  id="listForm" action="/notice_list2">
+    <input type="hidden" id="pageIndex" name="pageIndex" val="" />
     <div class="outer">
         <div class="wrap">
             <div class="board_area">
                 <div class="board_title">
                     <h1>공지사항</h1>
                 </div>
+
                 <div class="board_list">
                     <ul class="board_header">
                         <li class="id">글번호</li>
@@ -37,137 +74,92 @@
                     </ul>
 
 
-                    <ul class="board_ul" onclick="">
-                        <li class="id">1</li>
-                        <li class="category" style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
-                        <a th:href="@{/notice_detail}"><li class="title">이집봐라 사용자 이용 가이드</li></a>
-                        <li class="writer">공김정</li>
-                        <li class="count">10</li>
-                        <li class="date">2023-04-19</li>
+<!--                    <ul th:each="noticeList : ${noticeList}" class="board_ul" onclick="">-->
+<!--                        <li th:text="${noticeList.notice_num}" class="id" > </li>-->
+<!--                        <li  class="category" style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>-->
+<!--                        <a><li th:text="${noticeList.notice_title}" class="title">이집봐라 사용자 이용 가이드</li></a>-->
+<!--                        <li th:text="${noticeList.admin_id}" class="writer">공김정</li>-->
+<!--                        <li  class="count">10</li>-->
+<!--                        <li  th:text="${noticeList.notice_date}" class="date">2023-04-19</li>-->
+<!--                    </ul>-->
+
+                    <ul th:each="pg_list : ${pg_list}" class="board_ul" onclick="">
+                        <li th:text="${pg_list.notice_num}" class="id" > </li>
+                        <li  class="category" style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
+                        <a><li th:text="${pg_list.notice_title}" class="title">이집봐라 사용자 이용 가이드</li></a>
+                        <li th:text="${pg_list.admin_id}" class="writer">공김정</li>
+                        <li  class="count">10</li>
+                        <li  th:text="${#strings.substring(pg_list.notice_date, 0, 10)}" class="date">2023-04-19</li>
                     </ul>
 
-                    <ul class="board_ul" onclick="">
-                        <li class="id">2</li>
-                        <li class="category" style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
-                        <a th:href="@{/notice_detail}"><li class="title">이집봐라 사용자 이용 가이드</li></a>
-                        <li class="writer">공김정</li>
-                        <li class="count">10</li>
-                        <li class="date">2023-04-19</li>
-                    </ul>
 
-                    <ul class="board_ul" onclick="">
-                        <li class="id">3</li>
-                        <li class="category" style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
-                        <a th:href="@{/notice_detail}"><li class="title">이집봐라 사용자 이용 가이드</li></a>
-                        <li class="writer">공김정</li>
-                        <li class="count">10</li>
-                        <li class="date">2023-04-19</li>
-                    </ul>
 
-                    <ul class="board_ul" onclick="">
-                        <li class="id">4</li>
-                        <li class="category" style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
-                        <a th:href="@{/notice_detail}"><li class="title">이집봐라 사용자 이용 가이드</li></a>
-                        <li class="writer">공김정</li>
-                        <li class="count">10</li>
-                        <li class="date">2023-04-19</li>
-                    </ul>
+                </div>
+                <!-- Paging[s] -->
 
-                    <ul class="board_ul" onclick="">
-                        <li class="id">5</li>
-                        <li class="category" style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
-                        <a th:href="@{/notice_detail}"><li class="title">이집봐라 사용자 이용 가이드</li></a>
-                        <li class="writer">공김정</li>
-                        <li class="count">10</li>
-                        <li class="date">2023-04-19</li>
-                    </ul>
+                <div class="col-sm-12 col-md-7" style="text-align:right">
 
-                    <ul class="board_ul" onclick="">
-                        <li class="id">6</li>
-                        <li class="category" style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
-                        <a th:href="@{/notice_detail}"><li class="title">이집봐라 사용자 이용 가이드</li></a>
-                        <li class="writer">공김정</li>
-                        <li class="count">10</li>
-                        <li class="date">2023-04-19</li>
-                    </ul>
+                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                        <ul class="pagination" style="align:center;">
+                            <li th:if="${searchVO.prev}" class="paginate_button page-item previous" id="dataTable_previous">
+                                <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.startDate - 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
+                            </li>
+<!--                            <li th:each="num: ${#numbers.sequence(searchVO.startDate,searchVO.endDate)}" class="paginate_button page-item">-->
+<!--                                <a href="javascript:void(0);" th:text="${num}" onclick="fn_go_page(num); return false;" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" title="${num}">${num}</a>-->
+<!--                            </li>-->
+                            <li th:each="num: ${#numbers.sequence(searchVO.startDate,searchVO.endDate)}" class="paginate_button page-item">
+                                <a href="javascript:void(0);" th:text="${num}" th:onclick="'fn_go_page(' + ${num} + '); return false;'"  aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link"  th:title="${num}">d</a>
 
-                    <ul class="board_ul" onclick="">
-                        <li class="id">7</li>
-                        <li class="category" style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
-                        <a th:href="@{/notice_detail}"><li class="title">이집봐라 사용자 이용 가이드</li></a>
-                        <li class="writer">공김정</li>
-                        <li class="count">10</li>
-                        <li class="date">2023-04-19</li>
-                    </ul>
+                            </li>
+                            <li th:if="${searchVO.next}" class="paginate_button page-item next" id="dataTable_next">
+                                <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.endDate + 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">다음</a>
+                            </li>
 
-                    <ul class="board_ul" onclick="">
-                        <li class="id">8</li>
-                        <li class="category" style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
-                        <a th:href="@{/notice_detail}"><li class="title">이집봐라 사용자 이용 가이드</li></a>
-                        <li class="writer">공김정</li>
-                        <li class="count">10</li>
-                        <li class="date">2023-04-19</li>
-                    </ul>
-
-                    <ul class="board_ul" onclick="">
-                        <li class="id">9</li>
-                        <li class="category" style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
-                        <a th:href="@{/notice_detail}"><li class="title">이집봐라 사용자 이용 가이드</li></a>
-                        <li class="writer">공김정</li>
-                        <li class="count">10</li>
-                        <li class="date">2023-04-19</li>
-                    </ul>
-
-                    <ul class="board_ul" onclick="">
-                        <li class="id">10</li>
-                        <li class="category" style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
-                        <a th:href="@{/notice_detail}"><li class="title">이집봐라 사용자 이용 가이드</li></a>
-                        <li class="writer">공김정</li>
-                        <li class="count">10</li>
-                        <li class="date">2023-04-19</li>
-                    </ul>
+                        </ul>
+                    </div>
 
                 </div>
 
+                <!-- Paging[e] -->
 
-                <ul class="board_paging">
+<!--                <ul class="board_paging">-->
 
-                    <!-- 첫페이지로  -->
-                    <li>
-                        <a href="#">&lt;&lt;</a>
-                    </li>
+<!--                    &lt;!&ndash; 첫페이지로  &ndash;&gt;-->
+<!--                    <li>-->
+<!--                        <a href="#">&lt;&lt;</a>-->
+<!--                    </li>-->
 
-                    <!-- 이전 페이지로 -->
-                    <li>
-                        <a href="#">&lt;</a>
-                    </li>
+<!--                    &lt;!&ndash; 이전 페이지로 &ndash;&gt;-->
+<!--                    <li>-->
+<!--                        <a href="#">&lt;</a>-->
+<!--                    </li>-->
 
-                    <li>
-                        <a href="#" class=current_page>1</a>
-                    </li>
-                    <li>
-                        <a href="#" class=current_page>2</a>
-                    </li>
-                    <li>
-                        <a href="#" class=current_page>3</a>
-                    </li>
-                    <li>
-                        <a href="#" class=current_page>4</a>
-                    </li>
-                    <li>
-                        <a href="#" class=current_page>5</a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a href="#" class=current_page>1</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="#" class=current_page>2</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="#" class=current_page>3</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="#" class=current_page>4</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                        <a href="#" class=current_page>5</a>-->
+<!--                    </li>-->
 
-                    <!-- 다음페이지로 -->
-                    <li>
-                        <a href="#">&gt;</a>
-                    </li>
+<!--                    &lt;!&ndash; 다음페이지로 &ndash;&gt;-->
+<!--                    <li>-->
+<!--                        <a href="#">&gt;</a>-->
+<!--                    </li>-->
 
-                    <!-- 끝페이지로  -->
-                    <li>
-                        <a href="#">&gt;&gt;</a>
-                    </li>
-                </ul>
+<!--                    &lt;!&ndash; 끝페이지로  &ndash;&gt;-->
+<!--                    <li>-->
+<!--                        <a href="#">&gt;&gt;</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
                 <div class="search_area">
                     <form>
                         <select id="searchCondition" name="searchCondition" class="border border-secondary">
@@ -186,6 +178,8 @@
             </div>
         </div>
     </div>
+
+</form>
     <!-- footer 시작 -->
     <footer th:replace="~{footer/footer}"></footer>
     <!-- footer 끝 -->

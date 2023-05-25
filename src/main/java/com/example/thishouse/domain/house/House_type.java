@@ -12,6 +12,6 @@ import lombok.Setter;
 public class House_type {
     private int house_type_num;
     private int house_num;
-    private String type;
+    private String house_type;
 
 }

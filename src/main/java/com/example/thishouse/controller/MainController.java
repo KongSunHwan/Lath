@@ -131,4 +131,5 @@ public class MainController {
         System.out.println("클릭한 아이디 확인 : " + user_id);
         return "user_mypage/find_input_member";
     }
+
 }
