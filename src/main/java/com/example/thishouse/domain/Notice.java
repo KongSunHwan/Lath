@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Notice {
+public class Notice extends PageVO{
     private int notice_num;
     private String admin_id;
     private String notice_title;
