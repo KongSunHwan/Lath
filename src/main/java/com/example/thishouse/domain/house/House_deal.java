@@ -14,6 +14,8 @@ public class House_deal {
     private int house_num;
     private String deal_type;
     private int deposit;
-    private int monthly_rent;
-    private int charter_price;
+    private int m_price;
+    private int y_price;
+//    private int monthly_rent;
+//    private int charter_price;
 }
