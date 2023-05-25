@@ -18,8 +18,8 @@
     </insert>
 
     <insert id="insert_house_deal">
-        insert into house_deal(house_num,deal_type,price)
-        values(#{house_num},#{deal_type},#{price})
+        insert into house_deal(house_num,deal_type,m_price,y_price,deposit)
+        values(#{house_num},#{deal_type},#{m_price},#{y_price},#{deposit})
     </insert>
 
     <insert id="insert_house_info">
@@ -28,13 +28,13 @@
     </insert>
 
     <insert id="insert_house_addinfo">
-        insert into house_addinfo(house_num,m_cost,m_internet,m_wiredtv,m_cleaning,m_watertax,m_citygas,e_elec, m_etc,elevator,v_b,parking,parkingfee,built_in,structure)
-        values(#{house_num},#{m_cost},#{m_internet},#{m_wiredtv},#{m_cleaning},#{m_watertax},#{m_citygas},#{e_elec},#{m_etc},#{elevator},#{v_b},#{parking},#{parkingfee},#{built_in},#{structure})
+        insert into house_addinfo(house_num,m_cost_type,m_cost,m_internet,m_wiredtv,m_cleaning,m_watertax,m_citygas,m_elec, m_etc,elevator,v_b,parking,parkingfee,built_in,structure)
+        values(#{house_num},#{m_cost_type},#{m_cost},#{m_internet},#{m_wiredtv},#{m_cleaning},#{m_watertax},#{m_citygas},#{m_elec},#{m_etc},#{elevator},#{v_b},#{parking},#{parkingfee},#{built_in},#{structure})
     </insert>
 
     <insert id="insert_house_option">
         insert into house_option
-        (house_num,induction ,microwave ,air_con,washing_machine,tv ,closet ,bed,a_table,shoe_closet,bidet ,gas_range,refrig)
+        (house_num,induction ,microwave ,air_con,washing_machine,tv ,closet ,bed,a_table,shoe_closet,bidet ,gas_range,refrig,electronic_door)
         values(#{house_num},#{induction},#{microwave},#{air_con},#{washing_machine},#{tv},#{closet},#{bed},#{a_table},#{shoe_closet},#{bidet},#{gas_range},#{refrig},#{electronic_door})
 
     </insert>
@@ -49,8 +49,8 @@
     </insert>
 
     <insert id="insert_house_list">
-        insert into house_list(house_num,house_thumb,type,road_address,price,b_floors,n_floors,m_cost,m_costx,h_title)
-        values(#{house_num},#{house_thumb},#{houtypese_num},#{road_address},#{price},#{b_floors},#{n_floors},#{m_cost},#{m_costx},#{h_title})
+        insert into house_list(house_num,house_thumb,house_type,road_address,deal_type,deposit,m_price,y_price,b_floors,n_floors,m_cost,m_cost_type,h_title,parkingfee,total_m_cost)
+        values(#{house_num},#{house_thumb},#{house_type},#{road_address},#{deal_type},#{deposit},#{m_price},#{y_price},#{b_floors},#{n_floors},#{m_cost},#{m_cost_type},#{h_title},#{parkingfee},#{m_cost} + #{parkingfee})
     </insert>
 
     <select id="sequence" resultType="int">

@@ -12,16 +12,20 @@ import lombok.Setter;
 public class House_list {
     private int house_list_num;
     private int house_num;
-    private String house_thum;
-    private String type;
-    private String address;
+    private String house_thumb;
+    private String house_type;
+    private String road_address;
     private String deal_type;
     private int deposit;
-    private int monthly_rent;
-    private int charter_price;
+    private int m_price;
+    private int y_price;
     private String b_floors;
     private String n_floors;
     private String m_cost;
-    private String m_costx;
+    private String m_cost_type;
     private String h_title;
+    private int parkingfee;
+    private int total_m_cost;
+
+
 }

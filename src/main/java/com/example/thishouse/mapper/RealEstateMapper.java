@@ -25,7 +25,12 @@ public class RealEstateMapper {
     }
 
     public void insert_house_type(House_type houseType) {
-        sqlSession.insert(Namespace+".insert_house_type",houseType);
+        System.out.println("TEST CON MAPPER========");
+        System.out.println(houseType.getHouse_type());
+        System.out.println(houseType.getHouse_num());
+        System.out.println(sqlSession.insert(Namespace+".insert_house_type", houseType));
+
+        sqlSession.insert(Namespace+".insert_house_type", houseType);
     }
 
     public void insert_house_location(House_location houseLocation) {

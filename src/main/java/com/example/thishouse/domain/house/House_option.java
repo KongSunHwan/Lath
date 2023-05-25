@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class House_option {
-    private int house_option;
+    private int house_option_num;
     private int house_num;
     private String induction;
     private String microwave;

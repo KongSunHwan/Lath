@@ -30,6 +30,7 @@ public class RealEstateService {
     //매물내용
     @Transactional
     public void insert_house_type(House_type house_type) {
+        System.out.println("TEST CON SER================");
         this.realEstateMapper.insert_house_type(house_type);
     }
 
