@@ -1,9 +1,6 @@
 package com.example.thishouse.domain.house;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -12,9 +9,15 @@ import lombok.Setter;
 public class House_picture {
     private int house_picture_num;
     private int house_num;
-    private String house_thum;
-    private String house_pic2;
-    private String house_pic3;
-    private String house_pic4;
-    private String house_pic5;
+    private String original_name;
+    private String save_name;
+    private long size;
+
+    @Builder
+    House_picture(String originalName, String saveName, long size) {
+        this.original_name = originalName;
+        this.save_name = saveName;
+        this.size = size;
+    }
+
 }

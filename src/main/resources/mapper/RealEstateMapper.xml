@@ -44,18 +44,24 @@
         values(#{house_num},#{h_title},#{h_content})
     </insert>
 
-    <insert id="insert_picture">
-        <!--qry-->
+    <insert id="saveAll" parameterType="list">
+            insert into house_picture(house_num,original_name,save_name,size)
+            values (#{house_num},#{original_name},#{save_name},#{size})
     </insert>
 
     <insert id="insert_house_list">
-        insert into house_list(house_num,house_thumb,house_type,road_address,deal_type,deposit,m_price,y_price,b_floors,n_floors,m_cost,m_cost_type,h_title,parkingfee,total_m_cost)
-        values(#{house_num},#{house_thumb},#{house_type},#{road_address},#{deal_type},#{deposit},#{m_price},#{y_price},#{b_floors},#{n_floors},#{m_cost},#{m_cost_type},#{h_title},#{parkingfee},#{m_cost} + #{parkingfee})
+        insert into house_list(house_num,house_thumb,house_type,road_address,deal_type,deposit,m_price,y_price,b_floors,n_floors,m_cost,m_cost_type,h_title,parkingfee,total_m_cost,hits,exclusive_area2)
+        values(#{house_num},#{house_thumb},#{house_type},#{road_address},#{deal_type},#{deposit},#{m_price},#{y_price},#{b_floors},#{n_floors},#{m_cost},#{m_cost_type},#{h_title},#{parkingfee},#{m_cost} + #{parkingfee},0,#{exclusive_area2})
     </insert>
 
     <select id="sequence" resultType="int">
         select count(*)
         from house_item
+    </select>
+
+    <select id="view_house_list" resultType="com.example.thishouse.domain.house.House_list">
+        select *
+        from house_list
     </select>
 
 </mapper>
