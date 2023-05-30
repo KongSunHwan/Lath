@@ -105,7 +105,7 @@
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-                    <div class="col" th:each="house_list : ${house_list}">
+                    <div class="col" th:each="house_list : ${house_list}" >
                         <div class="card shadow-sm">
                             <a th:href="@{/real_estate_intro}">
                                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
@@ -118,30 +118,34 @@
                             </a>
 
                             <div class="card-body">
-                                <span class="card-text" th:text="${house_list.house_type}" >A룸</span>
-                                <p><b class="card-text fs-5">월세 100/45</b></p>
-                                <p class="card-text">[(${house_list.n_floors})]층, 59.31m², 관리비 [(${house_list.total_m_cost})]만
-                                    쓰리룸 방3개, 화장실1개, 의정부역세권,
+                                <span class="card-text" th:text="${house_list.house_type}" >원룸</span>
+                                <p>
+                                    <b class="card-text fs-5" th:if="${house_list.deal_type == '월세'}">월세 [(${house_list.deposit})] / [(${house_list.m_price})]만원</b>
+                                    <b class="card-text fs-5" th:if="${house_list.deal_type == '전세'}">전세 [(${house_list.y_price})] 만원 </b>
                                 </p>
-                                <p >
-                                    주소 : [(${house_list.road_address})]
+                                <p th:text = "${house_list.road_address}">도로명 주소
                                 </p>
+                                <br>
+                                <p class="card-text"> [(${house_list.n_floors})]층, [(${house_list.exclusive_area2})]m², 관리비 [(${house_list.total_m_cost})]만
+                                </p>
+                                <p th:text = "${house_list.h_title}"></p>
+
+
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <a th:href="@{/real_estate_intro}"><button type="button" class="btn btn-sm btn-outline-secondary">보기</button></a>
                                         &nbsp;
-                                        <a th:href="@{/real_estate_intro}"><button type="button" class="btn btn-sm btn-outline-secondary">수정</button></a>
+                                        <a th:href="@{/real_estate_intro}"><button type="button" class="btn btn-sm btn-outline-secondary">찜하기</button></a>
                                     </div>
-                                    <small class="text-muted">조회수 300</small>
+                                    <small class="text-muted">조회수 [(${house_list.hits})]</small>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                </div>
-            </div>
         </div>
 
+                <br>
         <div class="d-flex justify-content-center align-items-center">
             <nav aria-label="...">
                 <ul class="pagination">

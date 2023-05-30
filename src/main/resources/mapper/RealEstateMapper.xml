@@ -62,6 +62,7 @@
     <select id="view_house_list" resultType="com.example.thishouse.domain.house.House_list">
         select *
         from house_list
+        limit 6
     </select>
 
 </mapper>
