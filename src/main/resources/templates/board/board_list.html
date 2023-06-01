@@ -10,6 +10,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/css/footer.css" />
+    <!--    제이쿼리-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style>
         a {
         text-decoration-line: none;
@@ -67,56 +69,79 @@ return false;
                     <li class="date">작성일</li>
                 </ul>
 
-                <ul th:each="list : ${list}" class="board_ul" onclick="">
-                    <li th:text="${list.community_num}" class="id">1</li>
+                <ul th:each="bd_list : ${bd_list}" class="board_ul" onclick="">
+                    <li th:text="${bd_list.community_num}" class="id">1</li>
                     <li class="category" style="width: 200px;"><span class="badge bg-primary">커뮤니티</span></li>
-                    <a th:href="@{'/board_detail?community_num=' + ${list.community_num}}"><li th:text="${list.community_title}" class="title">이집봐라 사용자 이용 가이드</li></a>
-                    <li th:text="${list.user_id}" class="writer">공김정</li>
-                    <li th:text="${list.community_hits}" class="count">10</li>
-                    <li th:text="${list.community_date}" class="date">2023-04-19</li>
+                    <a th:href="@{'/board_detail?community_num=' + ${bd_list.community_num}}"><li th:text="${bd_list.community_title}" class="title">이집봐라 사용자 이용 가이드</li></a>
+                    <li th:text="${bd_list.user_id}" class="writer">공김정</li>
+                    <li th:text="${bd_list.community_hits}" class="count">10</li>
+                    <li th:text="${bd_list.community_date}" class="date">2023-04-19</li>
                 </ul>
 
             </div>
 
+            <!-- Paging[s] -->
+            <form method="get"  id="listForm" action="/board_list">
+                <input type="hidden" id="pageIndex" name="pageIndex" val="" />
+            <div class="col-sm-12 col-md-7" style="text-align:right">
 
-            <ul class="board_paging">
+                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                    <ul class="pagination" style="align:center;">
+                        <li th:if="${searchVO.prev}" class="paginate_button page-item previous" id="dataTable_previous">
+                            <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.startDate - 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
+                        </li>
+                        <li th:each="num: ${#numbers.sequence(searchVO.startDate,searchVO.endDate)}" class="paginate_button page-item">
+                            <a href="javascript:void(0);" th:text="${num}" th:onclick="'fn_go_page(' + ${num} + '); return false;'"  aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link"  th:title="${num}">d</a>
 
-                <!-- 첫페이지로  -->
-                <li>
-                    <a href="#">&lt;&lt;</a>
-                </li>
+                        </li>
+                        <li th:if="${searchVO.next}" class="paginate_button page-item next" id="dataTable_next">
+                            <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.endDate + 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">다음</a>
+                        </li>
 
-                <!-- 이전 페이지로 -->
-                <li>
-                    <a href="#">&lt;</a>
-                </li>
+                    </ul>
+                </div>
 
-                <li>
-                    <a href="#" class=current_page>1</a>
-                </li>
-                <li>
-                    <a href="#" class=current_page>2</a>
-                </li>
-                <li>
-                    <a href="#" class=current_page>3</a>
-                </li>
-                <li>
-                    <a href="#" class=current_page>4</a>
-                </li>
-                <li>
-                    <a href="#" class=current_page>5</a>
-                </li>
+            </div>
+            </form>
+            <!-- Paging[e] -->
+<!--            <ul class="board_paging">-->
 
-                <!-- 다음페이지로 -->
-                <li>
-                    <a href="#">&gt;</a>
-                </li>
+<!--                &lt;!&ndash; 첫페이지로  &ndash;&gt;-->
+<!--                <li>-->
+<!--                    <a href="#">&lt;&lt;</a>-->
+<!--                </li>-->
 
-                <!-- 끝페이지로  -->
-                <li>
-                    <a href="#">&gt;&gt;</a>
-                </li>
-            </ul>
+<!--                &lt;!&ndash; 이전 페이지로 &ndash;&gt;-->
+<!--                <li>-->
+<!--                    <a href="#">&lt;</a>-->
+<!--                </li>-->
+
+<!--                <li>-->
+<!--                    <a href="#" class=current_page>1</a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#" class=current_page>2</a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#" class=current_page>3</a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#" class=current_page>4</a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#" class=current_page>5</a>-->
+<!--                </li>-->
+
+<!--                &lt;!&ndash; 다음페이지로 &ndash;&gt;-->
+<!--                <li>-->
+<!--                    <a href="#">&gt;</a>-->
+<!--                </li>-->
+
+<!--                &lt;!&ndash; 끝페이지로  &ndash;&gt;-->
+<!--                <li>-->
+<!--                    <a href="#">&gt;&gt;</a>-->
+<!--                </li>-->
+<!--            </ul>-->
             <div class="search_area">
                 <form>
                     <select id="searchCondition" name="searchCondition" class="border border-secondary">
@@ -135,6 +160,7 @@ return false;
         </div>
     </div>
 </div>
+
 <!-- footer 시작 -->
 <footer th:replace="~{footer/footer}"></footer>
 <!-- footer 끝 -->

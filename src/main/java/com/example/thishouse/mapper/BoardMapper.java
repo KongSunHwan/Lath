@@ -1,6 +1,7 @@
 package com.example.thishouse.mapper;
 
 import com.example.thishouse.domain.Member;
+import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,10 @@ public class BoardMapper {
         return sqlSession.selectList(Namespace + ".select_board_list");
     }
 
+    //게시판 목록 페이징 추가
+    public List<Community> bd_list(Community searchVO) { return sqlSession.selectList(Namespace + ".bd_list", searchVO);}
+
+    public int bd_listCnt() { return sqlSession.selectOne(Namespace + ".bd_listCnt");}
     //게시판 생성
     public void insert_board(Community community) {
         sqlSession.insert(Namespace+".insert_board",community);

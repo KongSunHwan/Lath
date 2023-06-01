@@ -22,37 +22,35 @@
     <div class="px-4 py-5 my-5 text-lg-start">
         <h2 class="fw-bold text-center">공지사항 수정</h2>
         <div class="col-lg-6 mx-auto">
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label fs-4 fw-bold">제목</label>
-                <input type="title" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력하세요.">
-            </div>
+            <form th:action="@{notice_edit}" method="post">
+                <div class="mb-3">
+                    <label for="title" class="form-label fs-4 fw-bold">제목</label>
+                    <input type="title" class="form-control" id="title" name="notice_title" value="제목" th:value="${Notice.notice_title}">
+                </div>
 
-            <div class="mb-3">
-                <label for="exampleFormControlInput2" class="form-label fs-4 fw-bold">작성자</label>
-                <input type="name" class="form-control" id="exampleFormControlInput2" placeholder="작성자를 입력하세요.">
-            </div>
+                <div class="mb-3">
+                    <label for="hits" class="form-label fs-4 fw-bold">조회수</label>
+                    <input type="text" class="form-control" id="hits" name="notice_hit" value="조회수" th:value="${Notice.notice_hit}" disabled>
+                </div>
 
-            <div class="mb-3">
-                <label for="exampleFormControlInput3" class="form-label fs-4 fw-bold">조회수</label>
-                <input type="name" class="form-control" id="exampleFormControlInput3" value="10">
-            </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label fs-4 fw-bold">내용</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" name="notice_content"
+                              th:field="*{Notice.notice_content}"></textarea>
+                </div>
 
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label fs-4 fw-bold">내용</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"
-                    placeholder="내용을 입력하세요."></textarea>
-            </div>
+                <div class="mb-3">
+                    <label for="date" class="form-label fs-4 fw-bold">작성일</label>
+                    <input type="date" class="form-control" id="date" value="작성일" name="notice_date" th:value="${Notice.notice_date}" disabled>
+                </div>
 
-            <div class="mb-3">
-                <label for="exampleFormControlInput4" class="form-label fs-4 fw-bold">작성일</label>
-                <input type="date" class="form-control" id="exampleFormControlInput4" placeholder="">
-            </div>
-
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-                <a th:href="@{/notice_detail}"><button type="button" class="btn btn-primary">수정</button></a>
-                <a th:href="@{/notice_list}"><button type="button" class="btn btn-primary">취소</button></a>
-            </div>
-
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+                    <button type="submit" class="btn btn-primary">수정</button>
+                    <a href="javascript:window.history.back();"><button type="button" class="btn btn-primary">취소</button></a>
+                </div>
+                <input type="hidden" name="notice_num" value="0" th:value="${Notice.notice_num}">
+                <input type="hidden" name="admin_id" value="작성자" th:value="${Notice.admin_id}" >
+            </form>
         </div>
     </div>
     <!-- footer 시작 -->
