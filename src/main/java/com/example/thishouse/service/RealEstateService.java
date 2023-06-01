@@ -90,6 +90,7 @@ public class RealEstateService {
         return this.realEstateMapper.view_house_list();
     }
 
+    //wish list
 
     //매물 리스트 페이징*
     //매물 상세내용*

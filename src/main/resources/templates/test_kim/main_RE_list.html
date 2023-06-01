@@ -126,16 +126,16 @@
                                 <p th:text = "${house_list.road_address}">도로명 주소
                                 </p>
                                 <br>
-                                <p class="card-text"> [(${house_list.n_floors})]층, [(${house_list.exclusive_area2})]m², 관리비 [(${house_list.total_m_cost})]만
+                                <p class="card-text" style="margin-top: -16px;"> [(${house_list.n_floors})]층, [(${house_list.exclusive_area2})]m², 관리비 [(${house_list.total_m_cost})]만
                                 </p>
-                                <p th:text = "${house_list.h_title}"></p>
+                                <p style= "margin-top: -9px;" th:text = "${house_list.h_title}"></p>
 
 
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a th:href="@{/real_estate_intro}"><button type="button" class="btn btn-sm btn-outline-secondary">보기</button></a>
+                                        <a th:href="@{'/real_estate_detail?house_num=' + ${house_list.house_num}}"><button type="button" class="btn btn-sm btn-outline-secondary">보기</button></a>
                                         &nbsp;
-                                        <a th:href="@{/real_estate_intro}"><button type="button" class="btn btn-sm btn-outline-secondary">찜하기</button></a>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" checked>찜하기</button>
                                     </div>
                                     <small class="text-muted">조회수 [(${house_list.hits})]</small>
                                 </div>

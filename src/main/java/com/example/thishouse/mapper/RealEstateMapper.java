@@ -75,4 +75,6 @@ public class RealEstateMapper {
     public List<House_list> view_house_list() {
         return sqlSession.selectList(Namespace+".view_house_list");
     }
+
+
 }
