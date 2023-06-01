@@ -73,4 +73,10 @@ public class JeongCtrl {
     public String test3(){
         return "z_JeongTest/putTest";
     }
+
+
+    @RequestMapping("/222222")
+    public String test222222(){
+        return "z_JeongTest/putTest";
+    }
 }

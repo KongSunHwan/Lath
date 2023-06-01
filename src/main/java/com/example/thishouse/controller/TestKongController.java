@@ -37,7 +37,7 @@ public class TestKongController {
         searchVO.setFirstIndex(pagination.getFirstRecordIndex());
         searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
         System.out.println("펄스트인덱스 : " + searchVO.getFirstIndex());
-        
+
 
         List<Community> list = boardService.select_board_list();
         model.addAttribute("list", list);
