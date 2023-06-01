@@ -18,44 +18,50 @@
 <!-- header 시작 -->
 <header th:replace="~{header/header}"></header>
 <!-- header 끝 -->
-    <h1 class="visually-hidden"></h1>
-    <div class="px-4 py-5 my-5 text-lg-start">
-        <h2 class="fw-bold text-center">공지사항 상세</h2>
-        <div class="col-lg-6 mx-auto">
+<h1 class="visually-hidden"></h1>
+<div class="px-4 py-5 my-5 text-lg-start">
+    <h2 class="fw-bold text-center">공지사항 상세보기</h2>
+    <div class="col-lg-6 mx-auto">
+        <form id="form1" method="get">
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label fs-4 fw-bold">제목</label>
-                <input type="title" class="form-control" id="exampleFormControlInput1" placeholder="제목을 입력하세요.">
+                <label for="title" class="form-label fs-4 fw-bold">제목</label>
+                <input type="title" class="form-control" id="title" value="제목" th:value="${Notice.notice_title}" disabled>
             </div>
 
             <div class="mb-3">
-                <label for="exampleFormControlInput2" class="form-label fs-4 fw-bold">작성자</label>
-                <input type="name" class="form-control" id="exampleFormControlInput2" placeholder="작성자를 입력하세요.">
+                <label for="name" class="form-label fs-4 fw-bold">작성자</label>
+                <input type="name" class="form-control" id="name" value="작성자" th:value="${Notice.admin_id}" disabled>
             </div>
 
             <div class="mb-3">
-                <label for="exampleFormControlInput3" class="form-label fs-4 fw-bold">조회수</label>
-                <input type="text" class="form-control" id="exampleFormControlInput3" value="10">
+                <label for="hits" class="form-label fs-4 fw-bold">조회수</label>
+                <input type="text" class="form-control" id="hits" value="조회수" th:value="${Notice.notice_hit}" disabled>
             </div>
 
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label fs-4 fw-bold">내용</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"
-                    placeholder="내용을 입력하세요."></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" th:field="*{Notice.notice_content}" disabled></textarea>
             </div>
 
             <div class="mb-3">
-                <label for="exampleFormControlInput4" class="form-label fs-4 fw-bold">작성일</label>
-                <input type="date" class="form-control" id="exampleFormControlInput4" placeholder="">
+                <label for="date" class="form-label fs-4 fw-bold">작성일</label>
+                <input type="text" class="form-control" id="date" value="작성일" th:value="${Notice.notice_date}" disabled>
             </div>
 
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-                <a th:href="@{/notice_edit}"><button type="button" class="btn btn-primary">수정하기</button></a>
-                <a th:href="@{/notice_list}"><button type="button" class="btn btn-primary">목록으로</button></a>
-                <a><button type="button" class="btn btn-danger">삭제하기</button></a>
+                <a th:href="@{'/notice_edit?notice_num=' + ${Notice.notice_num}}">
+                    <button type="button" class="btn btn-primary">수정하기</button>
+                </a>
+                <a th:href="@{/notice_list}">
+                    <button type="button" class="btn btn-primary">목록으로</button>
+                </a>
+                <a th:href="@{'/notice_delete?notice_num=' + ${Notice.notice_num}}">
+                    <button type="button" class="btn btn-danger" id="btnDelete">삭제하기</button>
+                </a>
             </div>
-
-        </div>
+        </form>
     </div>
+</div>
 <!-- footer 시작 -->
 <footer th:replace="~{footer/footer}"></footer>
 <!-- footer 끝 -->

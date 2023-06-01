@@ -20,14 +20,14 @@ public class TestKongController {
     private final BoardService boardService;
 
     //게시판 목록
-    @RequestMapping("board_list")
-    public String BoardList(Model model) {
-        List<Community> list = boardService.select_board_list();
-        model.addAttribute("list", list);
-        return "board/board_list";
-    }
+//    @RequestMapping("board_list")
+//    public String BoardList(Model model) {
+//        List<Community> list = boardService.select_board_list();
+//        model.addAttribute("list", list);
+//        return "board/board_list";
+//    }
 
-    @RequestMapping("board_list2")
+    @RequestMapping("board_list")
     public String BoardList(@ModelAttribute("searchVO") Community searchVO, HttpServletRequest request, Model model) {
         PageCtrl pagination  = new PageCtrl();
         pagination.setCurrentPageNo(searchVO.getPageIndex());
@@ -37,10 +37,21 @@ public class TestKongController {
         searchVO.setFirstIndex(pagination.getFirstRecordIndex());
         searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
         System.out.println("펄스트인덱스 : " + searchVO.getFirstIndex());
-        
 
-        List<Community> list = boardService.select_board_list();
-        model.addAttribute("list", list);
+        List<Community> bd_list = boardService.bd_list(searchVO);
+        int totCnt = boardService.bd_listCnt();
+
+        pagination.setTotalRecordCount(totCnt);
+
+        searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+        searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+        searchVO.setPrev(pagination.getXprev());
+        searchVO.setNext(pagination.getXnext());
+
+        model.addAttribute("bd_list" , bd_list);
+        model.addAttribute("totCnt",totCnt);
+        model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+        model.addAttribute("pagination",pagination);
         return "board/board_list";
     }
 

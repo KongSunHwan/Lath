@@ -93,26 +93,6 @@ public class MainController {
         return "real_estate/real_estate_intro";
     }
 
-    @RequestMapping("/notice_add")
-    public String notice_add() {
-        return "notice/notice_add";
-    }
-
-    @RequestMapping("/notice_detail")
-    public String notice_detail() {
-        return "notice/notice_detail";
-    }
-
-    @RequestMapping("/notice_edit")
-    public String notice_edit() {
-        return "notice/notice_edit";
-    }
-
-    @RequestMapping("/notice_list")
-    public String notice_list() {
-        return "notice/notice_list";
-    }
-
     @RequestMapping("/mypage")
     public String mypage(String user_id, Model model) {
         List<Community> comlist = memberService.my_community(user_id);

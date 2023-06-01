@@ -15,4 +15,7 @@ public class Notice extends PageVO{
     private String notice_title;
     private String notice_content;
     private String notice_date;
+    private int notice_hit;
+    private String search_name;
+    private String search_content;
 }
