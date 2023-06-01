@@ -5,6 +5,7 @@ import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.house.*;
 import com.example.thishouse.service.MemberService;
 import com.example.thishouse.service.RealEstateService;
+import com.example.thishouse.util.File_util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -119,6 +120,26 @@ public class KimController {
 
         return "main/main";
     }
+
+    @RequestMapping("/pic_test")
+    public String pic_test() {
+        return "test_kim/pic_test";
+    }
+
+        @RequestMapping("/list_main")
+    public String list_main(Model model) {
+        List<House_list> house_list = realEstateService.view_house_list();
+        model.addAttribute("house_list",house_list);
+        return "test_kim/main_RE_list";
+    }
+
+//    @RequestMapping("/file_upload")
+//    public String file_upload(House_picture house_picture,Model model) {
+//        List<House_picture> files = File_util.uploadFiles(house_picture.getFiles());
+//        realEstateService.saveFiles(house_picture.getHouse_num(), files);
+//        realEstateService.insert_picture(house_picture);
+//        return "test_kim/file_upload";
+//    }
 
 
 }
