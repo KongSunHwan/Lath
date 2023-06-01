@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>이미지 갤러리</title>
+</head>
+<body>
+<h1>이미지 갤러리</h1>
+<div>
+  <ul>
+    <!-- 이미지 리스트를 순회하며 이미지를 표시 -->
+    <li th:each="housePicture : ${housePictures}">
+      <img th:src="@{'C:/upload/' + ${housePicture.filePath}}" alt="House Picture">
+    </li>
+  </ul>
+</div>
+</body>
+</html>

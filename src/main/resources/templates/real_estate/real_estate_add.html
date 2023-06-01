@@ -426,15 +426,19 @@ xmlns:th="http://www.thymeleaf.org">
                 <td>
                     <div>
                         <input type="radio" class="btn-check" name="parking" id="option5" autocomplete="off" value="불가능"
-                               checked onclick="document.getElementById('parking_fee').style.display='none';">
+                               checked onclick="document.getElementById('parking_fee').style.display='none';
+                                                document.getElementById('lb').style.display='none';">
                         <label class="btn btn-outline-primary" for="option5">불가능</label>
 
                         <input type="radio" class="btn-check"  id="option6" autocomplete="off" name="parking"
-                               onclick="document.getElementById('parking_fee').style.display='block';" value="가능">
+                               onclick="document.getElementById('parking_fee').style.display='block';
+                                        document.getElementById('lb').style.display='block';
+                                        " value="가능">
                         <label class="btn btn-outline-primary" for="option6">가능</label>
 
-                        <input type="text" class="form-control" id="parking_fee" name="parkingfee" placeholder="만원"
+                        <input type="text" class="form-control" id="parking_fee" name="parkingfee" placeholder="0"
                                style="display:none ;width: 136px;">
+                        <label  id="lb"for="parking_fee" style="display:none;">만원</label>
                     </div>
                 </td>
                 <td class="align-middle text-center">빌트인</td>

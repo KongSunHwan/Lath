@@ -1,6 +1,7 @@
 package com.example.thishouse.service;
 
 import com.example.thishouse.domain.Member;
+import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
 import com.example.thishouse.mapper.BoardMapper;
@@ -24,6 +25,14 @@ public class BoardService {
         return this.boardMapper.select_board_list();
     }
 
+    //게시판 리스트 + 페이징 조회
+    public List<Community> bd_list(Community searchVO) {
+        return this.boardMapper.bd_list(searchVO);
+    }
+
+    public int bd_listCnt() {
+        return this.boardMapper.bd_listCnt();
+    }
     //게시글 작성 insert_board
     @Transactional
     public void insert_board(Community community) {

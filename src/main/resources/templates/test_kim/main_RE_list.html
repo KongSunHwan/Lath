@@ -78,74 +78,81 @@
 <header th:replace="~{header/header}"></header>
 <!-- header 끝 -->
 
-    <main>
 
-        <!-- <section class="py-5 text-left container bg-primary bg-gradient bg-opacity-75"> -->
-        <div class="row py-lg-5 bg-primary bg-gradient bg-opacity-75 " style="height: 400px;">
-            <div class="col-lg-10 col-md-2 mx-auto">
-                <br><br><br>
-                <h1 class="fw-light text-white"><b>어떤 방을 찾으세요?</b></h1>
-                <p>
-                    <a href="#" class="btn btn-sm btn-light">매물</a>
-                    <a href="#" class="btn btn-sm btn-light">분양</a>
-                </p>
-                <p class="lead text-muted">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="지역을 입력해주세요." aria-describedby="button-addon2"
-                        style="height: 75px; font-size: 20px; max-width: 85%;">
-                    <button class="btn btn-dark" type="button" id="button-addon2" style="width: 80px;"><i
-                            class="bi bi-search"></i></button>
-                </div>
-                </p>
-            </div>
+<!-- <section class="py-5 text-left container bg-primary bg-gradient bg-opacity-75"> -->
+<div class="row py-lg-5 bg-primary bg-gradient bg-opacity-75 " style="height: 400px;" >
+    <div class="col-lg-10 col-md-2 mx-auto">
+        <br><br><br>
+        <h1 class="fw-light text-white"><b>어떤 방을 찾으세요?</b></h1>
+        <p>
+            <a href="#" class="btn btn-sm btn-light">매물</a>
+            <a href="#" class="btn btn-sm btn-light">분양</a>
+        </p>
+        <p class="lead text-muted">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="지역을 입력해주세요." aria-describedby="button-addon2"
+                   style="height: 75px; font-size: 20px; max-width: 85%;">
+            <button class="btn btn-dark" type="button" id="button-addon2" style="width: 80px;"><i
+                    class="bi bi-search"></i></button>
         </div>
-        <!-- </section>      -->
+        </p>
+    </div>
+</div>
+<!-- </section>      -->
 
-        <div class="album py-5 bg-light">
-            <div class="container">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+<div class="album py-5 bg-light" >
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-                    <div class="col" th:each="house_list : ${house_list}" >
-                        <div class="card shadow-sm">
-                            <a th:href="@{/real_estate_intro}">
-                                <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
-                                     preserveAspectRatio="xMidYMid slice" focusable="false">
-                                    <title>매물</title>
-                                    <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
-                                                                                            dy=".3em">이미지</text>
-                                </svg>
-                            </a>
+            <div class="col" th:each="house_list : ${house_list}">
+                <input type="hidden" name="house_num" value="house_num" th:value="${house_list.house_num}">
+                <input type="hidden" name="user_id" value="user_id" th:value="${session.user_id}">
+                <div class="card shadow-sm">
+                    <a th:href="@{/real_estate_intro}">
+                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                             xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                             preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>매물</title>
+                            <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+                                                                                    dy=".3em">이미지</text>
+                        </svg>
+                    </a>
 
-                            <div class="card-body">
-                                <span class="card-text" th:text="${house_list.house_type}" >원룸</span>
-                                <p>
-                                    <b class="card-text fs-5" th:if="${house_list.deal_type == '월세'}">월세 [(${house_list.deposit})] / [(${house_list.m_price})]만원</b>
-                                    <b class="card-text fs-5" th:if="${house_list.deal_type == '전세'}">전세 [(${house_list.y_price})] 만원 </b>
-                                </p>
-                                <p th:text = "${house_list.road_address}">도로명 주소
-                                </p>
-                                <br>
-                                <p class="card-text" style="margin-top: -16px;"> [(${house_list.n_floors})]층, [(${house_list.exclusive_area2})]m², 관리비 [(${house_list.total_m_cost})]만
-                                </p>
-                                <p style= "margin-top: -9px;" th:text = "${house_list.h_title}"></p>
+                    <div class="card-body">
+                        <span class="card-text" th:text="${house_list.house_type}" >원룸</span>
+                        <p>
+                            <b class="card-text fs-5" th:if="${house_list.deal_type == '월세'}">월세 [(${house_list.deposit})] / [(${house_list.m_price})]만원</b>
+                            <b class="card-text fs-5" th:if="${house_list.deal_type == '전세'}">전세 [(${house_list.y_price})] 만원 </b>
+                        </p>
+                        <p th:text = "${house_list.road_address}">도로명 주소
+                        </p>
+                        <br>
+                        <p class="card-text" style="margin-top: -16px;"> [(${house_list.n_floors})]층, [(${house_list.exclusive_area2})]m², 관리비 [(${house_list.total_m_cost})]만
+                        </p>
+                        <p style= "margin-top: -9px;" th:text = "${house_list.h_title}"></p>
 
 
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a th:href="@{'/real_estate_detail?house_num=' + ${house_list.house_num}}"><button type="button" class="btn btn-sm btn-outline-secondary">보기</button></a>
-                                        &nbsp;
-                                        <button type="button" class="btn btn-sm btn-outline-secondary" checked>찜하기</button>
-                                    </div>
-                                    <small class="text-muted">조회수 [(${house_list.hits})]</small>
-                                </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a th:href="@{'/real_estate_detail?house_num=' + ${house_list.house_num}}">
+                                    <input type="button" class="btn-check" id="btn-check" autocomplete="off">
+                                    <label class="btn btn-primary" for="btn-check">보기</label>
+                                </a>
+                                &nbsp;&nbsp;
+                                <a href="http://localhost:8082/wish_list?user_id='+$('#user_id').val()+&house_num=${'#house_list.house_num'}">
+                                <input type="checkbox" class="btn-check" th:id="'${house_list.house_num}'"  autocomplete="off">
+                                <label class="btn btn-outline-secondary" th:for="'${house_list.house_num}'">찜하기</label><br>
+                                </a>
                             </div>
+                            <small class="text-muted">조회수 [(${house_list.hits})]</small>
                         </div>
                     </div>
+                </div>
+            </div>
 
         </div>
 
-                <br>
+        <br>
         <div class="d-flex justify-content-center align-items-center">
             <nav aria-label="...">
                 <ul class="pagination">
@@ -166,10 +173,9 @@
             </nav>
         </div>
 
-    </main>
 
 
-    <!-- <div class="b-example-divider"></div> -->
+        <!-- <div class="b-example-divider"></div> -->
     <!-- footer 시작 -->
     <footer th:replace="~{footer/footer}"></footer>
     <!-- footer 끝 -->
@@ -182,6 +188,25 @@
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
 
+<script>
+		$('#like_btn').click(function() {
+                console.log("funtion test");
+	        	$.ajax({
+					type : 'GET',
+					url : 'http://localhost:8082/wish_list_ck?user_id='+$('#user_id').val()+&house_num=${'#house_num'},
+					success : function(result) {
+						if (result == '0') {
+						    	$.ajax({
+				            	type : 'GET',
+				            	url : 'http://localhost:8082/wish_list_add?user_id='+$('#user_id').val()+&house_num=${'#house_num'},
+						}
+					},
+					error : function(a, b, c) {
+						console.log(a, b, c);
+					}
+				});
+		});
+	</script>
 
 </body>
 

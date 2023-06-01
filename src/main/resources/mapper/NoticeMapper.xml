@@ -12,17 +12,53 @@
     </select>
     <select id="pg_listCnt" resultType="int"> select count(*) from notice
     </select>
+    <!-- 제목, 작성자, 내용 검색   -->
+    <select id="pg_list_search" parameterType="com.example.thishouse.domain.Notice" resultType="com.example.thishouse.domain.Notice">
+        select *
+        from notice
+        where #{search_name} like CONCAT('%',#{search_content},'%')
+        Order by notice_num desc
+        LIMIT #{recordCountPerPage} OFFSET ${firstIndex}
+    </select>
+    <!--게시판 상세조회-->
+    <select id="view_notice" resultType="com.example.thishouse.domain.Notice">
+        select *
+        from notice
+        where notice_num = #{notice_num}
+    </select>
+
+    <!-- 게시판 조회수 -->
+    <update id="update_notice_hitCount">
+        update notice
+        SET
+        notice_hit=notice_hit+1
+        where
+        notice_num=#{notice_num_num}
+    </update>
+
+
     <!-- 공지사항 작성 -->
-    <insert id="notice_insert" parameterType="com.example.thishouse.domain.Notice">
-        insert into notice(admin_id, notice_title, notice_content, notice_date)
-        values (#{admin_id}, #{notice_title}, #{notice_content}, now())
-    </insert><!-- 공지사항 삭제   -->
-    <delete id="notice_delete">
+    <insert id="insert_notice" parameterType="com.example.thishouse.domain.Notice">
+        insert into notice(admin_id, notice_title, notice_content, notice_date, notice_hit)
+        values ('pmJ', #{notice_title}, #{notice_content}, now(), 0)
+    </insert>
+
+
+    <!-- 공지사항 삭제   -->
+    <delete id="delete_notice">
         delete from notice where notice_num = #{notice_num}
     </delete>
     <!--   공지사항 수정   -->
-    <update id="notice_update">
-        update notice set notice_title = #{notice_edit_title}, notice_content = #{notice_edit_content}, notice_date = now() where notice_num = #{notice_num} </update>
+    <update id="update_notice">
+        update notice
+        SET
+        notice_title = #{notice_title},
+        admin_id = 'pmJ',
+        notice_content = #{notice_content},
+        notice_date = now()
+        where
+        notice_num = #{notice_num}
+    </update>
     <!--   공지사항 검색  -->
     <select id="notice_search">
         select * from notice where #{서치.옵션변수} like '%#{서치.텍스트변수}%'
