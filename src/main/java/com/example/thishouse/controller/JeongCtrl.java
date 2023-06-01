@@ -73,4 +73,10 @@ public class JeongCtrl {
     public String test3(){
         return "z_JeongTest/putTest";
     }
+
+    //test git commit
+    @RequestMapping("/kkk")
+    public String kkk(){
+        return "kk/kk";
+    }
 }
