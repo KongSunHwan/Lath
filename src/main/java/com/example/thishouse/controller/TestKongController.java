@@ -1,7 +1,9 @@
 package com.example.thishouse.controller;
 
+import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.service.BoardService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,24 @@ public class TestKongController {
         model.addAttribute("list", list);
         return "board/board_list";
     }
+
+    @RequestMapping("board_list2")
+    public String BoardList(@ModelAttribute("searchVO") Community searchVO, HttpServletRequest request, Model model) {
+        PageCtrl pagination  = new PageCtrl();
+        pagination.setCurrentPageNo(searchVO.getPageIndex());
+        pagination.setRecordCountPerPage(searchVO.getPageUnit());
+        pagination.setPageSize(searchVO.getPageSize());
+
+        searchVO.setFirstIndex(pagination.getFirstRecordIndex());
+        searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
+        System.out.println("펄스트인덱스 : " + searchVO.getFirstIndex());
+        
+
+        List<Community> list = boardService.select_board_list();
+        model.addAttribute("list", list);
+        return "board/board_list";
+    }
+
 
     //게시판 상세 조회
     @RequestMapping("board_detail")
