@@ -1,5 +1,6 @@
 package com.example.thishouse.domain.community;
 
+import com.example.thishouse.domain.PageVO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Community {
+public class Community extends PageVO {
     private int community_num;
     private String community_title;
     private String user_id;

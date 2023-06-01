@@ -1,13 +1,13 @@
 package com.example.thishouse.service;
 
-import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.house.*;
-import com.example.thishouse.mapper.MemberMapper;
 import com.example.thishouse.mapper.RealEstateMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -74,11 +74,27 @@ public class RealEstateService {
         this.realEstateMapper.insert_house_list(house_list);
     }
 
+    //매물 사진
+    @Transactional
+    public void saveFiles(final int house_num, final List<House_picture> files) {
+        if (CollectionUtils.isEmpty(files)) {
+            return;
+        }
+        for (House_picture file : files) {
+            file.setHouse_num(house_num);
+        }
+        this.realEstateMapper.saveAll(files);
+    }
 
+    public List<House_list> view_house_list() {
+        return this.realEstateMapper.view_house_list();
+    }
 
+    //wish list
 
     //매물 리스트 페이징*
     //매물 상세내용*
+
     //매물검색 + 필터*
 
 

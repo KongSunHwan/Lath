@@ -15,6 +15,37 @@
         text-decoration-line: none;
         }
     </style>
+    <script>
+
+$(document).ready(function() {
+    var thisIndex = parseInt([[${searchVO.pageIndex}]]);
+
+$(".pagination li a").each(function() {
+    var idx = $(this).parent().index();
+    var thistitle = $(this).attr("title");
+
+    if (thistitle === thisIndex.toString()) {
+        $(".pagination").find("li").eq(idx).addClass("active");
+    }
+});
+});
+
+
+
+
+function fn_go_page(pageNo) {
+$("#pageIndex").val(pageNo);
+$("#listForm").submit();
+return false;
+}
+
+function fn_search(){
+$("#pageIndex").val("1");
+$("#listForm").submit();
+return false;
+}
+
+</script>
 </head>
 <body>
 <!-- header 시작 -->
@@ -98,7 +129,7 @@
                             <input type="search" name="searchValue">
                         </span>
                     <button type="submit">검색하기</button>
-                    <a th:href="@{/notice_add}"><button type="button">작성하기</button></a>
+                    <a th:href="@{/board_add}"><button type="button">작성하기</button></a>
                 </form>
             </div>
         </div>

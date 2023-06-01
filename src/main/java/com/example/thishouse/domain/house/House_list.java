@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,6 +30,9 @@ public class House_list {
     private String h_title;
     private int parkingfee;
     private int total_m_cost;
+    private int hits;
+    private float exclusive_area2;
+    private List<MultipartFile> files = new ArrayList<>();    // 첨부파일 List
 
 
 }

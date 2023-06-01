@@ -71,4 +71,5 @@
             community_num=#{community_num}
     </update>
 
+
 </mapper>

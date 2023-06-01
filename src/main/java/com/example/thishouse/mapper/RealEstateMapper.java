@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 //interface사용시 오류 (required_bean error)
 @Repository
 @Mapper
@@ -64,4 +66,15 @@ public class RealEstateMapper {
     public void insert_house_list(House_list houseList) {
         sqlSession.insert(Namespace+".insert_house_list",houseList);
     }
+
+
+    public void saveAll(List<House_picture> files) {
+        sqlSession.insert(Namespace+".saveAll",files);
+    }
+
+    public List<House_list> view_house_list() {
+        return sqlSession.selectList(Namespace+".view_house_list");
+    }
+
+
 }

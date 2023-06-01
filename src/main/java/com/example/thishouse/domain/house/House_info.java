@@ -12,10 +12,10 @@ import lombok.Setter;
 public class House_info {
     private int house_info_num;
     private int house_num;
-    private int supply_area1;
-    private int supply_area2;
-    private int exclusive_area1;
-    private int exclusive_area2;
+    private float supply_area1;
+    private float supply_area2;
+    private float exclusive_area1;
+    private float exclusive_area2;
     private String b_floors;
     private String n_floors;
     private String heating_type;
