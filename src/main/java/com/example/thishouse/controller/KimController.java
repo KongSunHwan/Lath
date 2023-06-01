@@ -126,12 +126,28 @@ public class KimController {
         return "test_kim/pic_test";
     }
 
-        @RequestMapping("/list_main")
+    @RequestMapping("/list_main")
     public String list_main(Model model) {
         List<House_list> house_list = realEstateService.view_house_list();
         model.addAttribute("house_list",house_list);
         return "test_kim/main_RE_list";
     }
+
+    @RequestMapping("real_estate_detail")
+    public String real_estate_detail(Model model, String house_num) {
+        System.out.println(house_num);
+        List<House_list> house_list = realEstateService.view_house_list_one(house_num);
+        List<House_item> house_item = realEstateService.list_house_item(house_num);
+        List<House_addinfo> house_addinfo = realEstateService.add_info_list(house_num);
+
+
+        model.addAttribute("house_list",house_list);
+        model.addAttribute("house_item",house_item);
+        model.addAttribute("house_addinfo",house_addinfo);
+
+        return "test_kim/real_estate_detail";
+    }
+
 
 //    @RequestMapping("/file_upload")
 //    public String file_upload(House_picture house_picture,Model model) {
