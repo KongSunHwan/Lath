@@ -55,6 +55,9 @@ public class JeongCtrl {
         return "notice/notice_list";
     }
 
+
+
+
     //testCtrl
     @RequestMapping("/jtest")
     public String test1(){
