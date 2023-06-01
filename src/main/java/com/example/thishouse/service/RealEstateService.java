@@ -3,11 +3,20 @@ package com.example.thishouse.service;
 import com.example.thishouse.domain.house.*;
 import com.example.thishouse.mapper.RealEstateMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -75,19 +84,28 @@ public class RealEstateService {
     }
 
     //매물 사진
-    @Transactional
-    public void saveFiles(final int house_num, final List<House_picture> files) {
-        if (CollectionUtils.isEmpty(files)) {
-            return;
-        }
-        for (House_picture file : files) {
-            file.setHouse_num(house_num);
-        }
-        this.realEstateMapper.saveAll(files);
-    }
 
     public List<House_list> view_house_list() {
         return this.realEstateMapper.view_house_list();
+    }
+
+    public List<House_picture> getHousePictures() {
+        return this.realEstateMapper.getHousePictures();
+    }
+
+    public Resource loadFileAsResource(String filePath) throws FileNotFoundException {
+        try {
+            Path file = Paths.get(filePath);
+            Resource resource = new UrlResource(file.toUri());
+
+            if (resource.exists() || resource.isReadable()) {
+                return resource;
+            } else {
+                throw new FileNotFoundException("Could not read file: " + filePath);
+            }
+        } catch (MalformedURLException e) {
+            throw new FileNotFoundException("Could not read file: " + filePath);
+        }
     }
 
     //wish list

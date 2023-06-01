@@ -44,7 +44,7 @@
         values(#{house_num},#{h_title},#{h_content})
     </insert>
 
-    <insert id="saveAll" parameterType="list">
+    <insert id="saveAll" parameterType="java.util.List">
             insert into house_picture(house_num,original_name,save_name,size)
             values (#{house_num},#{original_name},#{save_name},#{size})
     </insert>
@@ -63,6 +63,16 @@
         select *
         from house_list
         limit 6
+    </select>
+
+    <insert id="insert_picture" parameterType="com.example.thishouse.domain.house.House_picture">
+        INSERT INTO house_picture (house_num, original_name, save_name, size, filePath)
+        VALUES (1, #{original_name}, #{save_name}, #{size}, #{filePath})
+    </insert>
+
+    <!-- 집 사진 가져오기 -->
+    <select id="getHousePictures" resultType="com.example.thishouse.domain.house.House_picture">
+        SELECT * FROM house_picture;
     </select>
 
 </mapper>

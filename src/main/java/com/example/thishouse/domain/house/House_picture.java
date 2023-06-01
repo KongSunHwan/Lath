@@ -12,6 +12,7 @@ public class House_picture {
     private String original_name;
     private String save_name;
     private long size;
+    private String filePath;
 
     @Builder
     House_picture(String originalName, String saveName, long size) {
