@@ -108,6 +108,17 @@ public class RealEstateService {
         }
     }
 
+    public List<House_list> view_house_list_one(String house_num) {
+            return this.realEstateMapper.view_house_list_one(house_num);
+    }
+    public List<House_item> list_house_item(String house_num) {
+        return this.realEstateMapper.list_house_item(house_num);
+    }
+
+    public List<House_addinfo> add_info_list(String houseNum) {
+        return this.realEstateMapper.add_info_list(houseNum);
+    }
+
     //wish list
 
     //매물 리스트 페이징*

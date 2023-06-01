@@ -68,6 +68,10 @@ public class RealEstateMapper {
         sqlSession.insert(Namespace+".insert_house_list",houseList);
     }
 
+    public List<House_list> view_house_list_one(String house_num) {
+        return sqlSession.selectList(Namespace+".view_house_list_one",house_num);
+    }
+
 
     public void saveAll(List<House_picture> files) {
         sqlSession.insert(Namespace+".saveAll",files);
@@ -81,4 +85,11 @@ public class RealEstateMapper {
     }
 
 
+    public List<House_item> list_house_item(String house_num) {
+        return sqlSession.selectList(Namespace+".list_house_item",house_num);
+    }
+
+    public List<House_addinfo> add_info_list(String houseNum) {
+        return sqlSession.selectList(Namespace+".add_info_list",houseNum);
+    }
 }

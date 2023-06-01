@@ -61,7 +61,9 @@
 
     <select id="view_house_list" resultType="com.example.thishouse.domain.house.House_list">
         select *
-        from house_list
+        from house_list,house_item
+        where house_list.house_num = house_item.house_num
+        order by  house_item.regist_time desc
         limit 6
     </select>
 
@@ -73,6 +75,24 @@
     <!-- 집 사진 가져오기 -->
     <select id="getHousePictures" resultType="com.example.thishouse.domain.house.House_picture">
         SELECT * FROM house_picture;
+    </select>
+
+    <select id="view_house_list_one" resultType="com.example.thishouse.domain.house.House_list">
+        select *
+        from house_list
+        where house_num = #{house_num}
+    </select>
+
+    <select id="list_house_item" resultType="com.example.thishouse.domain.house.House_item">
+        select *
+        from house_item
+        where house_num = #{house_num}
+    </select>
+
+    <select id="add_info_list" resultType="com.example.thishouse.domain.house.House_addinfo">
+        select *
+        from house_addinfo
+        where house_num = #{house_num}
     </select>
 
 </mapper>
