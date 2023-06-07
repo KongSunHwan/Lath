@@ -115,4 +115,10 @@ public class RealEstateMapper {
     public String road_address(String houseNum) {
         return sqlSession.selectOne(Namespace+".road_address",houseNum);
     }
+
+    public List<House_picture> house_picture_list(String houseNum) {
+        System.out.println("MAP PIC-----------------------");
+
+        return sqlSession.selectList(Namespace+".house_picture_list",houseNum);
+    }
 }

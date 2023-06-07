@@ -45,8 +45,8 @@
     </insert>
 
     <insert id="saveAll" parameterType="java.util.List">
-            insert into house_picture(house_num,original_name,save_name,size)
-            values (#{house_num},#{original_name},#{save_name},#{size})
+            insert into house_picture(house_num,original_name,save_name)
+            values (#{house_num},#{original_name},#{save_name})
     </insert>
 
     <insert id="insert_house_list">
@@ -69,7 +69,7 @@
 
     <insert id="insert_picture" parameterType="com.example.thishouse.domain.house.House_picture">
         INSERT INTO house_picture (house_num, original_name, save_name, size, filePath)
-        VALUES (1, #{original_name}, #{save_name}, #{size}, #{filePath})
+        VALUES (#{house_num}, #{original_name}, #{save_name}, #{size}, #{filePath})
     </insert>
 
     <!-- 집 사진 가져오기 -->
@@ -122,6 +122,12 @@
     <select id="road_address" resultType="String">
         select road_address
         from house_location
+        where house_num = #{house_num}
+    </select>
+
+    <select id="house_picture_list" resultType="com.example.thishouse.domain.house.House_picture">
+        select *
+        from house_picture
         where house_num = #{house_num}
     </select>
 
