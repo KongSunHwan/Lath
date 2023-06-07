@@ -92,4 +92,13 @@ public class RealEstateMapper {
     public List<House_addinfo> add_info_list(String houseNum) {
         return sqlSession.selectList(Namespace+".add_info_list",houseNum);
     }
+
+    public List<House_detail> house_detail_list(String houseNum) {
+        return sqlSession.selectList(Namespace+".house_detail_list",houseNum);
+    }
+
+    public List<House_option> house_option_list(String houseNum) {
+        return sqlSession.selectList(Namespace+".house_option_list",houseNum);
+
+    }
 }
