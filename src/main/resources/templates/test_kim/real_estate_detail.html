@@ -23,14 +23,16 @@
 <!-- header 끝 -->
 
   <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-    <div class="col-md-8 p-lg-4 mx-auto">
+    <div class="col-md-8 p-lg-4 mx-auto" th:each="house_list : ${house_list}">
       <img src="/img/img_house.jpg" class="img-fluid" style="width: 300px; height: 200px; margin-bottom: 30px;">
-      <h3>월세 5000/130</h3>
+
+      <h3 th:if="${house_list.deal_type == '월세'}"><b>월세 [(${house_list.deposit})] / [(${house_list.m_price})]만원</b></h3>
+      <h3 th:if="${house_list.deal_type == '전세'}"><b>전세 [(${house_list.y_price})] 만원</b></h3>
+
       <p class="lead fw-normal">
         <!-- &#x2B50&#x2B50&#x2B50&#x2B50&#x2B50(5.0)<br>  -->
-
       </p>
-      <p>판매자 : <b>김재호</b></p>
+      <p th:each="house_item : ${house_item}">판매자 : <b>[(${house_item.user_id})]</b></p>
       <!-- <a class="btn btn-primary" href="#">수강 신청하기</a> -->
     </div>
     <div class="product-device shadow-sm d-none d-md-block"></div>
@@ -83,7 +85,7 @@
                       <b>
                     별도 금액으로 부과되는 항목
                       </b>
-                      <br>
+                      <br><br>
 
                     <span  th:if="${house_addinfo.m_watertax == '수도세'}">[(${house_addinfo.m_watertax})]</span>
                     <span  th:if="${house_addinfo.m_citygas == '도시가스'}">[(${house_addinfo.m_citygas})]</span>
@@ -121,7 +123,7 @@
             </h5>
           </li>
           <!-- 가격정보 끝 -->
-          <br><br><br><br><br><br><br><br>
+          <br><br><br><br>
           <!-- 상세정보 시작 -->
           <h2><b>상세정보</b></h2>
           <br><br>
@@ -245,16 +247,31 @@
           </li>
           <!-- 상세정보 끝 -->
 
-          <br><br><br><br><br><br><br><br>
+          <br><br><br><br>
           <!-- 옵션 시작 -->
           <li>
             <h2><b>옵션</b></h2>
             <br>
-            <p class="fw-light>
-            </p>
+            <div class="card text-dark bg-light mb-3" style="max-width: 60rem;" th:each ="house_option : ${house_option}" >
+              <div class="card-body">
+                <span  th:if="${house_option.induction == '인덕션'}"><b>[(${house_option.induction})]</b></span>
+                  <span  th:if="${house_option.microwave == '전자레인지'}"><b>[(${house_option.microwave})]</b></span>
+                  <span  th:if="${house_option.air_con == '에어컨'}"><b>[(${house_option.air_con})]</b></span>
+                  <span  th:if="${house_option.washing_machine == '세탁기'}"><b>[(${house_option.washing_machine})]</b></span>
+                  <span  th:if="${house_option.tv == 'TV'}"><b>[(${house_option.tv})]</b></span>
+                  <span  th:if="${house_option.closet == '옷장'}"><b>[(${house_option.closet})]</b></span>
+                  <span  th:if="${house_option.bed == '침대'}"><b>[(${house_option.bed})]</b></span>
+                  <span  th:if="${house_option.a_table == '책상'}"><b>[(${house_option.a_table})]</b></span>
+                  <span  th:if="${house_option.shoe_closet == '신발장'}"><b>[(${house_option.shoe_closet})]</b></span>
+                  <span  th:if="${house_option.bidet == '비데'}"><b>[(${house_option.bidet})]</b></span>
+                  <span  th:if="${house_option.gas_range == '가스레인지'}"><b>[(${house_option.gas_range})]</b></span>
+                  <span  th:if="${house_option.refrig == '냉장고'}"><b>[(${house_option.refrig})]</b></span>
+                  <span  th:if="${house_option.electronic_door == '전자도어락'}"><b>[(${house_option.electronic_door})]</b></span>
+              </div>
+            </div>
           </li>
           <!-- 옵션 끝 -->
-          <br><br><br><br><br><br><br><br>
+          <br><br><br><br>
           <!-- 위치 시작 -->
           <li>
             <h2><b>위치 및 주변시설</b></h2>
@@ -264,7 +281,7 @@
             <img src="/img/img_null.png" style="width: 900px; height: 450px;">
           </li>
           <!-- 위치 끝 -->
-          <br><br>
+          <br><br><br><br>
           <!-- 주변시설 시작 -->
           <li>
             <div class="card text-center">
@@ -301,59 +318,18 @@
           </li>
           <!-- 주변시설 끝 -->
 
-          <br><br><br><br><br><br><br><br>
+          <br><br><br><br>
           <h2><b>상세정보</b></h2>
           <br><br>
           <!-- 상세정보 시작 -->
           <li>
-            <div class="card text-dark bg-light mb-3" style="max-width: 60rem;">
+            <div class="card text-dark bg-light mb-3" style="max-width: 60rem;" th:each="house_detail : ${house_detail}" >
               <div class="card-body">
-                <h5 class="card-title fw-bolder">금액도 참 착한 이쁜 주택 부대찌개 인근 교통편 학군 매우좋아요</h5>
+                <h5 class="card-title fw-bolder">[(${house_detail.h_title})]</h5>
+                <br>
                 <p class="card-text">
-                  <br>
-                  <br>
-                  <br>
-                  #.위 치 : 중앙초등학교 부근
-                  <br>
-                  <br>
-                  #.금 액 : 1000 / 65 2000 / 60
-                  <br>
-                  <br>
-                  #.특 징 : 부대찌개 인근 / 중앙초 부근 / 학군 교통편 매우좋아요
-                  <br>
-                  <br>
-                  보증금이나 월세는 조금씩 조절가능합니다.
-                  <br>
-                  -------------------------------------------------------
-                  <br>
-                  ●다른 부동산과 분위기가 많이 다릅니다.
-                  <br>
-                  <br>
-                  편안하게 생각하시고 오시면 친절하게 안내 해드리겠습니다.
-                  <br>
-                  <br>
-                  ●약간의 금액조정 가능합니다.
-                  <br>
-                  <br>
-                  ●언제든지 자기일처럼 꼼꼼하게 상담해드려요 언제든지 연락주세요.
-                  <br>
-                  <br>
-                  ●사진으로 보는것과 직접 보시는 느낌은 많이 다릅니다.
-                  <br>
-                  <br>
-                  ●원하시는 금액대의 원하시는 매물 제가 꼭 찾아드릴게요.
-                  <br>
-                  <br>
-                  ●전화,문자,카톡 친구처럼 편하게 언제든지 문의주세요^_^
-                  <br>
-                  <br>
-                  <br>
-                  ※ 주저하시고 계신 그 순간에 다른 분이 그 방에서 지내실 수 있습니다.
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                  ●전화,문자,카톡 [ID : tjsghks78] 친구처럼 편하게 언제든지 문의주세요 ^-^
+                   <textarea class="form-control" id="h_content" name="h_content" th:text = "${house_detail.h_content}"
+                             style="width: 100%; height: 300px;"></textarea>
                 </p>
               </div>
             </div>

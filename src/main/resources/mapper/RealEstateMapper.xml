@@ -95,4 +95,17 @@
         where house_num = #{house_num}
     </select>
 
+    <select id="house_detail_list" resultType="com.example.thishouse.domain.house.House_detail">
+        select *
+        from house_detail
+        where house_num = #{house_num}
+    </select>
+
+    <select id="house_option_list" resultType="com.example.thishouse.domain.house.House_option">
+        select *
+        from house_option
+        where house_num = #{house_num}
+    </select>
+
+
 </mapper>

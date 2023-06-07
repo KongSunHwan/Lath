@@ -3,7 +3,9 @@ package com.example.thishouse.controller;
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
+import com.example.thishouse.domain.house.House_picture;
 import com.example.thishouse.service.MemberService;
+import com.example.thishouse.service.RealEstateService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -21,6 +23,7 @@ import java.util.List;
 public class MainController {
 
     private final MemberService memberService;
+    private final RealEstateService realEstateService;
     @RequestMapping("/map")
     public String map() {
             return "map/map";
@@ -89,7 +92,9 @@ public class MainController {
     }
 
     @RequestMapping("/real_estate_intro")
-    public String real_estate_intro() {
+    public String real_estate_intro(Model model) {
+        List<House_picture> housePictures = realEstateService.getHousePictures();
+        model.addAttribute("housePictures", housePictures);
         return "real_estate/real_estate_intro";
     }
 

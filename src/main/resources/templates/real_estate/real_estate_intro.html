@@ -24,18 +24,32 @@
 
   <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
     <div class="col-md-8 p-lg-4 mx-auto">
-      <img src="/img/img_house.jpg" class="img-fluid" style="width: 300px; height: 200px; margin-bottom: 30px;">
-      <h3>월세 5000/130</h3>
-      <p class="lead fw-normal">
-        <!-- &#x2B50&#x2B50&#x2B50&#x2B50&#x2B50(5.0)<br>  -->
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+        <div class="carousel-indicators">
+          <th:block th:each="housePicture, iterStat : ${housePictures}">
+            <button type="button" data-bs-target="#carouselExampleIndicators" th:data-bs-slide-to="${iterStat.index}" th:classappend="${iterStat.index == 0} ? 'active'"></button>
+          </th:block>
+        </div>
 
-      </p>
-      <p>판매자 : <b>김재호</b></p>
-      <!-- <a class="btn btn-primary" href="#">수강 신청하기</a> -->
+        <div class="carousel-inner">
+          <div th:each="housePicture, iterStat : ${housePictures}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">
+            <img th:src="@{'/upload/' + ${housePicture.save_name}}" class="d-block w-100" width="500" height="600">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
     </div>
     <div class="product-device shadow-sm d-none d-md-block"></div>
     <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
   </div>
+
   <div>
     <div class="row">
       <div class="col-1"></div>

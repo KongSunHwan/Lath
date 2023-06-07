@@ -77,71 +77,28 @@ return false;
                     <li th:text="${bd_list.community_hits}" class="count">10</li>
                     <li th:text="${bd_list.community_date}" class="date">2023-04-19</li>
                 </ul>
-
             </div>
 
             <!-- Paging[s] -->
-            <form method="get"  id="listForm" action="/board_list">
+            <form method="get" id="listForm" action="/board_list">
                 <input type="hidden" id="pageIndex" name="pageIndex" val="" />
-            <div class="col-sm-12 col-md-7" style="text-align:right">
-
-                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                    <ul class="pagination" style="align:center;">
-                        <li th:if="${searchVO.prev}" class="paginate_button page-item previous" id="dataTable_previous">
-                            <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.startDate - 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
-                        </li>
-                        <li th:each="num: ${#numbers.sequence(searchVO.startDate,searchVO.endDate)}" class="paginate_button page-item">
-                            <a href="javascript:void(0);" th:text="${num}" th:onclick="'fn_go_page(' + ${num} + '); return false;'"  aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link"  th:title="${num}">d</a>
-
-                        </li>
-                        <li th:if="${searchVO.next}" class="paginate_button page-item next" id="dataTable_next">
-                            <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.endDate + 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">다음</a>
-                        </li>
-
-                    </ul>
+                <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;"> <!-- 가운데 정렬 스타일을 추가 -->
+                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                        <ul class="pagination justify-content-center" style="align:center;">
+                            <li th:if="${searchVO.prev}" class="paginate_button page-item previous" id="dataTable_previous">
+                                <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.startDate - 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
+                            </li>
+                            <li th:each="num: ${#numbers.sequence(searchVO.startDate,searchVO.endDate)}" class="paginate_button page-item">
+                                <a href="javascript:void(0);" th:text="${num}" th:onclick="'fn_go_page(' + ${num} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" th:title="${num}">d</a>
+                            </li>
+                            <li th:if="${searchVO.next}" class="paginate_button page-item next" id="dataTable_next">
+                                <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.endDate + 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">다음</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-
-            </div>
             </form>
-            <!-- Paging[e] -->
-<!--            <ul class="board_paging">-->
 
-<!--                &lt;!&ndash; 첫페이지로  &ndash;&gt;-->
-<!--                <li>-->
-<!--                    <a href="#">&lt;&lt;</a>-->
-<!--                </li>-->
-
-<!--                &lt;!&ndash; 이전 페이지로 &ndash;&gt;-->
-<!--                <li>-->
-<!--                    <a href="#">&lt;</a>-->
-<!--                </li>-->
-
-<!--                <li>-->
-<!--                    <a href="#" class=current_page>1</a>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                    <a href="#" class=current_page>2</a>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                    <a href="#" class=current_page>3</a>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                    <a href="#" class=current_page>4</a>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                    <a href="#" class=current_page>5</a>-->
-<!--                </li>-->
-
-<!--                &lt;!&ndash; 다음페이지로 &ndash;&gt;-->
-<!--                <li>-->
-<!--                    <a href="#">&gt;</a>-->
-<!--                </li>-->
-
-<!--                &lt;!&ndash; 끝페이지로  &ndash;&gt;-->
-<!--                <li>-->
-<!--                    <a href="#">&gt;&gt;</a>-->
-<!--                </li>-->
-<!--            </ul>-->
             <div class="search_area">
                 <form>
                     <select id="searchCondition" name="searchCondition" class="border border-secondary">

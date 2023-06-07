@@ -12,6 +12,8 @@
       <img th:src="@{'/upload/' + ${housePicture.save_name}}" alt="No Image">
     </li>
   </ul>
+
+  <img th:src="@{'/upload/' + ${housePictures[0].save_name}}" alt="No Image">
 </div>
 </body>
 </html>
