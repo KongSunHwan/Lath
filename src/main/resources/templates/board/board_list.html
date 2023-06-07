@@ -100,11 +100,11 @@ return false;
             </form>
 
             <div class="search_area">
-                <form>
-                    <select id="searchCondition" name="searchCondition" class="border border-secondary">
-                        <option value="title">제목</option>
-                        <option value="content">내용</option>
-                        <option value="writer">작성자</option>
+                <form method="get" action="/board_list">
+                    <select id="searchCondition" name="searchName" class="border border-secondary">
+                        <option value="community_title">제목</option>
+                        <option value="community_contents">내용</option>
+                        <option value="user_id">작성자</option>
                     </select>
 
                     <span class="input_area">
