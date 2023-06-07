@@ -101,4 +101,18 @@ public class RealEstateMapper {
         return sqlSession.selectList(Namespace+".house_option_list",houseNum);
 
     }
+
+    public List<House_info> house_info_list(String houseNum) {
+        return sqlSession.selectList(Namespace+".house_info_list",houseNum);
+
+    }
+
+    public List<House_type> house_type_list(String houseNum) {
+        return sqlSession.selectList(Namespace+".house_type_list",houseNum);
+
+    }
+
+    public String road_address(String houseNum) {
+        return sqlSession.selectOne(Namespace+".road_address",houseNum);
+    }
 }

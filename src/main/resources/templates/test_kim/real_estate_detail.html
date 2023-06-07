@@ -127,119 +127,124 @@
           <!-- 상세정보 시작 -->
           <h2><b>상세정보</b></h2>
           <br><br>
-          <li>
+          <li >
             <h5>
-              <div class="d-flex">
+              <div class="d-flex"  th:each="house_list : ${house_list}">
                 <div class="fs-6 justify-content-start">방종류</div>
-                <div class="justify-content-center fs-6" style="margin-left: 85px;"><b>투룸</b></div>
-              </div>
-              <hr>
-            </h5>
-
-            <h5>
-              <div class="d-flex">
-                <div class="fs-6 justify-content-start">해당층/건물층</div>
-                <div class="justify-content-center fs-6" style="margin-left: 30px;"><b>7층/8층</b></div>
-              </div>
-              <hr>
-            </h5>
-
-            <h5>
-              <div class="d-flex">
-                <div class="fs-6 justify-content-start">전용/공급면적</div>
-                <div class="justify-content-center fs-6" style="margin-left: 30px;"><b>29.82㎡ / 49㎡ </b></div>
-              </div>
-              <hr>
-            </h5>
-
-            <h5>
-              <div class="d-flex">
-                <div class="fs-6 justify-content-start">방 수/욕실 수</div>
-                <div class="justify-content-center fs-6" style="margin-left: 35px;"><b>2개/1개</b></div>
-              </div>
-              <hr>
-            </h5>
-
-            <h5>
-              <div class="d-flex">
-                <div class="fs-6 justify-content-start">방향</div>
-                <div class="justify-content-center fs-6" style="margin-left: 100px;">
-                  <b>남서</b>&nbsp;&nbsp;<b class="fw-light">주실 방향 기준</b>
+                <div class="justify-content-center fs-6" style="margin-left: 85px;" >
+                  <b>[(${house_list.house_type})]
+                    </b>
                 </div>
               </div>
               <hr>
             </h5>
 
             <h5>
-              <div class="d-flex">
+              <div class="d-flex" th:each="house_info : ${house_info}">
+                <div class="fs-6 justify-content-start">해당층/건물층</div>
+                <div class="justify-content-center fs-6" style="margin-left: 30px;"><b>[(${house_info.b_floors})]층/[(${house_info.n_floors})]층</b></div>
+              </div>
+              <hr>
+            </h5>
+
+            <h5>
+              <div class="d-flex" th:each="house_info : ${house_info}">
+                <div class="fs-6 justify-content-start">전용/공급면적</div>
+                <div class="justify-content-center fs-6" style="margin-left: 30px;"><b>[(${house_info.supply_area2})]㎡ / [(${house_info.exclusive_area2})]㎡ </b></div>
+              </div>
+              <hr>
+            </h5>
+
+<!--            <h5>-->
+<!--              <div class="d-flex">-->
+<!--                <div class="fs-6 justify-content-start">방 수/욕실 수</div>-->
+<!--                <div class="justify-content-center fs-6" style="margin-left: 35px;"><b>2개/1개</b></div>-->
+<!--              </div>-->
+<!--              <hr>-->
+<!--            </h5>-->
+
+<!--            <h5>-->
+<!--              <div class="d-flex">-->
+<!--                <div class="fs-6 justify-content-start">방향</div>-->
+<!--                <div class="justify-content-center fs-6" style="margin-left: 100px;">-->
+<!--                  <b>남서</b>&nbsp;&nbsp;<b class="fw-light">주실 방향 기준</b>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <hr>-->
+<!--            </h5>-->
+
+            <h5>
+              <div class="d-flex" th:each="house_info : ${house_info}">
                 <div class="fs-6 justify-content-start">난방종류</div>
-                <div class="justify-content-center fs-6" style="margin-left: 68px;"><b>개별난방</b></div>
+                <div class="justify-content-center fs-6" style="margin-left: 68px;"><b>[(${house_info.heating_type})]</b></div>
               </div>
               <hr>
             </h5>
 
             <h5>
-              <div class="d-flex">
+              <div class="d-flex" th:each="house_addinfo : ${house_addinfo}">
                 <div class="fs-6 justify-content-start">빌트인</div>
-                <div class="justify-content-center fs-6" style="margin-left: 84px;"><b>아님</b></div>
+                <div class="justify-content-center fs-6" style="margin-left: 84px;"><b>[(${house_addinfo.built_in})]</b></div>
               </div>
               <hr>
             </h5>
 
             <h5>
-              <div class="d-flex">
-                <div class="fs-6 justify-content-start">건물 주차</div>
-                <div class="justify-content-center fs-6" style="margin-left: 62px;"><b>총 3대</b></div>
+              <div class="d-flex" th:each="house_addinfo : ${house_addinfo}">
+                <div class="fs-6 justify-content-start">주차</div>
+                <div class="justify-content-center fs-6" style="margin-left: 100px;"><b>[(${house_addinfo.parking})]</b></div>
               </div>
               <hr>
             </h5>
 
             <h5>
-              <div class="d-flex">
+              <div class="d-flex" th:each="house_info : ${house_info}">
                 <div class="fs-6 justify-content-start">엘리베이터</div>
-                <div class="justify-content-center fs-6" style="margin-left: 52px;"><b>있음</b></div>
+                <div class="justify-content-center fs-6" style="margin-left: 52px;" th:each="house_addinfo : ${house_addinfo}"><b>[(${house_addinfo.elevator})]</b></div>
               </div>
               <hr>
             </h5>
 
             <h5>
-              <div class="d-flex">
+              <div class="d-flex" th:each="house_addinfo : ${house_addinfo}">
                 <div class="fs-6 justify-content-start">베란다/발코니</div>
-                <div class="justify-content-center fs-6" style="margin-left: 29px;"><b>없음</b></div>
+                <div class="justify-content-center fs-6" style="margin-left: 29px;"><b>[(${house_addinfo.v_b})]</b></div>
               </div>
               <hr>
             </h5>
 
             <h5>
-              <div class="d-flex">
+              <div class="d-flex" th:each="house_info : ${house_info}">
                 <div class="fs-6 justify-content-start">입주가능일</div>
                 <div class="justify-content-center fs-6" style="margin-left: 50px;">
-                  <b>즉시 입주&nbsp;&nbsp;(협의가능)</b>
+                  <b>[(${house_info.move_in_date})]&nbsp;</b>
                 </div>
               </div>
               <hr>
             </h5>
 
-            <h5>
-              <div class="d-flex">
-                <div class="fs-6 justify-content-start">건축물용도</div>
-                <div class="justify-content-center fs-6" style="margin-left: 50px;"><b>업무사무실</b></div>
-              </div>
-              <hr>
-            </h5>
+<!--            <h5>-->
+<!--              <div class="d-flex">-->
+<!--                <div class="fs-6 justify-content-start">건축물용도</div>-->
+<!--                <div class="justify-content-center fs-6" style="margin-left: 50px;"><b>업무사무실</b></div>-->
+<!--              </div>-->
+<!--              <hr>-->
+<!--            </h5>-->
+
+<!--            <h5>-->
+<!--              <div class="d-flex">-->
+<!--                <div class="fs-6 justify-content-start">사용승인일</div>-->
+<!--                <div class="justify-content-center fs-6" style="margin-left: 50px;"><b>2023.04.11</b></div>-->
+<!--              </div>-->
+<!--              <hr>-->
+<!--            </h5>-->
 
             <h5>
-              <div class="d-flex">
-                <div class="fs-6 justify-content-start">사용승인일</div>
-                <div class="justify-content-center fs-6" style="margin-left: 50px;"><b>2023.04.11</b></div>
-              </div>
-              <hr>
-            </h5>
-
-            <h5>
-              <div class="d-flex">
+              <div class="d-flex" th:each="house_item : ${house_item}">
                 <div class="fs-6 justify-content-start">최초등록일</div>
-                <div class="justify-content-center fs-6" style="margin-left: 50px;"><b>2023.04.12</b></div>
+                <div class="justify-content-center fs-6" style="margin-left: 50px;">
+                  <b th:text = "${#strings.substring(house_item.regist_time, 0, 10)}"></b>
+                </div>
               </div>
               <hr>
             </h5>
@@ -278,7 +283,7 @@
             <br>
             <p class="fw-bold">경기도 의정부시 의정부동 221-59</p>
             <br>
-            <img src="/img/img_null.png" style="width: 900px; height: 450px;">
+            <div id="map"style="width: 900px; height: 450px;"></div>
           </li>
           <!-- 위치 끝 -->
           <br><br><br><br>
@@ -471,6 +476,8 @@
               <li class="list-group-item"><i class="bi bi-rulers"></i> 평수 : <b>[(${house_list.exclusive_area2})]㎡</b></li>
               <li class="list-group-item"><i class="bi bi-door-closed"></i> 층수 : <b>[(${house_list.n_floors})]층</b></li>
               <li class="list-group-item"><i class="bi bi-cash-coin"></i> 관리비 : <b>[(${house_list.total_m_cost})]만원</b></li>
+              <li class="list-group-item"><i class="bi bi-cash-coin"></i> 주소 : <b>[(${road_address})]만원</b></li>
+
             </ul>
           </div>
         </div>
@@ -491,6 +498,52 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
     integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
     crossorigin="anonymous"></script>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=743bd643ee6f33b7f2800e2b1fc9802e&libraries=services"></script>
+<script>
+      document.write([[${road_address}]]);
+</script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a6d74f730cd677912a0b0ccd2975e57d&libraries=services"></script>
+<script>
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+// 지도를 생성합니다
+var map = new kakao.maps.Map(mapContainer, mapOption);
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    }
+});
+</script>
 </body>
 
 </html>

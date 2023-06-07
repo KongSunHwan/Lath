@@ -128,6 +128,18 @@ public class RealEstateService {
 
     }
 
+    public List<House_info> house_info_list(String houseNum) {
+        return this.realEstateMapper.house_info_list(houseNum);
+    }
+
+    public List<House_type> house_type_list(String houseNum) {
+        return this.realEstateMapper.house_type_list(houseNum);
+    }
+
+    public String road_address(String houseNum) {
+        return this.realEstateMapper.road_address(houseNum);
+    }
+
     //wish list
 
     //매물 리스트 페이징*
