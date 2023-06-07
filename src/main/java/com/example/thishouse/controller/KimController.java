@@ -5,7 +5,6 @@ import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.house.*;
 import com.example.thishouse.service.MemberService;
 import com.example.thishouse.service.RealEstateService;
-import com.example.thishouse.util.File_util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
