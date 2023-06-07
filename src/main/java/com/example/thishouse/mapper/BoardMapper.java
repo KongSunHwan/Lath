@@ -35,8 +35,8 @@ public class BoardMapper {
     }
 
     //게시판 댓글 생성
-    public void insert_reply(Community community) {
-        sqlSession.insert(Namespace+".insert_reply",community);
+    public void insert_reply(Community_reply cm) {
+        sqlSession.insert(Namespace+".insert_reply",cm);
     }
 
     //게시판 상세정보 조회
@@ -44,8 +44,8 @@ public class BoardMapper {
         return sqlSession.selectOne(Namespace+".view_board", community_num);
     }
     //게시판 상세정보 댓글 조회
-    public List<Community_reply> view_reply(String communityNum) {
-        return sqlSession.selectList(Namespace+".view_reply",communityNum);
+    public List<Community_reply> view_reply(String cn) {
+        return sqlSession.selectList(Namespace+".view_reply",cn);
     }
     //게시판 삭제
     public void delete_board(String community_num) {
@@ -64,4 +64,16 @@ public class BoardMapper {
         sqlSession.insert(Namespace+".delete_reply",community_num);
     }
 
+    public List<Community> bd_list_search(Community searchVO) {
+        return sqlSession.selectList(Namespace + ".bd_list_search", searchVO);
+    }
+
+    public int bd_list_search_Cnt(Community searchVO) {
+        return sqlSession.selectOne(Namespace + ".bd_list_search_Cnt", searchVO);
+    }
+
+    //댓글
+    public List<Community_reply> reply_list(Community_reply reply){
+        return sqlSession.selectList(Namespace + ".reply_list" + reply);
+    }
 }

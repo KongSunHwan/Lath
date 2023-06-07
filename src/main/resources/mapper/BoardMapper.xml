@@ -20,9 +20,9 @@
         values(#{community_title},#{user_id},#{community_contents},now(),0);
     </insert>
 
-    <insert id="insert_reply">
+    <insert id="insert_reply" parameterType="com.example.thishouse.domain.community.Community_reply">
         insert into community_reply(community_num,user_id,reply_contents,reply_date)
-        values(#{community_num},#{user_id},#{reply_contents},now());
+        values(#{community_num},#{user_id},#{reply_contents},now())
     </insert>
 
     <!--게시판 상세조회-->
@@ -32,10 +32,11 @@
         where community_num = #{community_num}
     </select>
 
-    <select id="view_reply">
+    <select id="view_reply" parameterType="string" resultType="com.example.thishouse.domain.community.Community_reply">
         select *
         from community_reply
-        where community_num = #{community_num}
+        where community_num = ${cn}
+        order by reply_date desc;
     </select>
 
     <!-- 게시판 삭제처리 -->
@@ -75,6 +76,19 @@
         where
             community_num=#{community_num}
     </update>
+
+    <!--게시판 검색 페이징 -->
+    <select id="bd_list_search" parameterType="com.example.thishouse.domain.community.Community" resultType="com.example.thishouse.domain.community.Community">
+        select *
+        from community
+        where ${search_name} like CONCAT('%',#{search_content},'%')
+        order by community_num desc
+        limit ${recordCountPerPage} offset ${firstIndex}
+    </select>
+    <select id="bd_list_search_Cnt" parameterType="com.example.thishouse.domain.community.Community" resultType="int">
+        select count(*) from community where ${search_name} like CONCAT('%',#{search_content},'%')
+
+    </select>
 
 
 </mapper>
