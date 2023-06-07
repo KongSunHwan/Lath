@@ -26,13 +26,16 @@ public class NoticeService {
         return this.noticeMapper.pg_list(searchVO);
     }
     //검색
-    public List<Notice> pg_list(Notice searchVO, String x, String y) {
-        return this.noticeMapper.pg_list(searchVO, x, y);
+    public List<Notice> pg_list_search(Notice searchVO) {
+        return this.noticeMapper.pg_list_search(searchVO);
     }
     public int pg_listCnt() {
         return this.noticeMapper.pg_listCnt();
     }
 
+    public int pg_list_searchcnt(Notice searchVO) {
+        return this.noticeMapper.pg_list_searchcnt(searchVO);
+    }
     //공지사항 상세보기
     public Notice view_notice(String notice_num) {
         return noticeMapper.view_notice(notice_num);

@@ -140,14 +140,18 @@ public class KimController {
         List<House_addinfo> house_addinfo = realEstateService.add_info_list(house_num);
         List<House_detail> house_detail = realEstateService.house_detail_list(house_num);
         List<House_option> house_option = realEstateService.house_option_list(house_num);
-
+        List<House_info> house_info = realEstateService.house_info_list(house_num);
+        List<House_type> house_type = realEstateService.house_type_list(house_num);
+        String road_address = realEstateService.road_address(house_num);
 
         model.addAttribute("house_list",house_list);
         model.addAttribute("house_item",house_item);
         model.addAttribute("house_addinfo",house_addinfo);
         model.addAttribute("house_detail",house_detail);
         model.addAttribute("house_option",house_option);
-
+        model.addAttribute("house_info",house_info);
+        model.addAttribute("house_type",house_type);
+        model.addAttribute("road_address",road_address);
 
         return "test_kim/real_estate_detail";
     }

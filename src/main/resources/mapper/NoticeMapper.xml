@@ -8,7 +8,7 @@
     </select>
     <!--    페이징   -->
     <select id="pg_list" parameterType="com.example.thishouse.domain.Notice" resultType="com.example.thishouse.domain.Notice">
-        select * from notice Order by notice_num desc LIMIT #{recordCountPerPage} OFFSET ${firstIndex}
+        select * from notice Order by notice_num desc LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
     </select>
     <select id="pg_listCnt" resultType="int"> select count(*) from notice
     </select>
@@ -16,9 +16,14 @@
     <select id="pg_list_search" parameterType="com.example.thishouse.domain.Notice" resultType="com.example.thishouse.domain.Notice">
         select *
         from notice
-        where #{search_name} like CONCAT('%',#{search_content},'%')
-        Order by notice_num desc
-        LIMIT #{recordCountPerPage} OFFSET ${firstIndex}
+        where ${search_name} like CONCAT('%',#{search_content},'%')
+        order by notice_num desc
+        limit ${recordCountPerPage} offset ${firstIndex}
+    </select>
+    <select id="pg_list_searchcnt" parameterType="com.example.thishouse.domain.Notice" resultType="int">
+        select count(*)
+        from notice
+        where ${search_name} like CONCAT('%',#{search_content},'%')
     </select>
     <!--게시판 상세조회-->
     <select id="view_notice" resultType="com.example.thishouse.domain.Notice">
