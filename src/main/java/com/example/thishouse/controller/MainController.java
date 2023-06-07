@@ -117,4 +117,9 @@ public class MainController {
         return "user_mypage/find_input_member";
     }
 
+    @RequestMapping("/contract")
+    public String real_estate_contract() {
+        return "contract/real_estate_contract";
+    }
+
 }
