@@ -14,11 +14,4 @@ public class House_picture {
     private long size;
     private String filePath;
 
-    @Builder
-    House_picture(String originalName, String saveName, long size) {
-        this.original_name = originalName;
-        this.save_name = saveName;
-        this.size = size;
-    }
-
 }
