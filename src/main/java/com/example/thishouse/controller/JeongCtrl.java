@@ -46,31 +46,72 @@ public class JeongCtrl {
         if(context == null){
             List<Notice> pg_list = noticeService.pg_list(searchVO);
             model.addAttribute("pg_list" , pg_list);
+            int totCnt = noticeService.pg_listCnt();
+            model.addAttribute("totCnt",totCnt);
+            System.out.println("전체 게시글 수 : " + totCnt);
+
+            pagination.setTotalRecordCount(totCnt);
+
+            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+            searchVO.setPrev(pagination.getXprev());
+            searchVO.setNext(pagination.getXnext());
+            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+            model.addAttribute("pagination",pagination);
         }
         else if(context != null && context == ""){
             List<Notice> pg_list = noticeService.pg_list(searchVO);
             model.addAttribute("pg_list" , pg_list);
+            int totCnt = noticeService.pg_listCnt();
+            model.addAttribute("totCnt",totCnt);
+            System.out.println("전체 게시글 수 : " + totCnt);
+
+            pagination.setTotalRecordCount(totCnt);
+
+            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+            searchVO.setPrev(pagination.getXprev());
+            searchVO.setNext(pagination.getXnext());
+            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+            model.addAttribute("pagination",pagination);
         }
         else{
-            List<Notice> pg_list = noticeService.pg_list(searchVO, search, context);
+            System.out.println("제대로 검색실행");
+            searchVO.setSearch_name(search);
+            searchVO.setSearch_content(context);
+            List<Notice> pg_list = noticeService.pg_list_search(searchVO);
+            int totCnt = noticeService.pg_list_searchcnt(searchVO);
+
+            System.out.println("전체 게시글 수 : " + totCnt);
+
+            pagination.setTotalRecordCount(totCnt);
+
+            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+            searchVO.setPrev(pagination.getXprev());
+            searchVO.setNext(pagination.getXnext());
             model.addAttribute("pg_list" , pg_list);
+            model.addAttribute("totCnt",totCnt);
+            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+            model.addAttribute("pagination",pagination);
         }
 
 
-        int totCnt = noticeService.pg_listCnt();
-        System.out.println("전체 게시글 수 : " + totCnt);
+//        int totCnt = noticeService.pg_listCnt();
+//        model.addAttribute("totCnt",totCnt);
+//        System.out.println("전체 게시글 수 : " + totCnt);
+//
+//        pagination.setTotalRecordCount(totCnt);
 
-        pagination.setTotalRecordCount(totCnt);
-
-        searchVO.setEndDate(pagination.getLastPageNoOnPageList());
-        searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
-        searchVO.setPrev(pagination.getXprev());
-        searchVO.setNext(pagination.getXnext());
+//        searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+//        searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+//        searchVO.setPrev(pagination.getXprev());
+//        searchVO.setNext(pagination.getXnext());
 
 //        model.addAttribute("pg_list" , pg_list);
-        model.addAttribute("totCnt",totCnt);
-        model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
-        model.addAttribute("pagination",pagination);
+        //model.addAttribute("totCnt",totCnt);
+//        model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+//        model.addAttribute("pagination",pagination);
         return "notice/notice_list";
     }
 
