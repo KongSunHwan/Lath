@@ -53,10 +53,12 @@ public class NoticeMapper {
         sqlSession.delete(Namespace+".delete_notice",noticeNum);
     }
 
-    public List<Notice> pg_list(Notice searchVO, String x, String y) {
-        searchVO.setSearch_name(x);
-        searchVO.setSearch_content(y);
-        System.out.println(x + " " + y);
+    public List<Notice> pg_list_search(Notice searchVO) {
         return sqlSession.selectList(Namespace + ".pg_list_search", searchVO);
     }
+
+    public int pg_list_searchcnt(Notice searchVO) {
+        return sqlSession.selectOne(Namespace + ".pg_list_searchcnt", searchVO);
+    }
+
 }
