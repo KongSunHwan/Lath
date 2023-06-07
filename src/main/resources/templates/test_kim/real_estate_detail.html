@@ -476,8 +476,7 @@
               <li class="list-group-item"><i class="bi bi-rulers"></i> 평수 : <b>[(${house_list.exclusive_area2})]㎡</b></li>
               <li class="list-group-item"><i class="bi bi-door-closed"></i> 층수 : <b>[(${house_list.n_floors})]층</b></li>
               <li class="list-group-item"><i class="bi bi-cash-coin"></i> 관리비 : <b>[(${house_list.total_m_cost})]만원</b></li>
-              <li class="list-group-item"><i class="bi bi-cash-coin"></i> 주소 : <b>[(${road_address})]만원</b></li>
-
+              <li class="list-group-item"><i class="bi bi-cash-coin"></i> 주소 : <b>[(${road_address})]</b></li>
             </ul>
           </div>
         </div>
@@ -501,12 +500,12 @@
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=743bd643ee6f33b7f2800e2b1fc9802e&libraries=services"></script>
-<script>
-      document.write([[${road_address}]]);
-</script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a6d74f730cd677912a0b0ccd2975e57d&libraries=services"></script>
-<script>
 
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a6d74f730cd677912a0b0ccd2975e57d&libraries=services"></script>
+<script th:inline="javascript">
+var address=[[${road_address}]];
+      document.write(address);
+    console.log(address);
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -520,7 +519,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var geocoder = new kakao.maps.services.Geocoder();
 
 // 주소로 좌표를 검색합니다
-geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+geocoder.addressSearch(address, function(result, status) {
 
     // 정상적으로 검색이 완료됐으면
      if (status === kakao.maps.services.Status.OK) {
@@ -535,7 +534,7 @@ geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function
 
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">매물 위치</div>'
         });
         infowindow.open(map, marker);
 

@@ -13,7 +13,7 @@
     </insert>
 
     <insert id="insert_house_location">
-        insert into house_location(house_num,road_address,road_num,detail_address)
+        insert into house_location(house_num,road_num,road_address,detail_address)
         values(#{house_num},#{road_num},#{road_address},#{detail_address})
     </insert>
 
@@ -119,7 +119,7 @@
         where house_num = #{house_num}
     </select>
 
-    <select id="road_address" resultType="com.example.thishouse.domain.house.House_info">
+    <select id="road_address" resultType="String">
         select road_address
         from house_location
         where house_num = #{house_num}
