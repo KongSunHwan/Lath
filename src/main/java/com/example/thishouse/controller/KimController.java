@@ -144,6 +144,7 @@ public class KimController {
         List<House_info> house_info = realEstateService.house_info_list(house_num);
         List<House_type> house_type = realEstateService.house_type_list(house_num);
         String road_address = realEstateService.road_address(house_num);
+        System.out.println(road_address);
 
         model.addAttribute("house_list",house_list);
         model.addAttribute("house_item",house_item);
