@@ -58,7 +58,7 @@ xmlns:th="http://www.thymeleaf.org">
 <body>
 <header th:replace="~{header/header}"></header>
 <!-- header 끝 -->
-<form action="real_estate_insert" method="post">
+<form action="real_estate_insert" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
     <input type="hidden" name="user_id" value="user_id" th:value="${session.user_id}">
 <div class="container">
     <div class="py-5 text-center">
@@ -558,38 +558,38 @@ xmlns:th="http://www.thymeleaf.org">
     </div>
     <!-- 사진등록 -->
     <br><br>
-<!--    <div class="row">-->
-<!--        <table-->
-<!--                summary="This table shows how to create responsive tables using Datatables' extended functionality"-->
-<!--                class="table table-bordered .table-hover dt-responsive">-->
-<!--            <thead>-->
-<!--            <tr style="text-align: center">-->
-<!--                <th class="email" colspan="2">사진등록</th>-->
+    <div class="row">
+        <table
+                summary="This table shows how to create responsive tables using Datatables' extended functionality"
+                class="table table-bordered .table-hover dt-responsive">
+            <thead>
+            <tr style="text-align: center">
+                <th class="email" colspan="2">사진등록</th>
 
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <td>-->
-<!--                <div>-->
-<!--                    <p>-사진은 가로로 찍은 사진을 권장합니다.(가로 사이즈 최소800px)</p>-->
-<!--                    <p>-사진용량은 사진 한 장당 10MB까지 등록이 가능합니다.</p>-->
-<!--                    <p>-사진은 최소 3장이상 등록해야하며, 최대 15장 까지 권장합니다. 그 이상 등록할 경우 업로드 시간이 다소 지연될 수 있습니다.</p>-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            <tr>-->
-<!--                <td>-->
-<!--                    <div class="card p-2">-->
-<!--                        <img src="/img/img_null.png" class="img-thumbnail" alt="#" >-->
-<!--                        <hr>-->
-<!--                        <input class="form-control form-control-sm" id="formFileSm" type="file" name="file">-->
-<!--                        <span style="padding-top: 10px;"></span>-->
-<!--                        &lt;!&ndash; <button type="submit" class="btn btn-secondary">등록</button> &ndash;&gt;-->
-<!--                    </div>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
+            </tr>
+            </thead>
+            <tbody>
+            <td>
+                <div>
+                    <p>-사진은 가로로 찍은 사진을 권장합니다.(가로 사이즈 최소800px)</p>
+                    <p>-사진용량은 사진 한 장당 10MB까지 등록이 가능합니다.</p>
+                    <p>-사진은 최소 3장이상 등록해야하며, 최대 15장 까지 권장합니다. 그 이상 등록할 경우 업로드 시간이 다소 지연될 수 있습니다.</p>
+                </div>
+            </td>
+            <tr>
+                <td>
+                    <div class="card p-2">
+                        <img src="/img/img_null.png" class="img-thumbnail" alt="#" >
+                        <hr>
+                        <input type="file" name="files" accept=".png, .jpg" multiple>
+                        <span style="padding-top: 10px;"></span>
+                        <!-- <button type="submit" class="btn btn-secondary">등록</button> -->
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     <br>
     <br>
     <div class="row gy-3">
@@ -606,6 +606,23 @@ xmlns:th="http://www.thymeleaf.org">
 <footer class="my-5 pt-5 text-muted text-center text-small">
     <p class="mb-1">&copy; 2023 KKJ Admin</p>
 </footer>
+
+<script>
+        function validateForm() {
+            var fileInput = document.querySelector('input[type="file"]');
+            var files = fileInput.files;
+            var allowedExtensions = /(.png|.jpg)$/i;
+
+            for (var i = 0; i < files.length; i++) {
+                if (!allowedExtensions.test(files[i].name)) {
+                    alert('올바른 파일 형식이 아닙니다. PNG 또는 JPG 파일만 업로드할 수 있습니다.');
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    </script>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=743bd643ee6f33b7f2800e2b1fc9802e&libraries=services"></script>

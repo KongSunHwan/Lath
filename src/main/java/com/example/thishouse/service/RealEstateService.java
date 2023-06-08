@@ -141,7 +141,6 @@ public class RealEstateService {
     }
 
     public List<House_picture> house_picture_list(String houseNum) {
-        System.out.println("SER PIC-----------------------");
         return this.realEstateMapper.house_picture_list(houseNum);
     }
 

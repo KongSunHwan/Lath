@@ -59,12 +59,14 @@
         from house_item
     </select>
 
-    <select id="view_house_list" resultType="com.example.thishouse.domain.house.House_list">
+    <select id="view_house_list" resultType="java.util.HashMap">
         select *
-        from house_list,house_item
-        where house_list.house_num = house_item.house_num
-        order by  house_item.regist_time desc
-        limit 6
+        from house_list a, (select *
+        from house_picture
+        where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) b
+        where a.house_num = b.house_num
+        order by house_list_num desc
+        limit 6;
     </select>
 
     <insert id="insert_picture" parameterType="com.example.thishouse.domain.house.House_picture">
