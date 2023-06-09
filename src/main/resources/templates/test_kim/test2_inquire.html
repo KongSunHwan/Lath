@@ -57,7 +57,7 @@
 		<div class="input-wrapper">
 			<div class="input-wrap">
 				<div>
-					<input type="hidden" name="user_id" value="${session.user_id}" />
+					<input type="hidden" name="user_id" th:value="${session.user_id}" />
 					<textarea id="area" name="inquire_question" placeholder="문의사항을 적어주세요."></textarea>
 				</div>
 			</div>

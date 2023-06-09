@@ -60,7 +60,7 @@
         SELECT *
         FROM inquire
         WHERE user_id = #{user_id}
-        ORDER BY inquire_q_time DESC;
+        ORDER BY inquire_q_time asc;
     </select>
 
     <!--내가 쓴 게시글-->
@@ -68,6 +68,7 @@
         select *
         from community
         WHERE user_id = #{user_id}
+        limit 3
     </select>
 
     <!--회원 신고내역 조회-->
@@ -88,5 +89,19 @@
         values(#{community_num},#{user_id},#{reply_contents},now())
     </insert>
 
+<!--need paging -->
+    <select id = "my_board_list" resultType="com.example.thishouse.domain.community.Community">
+        select *
+        from community
+        WHERE user_id = #{user_id}
+    </select>
+
+    <select id = "my_inquire_one" resultType="com.example.thishouse.domain.Inquire">
+        select *
+        from inquire
+        WHERE user_id = #{user_id}
+        order by inquire_q_time desc
+        limit 1
+    </select>
 
 </mapper>

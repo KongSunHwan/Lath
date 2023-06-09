@@ -140,6 +140,10 @@ public class RealEstateService {
         return this.realEstateMapper.road_address(houseNum);
     }
 
+    public List<House_picture> house_picture_list(String houseNum) {
+        return this.realEstateMapper.house_picture_list(houseNum);
+    }
+
     //wish list
 
     //매물 리스트 페이징*

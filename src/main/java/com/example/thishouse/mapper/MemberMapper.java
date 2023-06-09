@@ -69,4 +69,12 @@ public class MemberMapper {
     public void community_reply(Community_reply reply) {
         sqlSession.insert(Namespace+".community_reply",reply);
     }
+
+    public List<Community> my_board_list(String userId) {
+        return sqlSession.selectList(Namespace+".my_board_list",userId);
+    }
+
+    public List<Inquire> my_inquire_one(String userId) {
+        return sqlSession.selectList(Namespace+".my_inquire_one",userId);
+    }
 }

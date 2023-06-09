@@ -17,4 +17,6 @@ public class Community extends PageVO {
     private String community_contents;
     private String community_date;
     private int community_hits;
+    private String search_name;
+    private String search_content;
 }

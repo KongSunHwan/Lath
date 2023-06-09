@@ -23,12 +23,34 @@
 <!-- header 끝 -->
 
   <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-    <div class="col-md-8 p-lg-4 mx-auto" th:each="house_list : ${house_list}">
-      <img src="/img/img_house.jpg" class="img-fluid" style="width: 300px; height: 200px; margin-bottom: 30px;">
+    <div class="col-md-8 p-lg-4 mx-auto">
 
-      <h3 th:if="${house_list.deal_type == '월세'}"><b>월세 [(${house_list.deposit})] / [(${house_list.m_price})]만원</b></h3>
-      <h3 th:if="${house_list.deal_type == '전세'}"><b>전세 [(${house_list.y_price})] 만원</b></h3>
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+        <div class="carousel-indicators">
+          <th:block th:each="housePicture, iterStat : ${housePictures}">
+            <button type="button" data-bs-target="#carouselExampleIndicators" th:data-bs-slide-to="${iterStat.index}" th:classappend="${iterStat.index == 0} ? 'active'"></button>
+          </th:block>
+        </div>
 
+        <div class="carousel-inner">
+          <div th:each="housePicture, iterStat : ${housePictures}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">
+            <img th:src="@{'/upload/' + ${housePicture.save_name}}" class="d-block w-100" width="500" height="600">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <div  th:each="house_list : ${house_list}">
+        <h3 th:if="${house_list.deal_type == '월세'}"><b>월세 [(${house_list.deposit})] / [(${house_list.m_price})]만원</b></h3>
+        <h3 th:if="${house_list.deal_type == '전세'}"><b>전세 [(${house_list.y_price})] 만원</b></h3>
+      </div>
       <p class="lead fw-normal">
         <!-- &#x2B50&#x2B50&#x2B50&#x2B50&#x2B50(5.0)<br>  -->
       </p>
@@ -281,7 +303,7 @@
           <li>
             <h2><b>위치 및 주변시설</b></h2>
             <br>
-            <p class="fw-bold">경기도 의정부시 의정부동 221-59</p>
+            <p class="fw-bold">[(${road_address})]</p>
             <br>
             <div id="map"style="width: 900px; height: 450px;"></div>
           </li>
@@ -476,8 +498,6 @@
               <li class="list-group-item"><i class="bi bi-rulers"></i> 평수 : <b>[(${house_list.exclusive_area2})]㎡</b></li>
               <li class="list-group-item"><i class="bi bi-door-closed"></i> 층수 : <b>[(${house_list.n_floors})]층</b></li>
               <li class="list-group-item"><i class="bi bi-cash-coin"></i> 관리비 : <b>[(${house_list.total_m_cost})]만원</b></li>
-              <li class="list-group-item"><i class="bi bi-cash-coin"></i> 주소 : <b>[(${road_address})]만원</b></li>
-
             </ul>
           </div>
         </div>
@@ -501,12 +521,12 @@
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=743bd643ee6f33b7f2800e2b1fc9802e&libraries=services"></script>
-<script>
-      document.write([[${road_address}]]);
-</script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a6d74f730cd677912a0b0ccd2975e57d&libraries=services"></script>
-<script>
 
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a6d74f730cd677912a0b0ccd2975e57d&libraries=services"></script>
+<script th:inline="javascript">
+var address=[[${road_address}]];
+      document.write(address);
+    console.log(address);
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -520,7 +540,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var geocoder = new kakao.maps.services.Geocoder();
 
 // 주소로 좌표를 검색합니다
-geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+geocoder.addressSearch(address, function(result, status) {
 
     // 정상적으로 검색이 완료됐으면
      if (status === kakao.maps.services.Status.OK) {
@@ -535,7 +555,7 @@ geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function
 
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">매물 위치</div>'
         });
         infowindow.open(map, marker);
 

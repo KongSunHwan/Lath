@@ -40,8 +40,8 @@ public class BoardService {
     }
     //댓글작성 insert_reply
     @Transactional
-    public void insert_reply(Community community) {
-        this.boardMapper.insert_reply(community);
+    public void insert_reply(Community_reply cm) {
+        this.boardMapper.insert_reply(cm);
     }
 
     //상세내용보기 view_board
@@ -49,7 +49,7 @@ public class BoardService {
         return boardMapper.view_board(community_num);
     }
     //view_reply
-    List<Community_reply> view_reply(String community_num) {
+    public List<Community_reply> view_reply(String community_num) {
         return this.boardMapper.view_reply(community_num);
     }
     //글 삭제 delete_board
@@ -73,6 +73,16 @@ public class BoardService {
     public void update_board_hitCount(String community_num) {
         this.boardMapper.update_board_hitCount(community_num);
     }
+
+    public List<Community> bd_list_search(Community searchVO) {
+        return this.boardMapper.bd_list_search(searchVO);
+    }
+
+    public int bd_list_search_Cnt(Community searchVO) {
+        return this.boardMapper.bd_list_search_Cnt(searchVO);
+    }
+
+
     // List 검색 search
     // List 페이징 리스트 page_list
 

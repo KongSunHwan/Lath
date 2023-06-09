@@ -3,14 +3,25 @@ package com.example.thishouse.controller;
 import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.house.*;
+import com.example.thishouse.service.BoardService;
 import com.example.thishouse.service.MemberService;
 import com.example.thishouse.service.RealEstateService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,7 +29,8 @@ public class KimController {
 
     private final MemberService memberService;
     private final RealEstateService realEstateService;
-
+    private final BoardService boardService;
+    private final String uploadPath = "src/main/resources/static/upload/";
     @RequestMapping("/test_inquire")
     public String test_my_community(String user_id, Model model) {
         List<Inquire> my_inquire = memberService.findInputMemberInquire(user_id);
@@ -35,7 +47,9 @@ public class KimController {
 
     @RequestMapping("/inquire_insert")
     public String inquire_insert(Inquire inquire, Model model) {
+        System.out.println(inquire.getUser_id() + "CON INQ ===================");
         memberService.inquire_insert(inquire);
+
         List<Inquire> my_inquire = memberService.findInputMemberInquire(inquire.getUser_id());
         model.addAttribute("my_inquire",my_inquire);
         return test2_inquire(inquire.getUser_id(),model);
@@ -53,7 +67,9 @@ public class KimController {
                                      House_location house_location,
                                      House_option house_option,
                                      House_picture house_picture,
-                                     House_type house_type, Model model) {
+                                     House_type house_type, Model model,
+                                     @RequestParam("files") List<MultipartFile> files ,
+                                     HttpServletRequest request) {
 
         System.out.println("Con");
         int sq = realEstateService.sequence();
@@ -72,49 +88,59 @@ public class KimController {
         house_picture.setHouse_num(sq);
         house_type.setHouse_num(sq);
 
-        System.out.println("get Type Test ===================");
-        System.out.println(house_type.getHouse_num());
-        System.out.println(house_type.getHouse_type());
+        List<String> filePaths = new ArrayList<>();
 
-        System.out.println( house_item.getUser_id());
+        for (MultipartFile file : files) {
+            if (!file.isEmpty()) {
+                try {
+                    // 업로드된 파일 정보 저장
+                    String originalFilename = file.getOriginalFilename();
+                    String saveFilename = generateSaveName(originalFilename);
+                    String filePath = uploadPath + saveFilename;
+
+                    // 파일 경로 수정 시작
+                    Path serverPath = Paths.get(uploadPath);
+                    if (!Files.exists(serverPath)) {
+                        Files.createDirectories(serverPath);
+                    }
+
+                    Files.write(Paths.get(filePath), file.getBytes());
+                    // 파일 경로 수정 끝
+
+                    filePaths.add(filePath);
+                    System.out.println("파일 경로: " + filePath);
+                    System.out.println("오리지널 파일 이름: " + originalFilename);
+                    System.out.println("저장 파일 이름: " + saveFilename);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        // 업로드된 파일 정보를 DB에 저장
+        for (int i = 0; i < filePaths.size(); i++) {
+            String filePath = filePaths.get(i);
+            String originalFilename = files.get(i).getOriginalFilename();
+
+            // 파일 이름만 추출하여 저장
+            String saveFilename = extractFileNameFromPath(filePath);
+
+            house_picture.setFilePath(filePath);
+            house_picture.setOriginal_name(originalFilename);
+            house_picture.setSave_name(saveFilename);
+
+            realEstateService.insert_picture(house_picture);
+
+            System.out.println("파일 경로를 활용한 처리: " + filePath);
+        }
 
         realEstateService.insert_house_item(house_item);
         realEstateService.insert_house_type(house_type);
-
-        System.out.println("LOAD TEST CON DTO ================");
-        System.out.println(house_location.getDetail_address());
-        System.out.println(house_location.getHouse_num());
-        System.out.println(house_location.getRoad_address());
-        System.out.println(house_location.getRoad_num());
         realEstateService.insert_house_location(house_location);
-
-        System.out.println("DEAL TEST CON DTO ================");
-
-        System.out.println(house_deal.getDeal_type());
-        System.out.println(house_deal.getDeposit());
-        System.out.println(house_deal.getM_price());
-        System.out.println(house_deal.getY_price());
-
         realEstateService.insert_house_deal(house_deal);
-
-        System.out.println("INFO TEST CON DTO ================");
-        //수정필요
-        System.out.println(house_info.getMove_in_date());
-
-        System.out.println("ADD TEST CON DTO ================");
-
-        System.out.println("OPTION TEST CON DTO ================");
-        System.out.println(house_option.getHouse_num());
-        System.out.println(house_option.getBed());
-        System.out.println(house_option.getCloset());
-
-
-
         realEstateService.insert_house_info(house_info);
         realEstateService.insert_house_addinfo(house_addinfo);
         realEstateService.insert_house_option(house_option);
         realEstateService.insert_house_detail(house_detail);
-        //realEstateService.insert_picture(house_picture);
         realEstateService.insert_house_list(house_list);
 
         return "main/main";
@@ -143,6 +169,8 @@ public class KimController {
         List<House_info> house_info = realEstateService.house_info_list(house_num);
         List<House_type> house_type = realEstateService.house_type_list(house_num);
         String road_address = realEstateService.road_address(house_num);
+        List<House_picture> housePictures = realEstateService.house_picture_list(house_num);
+
 
         model.addAttribute("house_list",house_list);
         model.addAttribute("house_item",house_item);
@@ -152,6 +180,7 @@ public class KimController {
         model.addAttribute("house_info",house_info);
         model.addAttribute("house_type",house_type);
         model.addAttribute("road_address",road_address);
+        model.addAttribute("housePictures",housePictures);
 
         return "test_kim/real_estate_detail";
     }
@@ -165,5 +194,31 @@ public class KimController {
 //        return "test_kim/file_upload";
 //    }
 
+    private String generateSaveName(String original_name) {
+        String uuid = UUID.randomUUID().toString();
+        String extension = original_name.substring(original_name.lastIndexOf("."));
+        String saveName = uuid + extension;
+
+        // 파일명 중복 방지를 위해 파일명에 UUID 추가
+        String filePath = uploadPath + saveName;
+        while (Files.exists(Paths.get(filePath))) {
+            uuid = UUID.randomUUID().toString();
+            saveName = uuid + extension;
+            filePath = uploadPath + saveName;
+        }
+
+        return saveName;
+    }
+    // 저장 파일명 생성
+    private String extractFileNameFromPath(String filePath) {
+        File file = new File(filePath);
+        return file.getName();
+    }
+
+    @RequestMapping("my_board_list")
+    public String my_board_list(Model model, String user_id) {
+        List<Community> my_board = memberService.my_board_list(user_id);
+        return "test_kim/my_board_list";
+    }
 
 }

@@ -58,7 +58,7 @@ xmlns:th="http://www.thymeleaf.org">
 <body>
 <header th:replace="~{header/header}"></header>
 <!-- header 끝 -->
-<form action="real_estate_insert" method="post">
+<form action="real_estate_insert" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
     <input type="hidden" name="user_id" value="user_id" th:value="${session.user_id}">
 <div class="container">
     <div class="py-5 text-center">
@@ -127,13 +127,13 @@ xmlns:th="http://www.thymeleaf.org">
                     <p>도로명, 건물명, 지번에 대해 통합검색이 가능합니다.</p>
                     <div class="d-flex">
                         <input type="text" class="form-control" id="sample6_postcode" name="road_num"
-                               placeholder="예)10-1, 강북구 번동" > &nbsp;
+                               placeholder="예)10-1, 강북구 번동" readonly> &nbsp;
                         <button class="btn btn-sm btn-primary" type="button" style="width:30%;" onclick="sample6_execDaumPostcode()">주소 찾기</button>
                     </div>
                     <br />
 
 
-                    <input type="text" class="form-control" name="road_address" id="sample6_address" placeholder="주소" style="width:100%">
+                    <input type="text" class="form-control" name="road_address" id="sample6_address" placeholder="주소" style="width:100%" readonly>
 
                     <br />
                     <div class="d-flex">
@@ -196,7 +196,7 @@ xmlns:th="http://www.thymeleaf.org">
                     <label id="lb2"for="month_fee1">&nbsp;월세 : &nbsp;</label>
 
                     <input type="text" class="form-control" id="month_fee2" name="m_price" placeholder="0" style="display:block; width:200px;" value="0">
-                    <label id="lb3"for="month_fee1">전세 : &nbsp;</label>
+                    <label id="lb3"for="month_fee1" style="display:none">전세 : &nbsp;</label>
                     <input type="text" class="form-control" id="year_fee" name="y_price" placeholder="0" style="display:none; width:200px;" value="0">
                     <label id="lb4"for="month_fee2"> &nbsp;만원</label>
                 <!--<span>단기가능</span>-->
@@ -226,8 +226,8 @@ xmlns:th="http://www.thymeleaf.org">
                     <p>건물크기</p><span>(1P = 3.3058m<sup>2</sup>)</span>
                 </td>
                 <td style="width: 35%;" class="align-middle">공급면적
-                    <input type="text" name="supply_area1" size="10"> 평
-                    <input type="text" name="supply_area2" size="10"> m<sup>2</sup></td>
+                    <input type="text" name="supply_area1" size="10" value="0"> 평
+                    <input type="text" name="supply_area2" size="10" value="0.0"> m<sup>2</sup></td>
                 <td rowspan="2" class="align-middle text-center" style="width:15%;">
                     건물층수</td>
                 <td style="width: 35%;" class="align-middle">건물층수 <select name="b_floors">
@@ -240,14 +240,23 @@ xmlns:th="http://www.thymeleaf.org">
                     <option value="7">7층</option>
                     <option value="8">8층</option>
                     <option value="9">9층</option>
-                    <option value="10">10층</option>
+                    <option value="11">11층</option>
+                    <option value="12">12층</option>
+                    <option value="13">13층</option>
+                    <option value="14">14층</option>
+                    <option value="15">15층</option>
+                    <option value="16">16층</option>
+                    <option value="17">17층</option>
+                    <option value="18">18층</option>
+                    <option value="19">19층</option>
+                    <option value="20">20층</option>
                 </select></td>
 
             </tr>
             <tr>
                 <td>전용면적
-                    <input type="text" name="exclusive_area1" size="10"> 평
-                    <input type="text"  name="exclusive_area2" size="10"> m<sup>2</sup> </td>
+                    <input type="text" name="exclusive_area1" size="10" value="0"> 평
+                    <input type="text"  name="exclusive_area2" size="10" value="0.0"> m<sup>2</sup> </td>
                 <td>해당층수 <select name="n_floors">
                     <option value="1">1층</option>
                     <option value="2">2층</option>
@@ -258,7 +267,16 @@ xmlns:th="http://www.thymeleaf.org">
                     <option value="7">7층</option>
                     <option value="8">8층</option>
                     <option value="9">9층</option>
-                    <option value="10">10층</option>
+                    <option value="11">11층</option>
+                    <option value="12">12층</option>
+                    <option value="13">13층</option>
+                    <option value="14">14층</option>
+                    <option value="15">15층</option>
+                    <option value="16">16층</option>
+                    <option value="17">17층</option>
+                    <option value="18">18층</option>
+                    <option value="19">19층</option>
+                    <option value="20">20층</option>
                 </select></td>
             </tr>
 
@@ -330,6 +348,7 @@ xmlns:th="http://www.thymeleaf.org">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="m_cost_type"  id="flexCheckDefault" checked
                                    onclick="document.getElementById('item_price').style.display='block';" value="협의가능">
+
                             <label class="form-check-label" for="flexCheckDefault">
                                 협의가능
                             </label>
@@ -425,20 +444,21 @@ xmlns:th="http://www.thymeleaf.org">
                 <td class="align-middle text-center">주차여부</td>
                 <td>
                     <div>
+                        <div class="d-flex">
                         <input type="radio" class="btn-check" name="parking" id="option5" autocomplete="off" value="불가능"
                                checked onclick="document.getElementById('parking_fee').style.display='none';
                                                 document.getElementById('lb').style.display='none';">
                         <label class="btn btn-outline-primary" for="option5">불가능</label>
-
                         <input type="radio" class="btn-check"  id="option6" autocomplete="off" name="parking"
                                onclick="document.getElementById('parking_fee').style.display='block';
                                         document.getElementById('lb').style.display='block';
-                                        " value="가능">
-                        <label class="btn btn-outline-primary" for="option6">가능</label>
+                                        " value="가능">&nbsp;
+                        <label class="btn btn-outline-primary" for="option6">가능</label>&nbsp;
 
-                        <input type="text" class="form-control" id="parking_fee" name="parkingfee" placeholder="0"
+                        <input type="text" class="form-control" id="parking_fee" name="parkingfee" value="0"
                                style="display:none ;width: 136px;">
-                        <label  id="lb"for="parking_fee" style="display:none;">만원</label>
+                        <label  id="lb"for="parking_fee" style="display:none;">&nbsp;만원</label>
+                    </div>
                     </div>
                 </td>
                 <td class="align-middle text-center">빌트인</td>
@@ -558,38 +578,38 @@ xmlns:th="http://www.thymeleaf.org">
     </div>
     <!-- 사진등록 -->
     <br><br>
-<!--    <div class="row">-->
-<!--        <table-->
-<!--                summary="This table shows how to create responsive tables using Datatables' extended functionality"-->
-<!--                class="table table-bordered .table-hover dt-responsive">-->
-<!--            <thead>-->
-<!--            <tr style="text-align: center">-->
-<!--                <th class="email" colspan="2">사진등록</th>-->
+    <div class="row">
+        <table
+                summary="This table shows how to create responsive tables using Datatables' extended functionality"
+                class="table table-bordered .table-hover dt-responsive">
+            <thead>
+            <tr style="text-align: center">
+                <th class="email" colspan="2">사진등록</th>
 
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <td>-->
-<!--                <div>-->
-<!--                    <p>-사진은 가로로 찍은 사진을 권장합니다.(가로 사이즈 최소800px)</p>-->
-<!--                    <p>-사진용량은 사진 한 장당 10MB까지 등록이 가능합니다.</p>-->
-<!--                    <p>-사진은 최소 3장이상 등록해야하며, 최대 15장 까지 권장합니다. 그 이상 등록할 경우 업로드 시간이 다소 지연될 수 있습니다.</p>-->
-<!--                </div>-->
-<!--            </td>-->
-<!--            <tr>-->
-<!--                <td>-->
-<!--                    <div class="card p-2">-->
-<!--                        <img src="/img/img_null.png" class="img-thumbnail" alt="#" >-->
-<!--                        <hr>-->
-<!--                        <input class="form-control form-control-sm" id="formFileSm" type="file" name="file">-->
-<!--                        <span style="padding-top: 10px;"></span>-->
-<!--                        &lt;!&ndash; <button type="submit" class="btn btn-secondary">등록</button> &ndash;&gt;-->
-<!--                    </div>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
+            </tr>
+            </thead>
+            <tbody>
+            <td>
+                <div>
+                    <p>-사진은 가로로 찍은 사진을 권장합니다.(가로 사이즈 최소800px)</p>
+                    <p>-사진용량은 사진 한 장당 10MB까지 등록이 가능합니다.</p>
+                    <p>-사진은 최소 3장이상 등록해야하며, 최대 15장 까지 권장합니다. 그 이상 등록할 경우 업로드 시간이 다소 지연될 수 있습니다.</p>
+                </div>
+            </td>
+            <tr>
+                <td>
+                    <div class="card p-2">
+                        <img src="/img/img_null.png" class="img-thumbnail" alt="#" >
+                        <hr>
+                        <input type="file" name="files" accept=".png, .jpg" multiple>
+                        <span style="padding-top: 10px;"></span>
+                        <!-- <button type="submit" class="btn btn-secondary">등록</button> -->
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     <br>
     <br>
     <div class="row gy-3">
@@ -606,6 +626,23 @@ xmlns:th="http://www.thymeleaf.org">
 <footer class="my-5 pt-5 text-muted text-center text-small">
     <p class="mb-1">&copy; 2023 KKJ Admin</p>
 </footer>
+
+<script>
+        function validateForm() {
+            var fileInput = document.querySelector('input[type="file"]');
+            var files = fileInput.files;
+            var allowedExtensions = /(.png|.jpg)$/i;
+
+            for (var i = 0; i < files.length; i++) {
+                if (!allowedExtensions.test(files[i].name)) {
+                    alert('올바른 파일 형식이 아닙니다. PNG 또는 JPG 파일만 업로드할 수 있습니다.');
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    </script>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=743bd643ee6f33b7f2800e2b1fc9802e&libraries=services"></script>
