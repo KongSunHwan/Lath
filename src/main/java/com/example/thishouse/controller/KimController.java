@@ -150,7 +150,6 @@ public class KimController {
     @RequestMapping("/list_main")
     public String list_main(Model model) {
         List<House_list> house_list = realEstateService.view_house_list();
-
         model.addAttribute("house_list",house_list);
         return "test_kim/main_RE_list";
     }
