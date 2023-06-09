@@ -75,7 +75,7 @@ return false;
                     <a th:href="@{'/board_detail?community_num=' + ${bd_list.community_num}}"><li th:text="${bd_list.community_title}" class="title">이집봐라 사용자 이용 가이드</li></a>
                     <li th:text="${bd_list.user_id}" class="writer">공김정</li>
                     <li th:text="${bd_list.community_hits}" class="count">10</li>
-                    <li th:text="${bd_list.community_date}" class="date">2023-04-19</li>
+                    <li th:text="${#strings.substring(bd_list.community_date, 0, 10)}" class="date">2023-04-19</li>
                 </ul>
             </div>
 
