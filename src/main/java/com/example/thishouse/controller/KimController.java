@@ -47,7 +47,9 @@ public class KimController {
 
     @RequestMapping("/inquire_insert")
     public String inquire_insert(Inquire inquire, Model model) {
+        System.out.println(inquire.getUser_id() + "CON INQ ===================");
         memberService.inquire_insert(inquire);
+
         List<Inquire> my_inquire = memberService.findInputMemberInquire(inquire.getUser_id());
         model.addAttribute("my_inquire",my_inquire);
         return test2_inquire(inquire.getUser_id(),model);
@@ -213,15 +215,10 @@ public class KimController {
         return file.getName();
     }
 
-    @RequestMapping("board_detail_update")
-    public String board_detail_update(Model model, String community_num) {
-//        System.out.println("이것은 " + community_num);
-//        boardService.update_board_hitCount(community_num);
-//        model.addAttribute("Board", boardService.view_board(community_num));
-//
-//        //댓글
-//        model.addAttribute("reply", boardService.view_reply(community_num));
-        return "test_kim/board_detail_update";
+    @RequestMapping("my_board_list")
+    public String my_board_list(Model model, String user_id) {
+        List<Community> my_board = memberService.my_board_list(user_id);
+        return "test_kim/my_board_list";
     }
 
 }

@@ -76,4 +76,6 @@ public class BoardMapper {
     public List<Community_reply> reply_list(Community_reply reply){
         return sqlSession.selectList(Namespace + ".reply_list" + reply);
     }
+
+
 }
