@@ -1,5 +1,6 @@
 package com.example.thishouse.controller;
 
+import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
@@ -102,9 +103,11 @@ public class MainController {
     public String mypage(String user_id, Model model) {
         List<Community> comlist = memberService.my_community(user_id);
         List<Report> replist = memberService.findInputMemberReport(user_id);
+        List<Inquire> inquireList = memberService.my_inquire_one(user_id);
         model.addAttribute("comlist", comlist);
         model.addAttribute("replist", replist);
         model.addAttribute("Member", memberService.findInputMember(user_id));
+        model.addAttribute("inquireList", inquireList);
         return "user_mypage/mypage";
     }
     

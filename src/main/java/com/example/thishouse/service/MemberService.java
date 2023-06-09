@@ -82,6 +82,14 @@ public class MemberService {
     public void community_reply (Community_reply reply) {
         memberMapper.community_reply(reply);
     }
+
+    public List<Community> my_board_list(String userId) {
+        return memberMapper.my_board_list(userId);
+    }
+
+    public List<Inquire> my_inquire_one(String userId) {
+        return memberMapper.my_inquire_one(userId);
+    }
     //회원 관심매물 내역
     //회원 거래상황
     //회원 등록한 매물

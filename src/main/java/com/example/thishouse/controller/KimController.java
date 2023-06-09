@@ -3,6 +3,7 @@ package com.example.thishouse.controller;
 import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.house.*;
+import com.example.thishouse.service.BoardService;
 import com.example.thishouse.service.MemberService;
 import com.example.thishouse.service.RealEstateService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,6 +29,7 @@ public class KimController {
 
     private final MemberService memberService;
     private final RealEstateService realEstateService;
+    private final BoardService boardService;
     private final String uploadPath = "src/main/resources/static/upload/";
     @RequestMapping("/test_inquire")
     public String test_my_community(String user_id, Model model) {
@@ -45,7 +47,9 @@ public class KimController {
 
     @RequestMapping("/inquire_insert")
     public String inquire_insert(Inquire inquire, Model model) {
+        System.out.println(inquire.getUser_id() + "CON INQ ===================");
         memberService.inquire_insert(inquire);
+
         List<Inquire> my_inquire = memberService.findInputMemberInquire(inquire.getUser_id());
         model.addAttribute("my_inquire",my_inquire);
         return test2_inquire(inquire.getUser_id(),model);
@@ -210,4 +214,11 @@ public class KimController {
         File file = new File(filePath);
         return file.getName();
     }
+
+    @RequestMapping("my_board_list")
+    public String my_board_list(Model model, String user_id) {
+        List<Community> my_board = memberService.my_board_list(user_id);
+        return "test_kim/my_board_list";
+    }
+
 }
