@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>실시간 채팅</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+<form id="chatForm">
+  <input type="text" id="messageInput" />
+  <button type="submit">전송</button>
+</form>
+
+<ul id="chatMessages"></ul>
+
+<script>
+  const socket = new SockJS('/chat');
+  const stompClient = Stomp.over(socket);
+
+  stompClient.connect({}, function() {
+    stompClient.subscribe('/topic/chatMessages', function(response) {
+      const chatMessage = JSON.parse(response.body);
+      const chatMessages = document.getElementById("chatMessages");
+      const newMessage = document.createElement("li");
+      newMessage.innerText = `${chatMessage.sender}: ${chatMessage.content}`;
+      chatMessages.appendChild(newMessage);
+    });
+  });
+
+  document.getElementById("chatForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const messageInput = document.getElementById("messageInput");
+    const message = messageInput.value;
+    stompClient.send("/app/chat", {}, JSON.stringify({content: message}));
+    messageInput.value = "";
+  });
+</script>
+</body>
+</html>
