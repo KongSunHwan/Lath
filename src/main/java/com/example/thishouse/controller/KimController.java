@@ -3,6 +3,7 @@ package com.example.thishouse.controller;
 import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.house.*;
+import com.example.thishouse.service.BoardService;
 import com.example.thishouse.service.MemberService;
 import com.example.thishouse.service.RealEstateService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,6 +29,7 @@ public class KimController {
 
     private final MemberService memberService;
     private final RealEstateService realEstateService;
+    private final BoardService boardService;
     private final String uploadPath = "src/main/resources/static/upload/";
     @RequestMapping("/test_inquire")
     public String test_my_community(String user_id, Model model) {
@@ -210,4 +212,16 @@ public class KimController {
         File file = new File(filePath);
         return file.getName();
     }
+
+    @RequestMapping("board_detail_update")
+    public String board_detail_update(Model model, String community_num) {
+//        System.out.println("이것은 " + community_num);
+//        boardService.update_board_hitCount(community_num);
+//        model.addAttribute("Board", boardService.view_board(community_num));
+//
+//        //댓글
+//        model.addAttribute("reply", boardService.view_reply(community_num));
+        return "test_kim/board_detail_update";
+    }
+
 }
