@@ -96,10 +96,10 @@ return false;
                 <!-- Paging[s] -->
                 <form method="get"  id="listForm" action="/notice_list">
                     <input type="hidden" id="pageIndex" name="pageIndex" val="" />
-                <div class="col-sm-12 col-md-7" style="text-align:right">
+                <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;">
 
                     <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                        <ul class="pagination" style="align:center;">
+                        <ul class="pagination justify-content-center" style="align:center;">
                             <li th:if="${searchVO.prev}" class="paginate_button page-item previous" id="dataTable_previous">
                                 <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.startDate - 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
                             </li>
