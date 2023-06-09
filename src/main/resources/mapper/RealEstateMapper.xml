@@ -50,8 +50,8 @@
     </insert>
 
     <insert id="insert_house_list">
-        insert into house_list(house_num,house_thumb,house_type,road_address,deal_type,deposit,m_price,y_price,b_floors,n_floors,m_cost,m_cost_type,h_title,parkingfee,total_m_cost,hits,exclusive_area2)
-        values(#{house_num},#{house_thumb},#{house_type},#{road_address},#{deal_type},#{deposit},#{m_price},#{y_price},#{b_floors},#{n_floors},#{m_cost},#{m_cost_type},#{h_title},#{parkingfee},#{m_cost} + #{parkingfee},0,#{exclusive_area2})
+        insert into house_list(house_num,house_type,road_address,deal_type,deposit,m_price,y_price,b_floors,n_floors,m_cost,m_cost_type,h_title,parkingfee,total_m_cost,hits,exclusive_area2)
+        values(#{house_num},#{house_type},#{road_address},#{deal_type},#{deposit},#{m_price},#{y_price},#{b_floors},#{n_floors},#{m_cost},#{m_cost_type},#{h_title},#{parkingfee},#{m_cost} + #{parkingfee},0,#{exclusive_area2})
     </insert>
 
     <select id="sequence" resultType="int">
