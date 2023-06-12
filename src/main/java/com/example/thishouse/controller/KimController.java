@@ -143,7 +143,7 @@ public class KimController {
         realEstateService.insert_house_detail(house_detail);
         realEstateService.insert_house_list(house_list);
 
-        return "main/main";
+        return list_main(model);
     }
 
     @RequestMapping("/pic_test")

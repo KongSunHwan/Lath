@@ -4,6 +4,7 @@ import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
+import com.example.thishouse.domain.house.House_list;
 import com.example.thishouse.domain.house.House_picture;
 import com.example.thishouse.service.MemberService;
 import com.example.thishouse.service.RealEstateService;
@@ -41,22 +42,28 @@ public class MainController {
     }
 
     @PostMapping("/main/login")
-    public String login(Member member, HttpSession session) {
+    public String login(Member member, HttpSession session, Model model) {
 
         int ck = memberService.loginMember(member);
         if (ck == 0) { // 로그인 실패
             return "redirect:/login";
 
         } else {
-            session.setAttribute("user_id", member.getUser_id());
-            return "main/main";
+//            session.setAttribute("user_id", member.getUser_id());
+//            return "main/main";
+             session.setAttribute("user_id", member.getUser_id());
+            List<House_list> house_list = realEstateService.view_house_list();
+            model.addAttribute("house_list",house_list);
+            return "test_kim/main_RE_list";
         }
     }
 
     @RequestMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session,Model model) {
         session.invalidate();
-        return "redirect:/main";
+        List<House_list> house_list = realEstateService.view_house_list();
+        model.addAttribute("house_list",house_list);
+        return "test_kim/main_RE_list";
     }
 
     @RequestMapping("/main")
