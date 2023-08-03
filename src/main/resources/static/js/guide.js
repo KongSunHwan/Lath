@@ -1,0 +1,41 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const chatLog = document.getElementById('chat-log');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+
+    sendBtn.addEventListener('click', () => {
+        const userMessage = userInput.value.trim();
+        if (userMessage !== '') {
+            addUserMessage(userMessage);
+            userInput.value = '';
+
+            // AJAX를 사용하여 백엔드에 사용자 메시지 전송
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const botMessage = xhr.responseText;
+                        addBotMessage(botMessage);
+                    } else {
+                        console.error('Error: ' + xhr.status);
+                    }
+                }
+            };
+            xhr.open('POST', '/chat', true);
+            xhr.setRequestHeader('Content-Type', 'text/plain');
+            xhr.send(userMessage);
+        }
+    });
+
+    function addBotMessage(message) {
+        const botMessageElement = document.createElement('div');
+        botMessageElement.textContent = 'AI: ' + message;
+        chatLog.appendChild(botMessageElement);
+    }
+
+    function addUserMessage(message) {
+        const userMessageElement = document.createElement('div');
+        userMessageElement.textContent = 'User: ' + message;
+        chatLog.appendChild(userMessageElement);
+    }
+});

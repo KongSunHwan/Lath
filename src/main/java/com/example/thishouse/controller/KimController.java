@@ -221,4 +221,9 @@ public class KimController {
         return "test_kim/my_board_list";
     }
 
+    @RequestMapping("/guide")
+    public String guide() {
+        return "guide/guide";
+    }
+
 }
