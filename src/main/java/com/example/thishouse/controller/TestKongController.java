@@ -1,9 +1,11 @@
 package com.example.thishouse.controller;
 
+import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
 import com.example.thishouse.service.BoardService;
+import com.example.thishouse.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TestKongController {
     private final BoardService boardService;
+    private final MemberService memberService;
+
 
     //게시판 목록
 //    @RequestMapping("board_list")
@@ -190,9 +194,75 @@ public class TestKongController {
     }
 
     @GetMapping("Members_Search")
-    public String Member_Search() {
+    public String Members_Search(@ModelAttribute("searchVO") Member searchVO, HttpServletRequest request, Model model) {
+        PageCtrl pagination  = new PageCtrl();
+        pagination.setCurrentPageNo(searchVO.getPageIndex());
+        pagination.setRecordCountPerPage(searchVO.getPageUnit());
+        pagination.setPageSize(searchVO.getPageSize());
+
+        searchVO.setFirstIndex(pagination.getFirstRecordIndex());
+        searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
+        System.out.println("펄스트인덱스 : " + searchVO.getFirstIndex());
+
+        String search = request.getParameter("searchName");
+        String context = request.getParameter("searchValue");
+        System.out.println(search + " " + context);
+
+        if(context == null){
+            List<Member> memberList = memberService.memberAll(searchVO);
+            model.addAttribute("memberList" , memberList);
+            int totCnt = memberService.memberList_cnt();
+            model.addAttribute("totCnt",totCnt);
+            System.out.println("전체 게시글 수 : " + totCnt);
+
+            pagination.setTotalRecordCount(totCnt);
+
+            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+            searchVO.setPrev(pagination.getXprev());
+            searchVO.setNext(pagination.getXnext());
+            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+            model.addAttribute("pagination",pagination);
+        }
+        else if(context != null && context == ""){
+            List<Member> memberList = memberService.memberAll(searchVO);
+            model.addAttribute("memberList" , memberList);
+            int totCnt = memberService.memberList_cnt();
+            model.addAttribute("totCnt",totCnt);
+            System.out.println("전체 게시글 수 : " + totCnt);
+
+            pagination.setTotalRecordCount(totCnt);
+
+            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+            searchVO.setPrev(pagination.getXprev());
+            searchVO.setNext(pagination.getXnext());
+            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+            model.addAttribute("pagination",pagination);
+        }
+        else{
+            System.out.println("제대로 검색실행");
+            searchVO.setSearch_name(search);
+            searchVO.setSearch_content(context);
+            List<Member> member_list_search = memberService.member_list_search(searchVO);
+            int totCnt = memberService.member_search_cnt(searchVO);
+
+            System.out.println("전체 게시글 수 : " + totCnt);
+
+            pagination.setTotalRecordCount(totCnt);
+
+            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+            searchVO.setPrev(pagination.getXprev());
+            searchVO.setNext(pagination.getXnext());
+            model.addAttribute("memberList" , member_list_search);
+            model.addAttribute("totCnt",totCnt);
+            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+            model.addAttribute("pagination",pagination);
+        }
         return "Admin_Dashboard/Members_Search";
     }
+
 
     @GetMapping("Statistics_Chart")
     public String Statistics_Chart() {

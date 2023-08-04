@@ -14,9 +14,9 @@
     </select>
     <!--회원 회원가입-->
     <insert id="sign_up" parameterType="com.example.thishouse.domain.Member">
-        INSERT INTO member (user_id, user_pw, user_name)
+        INSERT INTO member (user_id, user_pw, user_name,user_create_time)
         VALUES
-        (#{user_id}, #{user_pw}, #{user_name})
+        (#{user_id}, #{user_pw}, #{user_name},now())
     </insert>
     <!--회원 로그인-->
     <select id="loginMember" parameterType="String" resultType="int">
@@ -102,6 +102,32 @@
         WHERE user_id = #{user_id}
         order by inquire_q_time desc
         limit 1
+    </select>
+
+    <select id = "memberList_cnt" resultType="integer">
+        select count(*)
+        from member
+    </select>
+
+    <select id="memberAll" parameterType="com.example.thishouse.domain.Member" resultType="com.example.thishouse.domain.Member">
+        select * from member Order by user_create_time desc LIMIT #{recordCountPerPage} OFFSET ${firstIndex}
+    </select>
+
+    <select id="member_search_cnt" parameterType="com.example.thishouse.domain.Member" resultType="int">
+        select count(*) from member
+        where user_name like CONCAT('%',#{search_content},'%')
+        or user_id like CONCAT('%',#{search_content},'%')
+        or user_phone like CONCAT('%',#{search_content},'%')
+    </select>
+
+    <select id="member_list_search" parameterType="com.example.thishouse.domain.Member" resultType="com.example.thishouse.domain.Member">
+        select *
+        from member
+        where user_name like CONCAT('%',#{search_content},'%')
+           or user_id like CONCAT('%',#{search_content},'%')
+           or user_phone like CONCAT('%',#{search_content},'%')
+        order by community_num desc
+            limit ${recordCountPerPage} offset ${firstIndex}
     </select>
 
 </mapper>

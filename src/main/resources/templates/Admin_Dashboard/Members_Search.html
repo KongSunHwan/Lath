@@ -78,78 +78,83 @@
 
                             <thead>
                                 <tr>
-                                    <th class="text-center">권한</th>
-                                    <th class="text-center">이메일</th>
-                                    <th class="text-center">닉네임</th>
+                                    <th class="text-center">회원번호</th>
+                                    <th class="text-center">이름</th>
+                                    <th class="text-center">아이디</th>
+                                    <th class="text-center">번호</th>
                                     <th class="text-center">날짜</th>
-                                    <th class="text-center">설정</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-center">
-                                        일반 회원
+                                <tr th:each="memberList : ${memberList}">
+                                    <td class="text-center"  th:text="${memberList.user_num}">
+                                    idx
+                                </td>
+                                    <td class="text-center"  th:text="${memberList.user_name}">
+                                        NAME
                                     </td>
 
-                                    <td class="text-center">
-                                        neha******@gmail.com
+                                    <td class="text-center"  th:text="${memberList.user_id}">
+                                        ID
                                     </td>
 
-                                    <td class="text-center">
-                                        공선환
+                                    <td class="text-center"  th:text="${memberList.user_phone}">
+                                        NUM
                                     </td>
 
 
                                     <td class="text-center">
-                                        <span class="badge bg-primary">2023-05-16</span>
+                                        <span class="badge bg-primary"  th:text="${memberList.user_create_time}">
+                                            2023-05-16
+                                        </span>
                                     </td>
 
-                                    <td class="text-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn" data-bs-toggle="dropdown"
-                                                data-bs-display="static" aria-expanded="false">
-                                                <i class="mdi mdi-dots-horizontal"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-lg-end">
-                                                <li><button class="dropdown-item" type="button">수정</button></li>
-                                                <li><button class="dropdown-item" type="button">삭제</button></li>
-                                            </ul>
-                                        </div>
-                                    </td>
+<!--                                    <td class="text-center">-->
+<!--                                        <div class="btn-group">-->
+<!--                                            <button type="button" class="btn" data-bs-toggle="dropdown"-->
+<!--                                                data-bs-display="static" aria-expanded="false">-->
+<!--                                                <i class="mdi mdi-dots-horizontal"></i>-->
+<!--                                            </button>-->
+<!--                                            <ul class="dropdown-menu dropdown-menu-lg-end">-->
+<!--                                                <li><button class="dropdown-item" type="button">수정</button></li>-->
+<!--                                                <li><button class="dropdown-item" type="button">삭제</button></li>-->
+<!--                                            </ul>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
                                 </tr>
 
 
-                                <tr>
-                                    <td class="text-center">
-                                        일반 회원
-                                    </td>
+<!--                                <tr>-->
+<!--                                    <td class="text-center">-->
+<!--                                        일반 회원-->
+<!--                                    </td>-->
 
-                                    <td class="text-center">
-                                        neha******@gmail.com
-                                    </td>
+<!--                                    <td class="text-center">-->
+<!--                                        neha******@gmail.com-->
+<!--                                    </td>-->
 
-                                    <td class="text-center">
-                                        공선환
-                                    </td>
+<!--                                    <td class="text-center">-->
+<!--                                        공선환-->
+<!--                                    </td>-->
 
 
-                                    <td class="text-center">
-                                        <span class="badge bg-primary">2023-05-16</span>
-                                    </td>
+<!--                                    <td class="text-center">-->
+<!--                                        <span class="badge bg-primary">2023-05-16</span>-->
+<!--                                    </td>-->
 
-                                    <td class="text-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn" data-bs-toggle="dropdown"
-                                                data-bs-display="static" aria-expanded="false">
-                                                <i class="mdi mdi-dots-horizontal"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-lg-end">
-                                                <li><button class="dropdown-item" type="button">수정</button></li>
-                                                <li><button class="dropdown-item" type="button">삭제</button></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
+<!--                                    <td class="text-center">-->
+<!--                                        <div class="btn-group">-->
+<!--                                            <button type="button" class="btn" data-bs-toggle="dropdown"-->
+<!--                                                data-bs-display="static" aria-expanded="false">-->
+<!--                                                <i class="mdi mdi-dots-horizontal"></i>-->
+<!--                                            </button>-->
+<!--                                            <ul class="dropdown-menu dropdown-menu-lg-end">-->
+<!--                                                <li><button class="dropdown-item" type="button">수정</button></li>-->
+<!--                                                <li><button class="dropdown-item" type="button">삭제</button></li>-->
+<!--                                            </ul>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
 
                             </tbody>
                         </table>

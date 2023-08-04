@@ -5,7 +5,6 @@ import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
-import com.example.thishouse.mapper.BoardMapper;
 import com.example.thishouse.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -90,6 +89,23 @@ public class MemberService {
     public List<Inquire> my_inquire_one(String userId) {
         return memberMapper.my_inquire_one(userId);
     }
+    public int memberList_cnt() {
+        return memberMapper.memberList_cnt();
+    }
+
+    public List<Member> memberAll(Member searchVO) {
+        return this.memberMapper.memberAll(searchVO);
+    }
+
+    public int member_search_cnt(Member searchVO) {
+        return this.memberMapper.member_search_cnt(searchVO);
+    }
+
+    public List<Member> member_list_search(Member searchVO) {
+        return this.memberMapper.member_list_search(searchVO);
+    }
+
+
     //회원 관심매물 내역
     //회원 거래상황
     //회원 등록한 매물
