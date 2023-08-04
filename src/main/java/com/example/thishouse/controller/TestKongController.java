@@ -199,5 +199,14 @@ public class TestKongController {
         return "Admin_Dashboard/Statistics_Chart";
     }
 
+    @GetMapping("Board_Control")
+    public String Board_Control() {
+        return "Admin_Dashboard/Board_Control";
+    }
+
+    @GetMapping("Report_List")
+    public String Report_List() {
+        return "Admin_Dashboard/Report_List";
+    }
 
     }
