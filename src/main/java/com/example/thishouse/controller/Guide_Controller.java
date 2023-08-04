@@ -23,9 +23,12 @@ public class Guide_Controller {
     public ResponseEntity<String> chatWithGPT(@RequestBody String userInput) {
         String response;
 
+        // GPT-3.5-turbo 모델을 사용하기 위해 엔진 이름 변경
+        String engine = "text-davinci-003"; // 이전에는 davinci-codex를 사용했으나 gpt-3.5-turbo로 변경
+
         // GPT-3 API 호출
         try {
-            String url = "https://api.openai.com/v1/engines/davinci-codex/completions";
+            String url = "https://api.openai.com/v1/engines/" + engine + "/completions";
             String prompt = "User: " + userInput + "\nAI: ";
             RestTemplate restTemplate = new RestTemplate();
 
@@ -44,7 +47,7 @@ public class Guide_Controller {
                 JSONObject jsonResponse = new JSONObject(apiResponse.getBody());
                 response = jsonResponse.getJSONArray("choices").getJSONObject(0).getString("text");
             } else {
-                response = "Failed to fetch response from GPT-3.";
+                response = "Failed to fetch response from GPT-3.5-turbo.";
             }
         } catch (Exception e) {
             response = "Error: " + e.getMessage();
