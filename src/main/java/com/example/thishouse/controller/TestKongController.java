@@ -4,6 +4,7 @@ import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
+import com.example.thishouse.service.AdminService;
 import com.example.thishouse.service.BoardService;
 import com.example.thishouse.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,6 +20,8 @@ import java.util.List;
 public class TestKongController {
     private final BoardService boardService;
     private final MemberService memberService;
+    private final AdminService adminService;
+
 
 
     //게시판 목록
@@ -204,14 +207,12 @@ public class TestKongController {
         searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
         System.out.println("펄스트인덱스 : " + searchVO.getFirstIndex());
 
-        String search = request.getParameter("searchName");
         String context = request.getParameter("searchValue");
-        System.out.println(search + " " + context);
 
         if(context == null){
-            List<Member> memberList = memberService.memberAll(searchVO);
+            List<Member> memberList = adminService.memberAll(searchVO);
             model.addAttribute("memberList" , memberList);
-            int totCnt = memberService.memberList_cnt();
+            int totCnt = adminService.memberList_cnt();
             model.addAttribute("totCnt",totCnt);
             System.out.println("전체 게시글 수 : " + totCnt);
 
@@ -225,9 +226,9 @@ public class TestKongController {
             model.addAttribute("pagination",pagination);
         }
         else if(context != null && context == ""){
-            List<Member> memberList = memberService.memberAll(searchVO);
+            List<Member> memberList = adminService.memberAll(searchVO);
             model.addAttribute("memberList" , memberList);
-            int totCnt = memberService.memberList_cnt();
+            int totCnt = adminService.memberList_cnt();
             model.addAttribute("totCnt",totCnt);
             System.out.println("전체 게시글 수 : " + totCnt);
 
@@ -242,13 +243,15 @@ public class TestKongController {
         }
         else{
             System.out.println("제대로 검색실행");
-            searchVO.setSearch_name(search);
             searchVO.setSearch_content(context);
-            List<Member> member_list_search = memberService.member_list_search(searchVO);
-            int totCnt = memberService.member_search_cnt(searchVO);
+            System.out.println("c : "+searchVO.getSearch_content());
 
+            int totCnt = adminService.member_search_cnt(context);
             System.out.println("전체 게시글 수 : " + totCnt);
+            System.out.println("검색내용 : " + context);
 
+            List<Member> member_list_search = adminService.member_list_search(searchVO);
+            System.out.println("ㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻㄴㅇㄻㄴㅇㄹ");
             pagination.setTotalRecordCount(totCnt);
 
             searchVO.setEndDate(pagination.getLastPageNoOnPageList());

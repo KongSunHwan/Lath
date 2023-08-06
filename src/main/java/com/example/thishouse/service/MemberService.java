@@ -89,21 +89,22 @@ public class MemberService {
     public List<Inquire> my_inquire_one(String userId) {
         return memberMapper.my_inquire_one(userId);
     }
-    public int memberList_cnt() {
-        return memberMapper.memberList_cnt();
-    }
 
-    public List<Member> memberAll(Member searchVO) {
-        return this.memberMapper.memberAll(searchVO);
-    }
-
-    public int member_search_cnt(Member searchVO) {
-        return this.memberMapper.member_search_cnt(searchVO);
-    }
-
-    public List<Member> member_list_search(Member searchVO) {
-        return this.memberMapper.member_list_search(searchVO);
-    }
+//    public int memberList_cnt() {
+//        return memberMapper.memberList_cnt();
+//    }
+//
+//    public List<Member> memberAll(Member searchVO) {
+//        return this.memberMapper.memberAll(searchVO);
+//    }
+//
+//    public int member_search_cnt(Member searchVO) {
+//        return this.memberMapper.member_search_cnt(searchVO);
+//    }
+//
+//    public List<Member> member_list_search(Member searchVO) {
+//        return this.memberMapper.member_list_search(searchVO);
+//    }
 
 
     //회원 관심매물 내역

@@ -8,4 +8,30 @@
         update inquire set inquire_answer = #{inquire_answer}
         where inquire_num = #{inquire_num}
     </update>
+
+    <select id = "memberList_cnt" resultType="integer">
+        select count(*)
+        from member
+    </select>
+
+    <select id="memberAll" parameterType="com.example.thishouse.domain.Member" resultType="com.example.thishouse.domain.Member">
+        select * from member Order by user_create_time desc LIMIT #{recordCountPerPage} OFFSET ${firstIndex}
+    </select>
+
+    <select id="member_search_cnt" parameterType="String" resultType="int">
+        select count(*) from member
+        where user_name like CONCAT('%',#{context},'%')
+           or user_id like CONCAT('%',#{context},'%')
+           or user_phone like CONCAT('%',#{context},'%')
+    </select>
+
+    <select id="member_list_search" parameterType="com.example.thishouse.domain.Member" resultType="com.example.thishouse.domain.Member">
+        select * from member
+        where user_name like CONCAT('%',#{search_content},'%')
+           or user_id like CONCAT('%',#{search_content},'%')
+           or user_phone like CONCAT('%',#{search_content},'%')
+        order by user_create_time desc
+            limit ${recordCountPerPage} offset ${firstIndex}
+    </select>
+
 </mapper>

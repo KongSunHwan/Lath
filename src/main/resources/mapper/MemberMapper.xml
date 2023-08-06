@@ -104,30 +104,30 @@
         limit 1
     </select>
 
-    <select id = "memberList_cnt" resultType="integer">
-        select count(*)
-        from member
-    </select>
+<!--    <select id = "memberList_cnt" resultType="integer">-->
+<!--        select count(*)-->
+<!--        from member-->
+<!--    </select>-->
 
-    <select id="memberAll" parameterType="com.example.thishouse.domain.Member" resultType="com.example.thishouse.domain.Member">
-        select * from member Order by user_create_time desc LIMIT #{recordCountPerPage} OFFSET ${firstIndex}
-    </select>
+<!--    <select id="memberAll" parameterType="com.example.thishouse.domain.Member" resultType="com.example.thishouse.domain.Member">-->
+<!--        select * from member Order by user_create_time desc LIMIT #{recordCountPerPage} OFFSET ${firstIndex}-->
+<!--    </select>-->
 
-    <select id="member_search_cnt" parameterType="com.example.thishouse.domain.Member" resultType="int">
-        select count(*) from member
-        where user_name like CONCAT('%',#{search_content},'%')
-        or user_id like CONCAT('%',#{search_content},'%')
-        or user_phone like CONCAT('%',#{search_content},'%')
-    </select>
+<!--    <select id="member_search_cnt" parameterType="com.example.thishouse.domain.Member" resultType="int">-->
+<!--        select count(*) from member-->
+<!--        where user_name like CONCAT('%',#{search_content},'%')-->
+<!--        or user_id like CONCAT('%',#{search_content},'%')-->
+<!--        or user_phone like CONCAT('%',#{search_content},'%')-->
+<!--    </select>-->
 
-    <select id="member_list_search" parameterType="com.example.thishouse.domain.Member" resultType="com.example.thishouse.domain.Member">
-        select *
-        from member
-        where user_name like CONCAT('%',#{search_content},'%')
-           or user_id like CONCAT('%',#{search_content},'%')
-           or user_phone like CONCAT('%',#{search_content},'%')
-        order by community_num desc
-            limit ${recordCountPerPage} offset ${firstIndex}
-    </select>
+<!--    <select id="member_list_search" parameterType="com.example.thishouse.domain.Member" resultType="com.example.thishouse.domain.Member">-->
+<!--        select *-->
+<!--        from member-->
+<!--        where user_name like CONCAT('%',#{search_content},'%')-->
+<!--           or user_id like CONCAT('%',#{search_content},'%')-->
+<!--           or user_phone like CONCAT('%',#{search_content},'%')-->
+<!--        order by community_num desc-->
+<!--            limit ${recordCountPerPage} offset ${firstIndex}-->
+<!--    </select>-->
 
 </mapper>
