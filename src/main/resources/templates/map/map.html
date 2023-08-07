@@ -479,7 +479,7 @@
                 type="text/javascript"></script>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
 
-        <script>
+        <script th:inline="javascript">
             var map = null,
                 customOverlay = new kakao.maps.CustomOverlay({}),
                 polygons = [], // 다각형을 저장할 배열을 생성합니다.
@@ -545,7 +545,7 @@
                                 customOverlay.setMap(null); // 정보 창(customOverlay)을 닫습니다.
                                 kkoMap.clearPolygons(); // 클릭한 다각형을 포함하여 모든 다각형을 지도에서 제거합니다.
                                 var center = kkoMap.centroid(e); // 클릭한 다각형의 중심 위치를 가져옵니다.
-                                var newLevel = map.getLevel() - 3; // 현재 레벨에서 3 레벨을 추가로 확대합니다.
+                                var newLevel = map.getLevel() - 2; // 현재 레벨에서 2 레벨을 추가로 확대합니다.
                                 map.setLevel(newLevel, { anchor: center, animate: { duration: 350 } }); // 클릭한 다각형의 중심을 기준으로 지도를 확대합니다.
                             });
                         t.setMap(map);
@@ -562,13 +562,31 @@
                     showCustomOverlay: function (position) {
 
                         // 마커의 위치 변경해서 바로 위에 오버레이를 표시하도록 offset 값을 설정합니다.
-                        var overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0008);
+                        var overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng());
+
+                        // 지도의 현재 레벨에 따라 오버레이의 위치를 조정합니다.
+                        var mapLevel = map.getLevel();
+                        if (mapLevel == 1) {
+                            overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0004);
+                        } else if (mapLevel == 2) {
+                            overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0008);
+                        } else if (mapLevel == 3) {
+                            overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0016);
+                        } else if (mapLevel == 4) {
+                            overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0032);
+                        } else if (mapLevel == 5) {
+                            overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0064);
+                        } else if (mapLevel == 6) {
+                            overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0128);
+                        }
+
+                        var mapname = [[${map.mapname}]]
 
                         // 커스텀 오버레이를 표시하는 함수입니다.
                         var content = '<div class="wrap">' +
                             ' <div class="info">' +
                             ' <div class="title">' +
-                            ' 카카오 스페이스.1' +
+                            ' ' + mapname +
                             ' <div class="close" onclick="kkoMap.closeCustomOverlay()" title="닫기"></div>' +
                             ' </div>' +
                             ' <div class="body">' +
@@ -594,6 +612,10 @@
                         // 커스텀 오버레이를 닫는 함수입니다.
                         customOverlay.setMap(null);
                     },
+                    // 커스텀 오버레이를 닫는 함수
+                    closeAllCustomOverlays: function () {
+                        customOverlay.setMap(null);
+                    },
                     centroid: function (o) {
                         var e, t, a, n, s, p, r, i, l;
                         for (e = 0, r = i = l = 0, t = (a = o.length) - 1; e < a; t = e++)
@@ -605,25 +627,12 @@
                                 (r += 3 * p);
                         return new kakao.maps.LatLng(i / r, l / r);
                     },
-                    addSampleApartments: function () {
-                        // 아파트들의 위치 좌표와 정보를 정의합니다. (임의로 지정)
-                        var apartmentData = [
-                            {
-                                name: "아파트1",
-                                position: new kakao.maps.LatLng(37.567509, 126.980663),
-                            },
-                            {
-                                name: "아파트2",
-                                position: new kakao.maps.LatLng(37.567200, 126.981000),
-                            },
-                            // 추가적인 아파트들의 위치 좌표와 정보를 지정합니다.
-                            // ...
-                        ];
-
-                        // 아파트 데이터를 이용하여 마커를 생성하고 지도에 추가합니다.
-                        for (var i = 0; i < apartmentData.length; i++) {
-                            var apt = apartmentData[i];
-                            kkoMap.addMarker(apt.position, apt.name);
+                    addMarkersFromList: function (markerList) {
+                        // 주어진 마커 리스트를 이용하여 마커를 생성하고 지도에 추가합니다.
+                        for (var i = 0; i < markerList.length; i++) {
+                            var markerData = markerList[i];
+                            var position = new kakao.maps.LatLng(markerData.latitude, markerData.longitude);
+                            kkoMap.addMarker(position, markerData.name);
                         }
                     },
                     addMarker: function (position, name) {
@@ -646,7 +655,8 @@
                             markers: markers, // 마커 배열
                             gridSize: 40, // 클러스터 간격
                             averageCenter: true, // 클러스터의 중심을 평균값으로 설정
-                            minLevel: 7, // 클러스터를 최소로 수행할 레벨
+                            minLevel: 7,
+                            minClusterSize: 1, // 한 개의 마커만 있어도 클러스터링 마커를 표시합니다.
                             styles: [
                                 {
                                     width: '53px',
@@ -699,8 +709,14 @@
 
             $(function () {
                 kkoMap.initKko({ mapId: "map" });
-                kkoMap.addSampleApartments(); // 샘플 아파트 마커를 추가합니다.
+                var sampleMarkers = /*[[${markers}]]*/; // 서버에서 전달받은 마커 리스트 데이터
+                kkoMap.addMarkersFromList(sampleMarkers);
                 kkoMap.createMarkerClusterer(); // 마커 클러스터러를 생성합니다.
+
+                // 지도 이벤트 리스너 추가
+                kakao.maps.event.addListener(map, 'zoom_changed', function () {
+                    kkoMap.closeAllCustomOverlays(); // 확대/축소 시에 모든 커스텀 오버레이를 닫습니다.
+                });
             });
         </script>
 

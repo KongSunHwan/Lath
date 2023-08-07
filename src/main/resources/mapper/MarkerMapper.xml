@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.thishouse.mapper.MarkerMapper">
+    <insert id="insertMarker" parameterType="com.example.thishouse.domain.Marker">
+        INSERT INTO markers (road_address, latitude, longitude)
+        VALUES (#{road_address}, #{latitude}, #{longitude})
+    </insert>
+
+    <select id="getMarkers" resultType="com.example.thishouse.domain.Marker">
+        SELECT marker_num, road_address AS roadAddress, latitude, longitude
+        FROM markers
+    </select>
+</mapper>
