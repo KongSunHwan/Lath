@@ -390,14 +390,14 @@ public class TestKongController {
             model.addAttribute("pagination",pagination);
         }
         else{
-            System.out.println("제대로 검색실행");
+            System.out.println("제대로 검색실행1");
+            System.out.println("제대로 검색실행2");
             searchVO.setSearch_name(search);
             searchVO.setSearch_content(context);
-            List<Community> pg_list = boardService.bd_list_search(searchVO);
             int totCnt = boardService.bd_list_search_Cnt(searchVO);
+            System.out.println("CC : " + totCnt);
 
-            System.out.println("전체 게시글 수 : " + totCnt);
-
+            List<Community> pg_list = boardService.bd_list_search(searchVO);
             pagination.setTotalRecordCount(totCnt);
 
             searchVO.setEndDate(pagination.getLastPageNoOnPageList());
