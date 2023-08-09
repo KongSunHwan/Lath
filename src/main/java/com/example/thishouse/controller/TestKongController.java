@@ -197,6 +197,7 @@ public class TestKongController {
         return "Admin_Dashboard/Member_Withdrawal";
     }
 
+
     @GetMapping("Members_Search")
     public String Members_Search(@ModelAttribute("searchVO") Member searchVO, HttpServletRequest request, Model model) {
         PageCtrl pagination  = new PageCtrl();
@@ -266,7 +267,11 @@ public class TestKongController {
         return "Admin_Dashboard/Members_Search";
     }
 
-
+    @RequestMapping("member_delete")
+    public String member_delete(String user_num, @ModelAttribute("searchVO") Member searchVO, HttpServletRequest request, Model model) {
+        adminService.member_delete(user_num);
+        return  Members_Search(searchVO,request,model);
+    }
     @GetMapping("Statistics_Chart")
     public String Statistics_Chart() {
         return "Admin_Dashboard/Statistics_Chart";
@@ -390,8 +395,6 @@ public class TestKongController {
             model.addAttribute("pagination",pagination);
         }
         else{
-            System.out.println("제대로 검색실행1");
-            System.out.println("제대로 검색실행2");
             searchVO.setSearch_name(search);
             searchVO.setSearch_content(context);
             int totCnt = boardService.bd_list_search_Cnt(searchVO);

@@ -34,4 +34,9 @@
             limit ${recordCountPerPage} offset ${firstIndex}
     </select>
 
+    <delete id="member_delete">
+        delete from member
+        where user_num = #{user_num}
+    </delete>
+
 </mapper>

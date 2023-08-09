@@ -6,9 +6,14 @@ import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
 import com.example.thishouse.mapper.AdminMapper;
 import com.example.thishouse.mapper.MemberMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -41,4 +46,8 @@ public class AdminService {
         return this.adminMapper.member_list_search(searchVO);
     }
 
+    @Transactional
+    public void member_delete(String userNum) {
+        this.adminMapper.member_delete(userNum);
+    }
 }

@@ -40,4 +40,8 @@ public class AdminMapper {
     public List<Member> member_list_search(Member searchVO) {
         return sqlSession.selectList(Namespace+".member_list_search",searchVO);
     }
+
+    public void member_delete(String user_num) {
+        sqlSession.delete(Namespace+".member_delete",user_num);
+    }
 }
