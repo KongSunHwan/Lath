@@ -148,7 +148,10 @@
                                                                         </button>
                                                                         <ul class="dropdown-menu dropdown-menu-lg-end">
                                                                             <li><button class="dropdown-item" type="button">수정</button></li>
-                                                                            <li><button class="dropdown-item" type="button">삭제</button></li>
+                                                                            <li>  <a th:href="@{'/board_delete_admin?community_num=' + ${bd_list.community_num}}">
+                                                                                <button class="dropdown-item" type="button">
+                                                                                    삭제</button></a></li>
+
                                                                         </ul>
                                                                     </div>
                                                                 </td>

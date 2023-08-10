@@ -414,6 +414,12 @@ public class TestKongController {
         }
         return "Admin_Dashboard/Community_Control";
     }
+    //관리자 게시글 삭제
+    @RequestMapping("board_delete_admin")
+    public String board_delete_admin(String community_num,@ModelAttribute("searchVO") Community searchVO, HttpServletRequest request, Model model) {
+        boardService.delete_board(community_num);
+        return Community_Control(searchVO,request,model);
+    }
 
     @GetMapping("Report_List")
     public String Report_List() {
