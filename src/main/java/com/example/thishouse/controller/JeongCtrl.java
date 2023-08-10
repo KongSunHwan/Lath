@@ -1,7 +1,5 @@
 package com.example.thishouse.controller;
-import com.example.thishouse.domain.PageVO;
 import com.example.thishouse.domain.Notice;
-import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.service.NoticeService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -173,4 +171,6 @@ public class JeongCtrl {
     public String test3(){
         return "z_JeongTest/putTest";
     }
+
+    public void test4() { System.out.println("test입니다"); }
 }
