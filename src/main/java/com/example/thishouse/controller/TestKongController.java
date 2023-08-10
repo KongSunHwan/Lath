@@ -420,6 +420,19 @@ public class TestKongController {
         boardService.delete_board(community_num);
         return Community_Control(searchVO,request,model);
     }
+    //관리자 게시글 수정 페이지
+    @RequestMapping("board_modify_admin")
+    public String board_modify_admin(String community_num,@ModelAttribute("searchVO") Community searchVO, HttpServletRequest request, Model model) {
+        model.addAttribute("Board", boardService.view_board(community_num));
+        model.addAttribute("reply", boardService.view_reply(community_num));
+        return "Admin_Dashboard/Community_Modify";
+    }
+    //게시글 수정
+    @RequestMapping("board_update_admin")
+    public String board_modify_admin(Community community,@ModelAttribute("searchVO") Community searchVO, HttpServletRequest request, Model model) {
+        boardService.update_board(community);
+        return "redirect:/Community_Control";
+    }
 
     @GetMapping("Report_List")
     public String Report_List() {

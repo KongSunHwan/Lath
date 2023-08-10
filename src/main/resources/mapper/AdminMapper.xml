@@ -39,4 +39,7 @@
         where user_num = #{user_num}
     </delete>
 
+    <update id="board_modify_admin">
+    </update>
+
 </mapper>

@@ -50,4 +50,8 @@ public class AdminService {
     public void member_delete(String userNum) {
         this.adminMapper.member_delete(userNum);
     }
+    @Transactional
+    public void board_modify_page(String communityNum) {
+        this.adminMapper.board_modify_admin(communityNum);
+    }
 }

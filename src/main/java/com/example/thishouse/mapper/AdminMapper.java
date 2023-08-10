@@ -44,4 +44,8 @@ public class AdminMapper {
     public void member_delete(String user_num) {
         sqlSession.delete(Namespace+".member_delete",user_num);
     }
+
+    public void board_modify_admin(String communityNum) {
+        sqlSession.delete(Namespace+".board_modify_admin",communityNum);
+    }
 }
