@@ -46,7 +46,7 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-
+      &nbsp;&nbsp;
       <div  th:each="house_list : ${house_list}">
         <h3 th:if="${house_list.deal_type == '월세'}"><b>월세 [(${house_list.deposit})] / [(${house_list.m_price})]만원</b></h3>
         <h3 th:if="${house_list.deal_type == '전세'}"><b>전세 [(${house_list.y_price})] 만원</b></h3>
@@ -279,21 +279,72 @@
           <li>
             <h2><b>옵션</b></h2>
             <br>
-            <div class="card text-dark bg-light mb-3" style="max-width: 60rem;" th:each ="house_option : ${house_option}" >
-              <div class="card-body">
-                <span  th:if="${house_option.induction == '인덕션'}"><b>[(${house_option.induction})]</b></span>
-                  <span  th:if="${house_option.microwave == '전자레인지'}"><b>[(${house_option.microwave})]</b></span>
-                  <span  th:if="${house_option.air_con == '에어컨'}"><b>[(${house_option.air_con})]</b></span>
-                  <span  th:if="${house_option.washing_machine == '세탁기'}"><b>[(${house_option.washing_machine})]</b></span>
-                  <span  th:if="${house_option.tv == 'TV'}"><b>[(${house_option.tv})]</b></span>
-                  <span  th:if="${house_option.closet == '옷장'}"><b>[(${house_option.closet})]</b></span>
-                  <span  th:if="${house_option.bed == '침대'}"><b>[(${house_option.bed})]</b></span>
-                  <span  th:if="${house_option.a_table == '책상'}"><b>[(${house_option.a_table})]</b></span>
-                  <span  th:if="${house_option.shoe_closet == '신발장'}"><b>[(${house_option.shoe_closet})]</b></span>
-                  <span  th:if="${house_option.bidet == '비데'}"><b>[(${house_option.bidet})]</b></span>
-                  <span  th:if="${house_option.gas_range == '가스레인지'}"><b>[(${house_option.gas_range})]</b></span>
-                  <span  th:if="${house_option.refrig == '냉장고'}"><b>[(${house_option.refrig})]</b></span>
-                  <span  th:if="${house_option.electronic_door == '전자도어락'}"><b>[(${house_option.electronic_door})]</b></span>
+            <div class="card text-dark bg-light mb-3" style="max-width: 60rem; padding-top: 10px; padding-bottom: 10px;" th:each ="house_option : ${house_option}" >
+              <div class="row row-cols-1 row-cols-md-4 g-4">
+                  <div class="col text-center" th:if="${house_option.induction == '인덕션'}">
+                    <img src="/img/induction_stove.png" class="rounded-0" alt="인덕션" style="width: 50px; height: 50px;">
+                    <div class="text-center"><b>[(${house_option.induction})]</b></div>
+                  </div>
+
+                  <div class="col text-center" th:if="${house_option.microwave == '전자레인지'}">
+                    <img src="/img/microwaves.png" class="rounded-0" alt="전자레인지" style="width: 50px; height: 50px;">
+                    <div class="text-center"><b>[(${house_option.microwave})]</b></div>
+                  </div>
+
+                  <div class="col text-center" th:if="${house_option.air_con == '에어컨'}">
+                    <img src="/img/air_conditioner.png" class="rounded-0" alt="에어컨" style="width: 50px; height: 50px;">
+                    <div class="text-center"><b>[(${house_option.air_con})]</b></div>
+                  </div>
+
+                  <div class="col text-center" th:if="${house_option.washing_machine == '세탁기'}">
+                    <img src="/img/washing_machine.png" class="rounded-0" alt="세탁기" style="width: 50px; height: 50px;">
+                    <div class="text-center"><b>[(${house_option.washing_machine})]</b></div>
+                  </div>
+
+                  <div class="col text-center" th:if="${house_option.tv == 'TV'}">
+                    <img src="/img/tv.png" class="rounded-0" alt="TV" style="width: 50px; height: 50px;">
+                    <div class="text-center"><b>[(${house_option.tv})]</b></div>
+                  </div>
+
+                  <div class="col text-center" th:if="${house_option.closet == '옷장'}">
+                    <img src="/img/closet.png" class="rounded-0" alt="옷장" style="width: 50px; height: 50px;">
+                    <div class="text-center"><b>[(${house_option.closet})]</b></div>
+                  </div>
+
+                  <div class="col text-center" th:if="${house_option.bed == '침대'}">
+                    <img src="/img/bed.png" class="rounded-0" alt="침대" style="width: 50px; height: 50px;">
+                    <div class="text-center"><b>[(${house_option.bed})]</b></div>
+                  </div>
+
+                  <div class="col text-center" th:if="${house_option.a_table == '책상'}">
+                    <img src="/img/desk.png" class="rounded-0" alt="책상" style="width: 50px; height: 50px;">
+                    <div class="text-center"><b>[(${house_option.a_table})]</b></div>
+                  </div>
+
+                  <div class="col text-center" th:if="${house_option.shoe_closet == '신발장'}">
+                    <img src="/img/shoe_rack.png" class="rounded-0" alt="신발장" style="width: 50px; height: 50px;">
+                    <div class="text-center"><b>[(${house_option.shoe_closet})]</b></div>
+                  </div>
+
+                  <div class="col text-center" th:if="${house_option.bidet == '비데'}">
+                    <img src="/img/bidet.png" class="rounded-0" alt="비데" style="width: 50px; height: 50px;">
+                    <div class="text-center"><b>[(${house_option.bidet})]</b></div>
+                  </div>
+
+                  <div class="col text-center" th:if="${house_option.gas_range == '가스레인지'}">
+                    <img src="/img/gas_range.png" class="rounded-0" alt="가스레인지" style="width: 50px; height: 50px;">
+                    <div class="text-center"><b>[(${house_option.gas_range})]</b></div>
+                  </div>
+
+                  <div class="col text-center" th:if="${house_option.refrig == '냉장고'}">
+                    <img src="/img/fridge.png" class="rounded-0" alt="냉장고" style="width: 50px; height: 50px;">
+                    <div class="text-center"><b>[(${house_option.refrig})]</b></div>
+                  </div>
+
+                  <div class="col text-center" th:if="${house_option.electronic_door == '전자도어락'}">
+                    <img src="/img/door_handle.png" class="rounded-0" alt="전자도어락" style="width: 50px; height: 50px;">
+                    <div class="text-center"><b>[(${house_option.electronic_door})]</b></div>
+                  </div>
               </div>
             </div>
           </li>
@@ -317,29 +368,29 @@
                   <li class="nav-item">
                     <a class="nav-link active" href="#">편의시설</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">학군정보</a>
-                  </li>
+<!--                  <li class="nav-item">-->
+<!--                    <a class="nav-link" href="#">학군정보</a>-->
+<!--                  </li>-->
                 </ul>
               </div>
               <div class="card-body d-flex justify-content-evenly">
-                <img src="/img/sb.png" class="rounded-circle bg-info bg-gradient" alt="#"
+                <img src="/img/sb.png" class="rounded-circle bg-info bg-opacity-25" alt="#"
                   style="width: 50px; height: 50px;">
 
-                <img src="/img/store.png" class="rounded-circle bg-warning bg-gradient" alt="#"
+                <img src="/img/store.png" class="rounded-circle bg-warning bg-opacity-50" alt="#"
                   style="width: 50px; height: 50px;">
 
-                <img src="/img/coffee.png" class="rounded-circle bg-success bg-gradient" alt="#"
+                <img src="/img/coffee.png" class="rounded-circle bg-success bg-opacity-25" alt="#"
                   style="width: 50px; height: 50px;">
 
-                <img src="/img/bank.png" class="rounded-circle bg-secondary bg-gradient" alt="#"
+                <img src="/img/bank.png" class="rounded-circle bg-secondary bg-opacity-25" alt="#"
                   style="width: 50px; height: 50px;">
               </div>
               <div class="d-flex justify-content-evenly fs-6">
                 <p style="margin-left: 25px;">&nbsp;지하철</p>
                 <p style="margin-right: 25px;">&nbsp;&nbsp;&nbsp;편의점</p>
                 <p style="margin-right: 25px;">카페&nbsp;&nbsp;</p>
-                <p style="margin-right: 25px;">은행&nbsp;&nbsp;</p>
+                <p style="margin-right: 27px;">은행&nbsp;&nbsp;</p>
               </div>
             </div>
           </li>
