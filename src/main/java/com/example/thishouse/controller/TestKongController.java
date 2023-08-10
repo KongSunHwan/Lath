@@ -420,4 +420,9 @@ public class TestKongController {
         return "Admin_Dashboard/Report_List";
     }
 
+    @GetMapping("Approval_List")
+    public String Approval_List() {
+        return "Admin_Dashboard/Approval_List";
+    }
+
     }
