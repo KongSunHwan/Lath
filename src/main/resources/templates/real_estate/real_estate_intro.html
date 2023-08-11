@@ -33,7 +33,8 @@
 
         <div class="carousel-inner">
           <div th:each="housePicture, iterStat : ${housePictures}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">
-            <img th:src="@{'/upload/' + ${housePicture.save_name}}" class="d-block w-100" width="500" height="600">
+            <img th:src="|/images/${housePicture.save_name}|" class="d-block w-100" width="500" height="600">
+
           </div>
         </div>
 
