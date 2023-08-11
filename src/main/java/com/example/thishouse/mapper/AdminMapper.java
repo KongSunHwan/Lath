@@ -3,6 +3,7 @@ package com.example.thishouse.mapper;
 import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.community.Community;
+import com.example.thishouse.domain.community.Community_reply;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -47,5 +48,22 @@ public class AdminMapper {
 
     public void board_modify_admin(String communityNum) {
         sqlSession.delete(Namespace+".board_modify_admin",communityNum);
+    }
+
+    public Community view_board(Community_reply community_reply) {
+        return sqlSession.selectOne(Namespace+".view_board", community_reply);
+    }
+
+    public List<Community_reply> view_reply(Community_reply community_reply) {
+        return sqlSession.selectList(Namespace+".view_reply",community_reply);
+
+    }
+
+    public void comment_update_admin(String replyNum) {
+        sqlSession.update(Namespace+".comment_update_admin",replyNum);
+    }
+
+    public void delete_board_reply(String communityNum) {
+        sqlSession.delete(Namespace+".delete_board_reply",communityNum);
     }
 }

@@ -5,15 +5,9 @@ import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
 import com.example.thishouse.mapper.AdminMapper;
-import com.example.thishouse.mapper.MemberMapper;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -53,5 +47,21 @@ public class AdminService {
     @Transactional
     public void board_modify_page(String communityNum) {
         this.adminMapper.board_modify_admin(communityNum);
+    }
+    @Transactional
+    public void comment_update_admin(String replyNum) {
+        this.adminMapper.comment_update_admin(replyNum);
+    }
+
+    public Community view_board(Community_reply community_num) {
+        return adminMapper.view_board(community_num);
+    }
+    //view_reply
+    public List<Community_reply> view_reply(Community_reply community_num) {
+        return this.adminMapper.view_reply(community_num);
+    }
+    @Transactional
+    public void delete_board_reply(String communityNum) {
+        this.adminMapper.delete_board_reply(communityNum);
     }
 }

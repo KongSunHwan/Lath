@@ -81,8 +81,6 @@ public class BoardService {
     public int bd_list_search_Cnt(Community searchVO) {
         return this.boardMapper.bd_list_search_Cnt(searchVO);
     }
-
-
     // List 검색 search
     // List 페이징 리스트 page_list
 

@@ -418,11 +418,12 @@ public class TestKongController {
     @RequestMapping("board_delete_admin")
     public String board_delete_admin(String community_num,@ModelAttribute("searchVO") Community searchVO, HttpServletRequest request, Model model) {
         boardService.delete_board(community_num);
+        adminService.delete_board_reply(community_num);
         return Community_Control(searchVO,request,model);
     }
     //관리자 게시글 수정 페이지
     @RequestMapping("board_modify_admin")
-    public String board_modify_admin(String community_num,@ModelAttribute("searchVO") Community searchVO, HttpServletRequest request, Model model) {
+    public String board_modify_admin(String community_num, Model model) {
         model.addAttribute("Board", boardService.view_board(community_num));
         model.addAttribute("reply", boardService.view_reply(community_num));
         return "Admin_Dashboard/Community_Modify";
@@ -432,6 +433,16 @@ public class TestKongController {
     public String board_modify_admin(Community community,@ModelAttribute("searchVO") Community searchVO, HttpServletRequest request, Model model) {
         boardService.update_board(community);
         return "redirect:/Community_Control";
+    }
+
+    @RequestMapping("comment_update_admin")
+    public String comment_update_admin(HttpServletRequest request, Model model) {
+        System.out.println("댓글필터");
+        String reply_num = request.getParameter("reply_num");
+        String community_num = request.getParameter("community_num");
+        System.out.println(reply_num + " " + community_num);
+        adminService.comment_update_admin(reply_num);
+        return board_modify_admin(community_num,model);
     }
 
     @GetMapping("Report_List")

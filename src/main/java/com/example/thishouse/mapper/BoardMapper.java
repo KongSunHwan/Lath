@@ -44,8 +44,8 @@ public class BoardMapper {
         return sqlSession.selectOne(Namespace+".view_board", community_num);
     }
     //게시판 상세정보 댓글 조회
-    public List<Community_reply> view_reply(String cn) {
-        return sqlSession.selectList(Namespace+".view_reply",cn);
+    public List<Community_reply> view_reply(String community_num) {
+        return sqlSession.selectList(Namespace+".view_reply",community_num);
     }
     //게시판 삭제
     public void delete_board(String community_num) {
@@ -76,6 +76,5 @@ public class BoardMapper {
     public List<Community_reply> reply_list(Community_reply reply){
         return sqlSession.selectList(Namespace + ".reply_list" + reply);
     }
-
 
 }

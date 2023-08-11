@@ -116,9 +116,13 @@
                                                 </div>
 
                                                     <div th:each="reply : ${reply}" class="card mb-2">
-                                                        <div class="card-header bg-light">
+                                                        <form method="post" action="comment_update_admin">
+                                                            <input type="hidden" name="reply_num" th:value="${reply.reply_num}">
+                                                            <input type="hidden" name="community_num" th:value="${reply.community_num}">
+
+                                                            <div class="card-header bg-light">
                                                             <i class="fa fa-comment fa"></i>  댓글
-                                                            <input type="button" class="btn btn-secondary" id="btnCheck"
+                                                            <input type="submit" class="btn btn-secondary" id="btnCheck"
                                                                    value="필터" style="height: 36px;float: right;">
                                                         </div>
                                                         <div class="card-body">
@@ -140,6 +144,7 @@
                                                                 </li>
                                                             </ul>
                                                         </div>
+                                                        </form>
                                                     </div>
 
                                             </div>
@@ -165,5 +170,4 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-50750921-19"></script>
 </body>
-
 </html>
