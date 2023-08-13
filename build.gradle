@@ -32,13 +32,6 @@ dependencies {
 	implementation 'commons-io:commons-io:2.11.0'    /* Apache commons-io */
 	implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
 	implementation 'org.springframework.boot:spring-boot-devtools'
-	//websocket 추가하기
-	implementation 'com.google.code.gson:gson:2.10.1'
-	implementation 'org.webjars:stomp-websocket:2.3.3-1'
-	implementation 'org.webjars:bootstrap:5.2.3'
-
-	implementation 'org.webjars:sockjs-client:1.1.2'
-
 }
 
 tasks.named('test') {
