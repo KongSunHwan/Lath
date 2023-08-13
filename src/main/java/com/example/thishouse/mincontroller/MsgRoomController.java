@@ -40,6 +40,7 @@ public class MsgRoomController {
     @ResponseBody
     public String createRoom(@RequestBody MsgRoom msgRoom)  {
         msgRoomRepository.createMsgRoom(msgRoom);
+        int b = 2;
         return "success111111";
     }
 
