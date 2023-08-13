@@ -25,7 +25,7 @@ public class MsgRoomController {
     }
 
     public void test(){
-
+            int x =1 ;
     }
 
     //채팅리스트 데이터만 반환 해주는 메서드
