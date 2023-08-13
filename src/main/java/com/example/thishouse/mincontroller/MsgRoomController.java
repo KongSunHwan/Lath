@@ -24,6 +24,9 @@ public class MsgRoomController {
         return "/chat/room";
     }
 
+    public void test(){
+
+    }
 
     //채팅리스트 데이터만 반환 해주는 메서드
     @GetMapping("/rooms")
