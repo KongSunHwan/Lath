@@ -164,5 +164,40 @@ public class TestKongController {
         return "redirect:/board_list";
     }
 
+    @GetMapping("Contract_Details")
+    public String Contract_Details() {
+        return "Admin_Dashboard/Contract_Details";
+    }
+
+    @GetMapping("Event_Check")
+    public String Event_Check() {
+        return "Admin_Dashboard/Event_Check";
+    }
+
+    @GetMapping("Event_Registration")
+    public String Event_Registration() {
+        return "Admin_Dashboard/Event_Registration";
+    }
+
+    @GetMapping("Member_Control")
+    public String Member_Control() {
+        return "Admin_Dashboard/Member_Control";
+    }
+
+    @GetMapping("Member_Withdrawal")
+    public String Member_Withdrwal() {
+        return "Admin_Dashboard/Member_Withdrawal";
+    }
+
+    @GetMapping("Members_Search")
+    public String Member_Search() {
+        return "Admin_Dashboard/Members_Search";
+    }
+
+    @GetMapping("Statistics_Chart")
+    public String Statistics_Chart() {
+        return "Admin_Dashboard/Statistics_Chart";
+    }
+
 
     }
