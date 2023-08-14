@@ -145,6 +145,11 @@ public class MainController {
         return "contract/real_estate_contract";
     }
 
+    @RequestMapping("/contract_Information")
+    public String Contract_Information() {
+        return "contract/Contract_Information";
+    }
+
     //맵 테스트용
     @Data
     static class Map {
