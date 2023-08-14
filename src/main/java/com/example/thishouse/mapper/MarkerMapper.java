@@ -18,7 +18,7 @@ public class MarkerMapper {
     private static final String Namespace = "com.example.thishouse.mapper.MarkerMapper";
 
     public void insertMarker(Marker marker) {
-        sqlSession.insert(Namespace+".insertMarker",marker);
+        sqlSession.insert(Namespace+".insertMarker", marker);
     }
 
     public List<Marker> getMarkers() {

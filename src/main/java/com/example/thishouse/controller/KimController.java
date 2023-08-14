@@ -1,9 +1,11 @@
 package com.example.thishouse.controller;
 
 import com.example.thishouse.domain.Inquire;
+import com.example.thishouse.domain.Marker;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.house.*;
 import com.example.thishouse.service.BoardService;
+import com.example.thishouse.service.MarkerService;
 import com.example.thishouse.service.MemberService;
 import com.example.thishouse.service.RealEstateService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,6 +38,7 @@ public class KimController {
     private final MemberService memberService;
     private final RealEstateService realEstateService;
     private final BoardService boardService;
+    private final MarkerService markerService;
     private final String uploadPath = "C:/Timp/img/";
     @RequestMapping("/test_inquire")
     public String test_my_community(String user_id, Model model) {
@@ -73,7 +76,8 @@ public class KimController {
                                      House_location house_location,
                                      House_option house_option,
                                      House_picture house_picture,
-                                     House_type house_type, Model model,
+                                     House_type house_type,
+                                     Model model,
                                      @RequestParam("files") List<MultipartFile> files ,
                                      HttpServletRequest request) {
 
@@ -81,7 +85,6 @@ public class KimController {
         int sq = realEstateService.sequence();
 
         System.out.println("C = " + sq);
-
 
         house_list.setHouse_num(sq);
         house_addinfo.setHouse_num(sq);

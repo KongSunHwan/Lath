@@ -129,15 +129,15 @@ public class FileUploadController {
     }
 
     // 이미지 파일 전달
-    @GetMapping("/images/{filePath}")
-    @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filePath) throws FileNotFoundException {
-        Resource file = realEstateService.loadFileAsResource(filePath);
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
-                .body(file);
-    }
+//    @GetMapping("/images/{filePath}")
+//    @ResponseBody
+//    public ResponseEntity<Resource> serveFile(@PathVariable String filePath) throws FileNotFoundException {
+//        Resource file = realEstateService.loadFileAsResource(filePath);
+//
+//        return ResponseEntity.ok()
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+//                .body(file);
+//    }
 
 
 }
