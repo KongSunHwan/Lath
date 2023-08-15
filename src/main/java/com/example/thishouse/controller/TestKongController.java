@@ -530,4 +530,11 @@ public class TestKongController {
         return "Admin_Dashboard/Reply_Control";
     }
 
+    @RequestMapping("comment_update_admin_reply")
+    public String comment_update_admin(@ModelAttribute("searchVO") Community_reply searchVO, HttpServletRequest request, Model model) {
+        String reply_num = request.getParameter("reply_num");
+        adminService.comment_update_admin(reply_num);
+        return Reply_Control(searchVO,request,model);
+    }
+
     }

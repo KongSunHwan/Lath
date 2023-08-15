@@ -131,12 +131,13 @@
 
 
                 <div th:each="reply : ${reply}" class="card mb-2">
-                    <form method="post" action="comment_update_admin">
+                    <form method="post" action="comment_update_admin_reply">
                         <input type="hidden" name="reply_num" th:value="${reply.reply_num}">
                         <input type="hidden" name="community_num" th:value="${reply.community_num}">
 
                         <div class="card-header bg-light">
-                            <i class="fa fa-comment fa"></i>  댓글
+                            <i class="fa fa-comment fa"></i>  댓글 &nbsp;
+                            <a th:href="@{'/board_modify_admin?community_num=' + ${reply.community_num}}">게시글</a>
                             <input type="submit" class="btn btn-secondary" id="btnCheck"
                                    value="필터" style="height: 36px;float: right; margin: -7px;">
                         </div>
