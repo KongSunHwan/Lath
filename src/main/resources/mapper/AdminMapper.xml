@@ -68,5 +68,25 @@
         where community_num = #{community_num}
     </delete>
 
+    <select id="reply_list" resultType="com.example.thishouse.domain.community.Community_reply">
+        select * from community_reply Order by reply_date desc LIMIT #{recordCountPerPage} OFFSET ${firstIndex}
+    </select>
 
+    <select id = "reply_listCnt" resultType="integer">
+        select count(*)
+        from community_reply
+    </select>
+
+    <select id="reply_list_search" parameterType="com.example.thishouse.domain.community.Community_reply" resultType="com.example.thishouse.domain.community.Community_reply">
+        select *
+        from community_reply
+        where ${search_name} like CONCAT('%',#{search_content},'%')
+        order by reply_num desc
+            limit ${recordCountPerPage} offset ${firstIndex}
+    </select>
+
+    <select id="reply_list_search_Cnt" parameterType="com.example.thishouse.domain.community.Community_reply" resultType="int">
+        select count(*) from community_reply where ${search_name} like CONCAT('%',#{search_content},'%')
+
+    </select>
 </mapper>

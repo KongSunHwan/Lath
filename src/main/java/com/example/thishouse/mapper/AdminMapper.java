@@ -66,4 +66,23 @@ public class AdminMapper {
     public void delete_board_reply(String communityNum) {
         sqlSession.delete(Namespace+".delete_board_reply",communityNum);
     }
+
+    //전체 댓글 리스트 페이징
+    public List<Community_reply> reply_list(Community_reply searchVO) {
+        return sqlSession.selectList(Namespace+".reply_list",searchVO);
+    }
+
+    //전체 댓글 개수
+    public int reply_listCnt() {
+        return sqlSession.selectOne(Namespace+".reply_listCnt");
+    }
+
+    //검색 댓글 개수
+    public int reply_list_search_Cnt(Community_reply searchVO) {
+        return sqlSession.selectOne(Namespace+".reply_list_search_Cnt",searchVO);
+    }
+
+    public List<Community_reply> reply_list_search(Community_reply searchVO) {
+        return sqlSession.selectList(Namespace+".reply_list_search",searchVO);
+    }
 }

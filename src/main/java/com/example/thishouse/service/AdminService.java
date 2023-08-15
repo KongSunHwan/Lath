@@ -64,4 +64,23 @@ public class AdminService {
     public void delete_board_reply(String communityNum) {
         this.adminMapper.delete_board_reply(communityNum);
     }
+
+    //댓글 리스트 페이징
+    public List<Community_reply> reply_list(Community_reply searchVO) {
+        return this.adminMapper.reply_list(searchVO);
+    }
+    //댓글 개수
+    public int reply_listCnt() {
+        return adminMapper.reply_listCnt();
+    }
+
+    //검색 댓글 개수
+    public int reply_list_search_Cnt(Community_reply searchVO) {
+        return this.adminMapper.reply_list_search_Cnt(searchVO);
+    }
+
+    //검색 댓글 리스트
+    public List<Community_reply> reply_list_search(Community_reply searchVO) {
+        return this.adminMapper.reply_list_search(searchVO);
+    }
 }

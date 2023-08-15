@@ -430,7 +430,7 @@ public class TestKongController {
     }
     //게시글 수정
     @RequestMapping("board_update_admin")
-    public String board_modify_admin(Community community,@ModelAttribute("searchVO") Community searchVO, HttpServletRequest request, Model model) {
+    public String board_modify_admin(Community community) {
         boardService.update_board(community);
         return "redirect:/Community_Control";
     }
@@ -453,6 +453,81 @@ public class TestKongController {
     @GetMapping("Approval_List")
     public String Approval_List() {
         return "Admin_Dashboard/Approval_List";
+    }
+
+
+    //댓글 관리 (삭제->필터) 검색(작성자,내용)
+    @GetMapping("Reply_Control")
+    public String Reply_Control(@ModelAttribute("searchVO") Community_reply searchVO, HttpServletRequest request, Model model)
+    {
+        PageCtrl pagination  = new PageCtrl();
+        pagination.setCurrentPageNo(searchVO.getPageIndex());
+        pagination.setRecordCountPerPage(searchVO.getPageUnit());
+        pagination.setPageSize(searchVO.getPageSize());
+
+        searchVO.setFirstIndex(pagination.getFirstRecordIndex());
+        searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
+        System.out.println("펄스트인덱스 : " + searchVO.getFirstIndex());
+
+        String search = request.getParameter("searchName");
+        String context = request.getParameter("searchValue");
+        System.out.println(search + " " + context);
+
+        if(context == null){
+            List<Community_reply> reply = adminService.reply_list(searchVO);
+            model.addAttribute("reply" , reply);
+            int totCnt = adminService.reply_listCnt();
+            model.addAttribute("totCnt",totCnt);
+            System.out.println("전체 게시글 수 : " + totCnt);
+
+            pagination.setTotalRecordCount(totCnt);
+
+            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+            searchVO.setPrev(pagination.getXprev());
+            searchVO.setNext(pagination.getXnext());
+            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+            model.addAttribute("pagination",pagination);
+        }
+        else if(context != null && context == ""){
+            List<Community_reply> reply = adminService.reply_list(searchVO);
+            model.addAttribute("reply" , reply);
+            int totCnt = adminService.reply_listCnt();
+            model.addAttribute("totCnt",totCnt);
+            System.out.println("전체 게시글 수 : " + totCnt);
+
+            pagination.setTotalRecordCount(totCnt);
+
+            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+            searchVO.setPrev(pagination.getXprev());
+            searchVO.setNext(pagination.getXnext());
+            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+            model.addAttribute("pagination",pagination);
+        }
+        else{
+            searchVO.setSearch_name(search);
+            searchVO.setSearch_content(context);
+            System.out.println("Parameter ==============");
+            System.out.println(searchVO.getSearch_name());
+            System.out.println(searchVO.getSearch_content());
+
+            int totCnt = adminService.reply_list_search_Cnt(searchVO);
+            System.out.println("댓글검색 : " + totCnt);
+            List<Community_reply> reply = adminService.reply_list_search(searchVO);
+            pagination.setTotalRecordCount(totCnt);
+
+            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+            searchVO.setPrev(pagination.getXprev());
+            searchVO.setNext(pagination.getXnext());
+            model.addAttribute("reply" , reply);
+            model.addAttribute("totCnt",totCnt);
+            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+            model.addAttribute("pagination",pagination);
+        }
+
+        return "Admin_Dashboard/Reply_Control";
     }
 
     }

@@ -117,7 +117,8 @@
 
         <div th:each="reply : ${reply}" class="card mb-2">
             <div class="card-header bg-light">
-                <i class="fa fa-comment fa"></i>  댓글
+                <i class="fa fa-comment fa"></i>
+
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
@@ -125,8 +126,7 @@
                         <div class="form-inline mb-2">
                             <label class="fw-bolder"><i class="fa fa-user-circle-o fa-2x"></i>
                                 <span th:text="'작성자 : ' + ${reply.user_id}"
-                                    style="color:gray;">&nbsp; 공선환</span>
-
+                                      style="color:gray;">&nbsp; 공선환</span>
                             </label>
                         </div>
                         <div th:text="'내용 : ' + ${reply.reply_contents}" class="fw-bolder">
