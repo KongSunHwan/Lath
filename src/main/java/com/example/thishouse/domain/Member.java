@@ -9,10 +9,14 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Member {
+public class Member extends PageVO{
     private int user_num;
     private String user_id;
     private String user_pw;
     private String user_name;
     private String user_phone;
+    private String user_create_time;
+
+    private String search_name;
+    private String search_content;
 }

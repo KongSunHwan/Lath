@@ -1,19 +1,11 @@
 package com.example.thishouse.mapper;
 
-import com.example.thishouse.domain.Member;
-import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Mapper;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.stereotype.Repository;
-import com.example.thishouse.domain.Member;
-import com.example.thishouse.domain.PageVO;
 import com.example.thishouse.domain.Notice;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
 
 //interface사용시 오류 (required_bean error)

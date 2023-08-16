@@ -1,6 +1,7 @@
 package com.example.thishouse.domain;
 
 import lombok.Data;
+
 import java.util.HashMap;
 import java.util.UUID;
 

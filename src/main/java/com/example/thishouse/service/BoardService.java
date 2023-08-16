@@ -1,7 +1,5 @@
 package com.example.thishouse.service;
 
-import com.example.thishouse.domain.Member;
-import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
 import com.example.thishouse.mapper.BoardMapper;
@@ -81,8 +79,6 @@ public class BoardService {
     public int bd_list_search_Cnt(Community searchVO) {
         return this.boardMapper.bd_list_search_Cnt(searchVO);
     }
-
-
     // List 검색 search
     // List 페이징 리스트 page_list
 
