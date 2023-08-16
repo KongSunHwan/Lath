@@ -78,6 +78,7 @@ public class KimController {
                                      House_picture house_picture,
                                      House_type house_type,
                                      Model model,
+                                     Marker marker,
                                      @RequestParam("files") List<MultipartFile> files ,
                                      HttpServletRequest request) {
 
