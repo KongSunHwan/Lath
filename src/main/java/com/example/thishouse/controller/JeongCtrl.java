@@ -1,5 +1,6 @@
 package com.example.thishouse.controller;
 import com.example.thishouse.domain.Notice;
+import com.example.thishouse.service.NoticeService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

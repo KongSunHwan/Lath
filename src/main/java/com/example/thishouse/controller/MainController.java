@@ -6,6 +6,8 @@ import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.house.House_list;
 import com.example.thishouse.domain.house.House_picture;
+import com.example.thishouse.service.MemberService;
+import com.example.thishouse.service.RealEstateService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;

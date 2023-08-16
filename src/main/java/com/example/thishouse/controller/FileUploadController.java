@@ -1,6 +1,7 @@
 package com.example.thishouse.controller;
 
 import com.example.thishouse.domain.house.House_picture;
+import com.example.thishouse.service.RealEstateService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
