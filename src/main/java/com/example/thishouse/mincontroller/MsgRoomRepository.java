@@ -1,13 +1,8 @@
 package com.example.thishouse.mincontroller;
 
 
-import com.example.thishouse.domain.chattingVO.ChtRoom;
-import com.example.thishouse.service.NoticeService;
-import com.example.thishouse.service.chttingSV.ChtService;
 import jakarta.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-
 
 import java.util.*;
 @Repository

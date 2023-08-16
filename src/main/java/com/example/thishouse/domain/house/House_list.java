@@ -33,6 +33,7 @@ public class House_list {
     private int hits;
     private float exclusive_area2;
     private List<MultipartFile> files = new ArrayList<>();    // 첨부파일 List
+    private int approval;
 
 
 }

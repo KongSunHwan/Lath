@@ -109,7 +109,7 @@
                 <input type="hidden" name="user_id" value="user_id" th:value="${session.user_id}">
                 <div class="card shadow-sm">
                      <a th:href="@{'/real_estate_detail?house_num=' + ${house_list.house_num}}">
-                            <img th:src="@{'/upload/' + ${house_list.save_name}}"height="225" width="100%"></img>
+                            <img th:src="|/images/${house_list.save_name}|"height="225" width="100%"></img>
                     </a>
 
                     <div class="card-body">

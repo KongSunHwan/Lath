@@ -1,7 +1,6 @@
 package com.example.thishouse.service;
 
 import com.example.thishouse.domain.ChatRoom;
-import com.example.thishouse.mapper.BoardMapper;
 import com.example.thishouse.mapper.ChatMapper;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;

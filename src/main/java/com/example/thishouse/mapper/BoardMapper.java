@@ -1,14 +1,11 @@
 package com.example.thishouse.mapper;
 
-import com.example.thishouse.domain.Member;
-import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
-import com.example.thishouse.domain.community.Community;
 
 import java.util.List;
 
@@ -44,8 +41,8 @@ public class BoardMapper {
         return sqlSession.selectOne(Namespace+".view_board", community_num);
     }
     //게시판 상세정보 댓글 조회
-    public List<Community_reply> view_reply(String cn) {
-        return sqlSession.selectList(Namespace+".view_reply",cn);
+    public List<Community_reply> view_reply(String community_num) {
+        return sqlSession.selectList(Namespace+".view_reply",community_num);
     }
     //게시판 삭제
     public void delete_board(String community_num) {
@@ -76,6 +73,5 @@ public class BoardMapper {
     public List<Community_reply> reply_list(Community_reply reply){
         return sqlSession.selectList(Namespace + ".reply_list" + reply);
     }
-
 
 }

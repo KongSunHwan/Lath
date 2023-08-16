@@ -1,7 +1,7 @@
 package com.example.thishouse.mapper;
 
-import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Inquire;
+import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
@@ -77,4 +77,21 @@ public class MemberMapper {
     public List<Inquire> my_inquire_one(String userId) {
         return sqlSession.selectList(Namespace+".my_inquire_one",userId);
     }
+//
+//    public int memberList_cnt() {
+//        return sqlSession.selectOne(Namespace+".memberList_cnt");
+//    }
+//
+//    public List<Member> memberAll(Member searchVO) {
+//        return sqlSession.selectList(Namespace + ".memberAll", searchVO);
+//    }
+//
+//    public int member_search_cnt(Member searchVO) {
+//        return sqlSession.selectOne(Namespace+".member_search_cnt");
+//
+//    }
+//
+//    public List<Member> member_list_search(Member searchVO) {
+//        return sqlSession.selectOne(Namespace+".member_list_search");
+//    }
 }

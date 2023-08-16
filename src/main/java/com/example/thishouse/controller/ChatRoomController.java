@@ -1,4 +1,4 @@
-//package com.example.thishouse.controller;
+package com.example.thishouse.controller;//package com.example.thishouse.controller;
 //
 //import com.example.thishouse.domain.ChatRoom;
 //import com.example.thishouse.service.ChatService;

@@ -6,8 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 @Mapper
 @RequiredArgsConstructor
