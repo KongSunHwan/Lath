@@ -1,7 +1,7 @@
 package com.example.thishouse.service;
 
-import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.Member;
+import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;

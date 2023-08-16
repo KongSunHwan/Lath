@@ -1,9 +1,11 @@
 package com.example.thishouse.mapper;
 
+import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.house.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

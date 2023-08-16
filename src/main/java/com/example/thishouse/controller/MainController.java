@@ -1,16 +1,19 @@
 package com.example.thishouse.controller;
 
 import com.example.thishouse.domain.Inquire;
+import com.example.thishouse.domain.Marker;
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.house.House_list;
 import com.example.thishouse.domain.house.House_picture;
+import com.example.thishouse.service.MarkerService;
 import com.example.thishouse.service.MemberService;
 import com.example.thishouse.service.RealEstateService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -27,9 +31,17 @@ public class MainController {
 
     private final MemberService memberService;
     private final RealEstateService realEstateService;
-    @RequestMapping("/map")
-    public String map() {
-            return "map/map";
+    private final MarkerService markerService;
+    @GetMapping("/map")
+    public String map(Model model) {
+        List<Marker> markers = markerService.getMarkers();
+        model.addAttribute("markers", markers);
+
+        //테스트용
+        model.addAttribute("map", new Map("매물이름", 50));
+        addMap(model);
+
+        return "map/map";
     }
 
     @RequestMapping("/inquire")
@@ -133,4 +145,29 @@ public class MainController {
         return "contract/real_estate_contract";
     }
 
+    @RequestMapping("/contract_Information")
+    public String Contract_Information() {
+        return "contract/Contract_Information";
+    }
+
+    //맵 테스트용
+    @Data
+    static class Map {
+        private String mapname;
+        private int num;
+
+        public Map(String mapname, int num) {
+            this.mapname = mapname;
+            this.num = num;
+        }
+    }
+
+    //맵 테스트용
+    private void addMap(Model model) {
+        List<Map> list = new ArrayList<>();
+        list.add(new Map("매물1", 10));
+        list.add(new Map("매물2", 20));
+        list.add(new Map("매물3", 30));
+        model.addAttribute("Maps", list);
+    }
 }

@@ -32,10 +32,10 @@
         where community_num = #{community_num}
     </select>
 
-    <select id="view_reply" parameterType="string" resultType="com.example.thishouse.domain.community.Community_reply">
+    <select id="view_reply" resultType="com.example.thishouse.domain.community.Community_reply">
         select *
         from community_reply
-        where community_num = ${cn}
+        where community_num = ${community_num}
         order by reply_date desc;
     </select>
 
@@ -89,6 +89,8 @@
         select count(*) from community where ${search_name} like CONCAT('%',#{search_content},'%')
 
     </select>
+
+
 
 
 

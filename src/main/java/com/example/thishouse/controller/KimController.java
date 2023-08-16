@@ -1,21 +1,25 @@
 package com.example.thishouse.controller;
 
 import com.example.thishouse.domain.Inquire;
+import com.example.thishouse.domain.Marker;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.house.*;
 import com.example.thishouse.service.BoardService;
+import com.example.thishouse.service.MarkerService;
 import com.example.thishouse.service.MemberService;
 import com.example.thishouse.service.RealEstateService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,7 +34,8 @@ public class KimController {
     private final MemberService memberService;
     private final RealEstateService realEstateService;
     private final BoardService boardService;
-    private final String uploadPath = "src/main/resources/static/upload/";
+    private final MarkerService markerService;
+    private final String uploadPath = "C:/Timp/img/";
     @RequestMapping("/test_inquire")
     public String test_my_community(String user_id, Model model) {
         List<Inquire> my_inquire = memberService.findInputMemberInquire(user_id);
@@ -67,7 +72,9 @@ public class KimController {
                                      House_location house_location,
                                      House_option house_option,
                                      House_picture house_picture,
-                                     House_type house_type, Model model,
+                                     House_type house_type,
+                                     Model model,
+                                     Marker marker,
                                      @RequestParam("files") List<MultipartFile> files ,
                                      HttpServletRequest request) {
 
@@ -75,7 +82,6 @@ public class KimController {
         int sq = realEstateService.sequence();
 
         System.out.println("C = " + sq);
-
 
         house_list.setHouse_num(sq);
         house_addinfo.setHouse_num(sq);
@@ -158,7 +164,7 @@ public class KimController {
         return "test_kim/main_RE_list";
     }
 
-    @RequestMapping("real_estate_detail")
+    @RequestMapping("/real_estate_detail")
     public String real_estate_detail(Model model, String house_num) {
         System.out.println(house_num);
         List<House_list> house_list = realEstateService.view_house_list_one(house_num);
@@ -215,10 +221,17 @@ public class KimController {
         return file.getName();
     }
 
-    @RequestMapping("my_board_list")
+    @RequestMapping("/my_board_list")
     public String my_board_list(Model model, String user_id) {
         List<Community> my_board = memberService.my_board_list(user_id);
         return "test_kim/my_board_list";
+    }
+
+    // 이미지 파일 전송
+    @ResponseBody
+    @GetMapping("/images/{filename}")
+    public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
+        return new UrlResource("file:" + uploadPath + filename);
     }
 
 }

@@ -1,5 +1,7 @@
 package com.example.thishouse.service;
 
+import com.example.thishouse.domain.Member;
+import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
 import com.example.thishouse.mapper.BoardMapper;

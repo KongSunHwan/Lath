@@ -1,6 +1,7 @@
 package com.example.thishouse.service;
 
 import com.example.thishouse.domain.Marker;
+import com.example.thishouse.mapper.AdminMapper;
 import com.example.thishouse.mapper.MarkerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

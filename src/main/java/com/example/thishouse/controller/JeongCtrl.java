@@ -171,6 +171,4 @@ public class JeongCtrl {
     public String test3(){
         return "z_JeongTest/putTest";
     }
-
-    public void test4() { System.out.println("test입니다"); }
 }

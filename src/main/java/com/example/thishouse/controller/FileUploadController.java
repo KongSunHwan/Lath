@@ -3,16 +3,12 @@ package com.example.thishouse.controller;
 import com.example.thishouse.domain.house.House_picture;
 import com.example.thishouse.service.RealEstateService;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -127,15 +123,15 @@ public class FileUploadController {
     }
 
     // 이미지 파일 전달
-    @GetMapping("/images/{filePath}")
-    @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filePath) throws FileNotFoundException {
-        Resource file = realEstateService.loadFileAsResource(filePath);
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
-                .body(file);
-    }
+//    @GetMapping("/images/{filePath}")
+//    @ResponseBody
+//    public ResponseEntity<Resource> serveFile(@PathVariable String filePath) throws FileNotFoundException {
+//        Resource file = realEstateService.loadFileAsResource(filePath);
+//
+//        return ResponseEntity.ok()
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+//                .body(file);
+//    }
 
 
 }

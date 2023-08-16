@@ -50,8 +50,8 @@
     </insert>
 
     <insert id="insert_house_list">
-        insert into house_list(house_num,house_type,road_address,deal_type,deposit,m_price,y_price,b_floors,n_floors,m_cost,m_cost_type,h_title,parkingfee,total_m_cost,hits,exclusive_area2)
-        values(#{house_num},#{house_type},#{road_address},#{deal_type},#{deposit},#{m_price},#{y_price},#{b_floors},#{n_floors},#{m_cost},#{m_cost_type},#{h_title},#{parkingfee},#{m_cost} + #{parkingfee},0,#{exclusive_area2})
+        insert into house_list(house_num,house_type,road_address,deal_type,deposit,m_price,y_price,b_floors,n_floors,m_cost,m_cost_type,h_title,parkingfee,total_m_cost,hits,exclusive_area2,approval)
+        values(#{house_num},#{house_type},#{road_address},#{deal_type},#{deposit},#{m_price},#{y_price},#{b_floors},#{n_floors},#{m_cost},#{m_cost_type},#{h_title},#{parkingfee},#{m_cost} + #{parkingfee},0,#{exclusive_area2},0)
     </insert>
 
     <select id="sequence" resultType="int">
@@ -64,7 +64,7 @@
         from house_list a, (select *
         from house_picture
         where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) b
-        where a.house_num = b.house_num
+        where a.house_num = b.house_num and a.approval = 1
         order by house_list_num desc
         limit 6;
     </select>

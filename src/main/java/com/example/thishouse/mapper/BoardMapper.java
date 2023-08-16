@@ -1,11 +1,14 @@
 package com.example.thishouse.mapper;
 
+import com.example.thishouse.domain.Member;
+import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import com.example.thishouse.domain.community.Community;
 
 import java.util.List;
 

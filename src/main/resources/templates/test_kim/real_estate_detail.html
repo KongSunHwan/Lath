@@ -529,9 +529,10 @@
         </ul>
       </div>
 
+
       <div class="col"  th:each="house_list : ${house_list}">
         <div class="rounded-3"
-          style="width: 300px; padding: 10px 10px; position: -webkit-sticky; position: sticky; top: 50px; text-align: center; margin-top: 50px; border: 1px solid rgb(194, 193, 193); box-shadow:2px 3px 5px 0px;">
+             style="width: 300px; padding: 10px 10px; position: -webkit-sticky; position: sticky; top: 50px; text-align: center; margin-top: 50px; border: 1px solid rgb(194, 193, 193); box-shadow:2px 3px 5px 0px;">
           <div>
             <b th:if="${house_list.deal_type == '월세'}">월세 [(${house_list.deposit})] / [(${house_list.m_price})]만원</b>
             <b th:if="${house_list.deal_type == '전세'}">전세 [(${house_list.y_price})] 만원 </b>
