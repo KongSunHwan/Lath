@@ -2,13 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.thishouse.mapper.MarkerMapper">
-    <insert id="insertMarker" parameterType="com.example.thishouse.domain.Marker">
-        INSERT INTO markers (road_address, latitude, longitude)
-        VALUES (#{road_address}, #{latitude}, #{longitude})
-    </insert>
+<!--    <insert id="insertMarker" parameterType="com.example.thishouse.domain.Marker">-->
+<!--        INSERT INTO markers (road_address, latitude, longitude)-->
+<!--        VALUES (#{road_address}, #{latitude}, #{longitude})-->
+<!--    </insert>-->
 
-    <select id="getMarkers" resultType="com.example.thishouse.domain.Marker">
-        SELECT marker_num, road_address AS roadAddress, latitude, longitude
-        FROM markers
+    <select id="getMarkers" resultType="com.example.thishouse.domain.house.MapVO">
+        SELECT * FROM house_location a, house_deal b where a.house_num = b.house_num
     </select>
 </mapper>

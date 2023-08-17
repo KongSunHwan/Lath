@@ -1,12 +1,12 @@
 package com.example.thishouse.controller;
 
 import com.example.thishouse.domain.Inquire;
-import com.example.thishouse.domain.Marker;
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.house.House_list;
 import com.example.thishouse.domain.house.House_picture;
+import com.example.thishouse.domain.house.MapVO;
 import com.example.thishouse.service.MarkerService;
 import com.example.thishouse.service.MemberService;
 import com.example.thishouse.service.RealEstateService;
@@ -34,12 +34,21 @@ public class MainController {
     private final MarkerService markerService;
     @GetMapping("/map")
     public String map(Model model) {
-        List<Marker> markers = markerService.getMarkers();
+//        List<Marker> markers = markerService.getMarkers();
+//        model.addAttribute("markers", markers);
+//
+//        //테스트용
+//        model.addAttribute("map", new Map("매물이름", 50));
+//        addMap(model);
+
+        List<MapVO> markers = markerService.getMarkers();
+        System.out.println("--------------------------------------");
+        System.out.println(markers.getClass());
+        System.out.println(markers.toString());
+        System.out.println("--------------------------------------");
         model.addAttribute("markers", markers);
 
-        //테스트용
-        model.addAttribute("map", new Map("매물이름", 50));
-        addMap(model);
+
 
         return "map/map";
     }

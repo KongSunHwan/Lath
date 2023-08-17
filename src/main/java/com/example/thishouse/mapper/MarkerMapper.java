@@ -1,7 +1,7 @@
 package com.example.thishouse.mapper;
 
 import com.example.thishouse.domain.Marker;
-import com.example.thishouse.domain.Member;
+import com.example.thishouse.domain.house.MapVO;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -21,7 +21,9 @@ public class MarkerMapper {
         sqlSession.insert(Namespace+".insertMarker", marker);
     }
 
-    public List<Marker> getMarkers() {
-        return sqlSession.selectList(Namespace+".getMarkers");
+    public List<MapVO> getMarkers() {
+        return sqlSession.selectList(Namespace+".getMarkers"
+
+        );
     }
 }

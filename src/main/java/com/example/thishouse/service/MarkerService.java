@@ -1,7 +1,7 @@
 package com.example.thishouse.service;
 
 import com.example.thishouse.domain.Marker;
-import com.example.thishouse.mapper.AdminMapper;
+import com.example.thishouse.domain.house.MapVO;
 import com.example.thishouse.mapper.MarkerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class MarkerService {
         markerMapper.insertMarker(marker);
     }
 
-    public List<Marker> getMarkers() {
+    public List<MapVO> getMarkers() {
         return markerMapper.getMarkers();
     }
 
