@@ -480,245 +480,250 @@
         <script src="http://code.jquery.com/jquery-latest.js"></script>
 
         <script th:inline="javascript">
-            var map = null,
-                customOverlay = new kakao.maps.CustomOverlay({}),
-                polygons = [], // 다각형을 저장할 배열을 생성합니다.
-                markers = [], // 마커를 저장할 배열을 생성합니다.
-                kkoMap = {
-                    initKko: function (o) {
-                        var e = o.mapId,
-                            t = document.getElementById(e),
-                            a = {
-                                center: new kakao.maps.LatLng(37.567509, 126.980663),
-                                level: 8,
-                            };
-                        (map = new kakao.maps.Map(t, a)),
-                            $.getJSON("/json/sigu.geojson", function (o) {
-                                let e = $(o.features);
-                                e.each(function () {
-                                    kkoMap.getPolycode($(this)[0]);
-                                });
+        var map = null,
+            customOverlay = new kakao.maps.CustomOverlay({}),
+            polygons = [], // 다각형을 저장할 배열을 생성합니다.
+            markers = [], // 마커를 저장할 배열을 생성합니다.
+            kkoMap = {
+                initKko: function (o) {
+                    var e = o.mapId,
+                        t = document.getElementById(e),
+                        a = {
+                            center: new kakao.maps.LatLng(37.567509, 126.980663),
+                            level: 8,
+                        };
+                    (map = new kakao.maps.Map(t, a)),
+                        $.getJSON("/json/sigu.geojson", function (o) {
+                            let e = $(o.features);
+                            e.each(function () {
+                                kkoMap.getPolycode($(this)[0]);
                             });
-                    },
-                    getPolycode: function (o) {
-                        var e = [],
-                            t = o.geometry;
-                        if ("Polygon" == t.type) {
-                            var a = t.coordinates[0],
+                        });
+                },
+                getPolycode: function (o) {
+                    var e = [],
+                        t = o.geometry;
+                    if ("Polygon" == t.type) {
+                        var a = t.coordinates[0],
+                            n = { name: o.properties.adm_nm, path: [] };
+                        for (var s in a)
+                            e.push({ x: p[s][1], y: p[s][0] }),
+                                n.path.push(new kakao.maps.LatLng(a[s][1], a[s][0]));
+                        kkoMap.setPolygon(n, e);
+                    } else if ("MultiPolygon" == t.type)
+                        for (var s in t.coordinates) {
+                            var p = t.coordinates[s],
                                 n = { name: o.properties.adm_nm, path: [] };
-                            for (var s in a)
-                                e.push({ x: p[s][1], y: p[s][0] }),
-                                    n.path.push(new kakao.maps.LatLng(a[s][1], a[s][0]));
+                            for (var r in p[0])
+                                e.push({ x: p[0][r][1], y: p[0][r][0] }),
+                                    n.path.push(new kakao.maps.LatLng(p[0][r][1], p[0][r][0]));
                             kkoMap.setPolygon(n, e);
-                        } else if ("MultiPolygon" == t.type)
-                            for (var s in t.coordinates) {
-                                var p = t.coordinates[s],
-                                    n = { name: o.properties.adm_nm, path: [] };
-                                for (var r in p[0])
-                                    e.push({ x: p[0][r][1], y: p[0][r][0] }),
-                                        n.path.push(new kakao.maps.LatLng(p[0][r][1], p[0][r][0]));
-                                kkoMap.setPolygon(n, e);
-                            }
-                    },
-                    setPolygon: function (o, e) {
-                        var t = new kakao.maps.Polygon({
-                            name: o.name,
-                            path: o.path,
-                            strokeWeight: 2,
-                            strokeColor: "#004c80",
-                            strokeOpacity: 0.8,
-                            fillColor: "#fff",
-                            fillOpacity: 0.7,
-                        });
-                        kakao.maps.event.addListener(t, "mouseover", function (a) {
-                            t.setOptions({ fillColor: "#09f" }),
-                                customOverlay.setPosition(kkoMap.centroid(e)),
-                                customOverlay.setContent(
-                                    "<div class='overlaybox'>" + o.name + "</div>"
-                                ),
-                                customOverlay.setMap(map);
+                        }
+                },
+                setPolygon: function (o, e) {
+                    var t = new kakao.maps.Polygon({
+                        name: o.name,
+                        path: o.path,
+                        strokeWeight: 2,
+                        strokeColor: "#004c80",
+                        strokeOpacity: 0.8,
+                        fillColor: "#fff",
+                        fillOpacity: 0.7,
+                    });
+                    kakao.maps.event.addListener(t, "mouseover", function (a) {
+                        t.setOptions({ fillColor: "#09f" }),
+                            customOverlay.setPosition(kkoMap.centroid(e)),
+                            customOverlay.setContent(
+                                "<div class='overlaybox'>" + o.name + "</div>"
+                            ),
+                            customOverlay.setMap(map);
+                    }),
+                        kakao.maps.event.addListener(t, "mouseout", function () {
+                            t.setOptions({ fillColor: "#fff" }), customOverlay.setMap(null);
                         }),
-                            kakao.maps.event.addListener(t, "mouseout", function () {
-                                t.setOptions({ fillColor: "#fff" }), customOverlay.setMap(null);
-                            }),
-                            kakao.maps.event.addListener(t, "click", function () {
-                                customOverlay.setMap(null); // 정보 창(customOverlay)을 닫습니다.
-                                kkoMap.clearPolygons(); // 클릭한 다각형을 포함하여 모든 다각형을 지도에서 제거합니다.
-                                var center = kkoMap.centroid(e); // 클릭한 다각형의 중심 위치를 가져옵니다.
-                                var newLevel = map.getLevel() - 2; // 현재 레벨에서 2 레벨을 추가로 확대합니다.
-                                map.setLevel(newLevel, { anchor: center, animate: { duration: 350 } }); // 클릭한 다각형의 중심을 기준으로 지도를 확대합니다.
-                            });
-                        t.setMap(map);
-
-                        polygons.push(t); // 다각형을 배열에 추가합니다.
-                    },
-                    clearPolygons: function () {
-                        // 배열에 저장된 모든 다각형을 지도에서 제거하는 함수입니다.
-                        for (var i = 0; i < polygons.length; i++) {
-                            polygons[i].setMap(null);
-                        }
-                        polygons = []; // 배열을 초기화합니다.
-                    },
-                    showCustomOverlay: function (position) {
-
-                        // 마커의 위치 변경해서 바로 위에 오버레이를 표시하도록 offset 값을 설정합니다.
-                        var overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng());
-
-                        // 지도의 현재 레벨에 따라 오버레이의 위치를 조정합니다.
-                        var mapLevel = map.getLevel();
-                        if (mapLevel == 1) {
-                            overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0004);
-                        } else if (mapLevel == 2) {
-                            overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0008);
-                        } else if (mapLevel == 3) {
-                            overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0016);
-                        } else if (mapLevel == 4) {
-                            overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0032);
-                        } else if (mapLevel == 5) {
-                            overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0064);
-                        } else if (mapLevel == 6) {
-                            overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0128);
-                        }
-
-                        var mapname = [[${map.mapname}]]
-
-                        // 커스텀 오버레이를 표시하는 함수입니다.
-                        var content = '<div class="wrap">' +
-                            ' <div class="info">' +
-                            ' <div class="title">' +
-                            ' ' + mapname +
-                            ' <div class="close" onclick="kkoMap.closeCustomOverlay()" title="닫기"></div>' +
-                            ' </div>' +
-                            ' <div class="body">' +
-                            ' <div class="img">' +
-                            ' <img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png" width="73" height="70">' +
-                            ' </div>' +
-                            ' <div class="desc">' +
-                            ' <div class="ellipsis">제주특별자치도 제주시 첨단로 242</div>' +
-                            ' <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' +
-                            ' <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' +
-                            ' </div>' +
-                            ' </div>' +
-                            ' </div>' +
-                            '</div>';
-
-                        // 커스텀 오버레이를 생성하고 설정한 위치에 표시합니다.
-                        customOverlay.setContent(content);
-                        customOverlay.setPosition(overlayPosition);
-                        customOverlay.setMap(map);
-
-                    },
-                    closeCustomOverlay: function() {
-                        // 커스텀 오버레이를 닫는 함수입니다.
-                        customOverlay.setMap(null);
-                    },
-                    // 커스텀 오버레이를 닫는 함수
-                    closeAllCustomOverlays: function () {
-                        customOverlay.setMap(null);
-                    },
-                    centroid: function (o) {
-                        var e, t, a, n, s, p, r, i, l;
-                        for (e = 0, r = i = l = 0, t = (a = o.length) - 1; e < a; t = e++)
-                            (n = o[e]),
-                                (s = o[t]),
-                                (p = n.y * s.x - s.y * n.x),
-                                (i += (n.x + s.x) * p),
-                                (l += (n.y + s.y) * p),
-                                (r += 3 * p);
-                        return new kakao.maps.LatLng(i / r, l / r);
-                    },
-                    addMarkersFromList: function (markerList) {
-                        // 주어진 마커 리스트를 이용하여 마커를 생성하고 지도에 추가합니다.
-                        for (var i = 0; i < markerList.length; i++) {
-                            var markerData = markerList[i];
-                            var position = new kakao.maps.LatLng(markerData.latitude, markerData.longitude);
-                            kkoMap.addMarker(position, markerData.name);
-                        }
-                    },
-                    addMarker: function (position, name) {
-                        // 마커를 생성하고 마커 배열에 추가하는 함수입니다.
-                        var marker = new kakao.maps.Marker({
-                            position: position,
+                        kakao.maps.event.addListener(t, "click", function () {
+                            customOverlay.setMap(null); // 정보 창(customOverlay)을 닫습니다.
+                            kkoMap.clearPolygons(); // 클릭한 다각형을 포함하여 모든 다각형을 지도에서 제거합니다.
+                            var center = kkoMap.centroid(e); // 클릭한 다각형의 중심 위치를 가져옵니다.
+                            var newLevel = map.getLevel() - 2; // 현재 레벨에서 2 레벨을 추가로 확대합니다.
+                            map.setLevel(newLevel, { anchor: center, animate: { duration: 350 } }); // 클릭한 다각형의 중심을 기준으로 지도를 확대합니다.
                         });
-                        markers.push(marker); // 마커를 배열에 추가합니다.
-                        marker.setMap(map); // 마커를 지도에 표시합니다.
+                    t.setMap(map);
 
-                        // 마커 클릭 시 커스텀 오버레이를 표시합니다.
-                        kakao.maps.event.addListener(marker, 'click', function() {
-                            kkoMap.showCustomOverlay(position);
-                        });
-                    },
-                    createMarkerClusterer: function () {
-                        // 마커 클러스터러를 생성하는 함수입니다.
-                        var clusterer = new kakao.maps.MarkerClusterer({
-                            map: map, // 마커들을 표시할 지도 객체
-                            markers: markers, // 마커 배열
-                            gridSize: 40, // 클러스터 간격
-                            averageCenter: true, // 클러스터의 중심을 평균값으로 설정
-                            minLevel: 7,
-                            minClusterSize: 1, // 한 개의 마커만 있어도 클러스터링 마커를 표시합니다.
-                            styles: [
-                                {
-                                    width: '53px',
-                                    height: '53px',
-                                    background: 'rgba(103, 58, 183, 0.8)',
-                                    borderRadius: '50%',
-                                    textAlign: 'center',
-                                    color: '#fff',
-                                    fontSize: '15px',
-                                    fontWeight: 'bold',
-                                    lineHeight: '53px'
-                                },
-                                {
-                                    width: '56px',
-                                    height: '56px',
-                                    background: 'rgba(103, 58, 183, 0.8)',
-                                    borderRadius: '50%',
-                                    textAlign: 'center',
-                                    color: '#fff',
-                                    fontSize: '15px',
-                                    fontWeight: 'bold',
-                                    lineHeight: '56px'
-                                },
-                                {
-                                    width: '66px',
-                                    height: '66px',
-                                    background: 'rgba(103, 58, 183, 0.8)',
-                                    borderRadius: '50%',
-                                    textAlign: 'center',
-                                    color: '#fff',
-                                    fontSize: '15px',
-                                    fontWeight: 'bold',
-                                    lineHeight: '66px'
-                                },
-                                {
-                                    width: '78px',
-                                    height: '78px',
-                                    background: 'rgba(103, 58, 183, 0.8)',
-                                    borderRadius: '50%',
-                                    textAlign: 'center',
-                                    color: '#fff',
-                                    fontSize: '15px',
-                                    fontWeight: 'bold',
-                                    lineHeight: '78px'
-                                }
-                            ],
-                        });
-                    },
-                };
+                    polygons.push(t); // 다각형을 배열에 추가합니다.
+                },
+                clearPolygons: function () {
+                    // 배열에 저장된 모든 다각형을 지도에서 제거하는 함수입니다.
+                    for (var i = 0; i < polygons.length; i++) {
+                        polygons[i].setMap(null);
+                    }
+                    polygons = []; // 배열을 초기화합니다.
+                },
+                showCustomOverlay: function (position, markerData) {
 
-            $(function () {
-                kkoMap.initKko({ mapId: "map" });
-                var sampleMarkers = /*[[${markers}]]*/; // 서버에서 전달받은 마커 리스트 데이터
-                kkoMap.addMarkersFromList(sampleMarkers);
-                kkoMap.createMarkerClusterer(); // 마커 클러스터러를 생성합니다.
+                    // 마커의 위치 변경해서 바로 위에 오버레이를 표시하도록 offset 값을 설정합니다.
+                    var overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng());
 
-                // 지도 이벤트 리스너 추가
-                kakao.maps.event.addListener(map, 'zoom_changed', function () {
-                    kkoMap.closeAllCustomOverlays(); // 확대/축소 시에 모든 커스텀 오버레이를 닫습니다.
-                });
+                    // 지도의 현재 레벨에 따라 오버레이의 위치를 조정합니다.
+                    var mapLevel = map.getLevel();
+                    if (mapLevel == 1) {
+                        overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0004);
+                    } else if (mapLevel == 2) {
+                        overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0008);
+                    } else if (mapLevel == 3) {
+                        overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0016);
+                    } else if (mapLevel == 4) {
+                        overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0032);
+                    } else if (mapLevel == 5) {
+                        overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0064);
+                    } else if (mapLevel == 6) {
+                        overlayPosition = new kakao.maps.LatLng(position.getLat(), position.getLng() - 0.0128);
+                    }
+
+                    var mapname = null;
+
+                    if(markerData.deal_type == '월세') {
+                        mapname = markerData.deal_type + ': ' + markerData.deposit + '/' + markerData.m_price + "만원";
+                    } else if(markerData.deal_type == '전세') {
+                        mapname = markerData.deal_type + ': ' + markerData.y_price + "만원";
+                    }
+
+                    // 커스텀 오버레이 내용을 생성합니다.
+                    var content = '<div class="wrap">' +
+                        ' <div class="info">' +
+                        ' <div class="title">' +
+                        ' ' + mapname +
+                        ' <div class="close" onclick="kkoMap.closeCustomOverlay()" title="닫기"></div>' +
+                        ' </div>' +
+                        ' <div class="body">' +
+                        ' <div class="img">' +
+                        ' <img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png" width="73" height="70">' +
+                        ' </div>' +
+                        ' <div class="desc">' +
+                        ' <div class="ellipsis"> ' + markerData.road_address + '</div>' +
+                        ' <div class="jibun ellipsis"> ' + markerData.detail_address + '</div>' +
+                        ' <div><a href="#" target="_blank" class="link">매물 조회</a></div>' +
+                        ' </div>' +
+                        ' </div>' +
+                        ' </div>' +
+                        '</div>';
+
+                    // 커스텀 오버레이를 생성하고 설정한 위치에 표시합니다.
+                    customOverlay.setContent(content);
+                    customOverlay.setPosition(overlayPosition);
+                    customOverlay.setMap(map);
+
+                },
+                closeCustomOverlay: function() {
+                    // 커스텀 오버레이를 닫는 함수입니다.
+                    customOverlay.setMap(null);
+                },
+                // 커스텀 오버레이를 닫는 함수
+                closeAllCustomOverlays: function () {
+                    customOverlay.setMap(null);
+                },
+                centroid: function (o) {
+                    var e, t, a, n, s, p, r, i, l;
+                    for (e = 0, r = i = l = 0, t = (a = o.length) - 1; e < a; t = e++)
+                        (n = o[e]),
+                            (s = o[t]),
+                            (p = n.y * s.x - s.y * n.x),
+                            (i += (n.x + s.x) * p),
+                            (l += (n.y + s.y) * p),
+                            (r += 3 * p);
+                    return new kakao.maps.LatLng(i / r, l / r);
+                },
+                addMarkersFromList: function (markerList) {
+                    // 주어진 마커 리스트를 이용하여 마커를 생성하고 지도에 추가합니다.
+                    for (var i = 0; i < markerList.length; i++) {
+                        var markerData = markerList[i];
+                        var position = new kakao.maps.LatLng(markerData.latitude, markerData.longitude);
+                        kkoMap.addMarker(position, markerData);
+                    }
+                },
+
+                addMarker: function (position, markerData) {
+                    var marker = new kakao.maps.Marker({
+                        position: position,
+                    });
+                    markers.push(marker);
+                    marker.setMap(map);
+
+                    kakao.maps.event.addListener(marker, 'click', function() {
+                        kkoMap.showCustomOverlay(position, markerData);
+                    });
+                },
+                createMarkerClusterer: function () {
+                    // 마커 클러스터러를 생성하는 함수입니다.
+                    var clusterer = new kakao.maps.MarkerClusterer({
+                        map: map, // 마커들을 표시할 지도 객체
+                        markers: markers, // 마커 배열
+                        gridSize: 40, // 클러스터 간격
+                        averageCenter: true, // 클러스터의 중심을 평균값으로 설정
+                        minLevel: 7,
+                        minClusterSize: 1, // 한 개의 마커만 있어도 클러스터링 마커를 표시합니다.
+                        styles: [
+                            {
+                                width: '53px',
+                                height: '53px',
+                                background: 'rgba(103, 58, 183, 0.8)',
+                                borderRadius: '50%',
+                                textAlign: 'center',
+                                color: '#fff',
+                                fontSize: '15px',
+                                fontWeight: 'bold',
+                                lineHeight: '53px'
+                            },
+                            {
+                                width: '56px',
+                                height: '56px',
+                                background: 'rgba(103, 58, 183, 0.8)',
+                                borderRadius: '50%',
+                                textAlign: 'center',
+                                color: '#fff',
+                                fontSize: '15px',
+                                fontWeight: 'bold',
+                                lineHeight: '56px'
+                            },
+                            {
+                                width: '66px',
+                                height: '66px',
+                                background: 'rgba(103, 58, 183, 0.8)',
+                                borderRadius: '50%',
+                                textAlign: 'center',
+                                color: '#fff',
+                                fontSize: '15px',
+                                fontWeight: 'bold',
+                                lineHeight: '66px'
+                            },
+                            {
+                                width: '78px',
+                                height: '78px',
+                                background: 'rgba(103, 58, 183, 0.8)',
+                                borderRadius: '50%',
+                                textAlign: 'center',
+                                color: '#fff',
+                                fontSize: '15px',
+                                fontWeight: 'bold',
+                                lineHeight: '78px'
+                            }
+                        ],
+                    });
+                },
+            };
+
+        $(function () {
+            kkoMap.initKko({ mapId: "map" });
+            var sampleMarkers = /*[[${markers}]]*/; // 서버에서 전달받은 마커 리스트 데이터
+            kkoMap.addMarkersFromList(sampleMarkers);
+            kkoMap.createMarkerClusterer(); // 마커 클러스터러를 생성합니다.
+
+            // 지도 이벤트 리스너 추가
+            kakao.maps.event.addListener(map, 'zoom_changed', function () {
+                kkoMap.closeAllCustomOverlays(); // 확대/축소 시에 모든 커스텀 오버레이를 닫습니다.
             });
-        </script>
+        });
+    </script>
 
         <script>
             // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다

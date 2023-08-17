@@ -37,14 +37,9 @@ public class MainController {
 //        List<Marker> markers = markerService.getMarkers();
 //        model.addAttribute("markers", markers);
 //
-//        //테스트용
-        model.addAttribute("map", new Map("매물이름", 50));
-        addMap(model);
 
         List<MapVO> markers = markerService.getMarkers();
         model.addAttribute("markers", markers);
-
-
 
         return "map/map";
     }
