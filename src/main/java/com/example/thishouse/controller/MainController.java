@@ -38,14 +38,10 @@ public class MainController {
 //        model.addAttribute("markers", markers);
 //
 //        //테스트용
-//        model.addAttribute("map", new Map("매물이름", 50));
-//        addMap(model);
+        model.addAttribute("map", new Map("매물이름", 50));
+        addMap(model);
 
         List<MapVO> markers = markerService.getMarkers();
-        System.out.println("--------------------------------------");
-        System.out.println(markers.getClass());
-        System.out.println(markers.toString());
-        System.out.println("--------------------------------------");
         model.addAttribute("markers", markers);
 
 
