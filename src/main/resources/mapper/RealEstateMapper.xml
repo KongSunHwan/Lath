@@ -4,7 +4,7 @@
 <mapper namespace="com.example.thishouse.mapper.RealEstateMapper">
     <!--qry-->
     <insert id="insert_house_item">
-        insert into house_item(user_id,regist_time) values( #{user_id},now())
+        insert into house_item(house_num,user_id,regist_time , approval) values(#{house_num}, #{user_id},now(),0)
     </insert>
 
     <insert id="insert_house_type">

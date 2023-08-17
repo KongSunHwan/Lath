@@ -532,7 +532,7 @@
 
       <div class="col"  th:each="house_list : ${house_list}">
         <div class="rounded-3"
-             style="width: 300px; padding: 10px 10px; position: -webkit-sticky; position: sticky; top: 50px; text-align: center; margin-top: 50px; border: 1px solid rgb(194, 193, 193); box-shadow:2px 3px 5px 0px;">
+             style="width: 300px; padding: 10px 10px; position: sticky; top: 50px; text-align: center; margin-top: 50px; border: 1px solid rgb(194, 193, 193); box-shadow:2px 3px 5px 0px;">
           <div>
             <b th:if="${house_list.deal_type == '월세'}">월세 [(${house_list.deposit})] / [(${house_list.m_price})]만원</b>
             <b th:if="${house_list.deal_type == '전세'}">전세 [(${house_list.y_price})] 만원 </b>
@@ -547,9 +547,15 @@
             <ul class="list-group list-group-flush"  th:each="house_item : ${house_item}" >
               <li class="list-group-item">판매자 : <b th:text = "${house_item.user_id}">USER ID</b></li>
               <li class="list-group-item" th:text = "${house_list.house_type}"><i class="bi bi-house-exclamation"></i > 원룸(분리형)</li>
-              <li class="list-group-item"><i class="bi bi-rulers"></i> 평수 : <b>[(${house_list.exclusive_area2})]㎡</b></li>
-              <li class="list-group-item"><i class="bi bi-door-closed"></i> 층수 : <b>[(${house_list.n_floors})]층</b></li>
-              <li class="list-group-item"><i class="bi bi-cash-coin"></i> 관리비 : <b>[(${house_list.total_m_cost})]만원</b></li>
+              <li class="list-group-item">
+                <i class="bi bi-rulers"></i>
+                평수 : <b>[(${house_list.exclusive_area2})]㎡</b></li>
+              <li class="list-group-item">
+                <i class="bi bi-door-closed"></i>
+                층수 : <b>[(${house_list.n_floors})]층</b></li>
+              <li class="list-group-item">
+                <i class="bi bi-cash-coin"></i>
+                관리비 : <b>[(${house_list.total_m_cost})]만원</b></li>
             </ul>
           </div>
         </div>
