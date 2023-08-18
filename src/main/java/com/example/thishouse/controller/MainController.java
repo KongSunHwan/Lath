@@ -150,6 +150,11 @@ public class MainController {
         return "contract/Contract_Information";
     }
 
+    @GetMapping("/property_guide")
+    public String property_guide() {
+        return "guide/property_guide";
+    }
+
     //맵 테스트용
     @Data
     static class Map {
