@@ -22,6 +22,8 @@ public class MarkerMapper {
     }
 
     public List<MapVO> getMarkers() {
+        System.out.println("맵 마커!!");
+        System.out.println(sqlSession.selectList(Namespace+".getMarkers"));
         return sqlSession.selectList(Namespace+".getMarkers"
 
         );

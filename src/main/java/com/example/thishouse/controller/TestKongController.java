@@ -4,6 +4,7 @@ import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
+import com.example.thishouse.domain.house.House_list;
 import com.example.thishouse.service.AdminService;
 import com.example.thishouse.service.BoardService;
 import com.example.thishouse.service.NoticeService;
@@ -453,7 +454,8 @@ public class TestKongController {
     }
 
     @GetMapping("Approval_List")
-    public String Approval_List() {
+    public String Approval_List(@ModelAttribute("searchVO") House_list house_list, HttpServletRequest request, Model model) {
+
         return "Admin_Dashboard/Approval_List";
     }
 

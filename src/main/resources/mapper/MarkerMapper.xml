@@ -7,7 +7,16 @@
 <!--        VALUES (#{road_address}, #{latitude}, #{longitude})-->
 <!--    </insert>-->
 
-    <select id="getMarkers" resultType="com.example.thishouse.domain.house.MapVO">
-        SELECT * FROM house_location a, house_deal b where a.house_num = b.house_num
+    <select id="getMarkers" resultType="java.util.HashMap">
+--         SELECT * FROM house_location a, house_deal b where a.house_num = b.house_num
+
+SELECT * FROM house_location a, house_deal b,
+              (select *
+               from house_picture
+               where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) c
+where a.house_num = b.house_num and
+    b.house_num = c.house_num and
+    c.house_num = a.house_num
+-- 승인절차 컬럼or쿼리 추가 필요
     </select>
 </mapper>

@@ -22,6 +22,8 @@ public class MapVO {
     private int deposit;
     private int m_price;
     private int y_price;
+    private String save_name;
+
 
     @Override
     public String toString() {
