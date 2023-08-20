@@ -4,6 +4,7 @@ import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
+import com.example.thishouse.domain.house.House_list;
 import com.example.thishouse.mapper.AdminMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -82,5 +83,13 @@ public class AdminService {
     //검색 댓글 리스트
     public List<Community_reply> reply_list_search(Community_reply searchVO) {
         return this.adminMapper.reply_list_search(searchVO);
+    }
+
+    public List<House_list> re_list(House_list searchVO) {
+        return this.adminMapper.re_list(searchVO);
+    }
+
+    public int re_list_cnt() {
+        return this.adminMapper.re_list_cnt();
     }
 }

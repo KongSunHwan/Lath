@@ -89,4 +89,13 @@
         select count(*) from community_reply where ${search_name} like CONCAT('%',#{search_content},'%')
 
     </select>
+
+    <select id="re_list" parameterType="com.example.thishouse.domain.house.House_list" resultType="java.util.HashMap">
+        select * from house_list a, house_item b  where a.house_num = b.house_num Order by regist_time desc LIMIT #{recordCountPerPage} OFFSET ${firstIndex}
+    </select>
+
+    <select id = "re_list_cnt" resultType="integer">
+        select count(*) from house_list a, house_item b  where a.house_num = b.house_num
+    </select>
+
 </mapper>

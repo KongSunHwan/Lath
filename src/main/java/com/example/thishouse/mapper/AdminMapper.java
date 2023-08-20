@@ -4,6 +4,7 @@ import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
+import com.example.thishouse.domain.house.House_list;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -84,5 +85,13 @@ public class AdminMapper {
 
     public List<Community_reply> reply_list_search(Community_reply searchVO) {
         return sqlSession.selectList(Namespace+".reply_list_search",searchVO);
+    }
+
+    public List<House_list> re_list(House_list searchVO) {
+        return sqlSession.selectList(Namespace + ".re_list", searchVO);
+    }
+
+    public int re_list_cnt() {
+        return sqlSession.selectOne(Namespace+".re_list_cnt");
     }
 }

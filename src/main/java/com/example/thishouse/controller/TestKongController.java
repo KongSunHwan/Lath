@@ -8,6 +8,7 @@ import com.example.thishouse.domain.house.House_list;
 import com.example.thishouse.service.AdminService;
 import com.example.thishouse.service.BoardService;
 import com.example.thishouse.service.NoticeService;
+import com.example.thishouse.service.RealEstateService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ public class TestKongController {
     private final BoardService boardService;
     private final AdminService adminService;
     private final NoticeService noticeService;
+    private final RealEstateService realEstateService;
 
 
 
@@ -454,7 +456,72 @@ public class TestKongController {
     }
 
     @GetMapping("Approval_List")
-    public String Approval_List(@ModelAttribute("searchVO") House_list house_list, HttpServletRequest request, Model model) {
+    public String Approval_List(@ModelAttribute("searchVO") House_list searchVO, HttpServletRequest request, Model model) {
+
+        PageCtrl pagination  = new PageCtrl();
+        pagination.setCurrentPageNo(searchVO.getPageIndex());
+        pagination.setRecordCountPerPage(searchVO.getPageUnit());
+        pagination.setPageSize(searchVO.getPageSize());
+
+        searchVO.setFirstIndex(pagination.getFirstRecordIndex());
+        searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
+        System.out.println("펄스트인덱스 : " + searchVO.getFirstIndex());
+
+        String search = request.getParameter("searchName");
+        String context = request.getParameter("searchValue");
+        System.out.println(search + " " + context);
+
+        if(context == null){
+            List<House_list> re_list = adminService.re_list(searchVO);
+            model.addAttribute("re_list" , re_list);
+            int totCnt = adminService.re_list_cnt();
+            model.addAttribute("totCnt",totCnt);
+            System.out.println("전체 매물 수 : " + totCnt);
+
+            pagination.setTotalRecordCount(totCnt);
+
+            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+            searchVO.setPrev(pagination.getXprev());
+            searchVO.setNext(pagination.getXnext());
+            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+            model.addAttribute("pagination",pagination);
+        }
+        else if(context != null && context == ""){
+            List<House_list> re_list = adminService.re_list(searchVO);
+            model.addAttribute("re_list" , re_list);
+            int totCnt = adminService.re_list_cnt();
+            model.addAttribute("totCnt",totCnt);
+            System.out.println("전체 게시글 수 : " + totCnt);
+
+            pagination.setTotalRecordCount(totCnt);
+
+            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+            searchVO.setPrev(pagination.getXprev());
+            searchVO.setNext(pagination.getXnext());
+            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+            model.addAttribute("pagination",pagination);
+        }
+        else{
+            //검색
+//            searchVO.setSearch_name(search);
+//            searchVO.setSearch_content(context);
+//            int totCnt = boardService.bd_list_search_Cnt(searchVO);
+//            System.out.println("CC : " + totCnt);
+//
+//            List<Community> pg_list = boardService.bd_list_search(searchVO);
+//            pagination.setTotalRecordCount(totCnt);
+//
+//            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+//            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+//            searchVO.setPrev(pagination.getXprev());
+//            searchVO.setNext(pagination.getXnext());
+//            model.addAttribute("bd_list" , pg_list);
+//            model.addAttribute("totCnt",totCnt);
+//            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+//            model.addAttribute("pagination",pagination);
+        }
 
         return "Admin_Dashboard/Approval_List";
     }
