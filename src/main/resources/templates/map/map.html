@@ -240,22 +240,22 @@
                 <div class="list-group list-group-flush border-bottom scrollarea" data-bs-smooth-scroll="true"
                      data-bs-spy="scroll">
 
-                    <a aria-current="true" class="list-group-item list-group-item-action active d-flex"
-                       th:href="@{/real_estate_intro}">
-                        <div class="mb-1">
-                            <strong class="mb-1">월세 1000/150&nbsp;</strong><br>
-                            <strong class="col-10 mb-1 small" style="font-size: 13px;">서울특별시</strong><br>
-                            <strong class="col-10 mb-1 small" style="font-size: 13px;">서대문구 창천동</strong><br>
-                            <strong class="col-10 mb-1 small" style="font-size: 13px;">오피스텔 19.89m</strong><br>
-                            <strong class="col-10 mb-1 small" style="font-size: 13px;">5/6층</strong><br>
-                            <strong class="col-10 mb-1 small" style="font-size: 13px;">신축 컨디션 좋음</strong><br>
-                        </div>
-                        <div class="border">
-                            <img src="/img/img001.jpeg" style="width: 200px; height: 150px;">
-                        </div>
-                    </a>
+<!--                    <a aria-current="true" class="list-group-item list-group-item-action active d-flex"-->
+<!--                       th:href="@{/real_estate_intro}">-->
+<!--                        <div class="mb-1">-->
+<!--                            <strong class="mb-1">월세 1000/150&nbsp;</strong><br>-->
+<!--                            <strong class="col-10 mb-1 small" style="font-size: 13px;">서울특별시</strong><br>-->
+<!--                            <strong class="col-10 mb-1 small" style="font-size: 13px;">서대문구 창천동</strong><br>-->
+<!--                            <strong class="col-10 mb-1 small" style="font-size: 13px;">오피스텔 19.89m</strong><br>-->
+<!--                            <strong class="col-10 mb-1 small" style="font-size: 13px;">5/6층</strong><br>-->
+<!--                            <strong class="col-10 mb-1 small" style="font-size: 13px;">신축 컨디션 좋음</strong><br>-->
+<!--                        </div>-->
+<!--                        <div class="border">-->
+<!--                            <img src="/img/img001.jpeg" style="width: 200px; height: 150px;">-->
+<!--                        </div>-->
+<!--                    </a>-->
 
-                    <a aria-current="true" class="list-group-item list-group-item-action d-flex"
+                    <a aria-current="true" class="list-group-item list-group-item-action d-flex list-group"
                        href="#list-item-1">
                         <div class="mb-1">
                             <strong class="mb-1">월세 1000/150&nbsp;</strong><br>
@@ -423,6 +423,8 @@
             customOverlay = new kakao.maps.CustomOverlay({}),
             polygons = [], // 다각형을 저장할 배열을 생성합니다.
             markers = [], // 마커를 저장할 배열을 생성합니다.
+            clusterer = null, // 클러스터러 객체를 생성합니다.
+            markerDataArray = []; // 마커 정보를 저장할 배열을 생성합니다.
             kkoMap = {
                 initKko: function (o) {
                     var e = o.mapId,
@@ -595,13 +597,16 @@
                         var markerData = markerList[i];
                         var position = new kakao.maps.LatLng(markerData.latitude, markerData.longitude);
                         kkoMap.addMarker(position, markerData);
+                        markerDataArray.push(markerData); // 마커 데이터를 markerDataArray에 추가
                     }
                 },
 
                 addMarker: function (position, markerData) {
                     var marker = new kakao.maps.Marker({
                         position: position,
+                        properties: markerData // 마커에 데이터를 설정합니다.
                     });
+                    markerData.marker = marker; // 마커 데이터에 마커를 추가합니다.
                     markers.push(marker);
                     marker.setMap(map);
 
@@ -632,15 +637,16 @@
                         }
                     });
                 },
-                createMarkerClusterer: function () {
-                    // 마커 클러스터러를 생성하는 함수입니다.
+                createMarkerClusterer: function (markerData) {
+                    // 마커 클러스터러 생성하는 함수입니다.
                     var clusterer = new kakao.maps.MarkerClusterer({
-                        map: map, // 마커들을 표시할 지도 객체
+                        map: map, // 마커를 표시할 지도 객체
                         markers: markers, // 마커 배열
-                        gridSize: 40, // 클러스터 간격
-                        averageCenter: true, // 클러스터의 중심을 평균값으로 설정
-                        minLevel: 7, // 클러스터 최소 레벨 표시
-                        minClusterSize: 1, // 한 개의 마커만 있어도 클러스터링 마커를 표시합니다.
+                        markerDataArray: markerDataArray, // 수정된 부분: 마커 데이터 배열 추가
+                        gridSize: 40, // 클러스터 간격 설정
+                        averageCenter: true, // 클러스터의 중심을 평균 값으로 설정
+                        minLevel: 7, // 최소 클러스터 레벨
+                        minClusterSize: 1, // 하나의 마커만 있어도 클러스터 표시
                         styles: [
                             {
                                 width: '53px',
@@ -664,56 +670,68 @@
                                 fontWeight: 'bold',
                                 lineHeight: '56px'
                             },
-                            {
-                                width: '66px',
-                                height: '66px',
-                                background: 'rgba(103, 58, 183, 0.8)',
-                                borderRadius: '50%',
-                                textAlign: 'center',
-                                color: '#fff',
-                                fontSize: '15px',
-                                fontWeight: 'bold',
-                                lineHeight: '66px'
-                            },
-                            {
-                                width: '78px',
-                                height: '78px',
-                                background: 'rgba(103, 58, 183, 0.8)',
-                                borderRadius: '50%',
-                                textAlign: 'center',
-                                color: '#fff',
-                                fontSize: '15px',
-                                fontWeight: 'bold',
-                                lineHeight: '78px'
-                            }
                         ],
                     });
-                    kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
-                        var markersInCluster = cluster.getMarkers();
+                    // 클러스터 클릭 이벤트 리스너 등록
+                    kakao.maps.event.addListener(clusterer, 'clusterclick', function (cluster) {
+                        var markersInCluster = cluster.getMarkers(); // 클러스터 내의 마커들을 가져옴
                         var listContainer = document.querySelector('.list-group');
+
+                        console.log('현재 클러스터에는 총 ' + markersInCluster.length + '개의 마커가 있습니다.');
+                        console.log(markersInCluster);
+
+                        // 클러스터 내의 각 마커 정보 출력
+                        for (var i = 0; i < markersInCluster.length; i++) {
+                            var marker = markersInCluster[i];
+                            var markerData = marker.getProperties(); // 마커 데이터를 가져옵니다.
+
+                            var title = markerData.title;
+                            var address = markerData.address;
+                            var image = markerData.image;
+
+                            // 마커 정보 출력
+                            console.log('마커 ' + (i + 1) + ' 정보:');
+                            console.log('제목: ' + title);
+                            console.log('주소: ' + address);
+                            console.log('이미지 URL: ' + image);
+                            console.log('-------------------');
+                            console.log(markerData);
+                        }
 
                         listContainer.innerHTML = '';
 
-                        for (var i = 0; i < markersInCluster.length; i++) {
-                            var markerData = markersInCluster[i].getData();
+                        if (markersInCluster.length > 0) {
+                            for (var i = 0; i < markersInCluster.length; i++) {
+                                var marker = markersInCluster[i];
+                                var markerData = marker.getProperties(); // 마커 데이터를 가져옵니다.
 
-                            var listItem = document.createElement('a');
-                            listItem.className = 'list-group-item list-group-item-action d-flex';
-                            listItem.href = '#list-item-' + i; // 각 리스트 아이템의 고유한 링크로 변경
+                                // 마커 데이터로부터 원하는 속성 값을 가져와서 사용할 수 있습니다.
+                                var title = markerData.title;
+                                var address = markerData.address;
+                                var image = markerData.image;
 
-                            var itemContent = `
-                            <div class="mb-1">
-                                <strong class="mb-1">${markerData.title}</strong><br>
-                                <strong class="col-10 mb-1 small" style="font-size: 13px;">${markerData.location}</strong><br>
-                                <strong class="col-10 mb-1 small" style="font-size: 13px;">${markerData.description}</strong><br>
-                            </div>
-                            <div class="border">
-                                <img src="${markerData.image}" style="width: 200px; height: 150px;">
-                            </div>
-                        `;
+                                // 리스트 아이템 생성
+                                var listItem = document.createElement('a');
+                                listItem.className = 'list-group-item list-group-item-action d-flex list-group';
+                                listItem.href = '#list-item-' + i;
 
-                            listItem.innerHTML = itemContent;
-                            listContainer.appendChild(listItem);
+                                // 리스트 아이템 내용 설정
+                                var itemContent =
+                                    ' <div class="mb-1"> ' +
+                                    ' <strong class="mb-1"> ' + title + '</strong><br> ' +
+                                    ' <strong class="col-10 mb-1 small" style="font-size: 13px;">' + address + ' </strong><br> ' +
+                                    ' </div> ' +
+                                    '<div class="border">' +
+                                    '<img src="' + image + '" style="width: 200px; height: 150px;">' +
+                                    ' </div> ';
+
+                                listItem.innerHTML = itemContent;
+                                listContainer.appendChild(listItem);
+                            }
+                        } else {
+                            // 클러스터 내에 마커가 없는 경우 처리
+                            console.log('이 클러스터에는 마커가 없습니다.');
+                            listContainer.innerHTML = '<p>이 클러스터에는 마커가 없습니다.</p>';
                         }
                     });
                 },
