@@ -53,6 +53,24 @@ public class MainController {
         return "map/map";
     }
 
+    @GetMapping("/map_test")
+    public String map_test(Model model, House_list houseList) {
+        System.out.println("맵테스트!!");
+        List<MapVO> markers = markerService.getMarkers();
+        model.addAttribute("markers", markers);
+        return "map/map_test";
+    }
+
+//    @GetMapping("/map_fillter")
+//    public String map_fillter(Model model, House_list houseList) {
+//        System.out.println("맵테스트!!");
+//        List<MapVO> markers = markerService.map_fillter(houseList);
+//        model.addAttribute("markers", markers);
+//        return "map/map_test";
+//    }
+
+
+
     @RequestMapping("/inquire")
     public String inquire() {
         return "inquire/inquire";

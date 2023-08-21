@@ -23,6 +23,7 @@ public class MapVO {
     private int m_price;
     private int y_price;
     private String save_name;
+    private int approve;
 
 
     @Override

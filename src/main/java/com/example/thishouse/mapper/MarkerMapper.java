@@ -1,6 +1,7 @@
 package com.example.thishouse.mapper;
 
 import com.example.thishouse.domain.Marker;
+import com.example.thishouse.domain.house.House_list;
 import com.example.thishouse.domain.house.MapVO;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
@@ -27,5 +28,10 @@ public class MarkerMapper {
         return sqlSession.selectList(Namespace+".getMarkers"
 
         );
+    }
+
+    public List<MapVO> map_fillter(House_list houseList) {
+        return sqlSession.selectList(Namespace+".map_fillter", houseList);
+
     }
 }
