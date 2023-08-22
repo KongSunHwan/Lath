@@ -98,4 +98,20 @@
         select count(*) from house_list a, house_item b  where a.house_num = b.house_num
     </select>
 
+    <update id="approval_ok_house_item"  parameterType="String">
+        update house_item
+        SET
+            approval = 1
+        where
+            house_num = #{house_num}
+    </update>
+
+    <update id="approval_ok_house_list" parameterType="String">
+        update house_list
+        SET
+            approval = 1
+        where
+            house_num = #{house_num}
+    </update>
+
 </mapper>

@@ -48,7 +48,7 @@ public class AdminMapper {
     }
 
     public void board_modify_admin(String communityNum) {
-        sqlSession.delete(Namespace+".board_modify_admin",communityNum);
+        sqlSession.update(Namespace+".board_modify_admin",communityNum);
     }
 
     public Community view_board(Community_reply community_reply) {
@@ -93,5 +93,12 @@ public class AdminMapper {
 
     public int re_list_cnt() {
         return sqlSession.selectOne(Namespace+".re_list_cnt");
+    }
+
+    public void approval_ok_house_item(String houseNum) {
+        sqlSession.update(Namespace+".approval_ok_house_item",houseNum);    }
+
+    public void approval_ok_house_list(String houseNum) {
+        sqlSession.update(Namespace+".approval_ok_house_list",houseNum);
     }
 }

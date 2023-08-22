@@ -92,4 +92,15 @@ public class AdminService {
     public int re_list_cnt() {
         return this.adminMapper.re_list_cnt();
     }
+
+    @Transactional
+    public void approval_ok_house_item(String houseNum) {
+        this.adminMapper.approval_ok_house_item(houseNum);
+    }
+
+    @Transactional
+    public void approval_ok_house_list(String houseNum) {
+        this.adminMapper.approval_ok_house_list(houseNum);
+
+    }
 }

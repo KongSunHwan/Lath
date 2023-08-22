@@ -526,6 +526,20 @@ public class TestKongController {
         return "Admin_Dashboard/Approval_List";
     }
 
+    @RequestMapping("approval_ok")
+    public String approval_ok(String house_num, Model model) {
+        System.out.println(house_num);
+        System.out.println(house_num);
+        System.out.println(house_num);
+        System.out.println(house_num);
+        System.out.println(house_num);
+        System.out.println(house_num);
+        adminService.approval_ok_house_item(house_num);
+        adminService.approval_ok_house_list(house_num);
+
+        return "redirect:/Approval_List";
+    }
+
 
     //댓글 관리 (삭제->필터) 검색(작성자,내용)
     @GetMapping("Reply_Control")
@@ -607,5 +621,6 @@ public class TestKongController {
         adminService.comment_update_admin(reply_num);
         return Reply_Control(searchVO,request,model);
     }
+
 
     }

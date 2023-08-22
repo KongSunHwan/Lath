@@ -80,7 +80,8 @@ public class MainController {
             System.out.println("거래 방법 전체");
             markers = markerService.map_all_deal_type_filter(house_list);
         }else{
-            markerService.map_filter(house_list);
+            System.out.println("모두 선택====================");
+            markers = markerService.map_filter(house_list);
         }
         model.addAttribute("markers", markers);
         return "map/map_test";

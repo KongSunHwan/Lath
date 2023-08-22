@@ -27,8 +27,8 @@ where a.house_num = b.house_num and
         where a.house_num = b.house_num and
             b.house_num = c.house_num and
             c.house_num = a.house_num and approval = 1 and
-            house_type in (#{house_type}) and
-            deal_type in (#{deal_type}) and
+            house_type = #{house_type} and
+            deal_type = #{deal_type} and
             exclusive_area2  <![CDATA[<]]> #{exclusive_area2}
 
     </select>
