@@ -320,33 +320,32 @@
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <span class="fs-5 fw-semibold">&nbsp;&nbsp;필터</span>
                 <div class="btn-toolbar mb-2 mb-md-0">
-                    <form class="form-inline" method="get" action="/map_fillter">
+                    <form class="form-inline" method="get" action="/map_filter">
                         <div class="input-group">
                             <div style="width: 200px;">
                                 <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="house_type">
-                                    <option value="community_title" selecte>방 종류(전체)</option>
-                                    <option value="community_contents">원룸</option>
-                                    <option value="user_id">투룸</option>
-                                    <option value="user_id">오피스텔</option>
+                                    <option value="전체" selecte>방 종류(전체)</option>
+                                    <option value="원룸">원룸</option>
+                                    <option value="투룸">투룸</option>
+                                    <option value="오피스텔">오피스텔</option>
                                 </select>
                             </div>
                             &nbsp;
                             <div style="width: 200px;">
                                 <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="deal_type">
-                                    <option value="community_title" selected>거래 방법(전체)</option>
-                                    <option value="community_contents">월세</option>
-                                    <option value="user_id">전세</option>
+                                    <option value="전체" selected>거래 방법(전체)</option>
+                                    <option value="월세">월세</option>
+                                    <option value="전세">전세</option>
                                 </select>
                             </div>
                             &nbsp;
                             <div style="width: 200px;">
                                 <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="exclusive_area2" >
-                                    <option value="community_title" selected>방크기(전체)</option>
-                                    <option value="33">방크기</option>
-                                    <option value="0">0m²~33m² (10평 이하)</option>
-                                    <option value="33">33m²~66m² (20평 이하)</option>
-                                    <option value="66">66m²~99m²(30평 이하)</option>
-                                    <option value="99">130m² (40평 이하)</option>
+                                    <option value="10000" selected>방크기(전체)</option>
+                                    <option value="33">0m²~33m² (10평 이하)</option>
+                                    <option value="66">33m²~66m² (20평 이하)</option>
+                                    <option value="99">66m²~99m²(30평 이하)</option>
+                                    <option value="130">130m² (40평 이하)</option>
                                 </select>
                             </div>
                             &nbsp;

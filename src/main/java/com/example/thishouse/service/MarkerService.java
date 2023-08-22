@@ -25,7 +25,25 @@ public class MarkerService {
         return markerMapper.getMarkers();
     }
 
-    public List<MapVO> map_fillter(House_list houseList) {
-        return markerMapper.map_fillter(houseList);
+    public List<MapVO> map_filter(House_list houseList) {
+        return markerMapper.map_filter(houseList);
+    }
+
+    public List<MapVO> all_map() {
+        return markerMapper.all_map();
+    }
+
+    public List<MapVO> map_all_filter(House_list houseList) {
+        return markerMapper.map_all_filter(houseList);
+    }
+
+    public List<MapVO> map_all_house_type_filter(House_list houseList) {
+        return markerMapper.map_all_house_type_filter(houseList);
+
+    }
+
+    public List<MapVO> map_all_deal_type_filter(House_list houseList) {
+        return markerMapper.map_all_deal_type_filter(houseList);
+
     }
 }

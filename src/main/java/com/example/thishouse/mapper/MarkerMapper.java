@@ -30,8 +30,25 @@ public class MarkerMapper {
         );
     }
 
-    public List<MapVO> map_fillter(House_list houseList) {
-        return sqlSession.selectList(Namespace+".map_fillter", houseList);
+    public List<MapVO> map_filter(House_list houseList) {
+        System.out.println(sqlSession.selectList(Namespace+".map_filter", houseList));
+        return sqlSession.selectList(Namespace+".map_filter", houseList);
 
+    }
+
+    public List<MapVO> all_map() {
+        return sqlSession.selectList(Namespace+".all_map");
+    }
+
+    public List<MapVO> map_all_filter(House_list houseList) {
+        return sqlSession.selectList(Namespace+".map_all_filter", houseList);
+    }
+
+    public List<MapVO> map_all_house_type_filter(House_list houseList) {
+        return sqlSession.selectList(Namespace+".map_all_house_type_filter", houseList);
+    }
+
+    public List<MapVO> map_all_deal_type_filter(House_list houseList) {
+        return sqlSession.selectList(Namespace+".map_all_deal_type_filter", houseList);
     }
 }

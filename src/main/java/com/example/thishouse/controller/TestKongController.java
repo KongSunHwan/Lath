@@ -39,7 +39,7 @@ public class TestKongController {
 //    }
 
     @RequestMapping("board_list")
-    public String BoardList(@ModelAttribute("searchVO") Community searchVO, HttpServletRequest request, Model model) {
+        public String BoardList(@ModelAttribute("searchVO") Community searchVO, HttpServletRequest request, Model model) {
         PageCtrl pagination  = new PageCtrl();
         pagination.setCurrentPageNo(searchVO.getPageIndex());
         pagination.setRecordCountPerPage(searchVO.getPageUnit());

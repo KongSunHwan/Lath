@@ -24,6 +24,8 @@ public class MapVO {
     private int y_price;
     private String save_name;
     private int approve;
+    private String house_type;
+    private float exclusive_area2;
 
 
     @Override

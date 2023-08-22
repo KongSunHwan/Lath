@@ -61,13 +61,30 @@ public class MainController {
         return "map/map_test";
     }
 
-//    @GetMapping("/map_fillter")
-//    public String map_fillter(Model model, House_list houseList) {
-//        System.out.println("맵테스트!!");
-//        List<MapVO> markers = markerService.map_fillter(houseList);
-//        model.addAttribute("markers", markers);
-//        return "map/map_test";
-//    }
+    @GetMapping("/map_filter")
+    public String map_fillter(Model model, House_list house_list) {
+        System.out.println("맵테스트!!");
+        System.out.println( house_list.getHouse_type());
+        System.out.println( house_list.getExclusive_area2());
+        System.out.println( house_list.getDeal_type());
+
+        List<MapVO> markers = null;
+
+        if(house_list.getHouse_type().equals("전체") && house_list.getDeal_type().equals("전체")){
+            System.out.println("모두 전체");
+            markers = markerService.getMarkers();
+        }else if(house_list.getHouse_type().equals("전체")){
+            System.out.println("방 종류 전체");
+            markers = markerService.map_all_house_type_filter(house_list);
+        }else if( house_list.getDeal_type().equals("전체")){
+            System.out.println("거래 방법 전체");
+            markers = markerService.map_all_deal_type_filter(house_list);
+        }else{
+            markerService.map_filter(house_list);
+        }
+        model.addAttribute("markers", markers);
+        return "map/map_test";
+    }
 
 
 
