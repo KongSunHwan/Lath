@@ -188,6 +188,19 @@
         .placeinfo .title {font-weight: bold; font-size:14px;border-radius: 6px 6px 0 0;margin: -1px -1px 0 -1px;padding:10px; color: #fff;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
         .placeinfo .tel {color:#0f7833;}
         .placeinfo .jibun {color:#999;font-size:11px;margin-top:0;}
+        #btnRoadview,  #btnMap {position:absolute;top:5px;left:1430px;padding:7px 12px;font-size:14px;border: 1px solid #dbdbdb;background-color: #fff;border-radius: 2px;box-shadow: 0 1px 1px rgba(0,0,0,.04);z-index:1;cursor:pointer;}
+        #btnRoadview:hover,  #btnMap:hover{background-color: #fcfcfc;border: 1px solid #c1c1c1;}
+        #btn_Roadview,  #btn_Map {position:absolute;top:5px;left:1350px;padding:7px 12px;font-size:14px;border: 1px solid #dbdbdb;background-color: #fff;border-radius: 2px;box-shadow: 0 1px 1px rgba(0,0,0,.04);z-index:1;cursor:pointer;}
+        #btn_Roadview:hover,  #btn_Map:hover{background-color: #fcfcfc;border: 1px solid #c1c1c1;}
+        .view_map #mapWrapper {z-index: 10;}
+        .view_map #btnMap {display: none;}
+        .view_roadview #mapWrapper {z-index: 0;}
+        .view_roadview #btnRoadview {display: none;}
+
+        .view_map #maproadWrapper {z-index: 10;}
+        .view_map #btn_Map {display: none;}
+        .view_roadview #maproadWrapper {z-index: 0;}
+        .view_roadview #btn_Roadview {display: none;}
         .list-group .list-group-item-action:hover {
             background-color: #5188f8; /* 배경색 변경 */
         }
@@ -310,63 +323,179 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <span class="fs-5 fw-semibold">&nbsp;&nbsp;필터</span>
                 <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="dropdown1">
-                        <button aria-expanded="false" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-                                type="button">
-                            전/월세
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <button class="dropdown-item" type="button">전세</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item" type="button">월세</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item" type="button">매매</button>
-                            </li>
+                    <div class="dropdown position-relative">
+                            <span class="nav-icon font-2xl dropdown" href="#" id="notificationDropdown"
+                                  data-bs-toggle="dropdown" aria-expanded="false"
+                                  style="cursor: pointer; position: relative;">
+                                <div class="position-relative">
+                                    <button type="button"
+                                            class="btn btn-sm btn-primary position-relative dropdown-toggle">
+                                        원룸, 투-쓰리룸, 오피스텔 / 도시형
+                                    </button>
+                                </div>
+                            </span>
+                        <ul class="dropdown-menu dropdown-menu-end p-0 border-0 w-400"
+                            aria-labelledby="notificationDropdown" data-bs-auto-close="false">
+                            <div class="card" style="width: 300px;">
+                                <div class="card-header">
+                                    <b>방종류</b>
+                                    <div>
+                                        <span class="text-muted" style="font-size: 13px;">중복선택이 가능합니다.</span>
+                                    </div>
+                                </div>
+
+                                <div class="perfect-scrollbar position-relative"
+                                     style="max-height: 450px; padding-top: 10px; padding-bottom: 10px; display: flex; flex-direction: column; justify-content: center; padding-left: 30px; padding-right: 30px;"
+                                     data-bs-auto-close="false">
+                                    <div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                   id="flexCheckChecked1" checked style="cursor: pointer;">
+                                            <label class="form-check-label" for="flexCheckChecked1">
+                                                원룸
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                   id="flexCheckChecked2" checked style="cursor: pointer;">
+                                            <label class="form-check-label" for="flexCheckChecked2">
+                                                투-쓰리룸
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                   id="flexCheckChecked3" checked style="cursor: pointer;">
+                                            <label class="form-check-label" for="flexCheckChecked3">
+                                                오피스텔 / 도시형생활주택
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                               id="flexCheckChecked4" style="cursor: pointer;">
+                                        <label class="form-check-label" for="flexCheckChecked4">
+                                            아파트
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer text-center border-0">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                    <span class="text-muted" style="font-size: 11px;">다중 선택 시 아파트는 포함할 수
+                                            없습니다.</span>
+                                </div>
+
+                            </div>
                         </ul>
                     </div>
                     <div>&nbsp;</div>
-                    <div class="dropdown2">
-                        <button aria-expanded="false" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-                                type="button">
-                            관리비
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <button class="dropdown-item" type="button">5만원 이하</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item" type="button">5~10만원</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item" type="button">10만원 이상</button>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>&nbsp;</div>
-                    <div class="dropdown3">
-                        <button aria-expanded="false" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-                                type="button">
-                            방크기
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <button class="dropdown-item" type="button">15㎡ 이하</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item" type="button">15~20㎡</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item" type="button">20~25㎡</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item" type="button">25~30㎡</button>
-                            </li>
-                            <li>
-                                <button class="dropdown-item" type="button">30㎡ 이상</button>
-                            </li>
+
+                    <div class="dropdown position-relative">
+                            <span class="nav-icon font-2xl dropdown" href="#" id="notificationDropdown"
+                                  data-bs-toggle="dropdown" aria-expanded="false"
+                                  style="cursor: pointer; position: relative;">
+                                <div class="position-relative">
+                                    <button type="button"
+                                            class="btn btn-sm btn-primary position-relative dropdown-toggle">
+                                        월세, 전세
+                                    </button>
+                                </div>
+                            </span>
+                        <ul class="dropdown-menu dropdown-menu-end p-0 border-0 w-400"
+                            aria-labelledby="notificationDropdown" data-bs-auto-close="false">
+                            <div class="card" style="width: 300px;">
+                                <div class="card-header">
+                                    <b>거래유형</b>
+                                    <div>
+                                        <span class="text-muted" style="font-size: 13px;">중복선택이 가능합니다.</span>
+                                    </div>
+                                </div>
+
+                                <div class="perfect-scrollbar position-relative"
+                                     style="max-height: 450px; padding-top: 10px; padding-bottom: 10px; display: flex; flex-direction: column; justify-content: center; padding-left: 15px; padding-right: 15px;"
+                                     data-bs-auto-close="false">
+                                    <div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                   id="flexCheckChecked5" checked style="cursor: pointer;">
+                                            <label class="form-check-label" for="flexCheckChecked5">
+                                                월세
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                   id="flexCheckChecked6" checked style="cursor: pointer;">
+                                            <label class="form-check-label" for="flexCheckChecked6">
+                                                전세
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value=""
+                                                   id="flexCheckChecked7" checked style="cursor: pointer;">
+                                            <label class="form-check-label" for="flexCheckChecked7">
+                                                매매
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-check">
+                                        <div class="fs-6">가격</div>
+                                        <div>&nbsp;</div>
+
+                                        <div>
+                                            <div class="d-flex justify-content-between">
+                                                <label for="customRange2" class="form-label">
+                                                    보증금/전세가
+                                                </label>
+                                                <div class="text-end">
+                                                    무제한
+                                                </div>
+                                            </div>
+                                            <input type="range" class="form-range" min="0" max="2"
+                                                   id="customRange2">
+                                            <div class="d-flex justify-content-between">
+                                                <span>0</span>
+                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1억</span>
+                                                <span>무제한</span>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div>&nbsp;</div>
+                                        <div>
+                                            <div class="d-flex justify-content-between">
+                                                <label for="customRange3" class="form-label">
+                                                    월세
+                                                </label>
+                                                <div class="text-end">
+                                                    무제한
+                                                </div>
+                                            </div>
+                                            <input type="range" class="form-range" min="0" max="2"
+                                                   id="customRange3">
+                                            <div class="d-flex justify-content-between">
+                                                <span>0</span>
+                                                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;60만원</span>
+                                                <span>무제한</span>
+                                            </div>
+                                        </div>
+                                        <hr>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="card-footer text-center border-0">
+                                    <button class="btn btn-sm btn-primary">
+                                        조건 삭제
+                                    </button>
+                                </div>
+
+                            </div>
                         </ul>
                     </div>
                     <div>&nbsp;</div>
@@ -377,6 +506,7 @@
         </div>
         <div class="map_wrap">
             <div id="map" style="height: 1000px; max-height: 100%; position:relative; overflow:hidden;"></div>
+            <div id="roadview" style="width: 100%; height: 200px;"></div>
             <ul id="category">
                 <li id="BK9" data-order="0">
                     <span class="category_bg bank"></span>
@@ -403,6 +533,13 @@
                     편의점
                 </li>
             </ul>
+            <div id="mapWrapper" style="width:100%;height:300px;position:relative;">
+                <div id="map" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
+                <input type="button" id="toggleRoadView" onclick="kkoMap.toggleRoadView()" value="일반 지도">
+            </div>
+            <div id="rvWrapper" style="width:100%;height:300px;position:absolute;top:0;left:0;">
+                <input type="button" id="btnMap" onclick="kkoMap.toggleMapType()" value="위성 지도">
+            </div>
         </div>
         <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=32361ca2351234bbec12d832140bcda0&libraries=services,clusterer"
                 type="text/javascript"></script>
@@ -626,6 +763,32 @@
                             }
                         }
                     });
+                },
+                // 객체 내에 toggleRoadView 도로뷰 전환 함수
+                toggleRoadView: function () {
+                    var toggleButton = document.getElementById('toggleRoadView');
+                    var currentMode = map.getRoadviewPanorama() ? 'roadview' : 'map'; // 조건을 반대로 수정
+
+                    if (currentMode === 'map') {
+                        map.setMapTypeId(kakao.maps.MapTypeId.ROADVIEW); // 도로뷰로 전환
+                        toggleButton.value = '지도'; // 버튼 텍스트 변경
+                    } else {
+                        map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP); // 지도뷰로 전환
+                        toggleButton.value = '도로'; // 버튼 텍스트 변경
+                    }
+                },
+                // 객체 내에 toggleMapType 지도 전환 함수 추가
+                toggleMapType: function () {
+                    var toggleButton = document.getElementById('btnMap'); // 아이디 수정
+                    var currentType = map.getMapTypeId();
+
+                    if (currentType === kakao.maps.MapTypeId.ROADMAP) {
+                        map.setMapTypeId(kakao.maps.MapTypeId.HYBRID); // 하이브리드 지도로 전환
+                        toggleButton.value = '일반 지도'; // 버튼 텍스트 변경
+                    } else {
+                        map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP); // 일반 지도로 전환
+                        toggleButton.value = '위성 지도'; // 버튼 텍스트 변경
+                    }
                 },
                 createMarkerClusterer: function () {
                     // 마커 클러스터러 생성하는 함수입니다.
