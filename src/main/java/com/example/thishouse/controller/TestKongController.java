@@ -622,5 +622,4 @@ public class TestKongController {
         return Reply_Control(searchVO,request,model);
     }
 
-
     }

@@ -84,7 +84,7 @@ public class MainController {
             markers = markerService.map_filter(house_list);
         }
         model.addAttribute("markers", markers);
-        return "map/map_test";
+        return "map/map";
     }
 
 
