@@ -185,7 +185,7 @@ public class MainController {
         return "user_mypage/find_input_member";
     }
 
-    @RequestMapping("/contract")
+    @RequestMapping("/real_estate_contract")
     public String real_estate_contract() {
         return "contract/real_estate_contract";
     }
@@ -198,6 +198,16 @@ public class MainController {
     @GetMapping("/property_guide")
     public String property_guide() {
         return "guide/property_guide";
+    }
+
+    @GetMapping("/contract_management")
+    public String contract_management() {
+        return "contract/contract_management";
+    }
+
+    @GetMapping("/contract_deposit")
+    public String contract_deposit() {
+        return "contract/contract_deposit";
     }
 
     //맵 테스트용
