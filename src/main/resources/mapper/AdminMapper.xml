@@ -114,4 +114,21 @@
             house_num = #{house_num}
     </update>
 
+
+    <update id="approval_no_house_item" parameterType="String">
+        update house_list
+        SET
+            approval = 0
+        where
+            house_num = #{house_num}
+    </update>
+
+    <update id="approval_no_house_list" parameterType="String">
+        update house_list
+        SET
+            approval = 0
+        where
+            house_num = #{house_num}
+    </update>
+
 </mapper>

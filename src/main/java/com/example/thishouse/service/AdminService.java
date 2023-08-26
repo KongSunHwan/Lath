@@ -103,4 +103,12 @@ public class AdminService {
         this.adminMapper.approval_ok_house_list(houseNum);
 
     }
+    @Transactional
+    public void approval_no_house_item(String houseNum) {
+        this.adminMapper.approval_no_house_item(houseNum);
+    }
+    @Transactional
+    public void approval_no_house_list(String houseNum) {
+        this.adminMapper.approval_no_house_list(houseNum);
+    }
 }

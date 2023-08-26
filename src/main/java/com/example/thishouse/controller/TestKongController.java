@@ -26,9 +26,6 @@ public class TestKongController {
     private final BoardService boardService;
     private final AdminService adminService;
     private final NoticeService noticeService;
-    private final RealEstateService realEstateService;
-
-
 
     //게시판 목록
 //    @RequestMapping("board_list")
@@ -528,14 +525,16 @@ public class TestKongController {
 
     @RequestMapping("approval_ok")
     public String approval_ok(String house_num, Model model) {
-        System.out.println(house_num);
-        System.out.println(house_num);
-        System.out.println(house_num);
-        System.out.println(house_num);
-        System.out.println(house_num);
-        System.out.println(house_num);
         adminService.approval_ok_house_item(house_num);
         adminService.approval_ok_house_list(house_num);
+
+        return "redirect:/Approval_List";
+    }
+
+    @RequestMapping("approval_no")
+    public String approval_no(String house_num, Model model) {
+        adminService.approval_no_house_item(house_num);
+        adminService.approval_no_house_list(house_num);
 
         return "redirect:/Approval_List";
     }

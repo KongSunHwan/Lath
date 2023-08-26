@@ -101,4 +101,12 @@ public class AdminMapper {
     public void approval_ok_house_list(String houseNum) {
         sqlSession.update(Namespace+".approval_ok_house_list",houseNum);
     }
+
+    public void approval_no_house_item(String houseNum) {
+        sqlSession.update(Namespace+".approval_no_house_item",houseNum);
+    }
+
+    public void approval_no_house_list(String houseNum) {
+        sqlSession.update(Namespace+".approval_no_house_list",houseNum);
+    }
 }
