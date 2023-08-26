@@ -111,4 +111,21 @@ public class AdminService {
     public void approval_no_house_list(String houseNum) {
         this.adminMapper.approval_no_house_list(houseNum);
     }
+
+    public List<House_list> no_re_list(House_list searchVO) {
+        return this.adminMapper.no_re_list(searchVO);
+    }
+
+    public int no_re_list_cnt() {
+        return this.adminMapper.no_re_list_cnt();
+    }
+
+    @Transactional
+    public void no_approval_ok_house_item(String houseNum) {
+        this.adminMapper.no_approval_ok_house_item(houseNum);
+    }
+    @Transactional
+    public void no_approval_ok_house_list(String houseNum) {
+        this.adminMapper.no_approval_ok_house_list(houseNum);
+    }
 }

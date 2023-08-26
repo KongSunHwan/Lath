@@ -109,4 +109,21 @@ public class AdminMapper {
     public void approval_no_house_list(String houseNum) {
         sqlSession.update(Namespace+".approval_no_house_list",houseNum);
     }
+
+    public List<House_list> no_re_list(House_list searchVO) {
+        return sqlSession.selectList(Namespace + ".no_re_list", searchVO);    }
+
+    public int no_re_list_cnt() {
+        return sqlSession.selectOne(Namespace+".no_re_list_cnt");
+    }
+
+    public void no_approval_ok_house_item(String houseNum) {
+        sqlSession.update(Namespace+".approval_ok_house_item",houseNum);
+
+    }
+
+    public void no_approval_ok_house_list(String houseNum) {
+        sqlSession.update(Namespace+".approval_ok_house_list",houseNum);
+
+    }
 }

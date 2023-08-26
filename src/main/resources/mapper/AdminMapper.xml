@@ -116,7 +116,7 @@
 
 
     <update id="approval_no_house_item" parameterType="String">
-        update house_list
+        update house_item
         SET
             approval = 0
         where
@@ -130,5 +130,14 @@
         where
             house_num = #{house_num}
     </update>
+
+    <select id="no_re_list" parameterType="com.example.thishouse.domain.house.House_list" resultType="java.util.HashMap">
+        select * from house_list a, house_item b  where a.house_num = b.house_num and a.approval = 0 and b.approval = 0 Order by regist_time desc LIMIT #{recordCountPerPage} OFFSET ${firstIndex}
+    </select>
+
+    <select id = "no_re_list_cnt" resultType="integer">
+        select count(*) from house_list a, house_item b  where a.house_num = b.house_num and a.approval = 0 and b.approval = 0
+    </select>
+
 
 </mapper>
