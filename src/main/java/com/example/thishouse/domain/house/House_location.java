@@ -15,4 +15,6 @@ public class House_location {
     private String road_num;
     private String road_address;
     private String detail_address;
+    private double latitude;
+    private double longitude;
 }

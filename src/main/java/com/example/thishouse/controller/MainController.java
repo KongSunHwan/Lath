@@ -1,12 +1,12 @@
 package com.example.thishouse.controller;
 
 import com.example.thishouse.domain.Inquire;
-import com.example.thishouse.domain.Marker;
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.house.House_list;
 import com.example.thishouse.domain.house.House_picture;
+import com.example.thishouse.domain.house.MapVO;
 import com.example.thishouse.service.MarkerService;
 import com.example.thishouse.service.MemberService;
 import com.example.thishouse.service.RealEstateService;
@@ -34,15 +34,60 @@ public class MainController {
     private final MarkerService markerService;
     @GetMapping("/map")
     public String map(Model model) {
-        List<Marker> markers = markerService.getMarkers();
+//        List<Marker> markers = markerService.getMarkers();
+//        model.addAttribute("markers", markers);
+//
+//        //테스트용
+//        model.addAttribute("map", new Map("매물이름", 50));
+//        addMap(model);
+
+        List<MapVO> markers = markerService.getMarkers();
+        System.out.println("--------------------------------------");
+        System.out.println(markers.getClass());
+        System.out.println(markers.toString());
+        System.out.println("--------------------------------------");
         model.addAttribute("markers", markers);
 
-        //테스트용
-        model.addAttribute("map", new Map("매물이름", 50));
-        addMap(model);
+
 
         return "map/map";
     }
+
+    @GetMapping("/map_test")
+    public String map_test(Model model, House_list houseList) {
+        System.out.println("맵테스트!!");
+        List<MapVO> markers = markerService.getMarkers();
+        model.addAttribute("markers", markers);
+        return "map/map_test";
+    }
+
+    @GetMapping("/map_filter")
+    public String map_fillter(Model model, House_list house_list) {
+        System.out.println("맵테스트!!");
+        System.out.println( house_list.getHouse_type());
+        System.out.println( house_list.getExclusive_area2());
+        System.out.println( house_list.getDeal_type());
+
+        List<MapVO> markers = null;
+
+        if(house_list.getHouse_type().equals("전체") && house_list.getDeal_type().equals("전체")){
+            System.out.println("모두 전체");
+            markers = markerService.getMarkers();
+        }else if(house_list.getHouse_type().equals("전체")){
+            System.out.println("방 종류 전체");
+            markers = markerService.map_all_house_type_filter(house_list);
+        }else if( house_list.getDeal_type().equals("전체")){
+            System.out.println("거래 방법 전체");
+            markers = markerService.map_all_deal_type_filter(house_list);
+        }else{
+            System.out.println("모두 선택====================");
+            markers = markerService.map_filter(house_list);
+        }
+        model.addAttribute("markers", markers);
+        return "map/map";
+    }
+
+
 
     @RequestMapping("/inquire")
     public String inquire() {
@@ -140,7 +185,7 @@ public class MainController {
         return "user_mypage/find_input_member";
     }
 
-    @RequestMapping("/contract")
+    @RequestMapping("/real_estate_contract")
     public String real_estate_contract() {
         return "contract/real_estate_contract";
     }
@@ -148,6 +193,21 @@ public class MainController {
     @RequestMapping("/contract_Information")
     public String Contract_Information() {
         return "contract/Contract_Information";
+    }
+
+    @GetMapping("/property_guide")
+    public String property_guide() {
+        return "guide/property_guide";
+    }
+
+    @GetMapping("/contract_management")
+    public String contract_management() {
+        return "contract/contract_management";
+    }
+
+    @GetMapping("/contract_deposit")
+    public String contract_deposit() {
+        return "contract/contract_deposit";
     }
 
     //맵 테스트용
@@ -169,5 +229,10 @@ public class MainController {
         list.add(new Map("매물2", 20));
         list.add(new Map("매물3", 30));
         model.addAttribute("Maps", list);
+    }
+
+    @GetMapping("/guide")
+    public String guide() {
+        return "guide/guide";
     }
 }

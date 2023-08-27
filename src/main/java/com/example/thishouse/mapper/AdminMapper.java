@@ -4,6 +4,7 @@ import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
+import com.example.thishouse.domain.house.House_list;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -47,7 +48,7 @@ public class AdminMapper {
     }
 
     public void board_modify_admin(String communityNum) {
-        sqlSession.delete(Namespace+".board_modify_admin",communityNum);
+        sqlSession.update(Namespace+".board_modify_admin",communityNum);
     }
 
     public Community view_board(Community_reply community_reply) {
@@ -84,5 +85,45 @@ public class AdminMapper {
 
     public List<Community_reply> reply_list_search(Community_reply searchVO) {
         return sqlSession.selectList(Namespace+".reply_list_search",searchVO);
+    }
+
+    public List<House_list> re_list(House_list searchVO) {
+        return sqlSession.selectList(Namespace + ".re_list", searchVO);
+    }
+
+    public int re_list_cnt() {
+        return sqlSession.selectOne(Namespace+".re_list_cnt");
+    }
+
+    public void approval_ok_house_item(String houseNum) {
+        sqlSession.update(Namespace+".approval_ok_house_item",houseNum);    }
+
+    public void approval_ok_house_list(String houseNum) {
+        sqlSession.update(Namespace+".approval_ok_house_list",houseNum);
+    }
+
+    public void approval_no_house_item(String houseNum) {
+        sqlSession.update(Namespace+".approval_no_house_item",houseNum);
+    }
+
+    public void approval_no_house_list(String houseNum) {
+        sqlSession.update(Namespace+".approval_no_house_list",houseNum);
+    }
+
+    public List<House_list> no_re_list(House_list searchVO) {
+        return sqlSession.selectList(Namespace + ".no_re_list", searchVO);    }
+
+    public int no_re_list_cnt() {
+        return sqlSession.selectOne(Namespace+".no_re_list_cnt");
+    }
+
+    public void no_approval_ok_house_item(String houseNum) {
+        sqlSession.update(Namespace+".approval_ok_house_item",houseNum);
+
+    }
+
+    public void no_approval_ok_house_list(String houseNum) {
+        sqlSession.update(Namespace+".approval_ok_house_list",houseNum);
+
     }
 }

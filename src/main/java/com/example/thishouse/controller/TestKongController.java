@@ -4,9 +4,11 @@ import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
+import com.example.thishouse.domain.house.*;
 import com.example.thishouse.service.AdminService;
 import com.example.thishouse.service.BoardService;
 import com.example.thishouse.service.NoticeService;
+import com.example.thishouse.service.RealEstateService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -24,8 +26,7 @@ public class TestKongController {
     private final BoardService boardService;
     private final AdminService adminService;
     private final NoticeService noticeService;
-
-
+    private final RealEstateService realEstateService;
 
     //게시판 목록
 //    @RequestMapping("board_list")
@@ -36,7 +37,7 @@ public class TestKongController {
 //    }
 
     @RequestMapping("board_list")
-    public String BoardList(@ModelAttribute("searchVO") Community searchVO, HttpServletRequest request, Model model) {
+        public String BoardList(@ModelAttribute("searchVO") Community searchVO, HttpServletRequest request, Model model) {
         PageCtrl pagination  = new PageCtrl();
         pagination.setCurrentPageNo(searchVO.getPageIndex());
         pagination.setRecordCountPerPage(searchVO.getPageUnit());
@@ -453,8 +454,168 @@ public class TestKongController {
     }
 
     @GetMapping("Approval_List")
-    public String Approval_List() {
+    public String Approval_List(@ModelAttribute("searchVO") House_list searchVO, HttpServletRequest request, Model model) {
+
+        PageCtrl pagination  = new PageCtrl();
+        pagination.setCurrentPageNo(searchVO.getPageIndex());
+        pagination.setRecordCountPerPage(searchVO.getPageUnit());
+        pagination.setPageSize(searchVO.getPageSize());
+
+        searchVO.setFirstIndex(pagination.getFirstRecordIndex());
+        searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
+        System.out.println("펄스트인덱스 : " + searchVO.getFirstIndex());
+
+        String search = request.getParameter("searchName");
+        String context = request.getParameter("searchValue");
+        System.out.println(search + " " + context);
+
+        if(context == null){
+            List<House_list> re_list = adminService.re_list(searchVO);
+            model.addAttribute("re_list" , re_list);
+            int totCnt = adminService.re_list_cnt();
+            model.addAttribute("totCnt",totCnt);
+            System.out.println("전체 매물 수 : " + totCnt);
+
+            pagination.setTotalRecordCount(totCnt);
+
+            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+            searchVO.setPrev(pagination.getXprev());
+            searchVO.setNext(pagination.getXnext());
+            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+            model.addAttribute("pagination",pagination);
+        }
+        else if(context != null && context == ""){
+            List<House_list> re_list = adminService.re_list(searchVO);
+            model.addAttribute("re_list" , re_list);
+            int totCnt = adminService.re_list_cnt();
+            model.addAttribute("totCnt",totCnt);
+            System.out.println("전체 게시글 수 : " + totCnt);
+
+            pagination.setTotalRecordCount(totCnt);
+
+            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+            searchVO.setPrev(pagination.getXprev());
+            searchVO.setNext(pagination.getXnext());
+            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+            model.addAttribute("pagination",pagination);
+        }
+        else{
+            //검색
+//            searchVO.setSearch_name(search);
+//            searchVO.setSearch_content(context);
+//            int totCnt = boardService.bd_list_search_Cnt(searchVO);
+//            System.out.println("CC : " + totCnt);
+//
+//            List<Community> pg_list = boardService.bd_list_search(searchVO);
+//            pagination.setTotalRecordCount(totCnt);
+//
+//            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+//            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+//            searchVO.setPrev(pagination.getXprev());
+//            searchVO.setNext(pagination.getXnext());
+//            model.addAttribute("bd_list" , pg_list);
+//            model.addAttribute("totCnt",totCnt);
+//            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+//            model.addAttribute("pagination",pagination);
+        }
+
         return "Admin_Dashboard/Approval_List";
+    }
+
+    @RequestMapping("no_approval_ok")
+    public String no_approval_ok(String house_num, Model model) {
+        adminService.no_approval_ok_house_item(house_num);
+        adminService.no_approval_ok_house_list(house_num);
+        return "redirect:/No_Approval_List";
+    }
+
+    @RequestMapping("approval_ok")
+    public String approval_ok(String house_num, Model model) {
+        adminService.approval_ok_house_item(house_num);
+        adminService.approval_ok_house_list(house_num);
+
+        return "redirect:/Approval_List";
+    }
+
+    @RequestMapping("approval_no")
+    public String approval_no(String house_num, Model model) {
+        adminService.approval_no_house_item(house_num);
+        adminService.approval_no_house_list(house_num);
+
+        return "redirect:/Approval_List";
+    }
+
+    @GetMapping("No_Approval_List")
+    public String No_Approval_List(@ModelAttribute("searchVO") House_list searchVO, HttpServletRequest request, Model model) {
+
+        PageCtrl pagination  = new PageCtrl();
+        pagination.setCurrentPageNo(searchVO.getPageIndex());
+        pagination.setRecordCountPerPage(searchVO.getPageUnit());
+        pagination.setPageSize(searchVO.getPageSize());
+
+        searchVO.setFirstIndex(pagination.getFirstRecordIndex());
+        searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
+        System.out.println("펄스트인덱스 : " + searchVO.getFirstIndex());
+
+        String search = request.getParameter("searchName");
+        String context = request.getParameter("searchValue");
+        System.out.println(search + " " + context);
+
+        if(context == null){
+            List<House_list> re_list = adminService.no_re_list(searchVO);
+            model.addAttribute("re_list" , re_list);
+            int totCnt = adminService.re_list_cnt();
+            model.addAttribute("totCnt",totCnt);
+            System.out.println("미승인 매물 수 : " + totCnt);
+
+            pagination.setTotalRecordCount(totCnt);
+
+            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+            searchVO.setPrev(pagination.getXprev());
+            searchVO.setNext(pagination.getXnext());
+            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+            model.addAttribute("pagination",pagination);
+        }
+        else if(context != null && context == ""){
+            List<House_list> re_list = adminService.no_re_list(searchVO);
+            model.addAttribute("re_list" , re_list);
+            int totCnt = adminService.no_re_list_cnt();
+            model.addAttribute("totCnt",totCnt);
+            System.out.println("미승인 매물 수 : " + totCnt);
+
+            pagination.setTotalRecordCount(totCnt);
+
+            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+            searchVO.setPrev(pagination.getXprev());
+            searchVO.setNext(pagination.getXnext());
+            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+            model.addAttribute("pagination",pagination);
+        }
+        else{
+            //검색
+//            searchVO.setSearch_name(search);
+//            searchVO.setSearch_content(context);
+//            int totCnt = boardService.bd_list_search_Cnt(searchVO);
+//            System.out.println("CC : " + totCnt);
+//
+//            List<Community> pg_list = boardService.bd_list_search(searchVO);
+//            pagination.setTotalRecordCount(totCnt);
+//
+//            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+//            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+//            searchVO.setPrev(pagination.getXprev());
+//            searchVO.setNext(pagination.getXnext());
+//            model.addAttribute("bd_list" , pg_list);
+//            model.addAttribute("totCnt",totCnt);
+//            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+//            model.addAttribute("pagination",pagination);
+        }
+
+        return "Admin_Dashboard/No_Approval_List";
     }
 
 
@@ -537,6 +698,32 @@ public class TestKongController {
         String reply_num = request.getParameter("reply_num");
         adminService.comment_update_admin(reply_num);
         return Reply_Control(searchVO,request,model);
+    }
+
+    @RequestMapping("house_info")
+    public String house_info (String house_num,Model model) {
+
+        List<House_list> house_list = realEstateService.view_house_list_one(house_num);
+        List<House_item> house_item = realEstateService.list_house_item(house_num);
+        List<House_addinfo> house_addinfo = realEstateService.add_info_list(house_num);
+        List<House_detail> house_detail = realEstateService.house_detail_list(house_num);
+        List<House_option> house_option = realEstateService.house_option_list(house_num);
+        List<House_info> house_info = realEstateService.house_info_list(house_num);
+        List<House_type> house_type = realEstateService.house_type_list(house_num);
+        String road_address = realEstateService.road_address(house_num);
+        List<House_picture> housePictures = realEstateService.house_picture_list(house_num);
+
+
+        model.addAttribute("house_list",house_list);
+        model.addAttribute("house_item",house_item);
+        model.addAttribute("house_addinfo",house_addinfo);
+        model.addAttribute("house_detail",house_detail);
+        model.addAttribute("house_option",house_option);
+        model.addAttribute("house_info",house_info);
+        model.addAttribute("house_type",house_type);
+        model.addAttribute("road_address",road_address);
+        model.addAttribute("housePictures",housePictures);
+        return "Admin_Dashboard/house_info";
     }
 
     }

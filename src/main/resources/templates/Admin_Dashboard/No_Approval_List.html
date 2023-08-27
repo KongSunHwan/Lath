@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-<!--    -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -149,13 +148,11 @@
                                                                                     <i class="mdi mdi-dots-horizontal"></i>
                                                                                 </button>
                                                                                 <ul class="dropdown-menu dropdown-menu-lg-end">
-                                                                                    <li> <a target='_blank' th:href="@{'/house_info?house_num=' + ${re_list.house_num}}"> <button class="dropdown-item" type="button">
-                                                                                       보기</button></a></li>
-                                                                                    <li><a th:href="@{'/approval_ok?house_num=' + ${re_list.house_num}}">
+                                                                                    <li>
+                                                                                        <a target='_blank' th:href="@{'/house_info?house_num=' + ${re_list.house_num}}"><button class="dropdown-item" type="button">보기</button></a></li>
+                                                                                    <li><a th:href="@{'/no_approval_ok?house_num=' + ${re_list.house_num}}">
                                                                                         <button class="dropdown-item" type="button">
                                                                                             승인</button></a></li>
-                                                                                    <li><a th:href="@{'/approval_no?house_num=' + ${re_list.house_num}}">
-                                                                                        <button class="dropdown-item" type="button">취소</button></a></li>
                                                                                     <li><button class="dropdown-item" type="button">삭제</button></li>
 
                                                                                 </ul>
