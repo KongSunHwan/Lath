@@ -1,5 +1,6 @@
 package com.example.thishouse.domain.house;
 
+import com.example.thishouse.domain.PageVO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class House_list {
+public class House_list extends PageVO {
     private int house_list_num;
     private int house_num;
     private String house_thumb;

@@ -1,7 +1,6 @@
 package com.example.thishouse.controller;
 
 import com.example.thishouse.domain.Inquire;
-import com.example.thishouse.domain.Marker;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.house.*;
 import com.example.thishouse.service.BoardService;
@@ -74,7 +73,6 @@ public class KimController {
                                      House_picture house_picture,
                                      House_type house_type,
                                      Model model,
-                                     Marker marker,
                                      @RequestParam("files") List<MultipartFile> files ,
                                      HttpServletRequest request) {
 

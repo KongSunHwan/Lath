@@ -1,5 +1,14 @@
 package com.example.thishouse.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class PageVO {
     private int pageIndex = 1;				    //현재페이지
     private int pageUnit = 10;				    //페이지갯수

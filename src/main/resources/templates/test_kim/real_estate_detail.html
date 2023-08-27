@@ -15,6 +15,13 @@
   <link rel="stylesheet" href="/css/footer.css" />
   <link rel="stylesheet" href="/css/lecture_intro.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+  <style>
+    .fs-3:hover .bi-plus-circle {
+      color: blue;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
@@ -523,7 +530,7 @@
           <!-- 총평리뷰 끝 -->
           <br><br>
           <div class="d-grid gap-2 col-6 mx-auto">
-            <button class="btn btn-primary" type="button">허위매물 신고하기</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">허위매물 신고하기</button>
           </div>
           <br><br>
         </ul>
@@ -532,7 +539,7 @@
 
       <div class="col"  th:each="house_list : ${house_list}">
         <div class="rounded-3"
-             style="width: 300px; padding: 10px 10px; position: -webkit-sticky; position: sticky; top: 50px; text-align: center; margin-top: 50px; border: 1px solid rgb(194, 193, 193); box-shadow:2px 3px 5px 0px;">
+             style="width: 300px; padding: 10px 10px; position: sticky; top: 50px; text-align: center; margin-top: 50px; border: 1px solid rgb(194, 193, 193); box-shadow:2px 3px 5px 0px;">
           <div>
             <b th:if="${house_list.deal_type == '월세'}">월세 [(${house_list.deposit})] / [(${house_list.m_price})]만원</b>
             <b th:if="${house_list.deal_type == '전세'}">전세 [(${house_list.y_price})] 만원 </b>
@@ -547,9 +554,15 @@
             <ul class="list-group list-group-flush"  th:each="house_item : ${house_item}" >
               <li class="list-group-item">판매자 : <b th:text = "${house_item.user_id}">USER ID</b></li>
               <li class="list-group-item" th:text = "${house_list.house_type}"><i class="bi bi-house-exclamation"></i > 원룸(분리형)</li>
-              <li class="list-group-item"><i class="bi bi-rulers"></i> 평수 : <b>[(${house_list.exclusive_area2})]㎡</b></li>
-              <li class="list-group-item"><i class="bi bi-door-closed"></i> 층수 : <b>[(${house_list.n_floors})]층</b></li>
-              <li class="list-group-item"><i class="bi bi-cash-coin"></i> 관리비 : <b>[(${house_list.total_m_cost})]만원</b></li>
+              <li class="list-group-item">
+                <i class="bi bi-rulers"></i>
+                평수 : <b>[(${house_list.exclusive_area2})]㎡</b></li>
+              <li class="list-group-item">
+                <i class="bi bi-door-closed"></i>
+                층수 : <b>[(${house_list.n_floors})]층</b></li>
+              <li class="list-group-item">
+                <i class="bi bi-cash-coin"></i>
+                관리비 : <b>[(${house_list.total_m_cost})]만원</b></li>
             </ul>
           </div>
         </div>
@@ -564,6 +577,93 @@
 <!-- footer 시작 -->
 <footer th:replace="~{footer/footer}"></footer>
 <!-- footer 끝 -->
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">허위매물신고</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h2 class="fs-6 text-primary"><b>매물에 대한 잘못된 정보를 신고해주세요!</b></h2>
+        <p style="font-size: 12px;">※ 확인 후 허위매물일 경우 해당 매물은 삭제되거나 이용이 제재됩니다.<br>
+          ※ 허위 신고일 시 신고자는 법적인 책임을 질 수 있습니다.<br>
+          ※ 이집봐라는 자체 검열을 통해 허위매물 근절에 노력하고 있습니다.</p>
+        <hr>
+        <h2 class="fs-5"><b>허위매물 신고 항목</b> <b class="fs-6 text-danger">(※ 필수)</b></h2>
+        <div class="mb-3">
+          <label for="recipient-name" class="col-form-label">매물번호</label>
+          <input type="text" class="form-control" id="recipient-name" placeholder="123-1251" disabled>
+        </div>
+        <form>
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+            <label class="form-check-label" for="flexCheckDefault1">
+              <b>거래가 완료 된 매물</b>
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
+            <label class="form-check-label" for="flexCheckDefault2">
+              <b>정보가 다른 매물 (가격 / 사진 / 위치 / 옵션 등)</b>
+            </label>
+          </div>
+          <hr>
+          <div class="mb-3">
+                            <textarea class="form-control" id="message-text" placeholder="선택된 항목에 대한 추가 설명을 입력해 주세요."
+                                      style="height: 180px;"></textarea>
+          </div>
+          <hr>
+          <div class="mb-3">
+            <h3 class="fs-5"><b>증명 자료</b> <b class="fs-6 text-primary">(선택)</b></h3>
+            <p style="font-size: 12px;">※ 내용이 잘 보이도록 사진을 캡처하여 이곳에 첨부해 주세요.<br></p>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card text-center">
+                  <label for="chat-photo" class="fs-3" style="margin-top: 12px;">
+                    <i class="bi bi-plus-circle"></i>
+                  </label>
+                  <input type="file" id="chat-photo" style="display: none;">
+                  <hr>
+                  <span style="margin-bottom: 12px;"><b>채팅내용 사진</b></span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card text-center">
+                  <label for="seller-photo" class="fs-3" style="margin-top: 12px;">
+                    <i class="bi bi-plus-circle"></i>
+                  </label>
+                  <input type="file" id="seller-photo" style="display: none;">
+                  <hr>
+                  <span style="margin-bottom: 12px;"><b>판매자 사진</b></span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card text-center">
+                  <label for="room-photo" class="fs-3" style="margin-top: 12px;">
+                    <i class="bi bi-plus-circle"></i>
+                  </label>
+                  <input type="file" id="room-photo" style="display: none;">
+                  <hr>
+                  <span style="margin-bottom: 12px;"><b>방 사진</b></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">신고 접수</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal END -->
+
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
     crossorigin="anonymous"></script>

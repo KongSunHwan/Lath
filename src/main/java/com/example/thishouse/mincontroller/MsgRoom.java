@@ -2,10 +2,8 @@ package com.example.thishouse.mincontroller;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.socket.WebSocketSession;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -15,18 +13,17 @@ public class MsgRoom {
 
     private String roomId;
 
-    private String name;
+    private int house_num;
     private String buyerId;  // 구매자
     private String sellerId;  // 판매자
-    private Set<WebSocketSession> sessions = new HashSet<>();
-    //WebSocketSession은 Spring에서 Websocket Connection이 맺어진 세션
-
-    public static MsgRoom create(String name,String buyerId,String sellerId){
+    private Date roomdate;
+    public static MsgRoom create(int house_num,String buyerId,String sellerId,Date roomdate){
         MsgRoom msgRoom = new MsgRoom();
         msgRoom.roomId = UUID.randomUUID().toString();
-        msgRoom.name = name;
+        msgRoom.house_num = house_num;
         msgRoom.buyerId = buyerId;
         msgRoom.sellerId = sellerId;
+        msgRoom.roomdate = roomdate;
         return msgRoom;
     }
 

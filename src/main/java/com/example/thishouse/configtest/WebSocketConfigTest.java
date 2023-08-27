@@ -21,7 +21,8 @@ public class WebSocketConfigTest implements WebSocketMessageBrokerConfigurer {
         /*
         *      http://localhost:8080/endpoint/~~~
         * */
-        stompEndpointRegistry.addEndpoint("/stomp/chat").setAllowedOriginPatterns("*").withSockJS();
+        stompEndpointRegistry.addEndpoint("/stomp/chat").setAllowedOriginPatterns("*").addInterceptors(new CustomHttpSessionHandshakeInterceptor()).withSockJS();
+        stompEndpointRegistry.addEndpoint("/stomp/a1").setAllowedOriginPatterns("*").withSockJS();
     }
 
 
@@ -40,4 +41,8 @@ public class WebSocketConfigTest implements WebSocketMessageBrokerConfigurer {
         registry.enableSimpleBroker("/sub");
 
     }
+
+//    public void configureClientInboundChannel(ChannelRegistration registration) {
+//        registration.interceptors(new StompPreHandler()); // ChannelInterceptor 등록
+//    }
 }

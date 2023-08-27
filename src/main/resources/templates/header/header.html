@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <title>header</title>
   <link href="/css/headers.css" rel="stylesheet">
-
+  <style>
+    .perfect-scrollbar {
+      max-height: 400px;
+      overflow-y: auto; /* Enable vertical scrolling */
+    }
+  </style>
 </head>
 <body>
 <header class="p-6 mb-3 border-bottom">
@@ -18,9 +23,10 @@
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li><a th:href="@{/map}" class="nav-link px-4 link-dark">지도</a></li>
         <li><a th:href="@{/real_estate_add}" class="nav-link px-4 link-dark">매물 등록</a></li>
-        <li><a href="#" class="nav-link px-4 link-dark">부동산 가이드</a></li>
+        <li><a th:href="@{/property_guide}" class="nav-link px-4 link-dark">부동산 가이드</a></li>
         <li><a th:href="@{/board_list}" class="nav-link px-4 link-dark">커뮤니티</a></li>
         <li><a th:href="@{/notice_list}" class="nav-link px-4 link-dark">공지사항</a></li>
+        <li><a th:href="@{/chat/room(userId =${session.user_id})}" class="nav-link px-4 link-dark">내 채팅방</a></li>
       </ul>
 
       <div class="dropdown text-end">
@@ -62,8 +68,168 @@
           </li>
         </ul>
       </div>
+
+      &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+      <div th:if="${session.user_id != null}" class="dropdown position-relative">
+                    <span class="nav-icon font-2xl dropdown" href="#" id="notificationDropdown"
+                          data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer; position: relative;">
+                        <div class="position-relative">
+                            <button type="button" class="btn btn-primary position-relative">
+                                <i class="bi bi-bell"></i>
+                                알림
+                                <span id ="a1" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    5
+                                    <span class="visually-hidden">알림 개수</span>
+                                </span>
+                            </button>
+                        </div>
+                    </span>
+        <ul class="dropdown-menu dropdown-menu-end p-0 border-0 w-400"
+            aria-labelledby="notificationDropdown">
+          <div class="card" style="width: 450px;">
+            <div class="card-header">
+              <a href="javascript://" class="float-end text-body">
+                읽음 처리
+              </a>
+              알림
+            </div>
+
+            <div class="perfect-scrollbar position-relative" style="max-height: 400px;">
+              <ul id ="a1Group" class="list-group list-group-flush">
+
+
+              </ul>
+            </div>
+
+            <div class="card-footer text-center border-0">
+              <a href="javascript://" class="text-body">
+                모든 알림 보기
+              </a>
+            </div>
+          </div>
+        </ul>
+      </div>
+
     </div>
   </div>
 </header>
+<!--javascript-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/webjars/sockjs-client/1.1.2/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/2.3.3-1/stomp.min.js"></script>
+<!-- Include Perfect Scrollbar JS from a CDN -->
+
+<script>
+  $(document).ready(function () {
+
+
+    var username = "[[${session.user_id}]]";
+
+
+    if (username.length >0) {
+      $("#a1").text("1");
+      console.log("testsfads");
+      var sockJS = new SockJS(`/stomp/a1`);
+      var stomp = Stomp.over(sockJS);
+      stomp.connect({}, function (frame) {
+        console.log("WebSocket 연결 성공 connected : " + frame);
+        //채팅을 할때마다 채팅 보여주기
+        // stomp.subscribe("/sub/chat/a1"+username, function (alarm) {
+        //   var content = JSON.parse(alarm.body);
+        //   var sender= content.sender;
+        //   var roomid= content.roomid;
+        //   var almsg = content.al_content;
+        //   const houseNum = content.housenum;
+        //   console.log(typeof houseNum);
+        //   var date = content.al_date;
+        //   var formatterDate = date.substring(0,16);
+        //   var utcDate = new Date(formatterDate);
+        //   var kstDate = new Date(utcDate.getTime() + (9 * 60 * 60 * 1000));
+        //   var month= kstDate.getMonth() +1;
+        //   var day = kstDate.getDate();
+        //   var hours =kstDate.getHours();
+        //   var minutes = kstDate.getMinutes();
+        //
+        //   var plDate = `${month}월 ${day}일 ${hours}시 ${minutes}분 `;
+        //
+        //   var alchk = content.al_chk;
+        //   //////////////////////////////////////////////////////////////////
+        //
+        //   var dyContent=  $('<div><strong>' + sender + '</strong> ' + almsg + '</div>')
+        //           .append($('<span  class="text-muted">' + date+ " 갯수" +count + '</span>'));
+        //   var newListItem = $('<li class="list-group-item list-group-item-action">')
+        //           .append($('<div class="d-flex align-items-center">')
+        //                   .append($('<a/>', {
+        //                             href: '/chat/chatPage'+"?houseNum="+houseNum+"&"+"roomId="+roomid,
+        //                             class: 'avatar me-2 rounded-circle',
+        //                           })
+        //                                   .append($('<div class="flex-grow-1">').append(dyContent))
+        //                   ));
+        //   // 생성한 li 엘리먼트를 ul 엘리먼트에 추가합니다.
+        //   $('#a1Group').append(newListItem);
+        //
+        //
+        //
+        //
+        //   //디자인 수정
+        //
+        //   var dyContent=  $('<div><strong>' + sender + '</strong> ' + almsg + '</div>')
+        //           .append($('<span  class="text-muted">' + plDate + '</span>'));
+        //   var newListItem = $('<li class="list-group-item list-group-item-action">')
+        //           .append($('<div class="d-flex align-items-center">')
+        //                   .append($('<a/>', {
+        //                             href: '/chat/chatPage'+"?houseNum="+houseNum+"&"+"roomId="+roomid,
+        //                             class: 'avatar me-2 rounded-circle',
+        //                           })
+        //                                   .append($('<div class="flex-grow-1">').append(dyContent))
+        //                   ));
+        //   // 생성한 li 엘리먼트를 ul 엘리먼트에 추가합니다.
+        //   $('#a1Group').append(newListItem);
+        //
+        //
+        // });
+
+
+
+        stomp.subscribe("/sub/chat/a1list/"+username,function (a1){
+          $('#a1Group').empty();
+          var list= JSON.parse(a1.body);
+          for(var i = 0; i<list.length; i++){
+
+            var sender= list[i].sender;
+            var almsg = list[i].al_content;
+            var date = list[i].al_date;
+            var roomid = list[i].roomid;
+            var houseNum = list[i].housenum;
+            var count = list[i].roomid_count;
+
+            var dyContent=  $('<div><strong>' + sender + '</strong> ' + almsg + '</div>')
+                    .append($('<span  class="text-muted">' + date+ " 갯수" +count + '</span>'));
+            var newListItem = $('<li class="list-group-item list-group-item-action">')
+                    .append($('<div class="d-flex align-items-center">')
+                            .append($('<a/>', {
+                                      href: '/chat/chatPage'+"?houseNum="+houseNum+"&"+"roomId="+roomid,
+                                      class: 'avatar me-2 rounded-circle',
+                                    })
+                                    .append($('<div class="flex-grow-1">').append(dyContent))
+                            ));
+            // 생성한 li 엘리먼트를 ul 엘리먼트에 추가합니다.
+
+            $('#a1Group').append(newListItem);
+          }
+        });
+
+        stomp.send("/pub/chat/a1list",{},JSON.stringify({
+          user_id :username
+        }))
+
+      });
+    } else {
+      console.log("if문 작동x");
+    }
+  });
+</script>
 </body>
 </html>
