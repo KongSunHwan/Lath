@@ -2,58 +2,79 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <title>Websocket ChatRoom</title>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Websocket ChatRoom</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
-  <style>
-    /* 채팅 메시지 스타일 */
-    .chat {
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto; /* 스크롤 적용 */
-      max-height: 400px; /* 스크롤 영역의 최대 높이 */
-      height: 400px;
-    }
-    .message {
-      max-width: 70%;
-      margin: 5px;
-      padding: 8px;
-      border-radius: 10px;
-      word-wrap: break-word;
-    }
-    .sent-message {
-      align-self: flex-end;
-      background-color: #DCF8C6;
-    }
-    .received-message {
-      align-self: flex-start;
-      background-color: #E2E2E2;
-    }
-  </style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+    <style>
+        /* 채팅 메시지 스타일 */
+        .chat {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto; /* 스크롤 적용 */
+            max-height: 400px; /* 스크롤 영역의 최대 높이 */
+            height: 400px;
+        }
+
+        .message {
+            max-width: 70%;
+            margin: 5px;
+            padding: 8px;
+            border-radius: 10px;
+            word-wrap: break-word;
+        }
+
+        .sent-message {
+            align-self: flex-end;
+            background-color: #DCF8C6;
+        }
+
+        .received-message {
+            align-self: flex-start;
+            background-color: #E2E2E2;
+        }
+
+        /* 메시지 보낸 사람 정보 스타일 */
+        .message-sender {
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* 메시지 내용 스타일 */
+        .message-text {
+            margin-top: 5px;
+            color: #333;
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: #888;
+            margin-top: 2px;
+        }
+    </style>
 </head>
 <body>
 
 <header th:replace="~{header/header}"></header>
 <div class="container mt-5">
-  <div>
-    <h2 th:text="${room.name} +' / 판매자 : '+ ${room.sellerId}+'//구매자 :'+ ${room.buyerId}" ></h2>
-  </div>
-  <hr>
-  <div class="chat" id="chat-box">
-
-    <!-- 메시지가 추가될 위치 -->
-  </div>
-
-  <div class="input-group mt-3">
-    <input type="text" id="msg" class="form-control" placeholder="메시지를 입력하세요">
-    <div class="input-group-append">
-      <button id="button-send" type="button" class="btn btn-warning">전송</button>
+    <div>
+        <h2 th:text="${room.roomId} +'/물품번호'+${room.house_num}"></h2>
     </div>
-  </div>
+    <hr>
+    <div class="chat" id="chat-box">
+
+        <!-- 메시지가 추가될 위치 -->
+    </div>
+
+    <div class="input-group mt-3">
+        <input type="text" id="msg" class="form-control" placeholder="메시지를 입력하세요">
+        <div class="input-group-append">
+            <button id="button-send" type="button" class="btn btn-warning">전송</button>
+        </div>
+    </div>
 
 
 </div>
@@ -67,88 +88,134 @@
 <!--bundle.js는 popper.js를 포함한 js 파일  ex) 드롭다운 팝오버  -->
 <script src="/webjars/bootstrap/5.2.3/js/bootstrap.bundle.js"></script>
 <script>
-  $(document).ready(function (){
 
 
-    //roomId를 .JS 변수에 담음
-    var roomId = "[[${room.roomId}]]";
-    var username= "[[${session.user_id}]]";
-    var chatBox = $("#chat-box");
+    $(document).ready(function () {
 
-    console.log(roomId);
 
-    var sockJS = new SockJS("/stomp/chat");
+        //roomId를 .JS 변수에 담음
+        var roomId = "[[${room.roomId}]]";
+        var username = "[[${session.user_id}]]";
+        var chatBox = $("#chat-box");
+        var opponentUser = username === "[[${room.buyerId}]]" ? "[[${room.sellerId}]]" :"[[${room.buyerId}]]";
+        console.log(roomId);
 
-    var stomp = Stomp.over(sockJS);
+        var sockJS = new SockJS(`/stomp/chat?roomId=${roomId}`);
+        var stomp = Stomp.over(sockJS);
+        // 3 way handshake 일어나면서 연결이 됨
+        stomp.connect({}, function (frame) {
+            console.log("WebSocket 연결 성공 connected : " + frame);
 
-    // 3 way handshake 일어나면서 연결이 됨
-    stomp.connect({}, function (frame){
-      console.log("WebSocket 연결 성공 connected : "+ frame);
 
-      // 구독한 메시지를 받을 수 있다
-      stomp.subscribe("/sub/chat/room/"+roomId,function (chat){
+            // 구독한 메시지를 받을 수 있다
+            stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
+                chatBox.empty();
+                //이전 메시지를 불러올때만 동작한다.(딱 한번만 동작)
+                // if(!firstLoad) return;
+                //채팅방에 들어오자마자 전체 채팅 리스트 보여주기
+                var content = JSON.parse(chat.body);
+                console.log("객체 역직렬화 " + content);
+                for (var i = 0; i < content.length; i++) {
+                    var sender = content[i].sender;
+                    var message = content[i].msg;
+                    var date = content[i].msgdate;
+                    var isSent = sender === username;
+                    var readStatus =content[i].msgchk;
+                    appendMessage(sender, message, date, isSent,readStatus);
+                }
+                // firstLoad =false;
+            });
 
-        // 역직렬화  (JSON타입 ->  Javascript 객체로 변환)
-        var content = JSON.parse(chat.body);
-        // content 객체에서 sender, message 변수에 저장
-        var sender = content.sender; // 보낸 사람
-        var message = content.message;
+            var firstLoad= true;
 
-        //sender(채팅을 보낸사람), 세션 로그인 아이디와 비교해서 다르게 클라이언트에게 보여주기
-        if(sender === username){
-          //메시지 호출마다 <li>태그 생성
-          var liTag = $("<div></div>");
-          liTag.addClass('message sent-message');
-          liTag.text(sender + ": " + message);
-        }else{
-          var liTag = $("<div></div>");
-          liTag.addClass('message received-message');
-          liTag.text(sender + ": " + message);
+            //채팅을 할때마다 채팅 보여주기
+            stomp.subscribe("/sub/chat/room/" + roomId + "/new", function (chat) {
+                var content = JSON.parse(chat.body);
+
+                var sender = content.sender;
+                var message = content.msg;
+                var date = content.msgdate;
+                var isSent = sender === username
+                var readStatus =content.msgchk;
+                appendMessage(sender, message, date, isSent,readStatus);
+            });
+
+
+
+            stomp.send("/pub/chat/list", {}, JSON.stringify({
+                roomId: roomId,
+                sender:opponentUser
+            }))
+        });
+
+
+        // 메시지를 보낼때마다 destination :/pub/chat/message
+        function sendMessage() {
+            var msg = $("#msg").val();
+            chatBox.scrollTop(chatBox.prop("scrollHeight"));
+
+            // Javascript 객체를 JSON 타입으로 직렬화 (JavaScript -> JSON)
+            stomp.send('/pub/chat/message', {}, JSON.stringify({
+                roomId: roomId,
+                sender: username,
+                msg: msg,
+                msgdate: new Date() // 시간 생성해줌
+
+            }));
+
+            $("#msg").val('');
+
         }
 
-        //<ul> 태그 안에 추가
-        $(".chat").append(liTag);
-        chatBox.scrollTop(chatBox.prop("scrollHeight")) ;
-      });
+        // 엔터 키(키 코드: 13) 감지하여 메시지 전송
+        $("#msg").on("keyup", function (event) {
+            if (event.keyCode === 13) { // 엔터 키 감지
+                event.preventDefault(); // 폼 제출 방지
+                sendMessage(); // 메시지 전송 함수 호출
+            }
+        });
 
-      //구독한 대상에게 메시지를 보낼 수 있다. (enter)로 보내게되면  아이디가 입장 했습니다.
-      stomp.send("/pub/chat/enter",{},JSON.stringify({
-        roomId:roomId,
-        sender: username
-      }))
+        // 메시지 전송 버튼 클릭 이벤트
+        $("#button-send").click(function () {
+            sendMessage(); // 메시지 전송 함수 호출
+        });
+
+        function appendMessage(sender, message, date, isSent,readStatus) {
+            var options = {hour: '2-digit', minute: '2-digit', hour12: true};
+            var currentTime = new Date(date).toLocaleTimeString(undefined, options);
+
+
+            var messageContainer = $("<div></div>");
+            var senderTag = $("<div></div>").addClass('message-sender').text(sender);
+            var messageTag = $("<div></div>").addClass('message-text').text(message);
+            var timeTag = $("<div></div>").addClass('message-time').text(currentTime);
+
+            messageContainer.append(senderTag).append(messageTag).append(timeTag);
+
+            if (isSent) {
+                var readStatusTag = $("<div></div>").addClass('read-status').text(readStatus === 0 ? "읽지 않음" : "읽음");
+                messageContainer.addClass('message sent-message');
+                messageContainer.append(readStatusTag);
+            } else {
+                messageContainer.addClass('message received-message');
+            }
+
+            $(".chat").append(messageContainer);
+            chatBox.scrollTop(chatBox.prop("scrollHeight"));
+        }
+
+        $(window).on('beforeunload',function (){
+           const action =  'leave';
+           sendAction(action);
+           stomp.disconnect();
+
+        });
+        function  sendAction(action){
+            stomp.send("/pub/chat/action",{}, action);
+        }
+
+
     });
-
-
-    // 메시지를 보낼때마다 destination :/pub/chat/message
-    function sendMessage(){
-      var msg  = $("#msg").val();
-      chatBox.scrollTop(chatBox.prop("scrollHeight")) ;
-
-      // Javascript 객체를 JSON 타입으로 직렬화 (JavaScript -> JSON)
-      stomp.send('/pub/chat/message',{}, JSON.stringify({
-        roomId:roomId,
-        message: msg,
-        sender: username
-      }));
-
-      $("#msg").val('');
-
-    }
-
-    // 엔터 키(키 코드: 13) 감지하여 메시지 전송
-    $("#msg").on("keyup", function(event) {
-      if (event.keyCode === 13) { // 엔터 키 감지
-        event.preventDefault(); // 폼 제출 방지
-        sendMessage(); // 메시지 전송 함수 호출
-      }
-    });
-
-    // 메시지 전송 버튼 클릭 이벤트
-    $("#button-send").click(function() {
-      sendMessage(); // 메시지 전송 함수 호출
-    });
-
-  });
 
 </script>
 

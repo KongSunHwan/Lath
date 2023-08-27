@@ -1,34 +1,21 @@
 package com.example.thishouse.mapper;
 
-import com.example.thishouse.domain.ChatRoom;
-import lombok.RequiredArgsConstructor;
+
+import com.example.thishouse.mincontroller.Message;
 import org.apache.ibatis.annotations.Mapper;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-@Repository
 @Mapper
-@RequiredArgsConstructor
-public class ChatMapper {
-    private final SqlSessionTemplate sqlSession;
-    private static final String Namespace = "com.example.thishouse.mapper.ChatMapper";
+public interface ChatMapper {
 
-    public int sequence() {
-        return sqlSession.selectOne(Namespace+".sequence");
-    }
+    //메세지 넣기
+    public void createMessage(Message message);
 
-    public List<ChatRoom> findAllRooms() {
-        return sqlSession.selectList(Namespace+".findAllRooms");
-    }
+    //읽은 메시지 처리
+    public void messageStatus(@Param("roomId") String roomId, @Param("sender") String sender);
 
-    public ChatRoom findRoomById(String roomId) {
-        return sqlSession.selectOne(Namespace+".findRoomById", roomId);
-    }
-
-    public int createChatRoom(ChatRoom chatRoom) {
-        return sqlSession.insert(Namespace+".createChatRoom", chatRoom);
-    }
-
+    //메시지 리스트 출력
+    public List<Message> findAllMessage(String roomId);
 }
