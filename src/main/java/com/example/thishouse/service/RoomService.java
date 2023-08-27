@@ -2,7 +2,7 @@ package com.example.thishouse.service;
 
 import com.example.thishouse.domain.house.House_item;
 import com.example.thishouse.mapper.RoomMapper;
-import com.example.thishouse.mincontroller.MsgRoom;
+import com.example.thishouse.domain.MsgRoom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

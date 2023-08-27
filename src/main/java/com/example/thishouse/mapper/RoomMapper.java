@@ -2,7 +2,7 @@ package com.example.thishouse.mapper;
 
 
 import com.example.thishouse.domain.house.House_item;
-import com.example.thishouse.mincontroller.MsgRoom;
+import com.example.thishouse.domain.MsgRoom;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

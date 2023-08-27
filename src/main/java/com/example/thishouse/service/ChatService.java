@@ -2,7 +2,7 @@ package com.example.thishouse.service;
 
 
 import com.example.thishouse.mapper.ChatMapper;
-import com.example.thishouse.mincontroller.Message;
+import com.example.thishouse.domain.Message;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

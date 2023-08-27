@@ -1,6 +1,6 @@
 package com.example.thishouse.controller;
 
-import com.example.thishouse.mincontroller.MsgRoom;
+import com.example.thishouse.domain.MsgRoom;
 import com.example.thishouse.service.RoomService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;

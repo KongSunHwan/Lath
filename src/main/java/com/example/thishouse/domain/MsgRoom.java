@@ -1,4 +1,4 @@
-package com.example.thishouse.mincontroller;
+package com.example.thishouse.domain;
 
 import lombok.Getter;
 import lombok.Setter;

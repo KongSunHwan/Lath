@@ -6,7 +6,7 @@
        insert into chtmsg (roomid,sender,msg,msgdate,msgchk) values (#{roomId},#{sender}, #{msg},now(),#{msgchk})
    </insert>
 
-    <select id="findAllMessage" resultType="com.example.thishouse.mincontroller.Message">
+    <select id="findAllMessage" resultType="com.example.thishouse.domain.Message">
         select *
         from chtmsg
         where roomid=#{roomId};

@@ -2,7 +2,7 @@ package com.example.thishouse.controller;
 
 import com.example.thishouse.domain.Alarm;
 import com.example.thishouse.domain.ChatSession;
-import com.example.thishouse.mincontroller.Message;
+import com.example.thishouse.domain.Message;
 import com.example.thishouse.service.AlarmService;
 import com.example.thishouse.service.ChatService;
 import com.example.thishouse.service.ChatSessionStorage;
