@@ -1,4 +1,4 @@
-package com.example.thishouse.configtest;
+package com.example.thishouse.config;
 
 
 import org.springframework.context.annotation.Configuration;

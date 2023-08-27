@@ -1,4 +1,4 @@
-package com.example.thishouse.configtest;
+package com.example.thishouse.config;
 
 import com.example.thishouse.domain.ChatSession;
 import lombok.extern.log4j.Log4j2;
