@@ -8,6 +8,11 @@
       max-height: 400px;
       overflow-y: auto; /* Enable vertical scrolling */
     }
+
+    .no-link-style {
+      color: inherit;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -204,13 +209,27 @@
             var houseNum = list[i].housenum;
             var count = list[i].roomid_count;
 
+
+            var dateString = new Date(date);
+            dateString.setUTCHours(dateString.getHours()+9);
+            var options = {
+              year: 'numeric',
+              month: 'numeric',
+              day: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+              hour12: false,
+            }
+            var successDate = dateString.toLocaleDateString('ko-KR',options);
+
             var dyContent=  $('<div><strong>' + sender + '</strong> ' + almsg + '</div>')
-                    .append($('<span  class="text-muted">' + date+ " 갯수" +count + '</span>'));
+                    .append($('<br><span  class="text-muted">' + successDate+ '/ 알림 : ' +count + '</span>'));
+
             var newListItem = $('<li class="list-group-item list-group-item-action">')
                     .append($('<div class="d-flex align-items-center">')
                             .append($('<a/>', {
                                       href: '/chat/chatPage'+"?houseNum="+houseNum+"&"+"roomId="+roomid,
-                                      class: 'avatar me-2 rounded-circle',
+                                      class: 'avatar me-2 rounded-circle no-link-style',
                                     })
                                     .append($('<div class="flex-grow-1">').append(dyContent))
                             ));

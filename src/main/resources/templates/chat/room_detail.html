@@ -63,7 +63,7 @@
 <header th:replace="~{header/header}"></header>
 <div class="container mt-5">
     <div>
-        <h2 th:text="${room.roomId} +'/물품번호'+${room.house_num}"></h2>
+        <h2 th:text="'물품번호'+${room.house_num}"></h2>
     </div>
     <hr>
     <div class="chat" id="chat-box">
@@ -104,19 +104,11 @@
 
         var sockJS = new SockJS(`/stomp/chat?roomId=${roomId}`);
         var stomp = Stomp.over(sockJS);
-        // 3 way handshake 일어나면서 연결이 됨
+
         stomp.connect({}, function (frame) {
-            console.log("WebSocket 연결 성공 connected : " + frame);
-
-
-            // 구독한 메시지를 받을 수 있다
             stomp.subscribe("/sub/chat/room/" + roomId, function (chat) {
                 chatBox.empty();
-                //이전 메시지를 불러올때만 동작한다.(딱 한번만 동작)
-                // if(!firstLoad) return;
-                //채팅방에 들어오자마자 전체 채팅 리스트 보여주기
                 var content = JSON.parse(chat.body);
-                console.log("객체 역직렬화 " + content);
                 for (var i = 0; i < content.length; i++) {
                     var sender = content[i].sender;
                     var message = content[i].msg;
@@ -125,15 +117,10 @@
                     var readStatus =content[i].msgchk;
                     appendMessage(sender, message, date, isSent,readStatus);
                 }
-                // firstLoad =false;
             });
 
-            var firstLoad= true;
-
-            //채팅을 할때마다 채팅 보여주기
             stomp.subscribe("/sub/chat/room/" + roomId + "/new", function (chat) {
                 var content = JSON.parse(chat.body);
-
                 var sender = content.sender;
                 var message = content.msg;
                 var date = content.msgdate;
@@ -141,9 +128,6 @@
                 var readStatus =content.msgchk;
                 appendMessage(sender, message, date, isSent,readStatus);
             });
-
-
-
             stomp.send("/pub/chat/list", {}, JSON.stringify({
                 roomId: roomId,
                 sender:opponentUser

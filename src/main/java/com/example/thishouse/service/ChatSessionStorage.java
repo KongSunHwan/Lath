@@ -34,14 +34,14 @@ public class ChatSessionStorage {
         if (chatRooms != null) {
             chatRooms.remove(roomId);
             if (chatRooms.isEmpty()) {
-                userChatRooms.remove(userId); // Remove user if no longer in any chat rooms
+                userChatRooms.remove(userId);
             }
         }
     }
 
     public boolean isChatRoomOccupied(String chatRoomId) {
         Set<String> usersInChatRoom = getUsersInChatRoom(chatRoomId);
-        return usersInChatRoom.size() > 1; // If more than 1 user is in the chat room
+        return usersInChatRoom.size() > 1;
     }
 
     public Set<String> getUsersInChatRoom(String chatRoomId) {

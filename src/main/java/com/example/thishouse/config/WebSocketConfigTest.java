@@ -18,9 +18,7 @@ public class WebSocketConfigTest implements WebSocketMessageBrokerConfigurer {
     //SocketJs Fallback 이용해 노출할 STOMP endPoint
     @Override
     public void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
-        /*
-        *      http://localhost:8080/endpoint/~~~
-        * */
+
         stompEndpointRegistry.addEndpoint("/stomp/chat").setAllowedOriginPatterns("*").addInterceptors(new CustomHttpSessionHandshakeInterceptor()).withSockJS();
         stompEndpointRegistry.addEndpoint("/stomp/a1").setAllowedOriginPatterns("*").withSockJS();
     }
@@ -31,18 +29,11 @@ public class WebSocketConfigTest implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
 
-        //ApplicationDestinationPrefixes 를 지정하면 대상 헤더가 시작되는 STOMP 메시지는 해당 클래스의 메서드로 라우팅
-        /*
-         *   클라이언트에서 데이터를 보낼때 요청헤더에 ex) /pub/message
-         *   컨트롤러에서는 /pub 제외 한 경로 @MessageMapping("/message/)
-         * */
+
         registry.setApplicationDestinationPrefixes("/pub");
 
         registry.enableSimpleBroker("/sub");
 
     }
 
-//    public void configureClientInboundChannel(ChannelRegistration registration) {
-//        registration.interceptors(new StompPreHandler()); // ChannelInterceptor 등록
-//    }
 }
