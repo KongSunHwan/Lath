@@ -27,7 +27,6 @@ public class ChatController {
     private final ChatSessionStorage chatSessionStorage;
     private final AlarmService alarmService;
 
-    //채팅리스트 뽑기 , 채팅 읽음 여부 (성공), 알림 읽음 기능 나이솨
     @MessageMapping("/chat/list")
     public void enter(Message message, SimpMessageHeaderAccessor accessor){
         ChatSession chatSession = (ChatSession) accessor.getSessionAttributes().get("chatSession");
