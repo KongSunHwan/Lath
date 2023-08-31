@@ -68,8 +68,6 @@ public class ChatController {
 
         if(message.getMsgchk() == 0){
 
-
-            //상대방 아이디
             String buyerOrSellerId = alarmService.getBuyerOrSellerId(message.getSender(), message.getRoomId());
 
             Alarm alarm = new Alarm(buyerOrSellerId,message.getSender(),message.getRoomId(),message.getMsg(),message.getMsgdate());
