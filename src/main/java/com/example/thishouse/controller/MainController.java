@@ -32,21 +32,14 @@ public class MainController {
     private final MarkerService markerService;
     @GetMapping("/map")
     public String map(Model model) {
-//        List<Marker> markers = markerService.getMarkers();
-//        model.addAttribute("markers", markers);
-//
-//        //테스트용
-//        model.addAttribute("map", new Map("매물이름", 50));
-//        addMap(model);
-
+        List<MapVO> mapall = markerService.all_map();
         List<MapVO> markers = markerService.getMarkers();
         System.out.println("--------------------------------------");
         System.out.println(markers.getClass());
         System.out.println(markers.toString());
         System.out.println("--------------------------------------");
         model.addAttribute("markers", markers);
-
-
+        model.addAttribute("mapall", mapall);
 
         return "map/map";
     }
