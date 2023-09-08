@@ -184,7 +184,7 @@ public class KimController {
         model.addAttribute("house_type",house_type);
         model.addAttribute("road_address",road_address);
         model.addAttribute("housePictures",housePictures);
-        model.addAttribute("report2", new Report()); // Report 클래스의 인스턴스 생성
+        model.addAttribute("report", new Report()); // Report 클래스의 인스턴스 생성
 
         return "test_kim/real_estate_detail";
     }
@@ -233,7 +233,7 @@ public class KimController {
     }
 
     @PostMapping("/report_insert")
-    public String report_insert(Report report1, @ModelAttribute Report report2, Model model) {
+    public String report_insert(Report report1, Model model) {
         // 수정된 Report 객체를 다시 데이터베이스에 저장
         reportService.insertReport(report1);
         return "redirect:/list_main";
