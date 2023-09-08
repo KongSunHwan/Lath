@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.thishouse.mapper.ReportMapper">
+    <insert id="insertReport">
+        insert into report values (#{report_num},#{house_num},#{user_id},#{report_title}, #{report_content},
+                                   #{report_content_pic},#{report_seller_pic},#{report_house_pic},
+                                   #{close_house},#{information_distinct},now())
+    </insert>
+</mapper>

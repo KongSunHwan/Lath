@@ -10,10 +10,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Report {
-    private int report_num;
-    private int house_num;
-    private String user_id;
-    private String report_title;
-    private String report_content;
-    private String report_pic;
+    private int report_num; // 신고 번호
+    private int house_num; // 집 번호
+    private String user_id; // 사용자 아이디
+    private String report_title; // 신고 제목
+    private String report_content; // 신고 내용
+    private String report_content_pic; // 신고 내용 사진
+    private String report_seller_pic; // 신고 판매자 사진
+    private String report_house_pic; // 신고 집 사진
+    private int close_house; // 거래가 완료된 매물 구분
+    private int information_distinct; // 정보가 다른 매물 구분
 }

@@ -1,12 +1,10 @@
 package com.example.thishouse.controller;
 
 import com.example.thishouse.domain.Inquire;
+import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.house.*;
-import com.example.thishouse.service.BoardService;
-import com.example.thishouse.service.MarkerService;
-import com.example.thishouse.service.MemberService;
-import com.example.thishouse.service.RealEstateService;
+import com.example.thishouse.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
@@ -34,6 +32,7 @@ public class KimController {
     private final RealEstateService realEstateService;
     private final BoardService boardService;
     private final MarkerService markerService;
+    private final ReportService reportService;
     private final String uploadPath = "C:/Timp/img/";
     @RequestMapping("/test_inquire")
     public String test_my_community(String user_id, Model model) {
@@ -185,6 +184,7 @@ public class KimController {
         model.addAttribute("house_type",house_type);
         model.addAttribute("road_address",road_address);
         model.addAttribute("housePictures",housePictures);
+        model.addAttribute("report2", new Report()); // Report 클래스의 인스턴스 생성
 
         return "test_kim/real_estate_detail";
     }
@@ -230,6 +230,13 @@ public class KimController {
     @GetMapping("/images/{filename}")
     public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
         return new UrlResource("file:" + uploadPath + filename);
+    }
+
+    @PostMapping("/report_insert")
+    public String report_insert(Report report1, @ModelAttribute Report report2, Model model) {
+        // 수정된 Report 객체를 다시 데이터베이스에 저장
+        reportService.insertReport(report1);
+        return "redirect:/list_main";
     }
 
 }
