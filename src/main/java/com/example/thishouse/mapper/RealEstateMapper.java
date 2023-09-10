@@ -121,4 +121,13 @@ public class RealEstateMapper {
 
         return sqlSession.selectList(Namespace+".house_picture_list",houseNum);
     }
+
+    public List<House_list> house_list_pg(House_list searchVO) {
+        System.out.println(sqlSession.selectList(Namespace+".house_list_pg",searchVO));
+        return sqlSession.selectList(Namespace+".house_list_pg",searchVO);
+    }
+
+    public int house_list_pg_cnt() {
+        return sqlSession.selectOne(Namespace+".house_list_pg_cnt");
+    }
 }

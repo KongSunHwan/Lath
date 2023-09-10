@@ -20,6 +20,8 @@ public class PageVO {
     private int endDate = 0;				    //종료데이터
     private int realEnd = 0;				    //페이징 마지막 숫자
 
+    private int pageUnit_house = 6;				    //메인용페이지갯수
+
     private boolean prev, next;	    			//이전,다음버튼
 
 
