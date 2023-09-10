@@ -146,7 +146,7 @@ public class KimController {
         realEstateService.insert_house_detail(house_detail);
         realEstateService.insert_house_list(house_list);
 
-        return list_main(model);
+        return "redirect:/list_main";
     }
 
     @RequestMapping("/pic_test")
@@ -155,9 +155,34 @@ public class KimController {
     }
 
     @RequestMapping("/list_main")
-    public String list_main(Model model) {
-        List<House_list> house_list = realEstateService.view_house_list();
-        model.addAttribute("house_list",house_list);
+    public String list_main(@ModelAttribute("searchVO") House_list searchVO,  Model model) {
+//        List<House_list> house_list = realEstateService.view_house_list();
+//        model.addAttribute("house_list",house_list);
+
+        PageCtrl pagination  = new PageCtrl();
+        pagination.setCurrentPageNo(searchVO.getPageIndex());
+        pagination.setRecordCountPerPage(searchVO.getPageUnit_house());
+        pagination.setPageSize(searchVO.getPageSize());
+
+        searchVO.setFirstIndex(pagination.getFirstRecordIndex());
+        searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
+        System.out.println("펄스트인덱스 : " + searchVO.getFirstIndex());
+
+        List<House_list> house_list = realEstateService.house_list_pg(searchVO);
+        model.addAttribute("house_list" , house_list);
+        int totCnt = realEstateService.house_list_pg_cnt();
+        model.addAttribute("totCnt",totCnt);
+        System.out.println("전체 매물 수 : " + totCnt);
+
+        pagination.setTotalRecordCount(totCnt);
+
+        searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+        searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+        searchVO.setPrev(pagination.getXprev());
+        searchVO.setNext(pagination.getXnext());
+        model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+        model.addAttribute("pagination",pagination);
+
         return "test_kim/main_RE_list";
     }
 
