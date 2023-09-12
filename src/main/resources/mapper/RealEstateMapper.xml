@@ -152,5 +152,23 @@
         order by house_list_num desc
     </select>
 
+    <select id="house_search_pg" resultType="java.util.HashMap">
+        select *
+        from house_list a, (select *
+                            from house_picture
+                            where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) b
+        where a.house_num = b.house_num and a.approval = 1 and a.road_address like CONCAT('%',#{search_content},'%')
+        order by house_list_num desc
+            LIMIT #{recordCountPerPage} OFFSET ${firstIndex}
+    </select>
+
+    <select id="house_search_pg_cnt" resultType="int">
+        select count(*)
+        from house_list a, (select *
+                            from house_picture
+                            where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) b
+        where a.house_num = b.house_num and a.approval = 1 and a.road_address like CONCAT('%',#{search_content},'%')
+    </select>
+
 
 </mapper>

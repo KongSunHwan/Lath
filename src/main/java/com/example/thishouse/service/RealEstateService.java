@@ -152,6 +152,14 @@ public class RealEstateService {
         return this.realEstateMapper.house_list_pg_cnt();
     }
 
+    public List<House_list> house_search_pg(House_list searchVO) {
+        return this.realEstateMapper.house_search_pg(searchVO);
+    }
+
+    public int house_search_pg_cnt(House_list searchVO) {
+        return this.realEstateMapper.house_search_pg_cnt(searchVO);
+    }
+
     //wish list
 
     //매물 리스트 페이징*

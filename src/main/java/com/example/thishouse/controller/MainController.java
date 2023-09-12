@@ -29,14 +29,14 @@ public class MainController {
     private final MarkerService markerService;
     @GetMapping("/map")
     public String map(Model model) {
-        List<MapVO> mapall = markerService.all_map();
+//        List<MapVO> mapall = markerService.all_map();
         List<MapVO> markers = markerService.getMarkers();
         System.out.println("--------------------------------------");
         System.out.println(markers.getClass());
         System.out.println(markers.toString());
         System.out.println("--------------------------------------");
         model.addAttribute("markers", markers);
-        model.addAttribute("mapall", mapall);
+//        model.addAttribute("mapall", mapall);
 
         return "map/map";
     }
@@ -52,15 +52,15 @@ public class MainController {
     @GetMapping("/map_filter")
     public String map_fillter(Model model, House_list house_list) {
         System.out.println("맵테스트!!");
-        System.out.println( house_list.getHouse_type());
-        System.out.println( house_list.getExclusive_area2());
-        System.out.println( house_list.getDeal_type());
 
+        List<MapVO> mapall = null;
         List<MapVO> markers = null;
 
         if(house_list.getHouse_type().equals("전체") && house_list.getDeal_type().equals("전체")){
             System.out.println("모두 전체");
             markers = markerService.getMarkers();
+            mapall=markerService.all_map();
+
         }else if(house_list.getHouse_type().equals("전체")){
             System.out.println("방 종류 전체");
             markers = markerService.map_all_house_type_filter(house_list);
@@ -72,6 +72,8 @@ public class MainController {
             markers = markerService.map_filter(house_list);
         }
         model.addAttribute("markers", markers);
+//        model.addAttribute("mapall", mapall);
+
         return "map/map";
     }
 
