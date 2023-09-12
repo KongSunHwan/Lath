@@ -16,10 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -103,7 +100,7 @@ public class MainController {
              session.setAttribute("user_id", member.getUser_id());
             List<House_list> house_list = realEstateService.view_house_list();
             model.addAttribute("house_list",house_list);
-            return "test_kim/main_RE_list";
+            return "redirect:/list_main";
         }
     }
 
@@ -112,7 +109,7 @@ public class MainController {
         session.invalidate();
         List<House_list> house_list = realEstateService.view_house_list();
         model.addAttribute("house_list",house_list);
-        return "test_kim/main_RE_list";
+        return "redirect:/list_main";
     }
 
     @RequestMapping("/main")
