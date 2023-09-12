@@ -54,7 +54,7 @@
         </button>
       </div>
       &nbsp;&nbsp;
-      <div  th:each="house_list : ${house_list}">
+      <div th:each="house_list : ${house_list}">
         <h3 th:if="${house_list.deal_type == '월세'}"><b>월세 [(${house_list.deposit})] / [(${house_list.m_price})]만원</b></h3>
         <h3 th:if="${house_list.deal_type == '전세'}"><b>전세 [(${house_list.y_price})] 만원</b></h3>
       </div>
@@ -588,7 +588,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form role="form" action="/report_insert" enctype="multipart/form-data" th:object="${report}" method="post">
+        <form role="form" action="/report_insert" enctype="multipart/form-data" th:object="${report}" th:each="house_list : ${house_list}" method="post">
           <h2 class="fs-6 text-primary"><b>매물에 대한 잘못된 정보를 신고해주세요!</b></h2>
           <p style="font-size: 12px;">※ 확인 후 허위매물일 경우 해당 매물은 삭제되거나 이용이 제재됩니다<br>
             ※ 허위 신고일 시 신고자는 법적인 책임을 질 수 있습니다.<br>
@@ -596,21 +596,21 @@
           <hr>
           <h2 class="fs-5"><b>허위매물 신고 항목</b> <b class="fs-6 text-danger">(※ 필수)</b></h2>
           <div class="mb-3">
-            <label th:field="*{house_num}" class="col-form-label">매물번호</label>
-            <input type="text" class="form-control" th:field="*{house_num}" disabled>
+            <label class="col-form-label">매물번호</label>
+            <input type="text" class="form-control" th:field="*{house_num}" th:text="${house_list.house_num}" disabled>
           </div>
-<!--          <div class="form-check mb-3">-->
-<!--            <input class="form-check-input" type="checkbox" value="1" th:field="*{close_house}">-->
-<!--            <label class="form-check-label" th:for="close_house">-->
-<!--              <b>거래가 완료 된 매물</b>-->
-<!--            </label>-->
-<!--          </div>-->
-<!--          <div class="form-check">-->
-<!--            <input class="form-check-input" type="checkbox" value="1" th:field="*{information_distinct}">-->
-<!--            <label class="form-check-label" th:for="information_distinct">-->
-<!--              <b>정보가 다른 매물 (가격 / 사진 / 위치 / 옵션 등)</b>-->
-<!--            </label>-->
-<!--          </div>-->
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" value="1" th:field="*{close_house}">
+            <label class="form-check-label" th:for="close_house">
+              <b>거래가 완료 된 매물</b>
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="1" th:field="*{information_distinct}">
+            <label class="form-check-label" th:for="information_distinct">
+              <b>정보가 다른 매물 (가격 / 사진 / 위치 / 옵션 등)</b>
+            </label>
+          </div>
           <hr>
           <div class="mb-3">
             <textarea class="form-control" placeholder="선택한 항목에 대한 추가 설명을 입력해주세요."
@@ -621,36 +621,39 @@
             <h3 class="fs-5"><b>증빙 자료</b> <b class="fs-6 text-primary">(선택사항)</b></h3>
             <p style="font-size: 12px;">※ 내용이 잘 보이도록 사진을 캡처하여 이곳에 첨부해 주세요.<br></p>
             <div class="row">
-<!--              <div class="col-md-4">-->
-<!--                <div class="card text-center">-->
-<!--                  <label th:for="report_content_pic" class="fs-3" style="margin-top: 12px;">-->
-<!--                    <i class="bi bi-plus-circle"></i>-->
-<!--                  </label>-->
-<!--                  <input type="file" id="report_content_pic" name="report_content_pic" style="display: none;">-->
-<!--                  <hr>-->
-<!--                  <span style="margin-bottom: 12px;"><b>채팅내용 사진</b></span>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="col-md-4">-->
-<!--                <div class="card text-center">-->
-<!--                  <label th:for="report_seller_pic" class="fs-3" style="margin-top: 12px;">-->
-<!--                    <i class="bi bi-plus-circle"></i>-->
-<!--                  </label>-->
-<!--                  <input type="file" id="report_seller_pic" name="report_seller_pic" style="display: none;">-->
-<!--                  <hr>-->
-<!--                  <span style="margin-bottom: 12px;"><b>판매자 사진</b></span>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="col-md-4">-->
-<!--                <div class="card text-center">-->
-<!--                  <label th:for="report_house_pic" class="fs-3" style="margin-top: 12px;">-->
-<!--                    <i class="bi bi-plus-circle"></i>-->
-<!--                  </label>-->
-<!--                  <input type="file" id="report_house_pic" name="report_house_pic" style="display: none;">-->
-<!--                  <hr>-->
-<!--                  <span style="margin-bottom: 12px;"><b>방 사진</b></span>-->
-<!--                </div>-->
-<!--              </div>-->
+              <div class="col-md-4">
+                <div class="card text-center">
+                  <label th:for="report_content_pic" class="fs-3" style="margin-top: 12px;">
+                    <i class="bi bi-plus-circle"></i>
+                  </label>
+                  <input type="file" name="report_content_pic" id="report_content_pic" style="display: none;">
+                  <hr>
+                  <span style="margin-bottom: 12px;"><b>채팅내용 사진</b></span>
+                  <img id="content-pic-preview" src="#" alt="Content Pic" style="max-width: 100%; max-height: 100px; width: 150px; height: 150px; display: none;">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card text-center">
+                  <label th:for="report_seller_pic" class="fs-3" style="margin-top: 12px;">
+                    <i class="bi bi-plus-circle"></i>
+                  </label>
+                  <input type="file" name="report_seller_pic" id="report_seller_pic" style="display: none;">
+                  <hr>
+                  <span style="margin-bottom: 12px;"><b>판매자 사진</b></span>
+                  <img id="seller_pic-preview" src="#" alt="Seller Pic" style="max-width: 100%; max-height: 100px; width: 150px; height: 150px; display: none;">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card text-center">
+                  <label th:for="report_house_pic" class="fs-3" style="margin-top: 12px;">
+                    <i class="bi bi-plus-circle"></i>
+                  </label>
+                  <input type="file" name="report_house_pic" id="report_house_pic" style="display: none;">
+                  <hr>
+                  <span style="margin-bottom: 12px;"><b>방 사진</b></span>
+                  <img id="house_pic-preview" src="#" alt="House Pic" style="max-width: 100%; max-height: 100px; width: 150px; height: 150px; display: none;">
+                </div>
+              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -715,6 +718,30 @@ geocoder.addressSearch(address, function(result, status) {
         map.setCenter(coords);
     }
 });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    // 파일 업로드 요소의 변경 이벤트를 감지하여 이미지 미리보기 업데이트
+    $('input[type="file"]').change(function(e) {
+      var fileInput = $(this);
+      var preview = fileInput.siblings('img');
+
+      if (e.target.files && e.target.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          preview.attr('src', e.target.result);
+          preview.css('display', 'block');
+        };
+
+        reader.readAsDataURL(e.target.files[0]);
+      } else {
+        preview.attr('src', '#');
+        preview.css('display', 'none');
+      }
+    });
+  });
 </script>
 </body>
 

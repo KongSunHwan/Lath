@@ -8,4 +8,10 @@
                                    #{report_content_pic},#{report_seller_pic},#{report_house_pic},
                                    #{close_house},#{information_distinct},now())
     </insert>
+
+    <select id="report_list" resultType="String">
+        select *
+        from report
+        where house_num = #{house_num}
+    </select>
 </mapper>

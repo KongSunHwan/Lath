@@ -6,11 +6,13 @@ import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.house.*;
 import com.example.thishouse.service.*;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -270,7 +272,7 @@ public class KimController {
         model.addAttribute("house_type",house_type);
         model.addAttribute("road_address",road_address);
         model.addAttribute("housePictures",housePictures);
-        model.addAttribute("report", new Report()); // Report 클래스의 인스턴스 생성
+        model.addAttribute("report", new Report());
 
         return "test_kim/real_estate_detail";
     }
@@ -319,10 +321,47 @@ public class KimController {
     }
 
     @PostMapping("/report_insert")
-    public String report_insert(Report report1, Model model) {
-        // 수정된 Report 객체를 다시 데이터베이스에 저장
-        reportService.insertReport(report1);
+    public String report_insert(@Valid Report report, BindingResult bindingResult,
+                                @RequestParam("report_content_pic") MultipartFile report_content_pic,
+                                @RequestParam("report_seller_pic") MultipartFile report_seller_pic,
+                                @RequestParam("report_house_pic") MultipartFile report_house_pic,
+                                Model model,
+                                HttpServletRequest request) {
+
+        // 파일 업로드 및 처리 로직을 추상화한 메서드를 사용합니다.
+        processFile(report_content_pic, "report_content_pic", report);
+        processFile(report_seller_pic, "report_seller_pic", report);
+        processFile(report_house_pic, "report_house_pic", report);
+
+        reportService.insertReport(report);
         return "redirect:/list_main";
+    }
+
+
+    // 파일 업로드 및 처리 로직을 추상화한 메서드
+    private void processFile(MultipartFile file, String fieldName, Report report) {
+        if (!file.isEmpty()) {
+            try {
+                byte[] fileBytes = file.getBytes();
+
+                String fileName = fieldName + "_" + UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+                System.out.println("업로드된 파일 이름: " + fileName); // 파일 이름 출력
+
+                Path filePath = Paths.get(uploadPath + fileName);
+                Files.write(filePath, fileBytes);
+
+                if (fieldName.equals("report_content_pic")) {
+                    report.setReport_content_pic(uploadPath + fileName);
+                } else if (fieldName.equals("report_seller_pic")) {
+                    report.setReport_seller_pic(uploadPath + fileName);
+                } else if (fieldName.equals("report_house_pic")) {
+                    report.setReport_house_pic(uploadPath + fileName);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }
