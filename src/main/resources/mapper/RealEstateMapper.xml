@@ -170,5 +170,13 @@
         where a.house_num = b.house_num and a.approval = 1 and a.road_address like CONCAT('%',#{search_content},'%')
     </select>
 
+    <update id="house_hit_coount">
+        update house_list
+        SET
+            hits=hits+1
+        where
+            house_num=#{houseNum}
+    </update>
+
 
 </mapper>

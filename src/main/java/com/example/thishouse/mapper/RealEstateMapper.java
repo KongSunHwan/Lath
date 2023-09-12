@@ -139,4 +139,8 @@ public class RealEstateMapper {
     public int house_search_pg_cnt(House_list searchVO) {
             return sqlSession.selectOne(Namespace+".house_search_pg_cnt",searchVO);
     }
+
+    public void house_hit_coount(String houseNum) {
+        sqlSession.insert(Namespace+".house_hit_coount",houseNum);
+    }
 }

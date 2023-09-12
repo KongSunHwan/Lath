@@ -160,13 +160,10 @@ public class RealEstateService {
         return this.realEstateMapper.house_search_pg_cnt(searchVO);
     }
 
-    //wish list
-
-    //매물 리스트 페이징*
-    //매물 상세내용*
-
-    //매물검색 + 필터*
-
+    @Transactional
+    public void house_hit_coount(String houseNum) {
+        this.realEstateMapper.house_hit_coount(houseNum);
+    }
 
 
 }

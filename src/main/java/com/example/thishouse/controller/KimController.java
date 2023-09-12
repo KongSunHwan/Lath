@@ -256,6 +256,10 @@ public class KimController {
         String road_address = realEstateService.road_address(house_num);
         List<House_picture> housePictures = realEstateService.house_picture_list(house_num);
 
+        realEstateService.house_hit_coount(house_num);
+
+
+
 
         model.addAttribute("house_list",house_list);
         model.addAttribute("house_item",house_item);
