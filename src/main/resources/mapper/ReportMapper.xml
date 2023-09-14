@@ -4,9 +4,8 @@
 
 <mapper namespace="com.example.thishouse.mapper.ReportMapper">
     <insert id="insertReport">
-        insert into report values (#{report_num},#{house_num},#{user_id},#{report_title}, #{report_content},
-                                   #{report_content_pic},#{report_seller_pic},#{report_house_pic},
-                                   #{close_house},#{information_distinct},now())
+        insert into report(house_num,user_id,report_content,report_content_pic,report_seller_pic,report_house_pic,close_house,information_distinct,report_date)
+        values (#{house_num},#{user_id}, #{report_content},#{report_content_pic},#{report_seller_pic},#{report_house_pic},#{close_house},#{information_distinct},now())
     </insert>
 
     <select id="report_list" resultType="String">

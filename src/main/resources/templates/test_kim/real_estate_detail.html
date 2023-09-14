@@ -588,7 +588,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form role="form" action="/report_insert" enctype="multipart/form-data" th:object="${report}" th:each="house_list : ${house_list}" method="post">
+        <form role="form" action="/report_insert" enctype="multipart/form-data" th:object="${report}"  method="post">
           <h2 class="fs-6 text-primary"><b>매물에 대한 잘못된 정보를 신고해주세요!</b></h2>
           <p style="font-size: 12px;">※ 확인 후 허위매물일 경우 해당 매물은 삭제되거나 이용이 제재됩니다<br>
             ※ 허위 신고일 시 신고자는 법적인 책임을 질 수 있습니다.<br>
@@ -597,7 +597,8 @@
           <h2 class="fs-5"><b>허위매물 신고 항목</b> <b class="fs-6 text-danger">(※ 필수)</b></h2>
           <div class="mb-3">
             <label class="col-form-label">매물번호</label>
-            <input type="text" class="form-control" th:field="*{house_num}" th:text="${house_list.house_num}" disabled>
+            <input type="hidden"  th:field="*{house_num}" th:value="${house_num}">
+            <input type="text" class="form-control"  th:value="${house_num}" disabled>
           </div>
           <div class="form-check mb-3">
             <input class="form-check-input" type="checkbox" value="1" th:field="*{close_house}">

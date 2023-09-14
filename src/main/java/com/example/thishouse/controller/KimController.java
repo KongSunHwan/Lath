@@ -6,6 +6,7 @@ import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.house.*;
 import com.example.thishouse.service.*;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
@@ -246,7 +247,7 @@ public class KimController {
     }
 
     @RequestMapping("/real_estate_detail")
-    public String real_estate_detail(Model model, String house_num) {
+    public String real_estate_detail(Model model, String house_num, HttpSession session) {
         System.out.println(house_num);
         List<House_list> house_list = realEstateService.view_house_list_one(house_num);
         List<House_item> house_item = realEstateService.list_house_item(house_num);
@@ -260,8 +261,9 @@ public class KimController {
 
         realEstateService.house_hit_coount(house_num);
 
-
-
+        Report r = new Report();
+        int house = Integer.parseInt(house_num);
+        r.setHouse_num(house);
 
         model.addAttribute("house_list",house_list);
         model.addAttribute("house_item",house_item);
@@ -272,7 +274,8 @@ public class KimController {
         model.addAttribute("house_type",house_type);
         model.addAttribute("road_address",road_address);
         model.addAttribute("housePictures",housePictures);
-        model.addAttribute("report", new Report());
+        model.addAttribute("report", r);
+        model.addAttribute("house_num", house_num);
 
         return "test_kim/real_estate_detail";
     }
@@ -326,13 +329,18 @@ public class KimController {
                                 @RequestParam("report_seller_pic") MultipartFile report_seller_pic,
                                 @RequestParam("report_house_pic") MultipartFile report_house_pic,
                                 Model model,
-                                HttpServletRequest request) {
+                                HttpSession session ) {
+
+        System.out.println(report.getHouse_num() + "집번호");
 
         // 파일 업로드 및 처리 로직을 추상화한 메서드를 사용합니다.
         processFile(report_content_pic, "report_content_pic", report);
         processFile(report_seller_pic, "report_seller_pic", report);
         processFile(report_house_pic, "report_house_pic", report);
 
+        String user_id = (String) session.getAttribute("user_id");
+        report.setUser_id(user_id);
+        System.out.println(report.getHouse_num() + "================");
         reportService.insertReport(report);
         return "redirect:/list_main";
     }

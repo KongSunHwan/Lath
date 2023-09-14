@@ -20,4 +20,6 @@ public class Report {
     private String report_house_pic; // 신고 집 사진
     private int close_house; // 거래가 완료된 매물 구분
     private int information_distinct; // 정보가 다른 매물 구분
+
+
 }
