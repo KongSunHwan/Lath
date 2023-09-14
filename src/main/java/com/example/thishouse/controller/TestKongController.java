@@ -2,13 +2,11 @@ package com.example.thishouse.controller;
 
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Notice;
+import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
 import com.example.thishouse.domain.house.*;
-import com.example.thishouse.service.AdminService;
-import com.example.thishouse.service.BoardService;
-import com.example.thishouse.service.NoticeService;
-import com.example.thishouse.service.RealEstateService;
+import com.example.thishouse.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -27,6 +25,9 @@ public class TestKongController {
     private final AdminService adminService;
     private final NoticeService noticeService;
     private final RealEstateService realEstateService;
+    private final ReportService reportService;
+
+
 
     //게시판 목록
 //    @RequestMapping("board_list")
@@ -449,7 +450,31 @@ public class TestKongController {
     }
 
     @GetMapping("Report_List")
-    public String Report_List() {
+    public String Report_List(@ModelAttribute("searchVO") Report searchVO, Model model) {
+        PageCtrl pagination  = new PageCtrl();
+        pagination.setCurrentPageNo(searchVO.getPageIndex());
+        pagination.setRecordCountPerPage(searchVO.getPageUnit());
+        pagination.setPageSize(searchVO.getPageSize());
+
+        searchVO.setFirstIndex(pagination.getFirstRecordIndex());
+        searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
+
+        List<Report> re_list = reportService.report_all(searchVO);
+        model.addAttribute("re_list" , re_list);
+        int totCnt = reportService.report_all_cnt();
+        model.addAttribute("totCnt",totCnt);
+        System.out.println("전체 게시글 수 : " + totCnt);
+
+        pagination.setTotalRecordCount(totCnt);
+
+        searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+        searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+        searchVO.setPrev(pagination.getXprev());
+        searchVO.setNext(pagination.getXnext());
+        model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+        model.addAttribute("pagination",pagination);
+
+
         return "Admin_Dashboard/Report_List";
     }
 

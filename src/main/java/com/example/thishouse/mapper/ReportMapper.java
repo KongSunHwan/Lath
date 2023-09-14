@@ -11,4 +11,9 @@ public interface ReportMapper {
     public void insertReport(Report report);
 
     public List<Report> report_list(String house_num);
+
+
+    List<Report> report_all(Report searchVO);
+
+    int report_all_cnt();
 }

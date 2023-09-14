@@ -22,4 +22,12 @@ public class ReportService {
         public List<Report> report_list(String house_num) {
             return reportMapper.report_list(house_num);
         }
+
+    public List<Report> report_all(Report searchVO) {
+        return reportMapper.report_all(searchVO);
+    }
+
+    public int report_all_cnt() {
+        return reportMapper.report_all_cnt();
+    }
 }
