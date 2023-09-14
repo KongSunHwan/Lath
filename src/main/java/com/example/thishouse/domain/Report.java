@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Report extends PageVO{
+
     private int report_num; // 신고 번호
     private int house_num; // 집 번호
     private String user_id; // 사용자 아이디

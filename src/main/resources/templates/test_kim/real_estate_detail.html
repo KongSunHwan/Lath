@@ -21,6 +21,10 @@
       color: blue;
       cursor: pointer;
     }
+    .field-error {
+      border-color: #dc3545;
+      color: #dc3545;
+    }
   </style>
 </head>
 
@@ -598,7 +602,7 @@
           <div class="mb-3">
             <label class="col-form-label">매물번호</label>
             <input type="hidden"  th:field="*{house_num}" th:value="${house_num}">
-            <input type="text" class="form-control"  th:value="${house_num}" disabled>
+            <input type="text" class="form-control" th:value="${house_num}" disabled>
           </div>
           <div class="form-check mb-3">
             <input class="form-check-input" type="checkbox" value="1" th:field="*{close_house}">

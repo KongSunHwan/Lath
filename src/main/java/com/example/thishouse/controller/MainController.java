@@ -16,6 +16,8 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -120,12 +122,20 @@ public class MainController {
     }
 
     @GetMapping("/signup")
-    public String signupForm() {
+    public String signupForm(Model model) {
+        model.addAttribute("member", new Member());
         return "userlog/signup";
     }
 
     @PostMapping("/signup")
-    public String signup(Member member) {
+    public String signup(@Validated @ModelAttribute Member member,
+                         BindingResult bindingResult) {
+
+        //검증 실패
+        if (bindingResult.hasErrors()) {
+            return "userlog/signup";
+        }
+
         memberService.sign_up(member);
         return "redirect:/login";
     }

@@ -66,8 +66,7 @@
 
 #email:focus,
 #name:focus,
-#email-confirm:focus,
-.password-input:focus {
+#email-confirm:focus{
   border: 1px solid #000000;
 }
 
