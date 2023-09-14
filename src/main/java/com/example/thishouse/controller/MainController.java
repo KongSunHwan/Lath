@@ -204,4 +204,11 @@ public class MainController {
     public String guide() {
         return "guide/guide";
     }
+
+    //계약자 정보 기입창
+    @RequestMapping("/real_estate_contract_test")
+    public String real_estate_contract_test() {
+        return "contract/real_estate_contract_test";
+    }
+
 }
