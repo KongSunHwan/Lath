@@ -3,6 +3,7 @@ package com.example.thishouse.controller;
 import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
+import com.example.thishouse.domain.contract.Lessoer;
 import com.example.thishouse.domain.house.*;
 import com.example.thishouse.service.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -72,7 +73,8 @@ public class KimController {
                                      House_option house_option,
                                      House_picture house_picture,
                                      House_type house_type,
-                                     Model model,
+                                     Lessoer lessoer,
+                                     HttpSession session,
                                      @RequestParam("files") List<MultipartFile> files ,
                                      HttpServletRequest request) {
 
@@ -91,6 +93,9 @@ public class KimController {
         house_option.setHouse_num(sq);
         house_picture.setHouse_num(sq);
         house_type.setHouse_num(sq);
+        lessoer.setHouse_num(sq);
+
+        lessoer.setUser_id( (String) session.getAttribute("user_id"));
 
         List<String> filePaths = new ArrayList<>();
 
@@ -146,6 +151,7 @@ public class KimController {
         realEstateService.insert_house_option(house_option);
         realEstateService.insert_house_detail(house_detail);
         realEstateService.insert_house_list(house_list);
+        realEstateService.insert_lessoer_info(lessoer);
 
         return "redirect:/list_main";
     }

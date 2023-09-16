@@ -621,7 +621,7 @@ xmlns:th="http://www.thymeleaf.org">
                 <td class="deliverytd text-center">주소&nbsp;<span style="color:red;">*</span></td>
                 <td colspan="5">
                     <div class="d-flex">
-                        도로명 주소
+                        <input type="text" name="lessoer_road_address" class="form-control" style="width: 950px;">
                     </div>
                 </td>
             </tr>
@@ -630,14 +630,14 @@ xmlns:th="http://www.thymeleaf.org">
                 <td class="deliverytd text-center">주민등록번호&nbsp;<span style="color:red;">*</span></td>
                 <td>
                     <div class="d-flex">
-                        <input type="text" class="form-control" style="width: 150px;"> &nbsp;-&nbsp;
-                        <input type="text" class="form-control" style="width: 150px;">
+                        <input type="text" name="lessoer_resident_number_f" class="form-control" style="width: 150px;" maxlength="6"> &nbsp;-&nbsp;
+                        <input type="text" name="lessoer_resident_number_b" class="form-control" style="width: 150px;"maxlength="7">
                     </div>
                 </td>
                 <td>전화&nbsp;<span style="color:red;">*</span></td>
-                <td>  <input type="text" class="form-control" style="width: 150px;"></td>
+                <td>  <input type="text" name="lessoer_phone" class="form-control" style="width: 150px;" maxlength="11"></td>
                 <td>성명&nbsp;<span style="color:red;">*</span></td>
-                <td>  <input type="text" class="form-control" style="width: 150px;"></td>
+                <td>  <input type="text" name="lessoer_name" class="form-control" style="width: 150px;" maxlength="10"></td>
             </tr>
 
 

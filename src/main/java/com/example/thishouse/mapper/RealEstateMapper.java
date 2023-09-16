@@ -1,6 +1,7 @@
 package com.example.thishouse.mapper;
 
 import com.example.thishouse.domain.Member;
+import com.example.thishouse.domain.contract.Lessoer;
 import com.example.thishouse.domain.house.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
@@ -142,5 +143,10 @@ public class RealEstateMapper {
 
     public void house_hit_coount(String houseNum) {
         sqlSession.insert(Namespace+".house_hit_coount",houseNum);
+    }
+
+    public void insert_lessoer_info(Lessoer lessoer) {
+        sqlSession.insert(Namespace+".insert_lessoer_info",lessoer);
+
     }
 }

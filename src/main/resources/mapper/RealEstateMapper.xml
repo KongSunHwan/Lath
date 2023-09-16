@@ -178,5 +178,8 @@
             house_num=#{houseNum}
     </update>
 
-
+    <insert id="insert_lessoer_info" parameterType="com.example.thishouse.domain.contract.Lessoer">
+        insert into lessoer(house_num,user_id,lessoer_name,lessoer_resident_number_f,lessoer_resident_number_b,lessoer_phone,lessoer_road_address)
+        values(#{house_num},#{user_id},#{lessoer_name},#{lessoer_resident_number_f},#{lessoer_resident_number_b},#{lessoer_phone},#{lessoer_road_address})
+    </insert>
 </mapper>

@@ -1,5 +1,6 @@
 package com.example.thishouse.service;
 
+import com.example.thishouse.domain.contract.Lessoer;
 import com.example.thishouse.domain.house.*;
 import com.example.thishouse.mapper.RealEstateMapper;
 import lombok.RequiredArgsConstructor;
@@ -165,5 +166,9 @@ public class RealEstateService {
         this.realEstateMapper.house_hit_coount(houseNum);
     }
 
+    @Transactional
+    public void insert_lessoer_info(Lessoer lessoer) {
+        this.realEstateMapper.insert_lessoer_info(lessoer);
 
+    }
 }
