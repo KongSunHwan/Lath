@@ -631,7 +631,7 @@
                   <label th:for="report_content_pic" class="fs-3" style="margin-top: 12px;">
                     <i class="bi bi-plus-circle"></i>
                   </label>
-                  <input type="file" name="report_content_pic" id="report_content_pic" style="display: none;">
+                  <input type="file" th:field="*{report_content_pic}"  id="report_content_pic" style="display: none;">
                   <hr>
                   <span style="margin-bottom: 12px;"><b>채팅내용 사진</b></span>
                   <img id="content-pic-preview" src="#" alt="Content Pic" style="max-width: 100%; max-height: 100px; width: 150px; height: 150px; display: none;">
@@ -642,7 +642,7 @@
                   <label th:for="report_seller_pic" class="fs-3" style="margin-top: 12px;">
                     <i class="bi bi-plus-circle"></i>
                   </label>
-                  <input type="file" name="report_seller_pic" id="report_seller_pic" style="display: none;">
+                  <input type="file" th:field="*{report_seller_pic}"  id="report_seller_pic" style="display: none;">
                   <hr>
                   <span style="margin-bottom: 12px;"><b>판매자 사진</b></span>
                   <img id="seller_pic-preview" src="#" alt="Seller Pic" style="max-width: 100%; max-height: 100px; width: 150px; height: 150px; display: none;">
@@ -653,7 +653,7 @@
                   <label th:for="report_house_pic" class="fs-3" style="margin-top: 12px;">
                     <i class="bi bi-plus-circle"></i>
                   </label>
-                  <input type="file" name="report_house_pic" id="report_house_pic" style="display: none;">
+                  <input type="file" th:field="*{report_house_pic}" id="report_house_pic" style="display: none;">
                   <hr>
                   <span style="margin-bottom: 12px;"><b>방 사진</b></span>
                   <img id="house_pic-preview" src="#" alt="House Pic" style="max-width: 100%; max-height: 100px; width: 150px; height: 150px; display: none;">

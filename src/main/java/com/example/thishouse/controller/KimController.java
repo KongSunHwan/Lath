@@ -8,11 +8,13 @@ import com.example.thishouse.domain.house.*;
 import com.example.thishouse.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -328,11 +330,12 @@ public class KimController {
     }
 
     @PostMapping("/report_insert")
-    public String report_insert(@ModelAttribute Report report,
+    public String report_insert(@Valid Report report, BindingResult bindingResult,
                                 @RequestParam("report_content_pic") MultipartFile report_content_pic,
                                 @RequestParam("report_seller_pic") MultipartFile report_seller_pic,
                                 @RequestParam("report_house_pic") MultipartFile report_house_pic,
-                                HttpSession session) {
+                                Model model,
+                                HttpSession session ) {
 
 
         System.out.println(report.getHouse_num() + "집번호");
@@ -353,6 +356,7 @@ public class KimController {
 
     // 파일 업로드 및 처리 로직을 추상화한 메서드
     private void processFile(MultipartFile file, String fieldName, Report report) {
+        System.out.println("===================================================");
         if (!file.isEmpty()) {
             try {
                 byte[] fileBytes = file.getBytes();
