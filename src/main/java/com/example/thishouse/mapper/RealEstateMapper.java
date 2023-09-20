@@ -149,4 +149,16 @@ public class RealEstateMapper {
         sqlSession.insert(Namespace+".insert_lessoer_info",lessoer);
 
     }
+
+    public String deal_type(String houseNum) {
+        return sqlSession.selectOne(Namespace+".deal_type",houseNum);
+    }
+
+    public List<House_location> house_location(String houseNum) {
+        return sqlSession.selectList(Namespace+".house_location",houseNum);
+    }
+
+    public String house_type(String houseNum) {
+        return sqlSession.selectOne(Namespace+".house_type",houseNum);
+    }
 }

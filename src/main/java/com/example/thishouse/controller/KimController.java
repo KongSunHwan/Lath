@@ -252,6 +252,8 @@ public class KimController {
         return "test_kim/main_RE_list";
     }
 
+
+
     @RequestMapping("/real_estate_detail")
     public String real_estate_detail(Model model, String house_num, HttpSession session) {
         System.out.println(house_num);
@@ -284,6 +286,22 @@ public class KimController {
         model.addAttribute("house_num", house_num);
 
         return "test_kim/real_estate_detail";
+    }
+
+    @RequestMapping("/contract_begin")
+    public String contract_begin(Model model, String house_num, HttpSession session) {
+
+        String house_deal_type = realEstateService.deal_type(house_num);
+        List<House_location> house_location = realEstateService.house_location(house_num);
+        String house_type = realEstateService.house_type(house_num);
+        List<House_list> houseList = realEstateService.view_house_list_one(house_num);
+
+        model.addAttribute("house_deal_type",house_deal_type);
+        model.addAttribute("house_location",house_location);
+        model.addAttribute("house_type",house_type);
+        model.addAttribute("houseList",houseList);
+
+        return "contract/real_estate_contract_test";
     }
 
 

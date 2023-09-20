@@ -182,4 +182,23 @@
         insert into lessoer(house_num,user_id,lessoer_name,lessoer_resident_number_f,lessoer_resident_number_b,lessoer_phone,lessoer_road_address)
         values(#{house_num},#{user_id},#{lessoer_name},#{lessoer_resident_number_f},#{lessoer_resident_number_b},#{lessoer_phone},#{lessoer_road_address})
     </insert>
+
+    <select id="deal_type" resultType="String">
+        select deal_type
+        from house_deal
+        where house_num = #{houseNum}
+    </select>
+
+    <select id="house_location" resultType="com.example.thishouse.domain.house.House_location">
+        select *
+        from house_location
+        where house_num = #{houseNum}
+    </select>
+
+    <select id="house_type" resultType="String">
+        select house_type
+        from house_list
+        where house_num = #{houseNum}
+    </select>
+
 </mapper>

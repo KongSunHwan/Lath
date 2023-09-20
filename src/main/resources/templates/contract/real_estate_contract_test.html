@@ -79,7 +79,7 @@
                 <!-- 계약서 용도 테이블 -->
                 <div>
                     <h5 class="fw-bold"><i class="bi bi-patch-exclamation-fill" style="color: blue;"></i> 용도</h5>
-                    <table class="calculation1">
+                    <table class="calculation1" >
                         <thead>
                             <tr>
                                 <th class="deliverytd" colspan="10" style="text-align: left; padding-left : 10px;">계약번호
@@ -93,16 +93,7 @@
                                     <span>주택구분<b style="color:red">*</b></span>
                                 <td colspan="5"
                                     style="border-right : none; text-align : left; padding-left : 10px; background-color: #fff;">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        공동주택
-                                        &nbsp;
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            id="flexRadioDefault2" checked>
-                                        <label class="form-check-label" for="flexRadioDefault2">
-                                            단독주택
-                                        </label>
+                                   단독주택
                                 </td>
                                 </td>
                             </tr>
@@ -112,16 +103,7 @@
                                     <span>계약구분<b style="color:red">*</b></span>
                                 <td colspan="5"
                                     style="border-right : none; text-align : left; padding-left : 10px; background-color: #fff;">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault3">
-                                    <label class="form-check-label" for="flexRadioDefault3">
-                                        신규
-                                        &nbsp;
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            id="flexRadioDefault4" checked>
-                                        <label class="form-check-label" for="flexRadioDefault4">
-                                            재계약
-                                        </label>
+                                  신규
                                 </td>
                                 </td>
                             </tr>
@@ -129,78 +111,35 @@
                             <tr style="height: 60px;">
                                 <td colspan="5" style="border-right : none; text-align : center; padding-left : 10px;">
                                     <span>전/월세 구분<b style="color:red">*</b></span>
-                                <td colspan="5"
-                                    style="border-right : none; text-align : left; padding-left : 10px; background-color: #fff;">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault5">
-                                    <label class="form-check-label" for="flexRadioDefault5">
-                                        전세
-                                        &nbsp;
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            id="flexRadioDefault6" checked>
-                                        <label class="form-check-label" for="flexRadioDefault6">
-                                            월세
-                                        </label>
                                 </td>
+                                <td colspan="5"
+                                    style="border-right : none; text-align : left; padding-left : 10px; background-color: #fff;"
+                                    th:text="${house_deal_type}">
+                                    전/월세 db
                                 </td>
                             </tr>
 
-                            <tr style="height: 60px;">
-                                <td colspan="5" style="border-right : none; text-align : center; padding-left : 10px;">
-                                    <span>계약갱신 청구 여부<b style="color:red">*</b></span>
-                                <td colspan="5"
-                                    style="border-right : none; text-align : left; padding-left : 10px; background-color: #fff;">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault7">
-                                    <label class="form-check-label" for="flexRadioDefault7">
-                                        청구
-                                        &nbsp;
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            id="flexRadioDefault8" checked>
-                                        <label class="form-check-label" for="flexRadioDefault8">
-                                            미청구
-                                        </label>
-                                </td>
-                                </td>
-                            </tr>
                         </tfoot>
                     </table>
                     <!-- 계약서 용도 테이블 끝 -->
-
-                    <div
-                        style="border: solid 1px #e0e0eb; border-right:none; border-left:none; padding: 11px 0; background-color:rgb(255, 203, 203);">
-                        <img src="/img/주의.png" style="margin-left: 5px; position: relative; width: 20px;">
-                        <span style="font-size: 10pt; color: red;">계약 용도를 우선 선택해주세요.</span>
-                    </div>
                 </div>
 
-                <div style="margin: 10px 0; padding-bottom: 50px; border-bottom: solid 1px gray;">
-                    <button type="button" class="btn btn-secondary">
-                        <i class="bi bi-repeat"></i> 계약서 불러오기
-                    </button>
 
-                    <button type="button" class="btn default btnfloat2" onclick="javascript:history.back()">이전페이지
-                        ></button>
-                </div>
                 <br /><br />
 
                 <!-- 부동산의 표시 -->
                 <h5 class="fw-bold"><i class="bi bi-patch-exclamation-fill" style="color: blue;"></i> 부동산의 표시</h5>
-                <table>
+                <table >
                     <thead>
-                        <tr>
+                        <tr th:each="house_location : ${house_location}">
                             <td class="deliverytd text-center">소재지</td>
                             <td>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="소재지"
-                                        style="width: 400px;" disabled>
-                                    &nbsp;
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="소재지 상세"
-                                        style="width: 400px;">
-                                    &nbsp;
-                                    <button type="button" class="btn btn-primary">
-                                        물건정보
-                                    </button>
+                                    <span>도로명 주소 :</span> <span th:text="${house_location.road_address}">도로명</span>
+                                </div>
+
+                                <div class="d-flex">
+                                    <span>상세 주소 :</span> <span th:text="${house_location.detail_address}">상세</span>
                                 </div>
                             </td>
                         </tr>
@@ -208,55 +147,33 @@
                         <tr>
                             <td class="deliverytd text-center">건물 구조<span style="color:red;">*</span></td>
                             <td>
-                                <div class="form-floating" style="width: 400px;">
-                                    <select class="form-select" id="floatingSelect"
-                                        aria-label="Floating label select example">
-                                        <option selected>건물 구조</option>
-                                        <option value="원룸">원룸</option>
-                                        <option value="투룸">투룸</option>
-                                        <option value="쓰리룸">쓰리룸</option>
-                                    </select>
-                                    <label for="floatingSelect">건물 구조</label>
+                                <div class="form-floating" style="width: 400px;" th:text="${house_type}">
                                 </div>
                             </td>
                         </tr>
 
-                        <tr>
+                        <tr  th:each="house_list : ${house_list}">
                             <td class="deliverytd text-center">건물 용도<span style="color:red;">*</span></td>
                             <td>
                                 <div class="d-flex">
-                                    <div class="form-floating" style="width: 400px;">
-                                        <select class="form-select" id="floatingSelect"
-                                            aria-label="Floating label select example">
-                                            <option selected>건물 용도 대분류</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
-                                        <label for="floatingSelect">건물 용도 대분류</label>
+                                    <div class="form-floating" style="width: 400px;" >단독주택
                                     </div>
                                     &nbsp;
-                                    <div class="form-floating" style="width: 400px;">
-                                        <select class="form-select" id="floatingSelect"
-                                            aria-label="Floating label select example">
-                                            <option selected>건물 용도 소분류</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
-                                        <label for="floatingSelect">건물 용도 소분류</label>
-                                    </div>
+                                    <div style="width: 640px;"></div>
                                 </div>
                             </td>
                         </tr>
 
-                        <tr>
+                        <tr  th:each="house_list : ${house_list}">
                             <td class="deliverytd text-center">전용면적<span style="color:red;">*</span></td>
                             <td>
-                                <div class="d-flex">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="전용 면적"
-                                        style="width: 400px;">
+                                <div class="d-flex" >
                                     &nbsp;
+<!--
+ sdafaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfa
+ asdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfa
+ asdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfaasdaasdfa
+ -->
                                     <div>
                                         m<sup>2</sup>
                                     </div>
@@ -265,24 +182,22 @@
                         </tr>
 
                         <tr>
-                            <td class="deliverytd text-center">임대면적<span style="color:red;">*</span></td>
+                            <td class="deliverytd text-center">공급면적<span style="color:red;">*</span></td>
                             <td>
                                 <div class="d-flex">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="임대 면적"
-                                        style="width: 400px;">
                                     &nbsp;
                                     <div>
                                         m<sup>2</sup>
                                     </div>
                                 </div>
+
                             </td>
                         </tr>
 
-                        <tr>
+                        <tr th:each="house_location : ${house_location}">
                             <td class="deliverytd text-center">임대할 부분&nbsp;<span style="color:red;">*</td>
                             <td>
-                                <input type="text" class="form-control" id="floatingInput"
-                                    placeholder="상가 건물의 전부(상세주소가 있는 경우 동, 층, 호 정확히 기재)">
+                                <span th:text="${house_location.road_address}"></span> &nbsp; <span th:text="${house_location.detail_address}"></span>
                             </td>
                         </tr>
                     </thead>
@@ -414,8 +329,8 @@
                     <tr>
                         <td class="deliverytd text-center">주소&nbsp;<span style="color:red;">*</span></td>
                         <td colspan="5">
-                            <div class="d-flex">
-                                도로명 주소
+                            <div class="d-flex" th:each="house_location : ${house_location}">
+                                <span th:text="${house_location.road_address}"></span> &nbsp; <span th:text="${house_location.detail_address}"></span>
                             </div>
                         </td>
                     </tr>

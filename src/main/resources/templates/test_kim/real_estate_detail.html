@@ -551,7 +551,7 @@
           </div>
           <a th:href="@{/chat/{houseNum}/chat_info(houseNum=${house_list.house_num})}"><button type="button" style="width: 200px; margin-top: 10px;" class="btn btn-primary">채팅하기</button></a>
           <div style="margin-top: 10px;">
-            <button type="button" style="width: 200px;" class="btn btn-outline-secondary">찜목록 추가</button>
+            <a th:href="@{'/contract_begin?house_num=' + ${house_list.house_num}}"><button type="button" style="width: 200px;" class="btn btn-outline-secondary">계약 하기</button></a>
           </div>
           <hr>
           <div>

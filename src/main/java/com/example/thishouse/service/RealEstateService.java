@@ -171,4 +171,16 @@ public class RealEstateService {
         this.realEstateMapper.insert_lessoer_info(lessoer);
 
     }
+
+    public String deal_type(String houseNum) {
+        return this.realEstateMapper.deal_type(houseNum);
+    }
+
+    public List<House_location> house_location(String houseNum) {
+        return this.realEstateMapper.house_location(houseNum);
+    }
+
+    public String house_type(String houseNum) {
+        return this.realEstateMapper.house_type(houseNum);
+    }
 }
