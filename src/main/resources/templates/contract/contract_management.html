@@ -68,6 +68,39 @@
         }
     </style>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function sendNumber(){
+            $("#mail_number").css("display","block");
+            $.ajax({
+                url:"/mail",
+                type:"post",
+                crossDomain: true,
+                headers: {  'Access-Control-Allow-Origin': 'http://The web site allowed to access' },
+                dataType:"json",
+                data:{"mail" : $("#mail").val()},
+                success: function(data){
+                    alert("인증번호 발송");
+                    $("#Confirm").attr("value",data);
+                },
+                error:function(request, status, error){
+                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                }
+            })
+        }
+
+        function confirmNumber(){
+            var number1 = $("#number").val();
+            var number2 = $("#Confirm").val();
+
+            if(number1 == number2){
+                alert("인증되었습니다.");
+            }else{
+                alert("번호가 다릅니다.");
+            }
+        }
+    </script>
+
 
 </head>
 
@@ -113,12 +146,11 @@
                                     aria-labelledby="notificationDropdown" data-bs-auto-close="false">
                                     <div class="card" style="width: 500px;">
                                         <div class="card-header">
-                                            <b>서명하기</b>
+                                            <b>인증하기</b>
                                             <div>
-                                                <span class="text-muted" style="font-size: 13px;">고객님의 휴대전화로 PASS 인증
-                                                    요청(PUSH)이 발송되었습니다.</span> <br>
-                                                <span class="text-muted" style="font-size: 13px;">아래 절차에 따라 <span
-                                                        class="text-primary">PASS 인증을 완료</span>해 주세요</span>
+                                                <span class="text-muted" style="font-size: 13px;">고객님의 이메일을 입력하면 인증번호를 발송합니다.</span> <br>
+                                                <span class="text-muted" style="font-size: 13px;">절차에 따라 <span
+                                                        class="text-primary">인증번호 인증을 완료</span>해 주세요</span>
                                             </div>
                                         </div>
 
@@ -127,51 +159,30 @@
                                             data-bs-auto-close="false">
 
                                             <div class="form-check border d-flex align-items-center">
-                                                <div> </div>
-                                                <div class="text-dark fw-bold" style="flex: 1;">STEP 1
-                                                    <p class="text-muted" style="font-size: 13px;">내 휴대폰번호로 발송된 PUSH 선택
-                                                    </p>
-                                                </div>
-                                                <div style="text-align: right;">
-                                                    <img src="/img/contract1.jpeg"
-                                                        style="max-width: 300px; max-height: 300px;">
-                                                </div>
-                                                <div> </div>
-                                            </div>
-                                            <hr>
 
-                                            <div class="form-check border d-flex align-items-center">
-                                                <div> </div>
-                                                <div class="text-dark fw-bold" style="flex: 1;">STEP 2
-                                                    <p class="text-muted" style="font-size: 13px;">'PASS인증앱' 실행 후 비밀번호
-                                                        또는 지문 등 입력
-                                                    </p>
+                                                <div id="mail_input" name="mail_input" class="col-auto">
+                                                    <div>
+                                                    <input type="text" name="mail" id="mail" class="form-control" placeholder="이메일 입력">
+                                                    </div>
+                                                    <div>
+                                                        <button type="button" class="btn btn-primary" id="sendBtn" name="sendBtn" onclick="sendNumber()">인증번호</button>
+                                                    </div>
                                                 </div>
-                                                <div style="text-align: right;">
-                                                    <img src="/img/contract2.jpeg"
-                                                        style="max-width: 300px; max-height: 300px;">
-                                                </div>
-                                                <div> </div>
-                                            </div>
-                                            <hr>
 
-                                            <div class="form-check border d-flex align-items-center">
-                                                <div> </div>
-                                                <div class="text-dark fw-bold" style="flex: 1;">STEP 3
-                                                    <p class="text-muted" style="font-size: 13px;">앱에서 인증 후 아래 '인증 완료'버튼
-                                                        클릭
-                                                    </p>
+                                                <div id="mail_number" name="mail_number" class="col-auto">
+                                                    <input type="text" class="form-control" name="number" id="number" placeholder="인증번호 입력">
+                                                    <button type="button" name="confirmBtn" class="btn btn-primary" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
                                                 </div>
-                                                <div style="text-align: right;">
-                                                    <img src="/img/contract3.jpeg"
-                                                        style="max-width: 300px; max-height: 300px;">
+
+                                                <div class="col-auto">
+                                                    <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
                                                 </div>
-                                                <div> </div>
                                             </div>
+
                                         </div>
                                         <div class="d-grid gap-2 col-6 mx-auto">
                                             <button class="btn btn-sm btn-primary">
-                                                <i class="bi bi-arrow-repeat"></i> PASS 인증 요청 재발송
+                                                <i class="bi bi-arrow-repeat"></i> 이메일 인증번호 요청 재발송
                                             </button>
                                         </div>
 
