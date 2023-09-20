@@ -41,7 +41,8 @@
         </a>
         <ul class="dropdown-menu text-small">
           <li>
-            <a th:if="${session.user_id != null}" class="dropdown-item" th:href="@{'/mypage?user_id=' + ${session.user_id}}">
+<!--            <a th:if="${session.user_id != null}" class="dropdown-item" th:href="@{'/mypage?user_id=' + ${session.user_id}}">-->
+              <a th:href="'javascript:Mypage(\'' + ${session.user_id} + '\')'">
               <i class="bi bi-house-fill"></i> 마이페이지
             </a>
           </li>
@@ -248,6 +249,23 @@
       console.log("if문 작동x");
     }
   });
+
+  function Mypage(userid){
+    let f = document.createElement('form');
+
+    let obj;
+    obj = document.createElement('input');
+    obj.setAttribute('type', 'hidden');
+    obj.setAttribute('name', 'user_id');
+    obj.setAttribute('value', userid);
+
+    f.appendChild(obj);
+    f.setAttribute('method', 'post');
+    f.setAttribute('action', '/mypage');
+    document.body.appendChild(f);
+    f.submit();
+  }
+
 </script>
 </body>
 </html>

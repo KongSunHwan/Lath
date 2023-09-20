@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.connector.Request;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -166,6 +167,7 @@ public class MainController {
 
     @RequestMapping("/mypage")
     public String mypage(String user_id, Model model) {
+        System.out.println("받아온 user_id 값 : " + user_id);
         List<Community> comlist = memberService.my_community(user_id);
         List<Report> replist = memberService.findInputMemberReport(user_id);
         List<Inquire> inquireList = memberService.my_inquire_one(user_id);
