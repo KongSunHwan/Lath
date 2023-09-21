@@ -18,5 +18,6 @@ public class Tenant {
     private String tenant_resident_number_f;
     private String tenant_resident_number_b;
     private String tenant_phone;
-    private String tenant_road_address;
+    private String road_address;
+    private String detail_address;
 }

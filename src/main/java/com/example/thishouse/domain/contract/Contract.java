@@ -15,6 +15,13 @@ public class Contract {
     private int tenant_dix;
     private int house_num;
 
+    private String road_address;
+    private String detail_address;
+
+    private String house_type;
+    private String contract_type;
+    private String house_deal_type;
+
     private String contract_state;
 
     private String lease_term_begin;
@@ -27,8 +34,14 @@ public class Contract {
     private long deposit;
     private long down_payment;
     private long middle_payment;
+    private String middle_payment_deadline;
     private long balance;
+    private String balance_deadline;
 
     private String deal_type;
+
+    private String exclusive_area2;
+    private String supply_area2;
+
 
 }

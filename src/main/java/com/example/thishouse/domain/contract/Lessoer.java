@@ -18,5 +18,7 @@ public class Lessoer {
     private String lessoer_resident_number_f;
     private String lessoer_resident_number_b;
     private String lessoer_phone;
-    private String lessoer_road_address;
+    private String road_address;
+    private String detail_address;
+
 }

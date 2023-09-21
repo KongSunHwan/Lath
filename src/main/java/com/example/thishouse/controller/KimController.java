@@ -3,7 +3,9 @@ package com.example.thishouse.controller;
 import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
+import com.example.thishouse.domain.contract.Contract;
 import com.example.thishouse.domain.contract.Lessoer;
+import com.example.thishouse.domain.contract.Tenant;
 import com.example.thishouse.domain.house.*;
 import com.example.thishouse.service.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,8 +36,7 @@ public class KimController {
 
     private final MemberService memberService;
     private final RealEstateService realEstateService;
-    private final BoardService boardService;
-    private final MarkerService markerService;
+    private final ContractService contractService;
     private final ReportService reportService;
     private final String uploadPath = "C:/Timp/img/";
     @RequestMapping("/test_inquire")
@@ -294,15 +295,32 @@ public class KimController {
         String house_deal_type = realEstateService.deal_type(house_num);
         List<House_location> house_location = realEstateService.house_location(house_num);
         String house_type = realEstateService.house_type(house_num);
-        List<House_list> houseList = realEstateService.view_house_list_one(house_num);
+        List<House_info> house_info = realEstateService.house_info_list(house_num);
+
+        Contract c = new Contract();
+
 
         model.addAttribute("house_deal_type",house_deal_type);
         model.addAttribute("house_location",house_location);
         model.addAttribute("house_type",house_type);
-        model.addAttribute("houseList",houseList);
+        model.addAttribute("house_info",house_info);
+        model.addAttribute("contract",c);
 
         return "contract/real_estate_contract_test";
     }
+
+    @RequestMapping("/contract_request")
+    public String contract_request(@Valid Contract contract, @Valid Tenant tenant, Model model, HttpSession session) {
+        String user_id = (String) session.getAttribute("user_id"); //구매자
+        tenant.setUser_id(user_id);
+        contractService.tenant_info(tenant);
+
+
+        contractService.contract_request(contract);
+
+        return "contract/real_estate_contract_test";
+    }
+
 
 
 //    @RequestMapping("/file_upload")
