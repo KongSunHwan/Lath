@@ -95,8 +95,11 @@
 
             if(number1 == number2){
                 alert("인증되었습니다.");
+
+                // 인증이 완료되면 /contract_deposit 페이지로 이동
+                window.location.href = '/contract_deposit';
             }else{
-                alert("번호가 다릅니다.");
+                alert("인증번호가 다릅니다.");
             }
         }
     </script>
@@ -128,80 +131,49 @@
                     <div class="d-flex">
                         <div class="p-2 w-75 fw-bold text-muted">
                             <p>임차인, 임대인 서명이 완료되었습니다. <br>
-                                계약 체결을 위해 전자서명을 진행해 주세요.</p>
+                                계약 체결을 위해 이메일 인증을 진행해 주세요.</p>
                         </div>
+
                         <div class="p-2 flex-shrink-1 fs-5 fw-bold">
-                            <div class="dropdown position-relative">
-                                <span class="nav-icon font-2xl dropdown" href="#" id="notificationDropdown"
-                                    data-bs-toggle="dropdown" aria-expanded="false"
-                                    style="cursor: pointer; position: relative;">
-                                    <div class="position-relative">
-                                        <button type="button" class="btn btn-primary position-relative"
-                                            style="height:45px; width: 200px;">
-                                            전자서명 하기
-                                        </button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailModal">
+                                이메일 인증 하기
+                            </button>
+                        </div>
+
+                        <!-- 모달 창 -->
+                        <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="emailModalLabel">이메일 인증</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                </span>
-                                <ul class="dropdown-menu dropdown-menu-end p-0 border-0 w-400"
-                                    aria-labelledby="notificationDropdown" data-bs-auto-close="false">
-                                    <div class="card" style="width: 500px;">
-                                        <div class="card-header">
-                                            <b>인증하기</b>
-                                            <div>
-                                                <span class="text-muted" style="font-size: 13px;">고객님의 이메일을 입력하면 인증번호를 발송합니다.</span> <br>
-                                                <span class="text-muted" style="font-size: 13px;">절차에 따라 <span
-                                                        class="text-primary">인증번호 인증을 완료</span>해 주세요</span>
-                                            </div>
+                                    <div class="modal-body">
+                                        <div>
+                                            <span class="text-muted" style="font-size: 13px;">고객님의 이메일을 입력하면 인증번호를 발송합니다.</span> <br>
+                                            <span class="text-muted" style="font-size: 13px;">절차에 따라 <span class="text-primary">인증번호 인증을 완료</span>해 주세요</span>
                                         </div>
-
-                                        <div class="perfect-scrollbar position-relative"
-                                            style="max-height: 1000px; padding-top: 10px; padding-bottom: 10px; display: flex; flex-direction: column; justify-content: center; padding-left: 15px; padding-right: 15px;"
-                                            data-bs-auto-close="false">
-
-                                            <div class="form-check border d-flex align-items-center">
-
-                                                <div id="mail_input" name="mail_input" class="col-auto">
-                                                    <div>
-                                                    <input type="text" name="mail" id="mail" class="form-control" placeholder="이메일 입력">
-                                                    </div>
-                                                    <div>
-                                                        <button type="button" class="btn btn-primary" id="sendBtn" name="sendBtn" onclick="sendNumber()">인증번호</button>
-                                                    </div>
-                                                </div>
-
-                                                <div id="mail_number" name="mail_number" class="col-auto">
-                                                    <input type="text" class="form-control" name="number" id="number" placeholder="인증번호 입력">
-                                                    <button type="button" name="confirmBtn" class="btn btn-primary" id="confirmBtn" onclick="confirmNumber()">이메일 인증</button>
-                                                </div>
-
-                                                <div class="col-auto">
-                                                    <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
-                                                </div>
-                                            </div>
-
+                                        <br>
+                                        <!-- 인증 입력 폼 -->
+                                        <div id="mail_input" name="mail_input" class="d-flex">
+                                            <input type="text" class="form-control" name="mail" id="mail" placeholder="이메일을 입력해주세요." style="width: 800px;">
+                                            <button type="button" class="btn btn-primary btn-sm text-center" id="sendBtn" name="sendBtn" onclick="sendNumber()">인증번호 요청</button>
                                         </div>
-                                        <div class="d-grid gap-2 col-6 mx-auto">
-                                            <button class="btn btn-sm btn-primary">
-                                                <i class="bi bi-arrow-repeat"></i> 이메일 인증번호 요청 재발송
-                                            </button>
+                                        <br>
+                                        <div id="mail_number" name="mail_number" style="display: none">
+                                            <input type="text" class="form-control" name="number" id="number" placeholder="인증번호 입력">
                                         </div>
-
-                                        <div class="card-footer text-center border-0">
-                                            <hr>
-                                            <button class="btn btn-sm btn-secondary">
-                                                닫기
-                                            </button>
-                                            <a href="#" th:href="@{/contract_deposit}">
-                                            <button class="btn btn-sm btn-primary">
-                                                인증 완료
-                                            </button>
-                                            </a>
-                                        </div>
-
+                                        <br>
+                                        <input type="text" class="form-control" id="Confirm" name="Confirm" style="display: none" value="">
                                     </div>
-                                </ul>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary text-center" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">인증 완료</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
