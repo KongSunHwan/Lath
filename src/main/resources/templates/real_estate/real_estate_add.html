@@ -621,7 +621,11 @@ xmlns:th="http://www.thymeleaf.org">
                 <td class="deliverytd text-center">주소&nbsp;<span style="color:red;">*</span></td>
                 <td colspan="5">
                     <div class="d-flex">
-                        <input type="text" name="lessoer_road_address" class="form-control" style="width: 950px;">
+                        <input type="text" name="l_road_address" class="form-control" placeholder="도로명 주소" style="width: 950px;">
+                    </div>
+
+                    <div class="d-flex">
+                        <input type="text" name="l_detail_address" class="form-control" placeholder="상세주소" style="width: 950px;">
                     </div>
                 </td>
             </tr>
@@ -631,7 +635,7 @@ xmlns:th="http://www.thymeleaf.org">
                 <td>
                     <div class="d-flex">
                         <input type="text" name="lessoer_resident_number_f" class="form-control" style="width: 150px;" maxlength="6"> &nbsp;-&nbsp;
-                        <input type="text" name="lessoer_resident_number_b" class="form-control" style="width: 150px;"maxlength="7">
+                        <input type="password" name="lessoer_resident_number_b" class="form-control" style="width: 150px;"maxlength="7">
                     </div>
                 </td>
                 <td>전화&nbsp;<span style="color:red;">*</span></td>

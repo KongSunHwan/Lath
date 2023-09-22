@@ -3,6 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.thishouse.mapper.ContractMapper">
+
     <insert id="contract_request">
 
     </insert>
@@ -10,4 +11,10 @@
     <insert id="tenant_info">
 
     </insert>
+
+    <insert id="lessoer_info" parameterType="com.example.thishouse.domain.contract.Lessoer">
+        insert into lessoer(house_num,user_id,lessoer_name,lessoer_resident_number_f,lessoer_resident_number_b,lessoer_phone,l_road_address,l_detail_address)
+        values(#{house_num},#{user_id},#{lessoer_name},#{lessoer_resident_number_f},#{lessoer_resident_number_b},#{lessoer_phone},#{l_road_address},#{l_detail_address})
+    </insert>
+
 </mapper>

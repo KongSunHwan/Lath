@@ -154,7 +154,7 @@ public class KimController {
         realEstateService.insert_house_option(house_option);
         realEstateService.insert_house_detail(house_detail);
         realEstateService.insert_house_list(house_list);
-        realEstateService.insert_lessoer_info(lessoer);
+        contractService.lessoer_info(lessoer);
 
         return "redirect:/list_main";
     }
