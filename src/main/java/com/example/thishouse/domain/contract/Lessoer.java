@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 //집주인 임차인
 public class Lessoer {
-    private int lessoer_dix;
+    private int lessoer_idx;
     private int house_num; //매물 방번호
     private String user_id;
     private String lessoer_name;

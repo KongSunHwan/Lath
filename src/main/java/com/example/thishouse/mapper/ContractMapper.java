@@ -16,4 +16,7 @@ public interface ContractMapper {
 
     void lessoer_info(Lessoer lessoer);
 
+    int get_lessoer(int houseNum);
+
+    int get_tenant(int houseNum);
 }

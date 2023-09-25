@@ -12,7 +12,7 @@ import lombok.Setter;
 public class Contract {
     private int contract_idx;
     private int lessoer_idx;
-    private int tenant_dix;
+    private int tenant_idx;
     private int house_num;
 
     private String road_address;

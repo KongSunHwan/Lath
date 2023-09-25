@@ -114,7 +114,9 @@
                                     style="border-right : none; text-align : left; padding-left : 10px; background-color: #fff;"
                                     th:text="${house_deal_type}">
                                     전/월세 db
+                                    <input type="hidden" name="deal_type" th:value="${house_deal_type}">
                                 </td>
+
                             </tr>
 
                         </tfoot>
@@ -150,6 +152,7 @@
                             <td class="deliverytd text-center">건물 구조<span style="color:red;">*</span></td>
                             <td>
                                 <div class="form-floating" style="width: 400px;" th:text="${house_type}">
+                                    <input type="hidden" name="house_type" th:value="house_type">
                                 </div>
                             </td>
                         </tr>
@@ -243,7 +246,7 @@
                                     <input type="text" class="form-control" name="middle_payment" placeholder="중도금"
                                         style="width: 400px;"><span class="fs-5">원정은</span>
                                     &nbsp;&nbsp;
-                                    <input type="date" name="middle_payment_deadline" >&nbsp;일에 지불한다.
+                                    <input type="date" name="middle_payment_deadline">&nbsp;일에 지불한다.
                                 </div>
                             </td>
                         </tr>
@@ -305,6 +308,7 @@
                         <td class="deliverytd text-center">주소&nbsp;<span style="color:red;">*</span></td>
                         <td colspan="5">
                             <div class="d-flex" th:each="house_location : ${house_location}">
+                                <input type="hidden" name="house_num" th:value="${house_location.house_num}">
                                 <span th:text="${house_location.road_address}"></span> &nbsp; <span th:text="${house_location.detail_address}"></span>
                             </div>
                         </td>
@@ -314,8 +318,8 @@
                         <td class="deliverytd text-center">주민등록번호&nbsp;<span style="color:red;">*</span></td>
                         <td>
                             <div class="d-flex">
-                            <input type="text" name="tenant_resident_number_f" class="form-control" style="width: 150px;"> &nbsp;-&nbsp;
-                            <input type="text" name="tenant_resident_number_b" class="form-control" style="width: 150px;">
+                                <input type="text" maxlength="6" name="tenant_resident_number_f" class="form-control" style="width: 150px;"> &nbsp;-&nbsp;
+                            <input type="password" maxlength="7" name="tenant_resident_number_b" class="form-control" style="width: 150px;">
                             </div>
                         </td>
                         <td>전화&nbsp;<span style="color:red;">*</span></td>
@@ -331,7 +335,7 @@
                 <span class="fw-bold text-primary">※"<다음화면>"버튼을 클릭하시면 저장 후 다음단계 확면으로 이동할 수 있습니다.</span>
                 <br /><br />
                 <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-danger fs-5">< 뒤로가기</button>
+                    <button type="button" onclick="history.back()" class="btn btn-danger fs-5">< 뒤로가기</button>
                     &nbsp;
                  <button type="submit" class="btn btn-primary fs-5">다음화면 ></button></a>
                 </div>

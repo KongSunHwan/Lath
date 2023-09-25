@@ -237,8 +237,6 @@ public class KimController {
             model.addAttribute("house_list" , house_list);
             int totCnt = realEstateService.house_search_pg_cnt(searchVO);
             model.addAttribute("totCnt",totCnt);
-
-
             pagination.setTotalRecordCount(totCnt);
 
             searchVO.setEndDate(pagination.getLastPageNoOnPageList());
@@ -297,14 +295,10 @@ public class KimController {
         String house_type = realEstateService.house_type(house_num);
         List<House_info> house_info = realEstateService.house_info_list(house_num);
 
-        Contract c = new Contract();
-
-
         model.addAttribute("house_deal_type",house_deal_type);
         model.addAttribute("house_location",house_location);
         model.addAttribute("house_type",house_type);
         model.addAttribute("house_info",house_info);
-        model.addAttribute("contract",c);
 
         return "contract/real_estate_contract_test";
     }
@@ -314,11 +308,15 @@ public class KimController {
         String user_id = (String) session.getAttribute("user_id"); //구매자
         tenant.setUser_id(user_id);
         contractService.tenant_info(tenant);
+        int tenant_num = contractService.get_tenant(contract.getHouse_num());
+        System.out.println(contract.getHouse_num()  + "asdf"+ tenant_num + "TEST1==================================");
+        int lessoer_num = contractService.get_lessoer(contract.getHouse_num());
+        System.out.println(lessoer_num+"TEST2==================================");
+        contractService.contract_request(contract,lessoer_num,tenant_num);
+        System.out.println("TEST3==================================");
 
 
-        contractService.contract_request(contract);
-
-        return "contract/real_estate_contract_test";
+        return "redirect:list_main";
     }
 
 
@@ -371,7 +369,7 @@ public class KimController {
                                 @RequestParam("report_seller_pic") MultipartFile report_seller_pic,
                                 @RequestParam("report_house_pic") MultipartFile report_house_pic,
                                 Model model,
-                                HttpSession session ) {
+                                HttpSession session) {
 
 
         System.out.println(report.getHouse_num() + "집번호");
@@ -392,7 +390,6 @@ public class KimController {
 
     // 파일 업로드 및 처리 로직을 추상화한 메서드
     private void processFile(MultipartFile file, String fieldName, Report report) {
-        System.out.println("===================================================");
         if (!file.isEmpty()) {
             try {
                 byte[] fileBytes = file.getBytes();
