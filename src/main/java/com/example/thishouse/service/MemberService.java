@@ -90,6 +90,18 @@ public class MemberService {
         return memberMapper.my_inquire_one(userId);
     }
 
+    public int house_cnt(String userId) {
+        return memberMapper.house_cnt(userId);
+    }
+
+    public int contract_cnt(String userId) {
+        return memberMapper.contract_cnt(userId);
+    }
+
+    public int report_cnt(String userId) {
+        return memberMapper.report_cnt(userId);
+    }
+
 //    public int memberList_cnt() {
 //        return memberMapper.memberList_cnt();
 //    }

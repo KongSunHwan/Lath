@@ -161,4 +161,13 @@ public class RealEstateMapper {
     public String house_type(String houseNum) {
         return sqlSession.selectOne(Namespace+".house_type",houseNum);
     }
+
+    public int user_house_list_pg_cnt(String user_id) {
+        return sqlSession.selectOne(Namespace+".user_house_list_pg_cnt",user_id);
+
+    }
+
+    public List<House_list> user_house_list_pg(House_list searchVO) {
+        return sqlSession.selectList(Namespace+".user_house_list_pg",searchVO);
+    }
 }

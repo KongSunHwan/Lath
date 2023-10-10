@@ -104,7 +104,25 @@
         limit 1
     </select>
 
-<!--    <select id = "memberList_cnt" resultType="integer">-->
+    <select id = "house_cnt" resultType="integer">
+        select count(*)
+        from house_item
+        where user_id = #{user_id}
+    </select>
+
+    <select id = "contract_cnt" resultType="integer">
+        select count(*)
+        from contact
+        where lessor_idx = #{user_id} or tenant_dix = #{user_id}
+    </select>
+
+    <select id = "report_cnt" resultType="integer">
+        select count(*)
+        from report
+        where user_id = #{user_id}
+    </select>
+
+    <!--    <select id = "memberList_cnt" resultType="integer">-->
 <!--        select count(*)-->
 <!--        from member-->
 <!--    </select>-->

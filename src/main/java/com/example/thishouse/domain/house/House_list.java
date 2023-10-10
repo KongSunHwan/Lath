@@ -36,4 +36,7 @@ public class House_list extends PageVO {
     private List<MultipartFile> files = new ArrayList<>();    // 첨부파일 List
     private int approval;
     private String search_content; //메인 매물검색
+    private String user_id; //setter용
+
+
 }

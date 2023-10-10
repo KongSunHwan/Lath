@@ -22,4 +22,14 @@
     <select id="report_all_cnt" resultType="int">
         select count(*) from report
     </select>
+
+    <select id="user_report" resultType="com.example.thishouse.domain.Report">
+        select * from report where user_id = #{user_id} order by report_date desc
+            limit ${recordCountPerPage} offset ${firstIndex}
+    </select>
+
+    <select id="user_report_cnt" resultType="int">
+        select count(*) from report where user_id = #{user_id}
+    </select>
+
 </mapper>

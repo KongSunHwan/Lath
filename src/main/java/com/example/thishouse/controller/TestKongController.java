@@ -463,7 +463,6 @@ public class TestKongController {
         model.addAttribute("re_list" , re_list);
         int totCnt = reportService.report_all_cnt();
         model.addAttribute("totCnt",totCnt);
-        model.addAttribute("totCnt",totCnt);
         System.out.println("전체 게시글 수 : " + totCnt);
 
         pagination.setTotalRecordCount(totCnt);

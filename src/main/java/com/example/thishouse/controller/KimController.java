@@ -315,7 +315,6 @@ public class KimController {
         contractService.contract_request(contract,lessoer_num,tenant_num);
         System.out.println("TEST3==================================");
 
-
         return "redirect:list_main";
     }
 

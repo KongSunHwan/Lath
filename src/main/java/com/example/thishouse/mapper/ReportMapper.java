@@ -16,4 +16,8 @@ public interface ReportMapper {
     List<Report> report_all(Report searchVO);
 
     int report_all_cnt();
+
+    List<Report> user_report(Report searchVO);
+
+    int user_report_cnt(String userId);
 }

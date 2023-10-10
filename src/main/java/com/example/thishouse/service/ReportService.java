@@ -30,4 +30,12 @@ public class ReportService {
     public int report_all_cnt() {
         return reportMapper.report_all_cnt();
     }
+
+    public List<Report> user_report(Report searchVO) {
+        return reportMapper.user_report(searchVO);
+    }
+
+    public int user_report_cnt(String userId) {
+        return reportMapper.user_report_cnt(userId);
+    }
 }

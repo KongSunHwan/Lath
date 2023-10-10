@@ -77,6 +77,18 @@ public class MemberMapper {
     public List<Inquire> my_inquire_one(String userId) {
         return sqlSession.selectList(Namespace+".my_inquire_one",userId);
     }
+
+    public int house_cnt(String userId) {
+        return sqlSession.selectOne(Namespace+".house_cnt",userId);
+    }
+
+    public int contract_cnt(String userId) {
+        return sqlSession.selectOne(Namespace+".contract_cnt",userId);
+    }
+
+    public int report_cnt(String userId) {
+        return sqlSession.selectOne(Namespace+".report_cnt",userId);
+    }
 //
 //    public int memberList_cnt() {
 //        return sqlSession.selectOne(Namespace+".memberList_cnt");

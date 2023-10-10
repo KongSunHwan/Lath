@@ -183,4 +183,12 @@ public class RealEstateService {
     public String house_type(String houseNum) {
         return this.realEstateMapper.house_type(houseNum);
     }
+
+    public int user_house_list_pg_cnt(String user_id) {
+        return this.realEstateMapper.user_house_list_pg_cnt(user_id);
+    }
+
+    public List<House_list> user_house_list_pg(House_list searchVO) {
+        return this.realEstateMapper.user_house_list_pg(searchVO);
+    }
 }
