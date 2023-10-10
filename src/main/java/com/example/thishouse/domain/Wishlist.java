@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Wishlist {
     private int wish_num;
-    private String user_num;
+    private String user_id;
     private int house_num;
 }

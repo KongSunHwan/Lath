@@ -10,13 +10,10 @@ import com.example.thishouse.domain.house.MapVO;
 import com.example.thishouse.service.MarkerService;
 import com.example.thishouse.service.MemberService;
 import com.example.thishouse.service.RealEstateService;
-import com.example.thishouse.service.ReportService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.Session;
-import org.apache.catalina.connector.Request;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,8 +29,6 @@ public class MainController {
     private final MemberService memberService;
     private final RealEstateService realEstateService;
     private final MarkerService markerService;
-    private final ReportService reportService;
-
     @GetMapping("/map")
     public String map(Model model) {
 //        List<MapVO> mapall = markerService.all_map();
@@ -175,74 +170,11 @@ public class MainController {
         List<Community> comlist = memberService.my_community(user_id);
         List<Report> replist = memberService.findInputMemberReport(user_id);
         List<Inquire> inquireList = memberService.my_inquire_one(user_id);
-
-        int house_cnt = memberService.house_cnt(user_id);
-        int report_cnt = memberService.report_cnt(user_id);
-//        int contract_cnt = memberService.contract_cnt(user_id);
-
-        model.addAttribute("house_cnt", house_cnt);
-        model.addAttribute("report_cnt", report_cnt);
-
         model.addAttribute("comlist", comlist);
         model.addAttribute("replist", replist);
         model.addAttribute("Member", memberService.findInputMember(user_id));
         model.addAttribute("inquireList", inquireList);
         return "user_mypage/mypage";
-    }
-
-    @RequestMapping("/user_house_list")
-    public String user_house_list(@ModelAttribute("searchVO") House_list searchVO, Model model, HttpSession session) {
-        PageCtrl pagination  = new PageCtrl();
-        pagination.setCurrentPageNo(searchVO.getPageIndex());
-        pagination.setRecordCountPerPage(searchVO.getPageUnit_house());
-        pagination.setPageSize(searchVO.getPageSize());
-
-        searchVO.setFirstIndex(pagination.getFirstRecordIndex());
-        searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
-        String user_id = (String) session.getAttribute("user_id");
-
-        searchVO.setUser_id(user_id);
-
-        List<House_list> house_list = realEstateService.user_house_list_pg(searchVO);
-        model.addAttribute("house_list" , house_list);
-        int totCnt = realEstateService.user_house_list_pg_cnt(user_id);
-        model.addAttribute("totCnt",totCnt);
-
-        pagination.setTotalRecordCount(totCnt);
-        searchVO.setEndDate(pagination.getLastPageNoOnPageList());
-        searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
-        searchVO.setPrev(pagination.getXprev());
-        searchVO.setNext(pagination.getXnext());
-        model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
-        model.addAttribute("pagination",pagination);
-        return "user_mypage/user_house_list";
-    }
-
-    @RequestMapping("/user_report_list")
-    public String user_report_list(@ModelAttribute("searchVO") Report searchVO, Model model,HttpSession session) {
-        PageCtrl pagination  = new PageCtrl();
-        pagination.setCurrentPageNo(searchVO.getPageIndex());
-        pagination.setRecordCountPerPage(searchVO.getPageUnit_house());
-        pagination.setPageSize(searchVO.getPageSize());
-
-        searchVO.setFirstIndex(pagination.getFirstRecordIndex());
-        searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
-        String user_id = (String) session.getAttribute("user_id");
-        searchVO.setUser_id(user_id);
-
-        List<Report> re_list = reportService.user_report(searchVO);
-        model.addAttribute("re_list" , re_list);
-        int totCnt = reportService.user_report_cnt(user_id);
-        model.addAttribute("totCnt",totCnt);
-        pagination.setTotalRecordCount(totCnt);
-        searchVO.setEndDate(pagination.getLastPageNoOnPageList());
-        searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
-        searchVO.setPrev(pagination.getXprev());
-        searchVO.setNext(pagination.getXnext());
-        model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
-        model.addAttribute("pagination",pagination);
-
-        return "user_mypage/user_report_list";
     }
     
     //회원 상세정보 조회
@@ -253,8 +185,6 @@ public class MainController {
         System.out.println("클릭한 아이디 확인 : " + user_id);
         return "user_mypage/find_input_member";
     }
-
-
 
     @RequestMapping("/real_estate_contract")
     public String real_estate_contract() {

@@ -38,4 +38,8 @@ public class ReportService {
     public int user_report_cnt(String userId) {
         return reportMapper.user_report_cnt(userId);
     }
+
+    public Report getReportInfo(int reportNum) {
+        return reportMapper.getReportInfo(reportNum);
+    }
 }

@@ -400,11 +400,11 @@ public class KimController {
                 Files.write(filePath, fileBytes);
 
                 if (fieldName.equals("report_content_pic")) {
-                    report.setReport_content_pic(uploadPath + fileName);
+                    report.setReport_content_pic(fileName);
                 } else if (fieldName.equals("report_seller_pic")) {
-                    report.setReport_seller_pic(uploadPath + fileName);
+                    report.setReport_seller_pic(fileName);
                 } else if (fieldName.equals("report_house_pic")) {
-                    report.setReport_house_pic(uploadPath + fileName);
+                    report.setReport_house_pic(fileName);
                 }
 
             } catch (IOException e) {

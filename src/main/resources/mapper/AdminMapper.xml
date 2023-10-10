@@ -139,5 +139,4 @@
         select count(*) from house_list a, house_item b  where a.house_num = b.house_num and a.approval = 0 and b.approval = 0
     </select>
 
-
 </mapper>

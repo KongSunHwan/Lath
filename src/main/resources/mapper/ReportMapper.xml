@@ -32,4 +32,9 @@
         select count(*) from report where user_id = #{user_id}
     </select>
 
+    <!-- 신고 정보 조회 -->
+    <select id="getReportInfo" parameterType="int" resultType="com.example.thishouse.domain.Report">
+        SELECT * FROM report WHERE report_num = #{reportNum}
+    </select>
+
 </mapper>

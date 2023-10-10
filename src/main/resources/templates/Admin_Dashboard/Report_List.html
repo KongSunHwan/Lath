@@ -36,6 +36,9 @@
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
     <!-- jquery 기본 js 파일 -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- 기존의 jQuery 로드 부분을 삭제하고 한 번만 로드합니다. -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
     <!-- jquery UI 라이브러리 js파일 -->
     <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
@@ -152,7 +155,7 @@
                                                                         <ul class="dropdown-menu dropdown-menu-lg-end">
                                                                             <li><button class="dropdown-item" type="button">승인 취소</button></li>
                                                                             <li>
-                                                                                <button class="dropdown-item" type="button">
+                                                                                <button class="dropdown-item" type="button" name="itemSelect" th:attr="data-re_list-report_num=${re_list.report_num}" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                                                                     상세 보기</button></li>
                                                                         </ul>
                                                                     </div>
@@ -199,7 +202,7 @@
     </div>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<!--    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.min.js"></script>
 
@@ -221,8 +224,143 @@
 
     <script src="../../js/morioh.js"></script>
 
-
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true" data-re_list-report_num="1">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">허위매물신고</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <h2 class="fs-6 text-primary"><b>매물에 대한 잘못된 정보를 신고해주세요!</b></h2>
+                    <p style="font-size: 12px;">※ 확인 후 허위매물일 경우 해당 매물은 삭제되거나 이용이 제재됩니다<br>
+                        ※ 허위 신고일 시 신고자는 법적인 책임을 질 수 있습니다.<br>
+                        ※ 이집봐라는 자체 검열을 통해 허위매물 근절에 노력하고 있습니다.</p>
+                    <hr>
+                    <h2 class="fs-5"><b>허위매물 신고 정보</b></h2>
+                    <div class="mb-3">
+                        <label class="col-form-label">매물번호</label>
+                        <input type="text" id="houseNum" class="form-control" disabled>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" id="closeHouse" type="checkbox" value="1" disabled>
+                        <label class="form-check-label" th:for="closeHouse">
+                            <b>거래가 완료 된 매물</b>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" id="infoDistinct" type="checkbox" value="1" disabled>
+                        <label class="form-check-label" th:for="infoDistinct">
+                            <b>정보가 다른 매물 (가격 / 사진 / 위치 / 옵션 등)</b>
+                        </label>
+                    </div>
+                    <hr>
+                    <div class="mb-3">
+            <textarea class="form-control" id="reportContent" placeholder="선택한 항목에 대한 추가 설명을 입력해주세요."
+                      style="height: 180px;" disabled></textarea>
+                    </div>
+                    <hr>
+                    <div class="mb-3">
+                        <h3 class="fs-5"><b>증빙 자료</b> <b class="fs-6 text-primary">(선택사항)</b></h3>
+                        <p style="font-size: 12px;">※ 내용이 잘 보이도록 사진을 캡처하여 이곳에 첨부해 주세요.<br></p>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card text-center">
+                                    <span style="margin-bottom: 12px;"><b>채팅내용 사진</b></span>
+                                    <img id="report_content_pic" src="#" alt="Content Pic" style="max-width: 100%; max-height: 100px; width: 150px; height: 150px; display: none;">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card text-center">
+                                    <span style="margin-bottom: 12px;"><b>판매자 사진</b></span>
+                                    <img id="report_seller_pic" src="#" alt="Seller Pic" style="max-width: 100%; max-height: 100px; width: 150px; height: 150px; display: none;">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card text-center">
+                                    <span style="margin-bottom: 12px;"><b>방 사진</b></span>
+                                    <img id="report_house_pic" src="#" alt="House Pic" style="max-width: 100%; max-height: 100px; width: 150px; height: 150px; display: none;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal END -->
 
 </body>
+<script>
+    $(document).ready(function() {
+        // 버튼 클릭 시 이벤트 처리
+        $("button[data-bs-target='#staticBackdrop']").click(function () {
+            var postId = $(this).data("re_list-report_num"); // 버튼에서 report_num 데이터 가져오기
+
+            // AJAX 요청을 통해 게시글 정보를 가져옴
+            $.ajax({
+                type: "GET",
+                url: "/api/getReport",
+                data: { reportNum: postId }, // reportNum 매개변수만 전달하고 houseNum 매개변수를 전달하지 않음
+                success: function(response) {
+                    // 데이터를 모달 내의 엘리먼트에 표시
+                    $("#reportNum").text(response.report_num);
+                    $("#houseNum").val(response.house_num);
+                    $("#reportContent").text(response.report_content);
+                    $("#closeHouse").prop("checked", response.close_house === 1);
+                    $("#infoDistinct").prop("checked", response.information_distinct === 1);
+
+                    // 이미지 경로 확인 및 설정
+                    if (response.report_content_pic) {
+                        $("#report_content_pic").attr("src", "http://localhost:8082/images/" + response.report_content_pic);
+                        $("#report_content_pic").show();
+                    } else {
+                        // 이미지가 없으면 대체 이미지를 사용
+                        $("#report_content_pic").attr("src", "/img/img_null.png");
+                        $("#report_content_pic").show();
+                    }
+
+                    if (response.report_seller_pic) {
+                        $("#report_seller_pic").attr("src", "http://localhost:8082/images/" + response.report_seller_pic);
+                        $("#report_seller_pic").show();
+                    } else {
+                        // 이미지가 없으면 대체 이미지를 사용
+                        $("#report_seller_pic").attr("src", "/img/img_null.png");
+                        $("#report_seller_pic").show();
+                    }
+
+                    if (response.report_house_pic) {
+                        $("#report_house_pic").attr("src", "http://localhost:8082/images/" + response.report_house_pic);
+                        $("#report_house_pic").show();
+                    } else {
+                        // 이미지가 없으면 대체 이미지를 사용
+                        $("#report_house_pic").attr("src", "/img/img_null.png");
+                        $("#report_house_pic").show();
+                    }
+
+                    // 데이터를 콘솔에 출력
+                    console.log("신고 번호:", response.report_num);
+                    console.log("집 번호:", response.house_num);
+                    console.log("신고 내용:", response.report_content);
+                    console.log("거래 상태:", response.close_house === 1 ? "거래완료" : "이상없음");
+                    console.log("정보 확인 여부:", response.information_distinct === 1 ? "허위정보" : "이상없음");
+                    console.log("채팅 이미지:", response.report_content_pic)
+                    console.log("판매자 이미지:", response.report_seller_pic)
+                    console.log("매물 이미지:", response.report_house_pic)
+                },
+                error: function(error) {
+                    console.error("신고 정보를 가져오는데 실패했습니다.", error);
+                }
+            });
+        });
+    });
+</script>
+
 
 </html>

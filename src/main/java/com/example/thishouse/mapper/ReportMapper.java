@@ -20,4 +20,6 @@ public interface ReportMapper {
     List<Report> user_report(Report searchVO);
 
     int user_report_cnt(String userId);
+
+    Report getReportInfo(int reportNum);
 }

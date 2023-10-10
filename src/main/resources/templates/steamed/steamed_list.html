@@ -116,165 +116,29 @@
       </div>
       <div class="row" style="margin-top:10px;">
 
-        <div class="card-back mb-2 col-lg-3" style="cursor:pointer;">
+        <div class="card-back mb-2 col-lg-3" style="cursor:pointer;" th:each="wishlist : ${wishlist}">
           <div class="card-img">
-            <img src="/img/1.jpg" style="width: 230px; height:150px;">
+            <img src="/img/1.jpg" th:src="@{/img/1.jpg}" style="width: 230px; height:150px;">
           </div>
           <div class="card-teacher">
-            <b class="text-muted" style="font-size: 13px;">오피스텔 • 강남역솔라티움시티</b>
+            <b class="text-muted" th:text="${wishlist}" style="font-size: 13px;">오피스텔 • 강남역솔라티움시티</b>
           </div>
           <div class="card-title">
             <div class="fw-bold fs-5">월세 1000/105</div>
           </div>
           <div class="card-text">
-            <b style="font-size: 12px;">중층, 42.3m², 관리비 12만</b>
+            <b style="font-size: 12px;" th:text="${wishlist}">중층, 42.3m², 관리비 12만</b>
           </div>
           <div class="card-text2">
-            <b style="font-size: 12px;">강남역 신축급 오피스텔</b>
+            <b style="font-size: 12px;" th:text="${wishlist}">강남역 신축급 오피스텔</b>
           </div>
-          <div class="card-under"><span class="badge bg-secondary text-white" style="margin-top:10px;">좋아요
-                                +15</span></div>
+          <div class="card-under">
+            <span class="badge bg-secondary text-white" style="margin-top:10px;">조회수
+                                +<span th:text="${wishlist}">15</span>
+            </span>
+          </div>
         </div>
 
-        <div class="card-back mb-2 col-lg-3" style="cursor:pointer;">
-          <div class="card-img">
-            <img src="/img/1.jpg" style="width: 230px; height:150px;">
-          </div>
-          <div class="card-teacher">
-            <b class="text-muted" style="font-size: 13px;">오피스텔 • 강남역솔라티움시티</b>
-          </div>
-          <div class="card-title">
-            <div class="fw-bold fs-5">월세 1000/105</div>
-          </div>
-          <div class="card-text">
-            <b style="font-size: 12px;">중층, 42.3m², 관리비 12만</b>
-          </div>
-          <div class="card-text2">
-            <b style="font-size: 12px;">강남역 신축급 오피스텔</b>
-          </div>
-          <div class="card-under"><span class="badge bg-secondary text-white" style="margin-top:10px;">좋아요
-                                +15</span></div>
-        </div>
-
-        <div class="card-back mb-2 col-lg-3" style="cursor:pointer;">
-          <div class="card-img">
-            <img src="/img/1.jpg" style="width: 230px; height:150px;">
-          </div>
-          <div class="card-teacher">
-            <b class="text-muted" style="font-size: 13px;">오피스텔 • 강남역솔라티움시티</b>
-          </div>
-          <div class="card-title">
-            <div class="fw-bold fs-5">월세 1000/105</div>
-          </div>
-          <div class="card-text">
-            <b style="font-size: 12px;">중층, 42.3m², 관리비 12만</b>
-          </div>
-          <div class="card-text2">
-            <b style="font-size: 12px;">강남역 신축급 오피스텔</b>
-          </div>
-          <div class="card-under"><span class="badge bg-secondary text-white" style="margin-top:10px;">좋아요
-                                +15</span></div>
-        </div>
-
-        <div class="card-back mb-2 col-lg-3" style="cursor:pointer;">
-          <div class="card-img">
-            <img src="/img/1.jpg" style="width: 230px; height:150px;">
-          </div>
-          <div class="card-teacher">
-            <b class="text-muted" style="font-size: 13px;">오피스텔 • 강남역솔라티움시티</b>
-          </div>
-          <div class="card-title">
-            <div class="fw-bold fs-5">월세 1000/105</div>
-          </div>
-          <div class="card-text">
-            <b style="font-size: 12px;">중층, 42.3m², 관리비 12만</b>
-          </div>
-          <div class="card-text2">
-            <b style="font-size: 12px;">강남역 신축급 오피스텔</b>
-          </div>
-          <div class="card-under"><span class="badge bg-secondary text-white" style="margin-top:10px;">좋아요
-                                +15</span></div>
-        </div>
-
-        <div class="card-back mb-2 col-lg-3" style="cursor:pointer;">
-          <div class="card-img">
-            <img src="/img/1.jpg" style="width: 230px; height:150px;">
-          </div>
-          <div class="card-teacher">
-            <b class="text-muted" style="font-size: 13px;">오피스텔 • 강남역솔라티움시티</b>
-          </div>
-          <div class="card-title">
-            <div class="fw-bold fs-5">월세 1000/105</div>
-          </div>
-          <div class="card-text">
-            <b style="font-size: 12px;">중층, 42.3m², 관리비 12만</b>
-          </div>
-          <div class="card-text2">
-            <b style="font-size: 12px;">강남역 신축급 오피스텔</b>
-          </div>
-          <div class="card-under"><span class="badge bg-secondary text-white" style="margin-top:10px;">좋아요
-                                +15</span></div>
-        </div>
-
-        <div class="card-back mb-2 col-lg-3" style="cursor:pointer;">
-          <div class="card-img">
-            <img src="/img/1.jpg" style="width: 230px; height:150px;">
-          </div>
-          <div class="card-teacher">
-            <b class="text-muted" style="font-size: 13px;">오피스텔 • 강남역솔라티움시티</b>
-          </div>
-          <div class="card-title">
-            <div class="fw-bold fs-5">월세 1000/105</div>
-          </div>
-          <div class="card-text">
-            <b style="font-size: 12px;">중층, 42.3m², 관리비 12만</b>
-          </div>
-          <div class="card-text2">
-            <b style="font-size: 12px;">강남역 신축급 오피스텔</b>
-          </div>
-          <div class="card-under"><span class="badge bg-secondary text-white" style="margin-top:10px;">좋아요
-                                +15</span></div>
-        </div>
-
-        <div class="card-back mb-2 col-lg-3" style="cursor:pointer;">
-          <div class="card-img">
-            <img src="/img/1.jpg" style="width: 230px; height:150px;">
-          </div>
-          <div class="card-teacher">
-            <b class="text-muted" style="font-size: 13px;">오피스텔 • 강남역솔라티움시티</b>
-          </div>
-          <div class="card-title">
-            <div class="fw-bold fs-5">월세 1000/105</div>
-          </div>
-          <div class="card-text">
-            <b style="font-size: 12px;">중층, 42.3m², 관리비 12만</b>
-          </div>
-          <div class="card-text2">
-            <b style="font-size: 12px;">강남역 신축급 오피스텔</b>
-          </div>
-          <div class="card-under"><span class="badge bg-secondary text-white" style="margin-top:10px;">좋아요
-                                +15</span></div>
-        </div>
-
-        <div class="card-back mb-2 col-lg-3" style="cursor:pointer;">
-          <div class="card-img">
-            <img src="/img/1.jpg" style="width: 230px; height:150px;">
-          </div>
-          <div class="card-teacher">
-            <b class="text-muted" style="font-size: 13px;">오피스텔 • 강남역솔라티움시티</b>
-          </div>
-          <div class="card-title">
-            <div class="fw-bold fs-5">월세 1000/105</div>
-          </div>
-          <div class="card-text">
-            <b style="font-size: 12px;">중층, 42.3m², 관리비 12만</b>
-          </div>
-          <div class="card-text2">
-            <b style="font-size: 12px;">강남역 신축급 오피스텔</b>
-          </div>
-          <div class="card-under"><span class="badge bg-secondary text-white" style="margin-top:10px;">좋아요
-                                +15</span></div>
-        </div>
 
       </div>
 
