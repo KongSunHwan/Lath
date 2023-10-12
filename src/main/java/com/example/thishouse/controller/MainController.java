@@ -211,6 +211,11 @@ public class MainController {
         return "contract/contract_deposit";
     }
 
+    @GetMapping("/contract_progress")
+    public String contract_progress() {
+        return "contract/contract_progress";
+    }
+
     @GetMapping("/guide")
     public String guide() {
         return "guide/guide";
