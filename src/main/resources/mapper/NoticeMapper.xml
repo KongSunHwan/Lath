@@ -10,7 +10,8 @@
     <select id="pg_list" parameterType="com.example.thishouse.domain.Notice" resultType="com.example.thishouse.domain.Notice">
         select * from notice Order by notice_num desc LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
     </select>
-    <select id="pg_listCnt" resultType="int"> select count(*) from notice
+    <select id="pg_listCnt" resultType="int">
+        select count(*) from notice
     </select>
     <!-- 제목, 작성자, 내용 검색   -->
     <select id="pg_list_search" parameterType="com.example.thishouse.domain.Notice" resultType="com.example.thishouse.domain.Notice">

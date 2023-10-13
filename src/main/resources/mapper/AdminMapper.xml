@@ -39,9 +39,6 @@
         where user_num = #{user_num}
     </delete>
 
-    <update id="board_modify_admin">
-    </update>
-
     <update id="comment_update_admin">
         update community_reply
         SET

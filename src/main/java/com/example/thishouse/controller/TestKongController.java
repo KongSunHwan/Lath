@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -104,7 +105,7 @@ public class TestKongController {
             model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
             model.addAttribute("pagination",pagination);
         }
-        return "board/board_list";
+        return "test_kim/my_board_list";
     }
 
 
@@ -495,7 +496,7 @@ public class TestKongController {
         System.out.println(search + " " + context);
 
         if(context == null){
-            List<House_list> re_list = adminService.re_list(searchVO);
+            List<HashMap> re_list = adminService.re_list(searchVO);
             model.addAttribute("re_list" , re_list);
             int totCnt = adminService.re_list_cnt();
             model.addAttribute("totCnt",totCnt);
@@ -511,7 +512,7 @@ public class TestKongController {
             model.addAttribute("pagination",pagination);
         }
         else if(context != null && context == ""){
-            List<House_list> re_list = adminService.re_list(searchVO);
+            List<HashMap> re_list = adminService.re_list(searchVO);
             model.addAttribute("re_list" , re_list);
             int totCnt = adminService.re_list_cnt();
             model.addAttribute("totCnt",totCnt);
@@ -549,12 +550,12 @@ public class TestKongController {
         return "Admin_Dashboard/Approval_List";
     }
 
-    @RequestMapping("no_approval_ok")
-    public String no_approval_ok(String house_num, Model model) {
-        adminService.no_approval_ok_house_item(house_num);
-        adminService.no_approval_ok_house_list(house_num);
-        return "redirect:/No_Approval_List";
-    }
+//    @RequestMapping("no_approval_ok")
+//    public String no_approval_ok(String house_num, Model model) {
+//        adminService.no_approval_ok_house_item(house_num);
+//        adminService.no_approval_ok_house_list(house_num);
+//        return "redirect:/No_Approval_List";
+//    }
 
     @RequestMapping("approval_ok")
     public String approval_ok(String house_num, Model model) {
@@ -589,7 +590,7 @@ public class TestKongController {
         System.out.println(search + " " + context);
 
         if(context == null){
-            List<House_list> re_list = adminService.no_re_list(searchVO);
+            List<HashMap> re_list = adminService.no_re_list(searchVO);
             model.addAttribute("re_list" , re_list);
             int totCnt = adminService.re_list_cnt();
             model.addAttribute("totCnt",totCnt);
@@ -605,7 +606,7 @@ public class TestKongController {
             model.addAttribute("pagination",pagination);
         }
         else if(context != null && context == ""){
-            List<House_list> re_list = adminService.no_re_list(searchVO);
+            List<HashMap> re_list = adminService.no_re_list(searchVO);
             model.addAttribute("re_list" , re_list);
             int totCnt = adminService.no_re_list_cnt();
             model.addAttribute("totCnt",totCnt);

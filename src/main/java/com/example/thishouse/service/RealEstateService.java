@@ -8,16 +8,13 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -86,7 +83,7 @@ public class RealEstateService {
 
     //매물 사진
 
-    public List<House_list> view_house_list() {
+    public List<HashMap> view_house_list() {
         return this.realEstateMapper.view_house_list();
     }
 
@@ -145,7 +142,7 @@ public class RealEstateService {
         return this.realEstateMapper.house_picture_list(houseNum);
     }
 
-    public List<House_list> house_list_pg(House_list searchVO) {
+    public List<HashMap> house_list_pg(House_list searchVO) {
         return this.realEstateMapper.house_list_pg(searchVO);
     }
 
@@ -153,7 +150,7 @@ public class RealEstateService {
         return this.realEstateMapper.house_list_pg_cnt();
     }
 
-    public List<House_list> house_search_pg(House_list searchVO) {
+    public List<HashMap> house_search_pg(House_list searchVO) {
         return this.realEstateMapper.house_search_pg(searchVO);
     }
 
@@ -166,11 +163,7 @@ public class RealEstateService {
         this.realEstateMapper.house_hit_coount(houseNum);
     }
 
-    @Transactional
-    public void insert_lessoer_info(Lessoer lessoer) {
-        this.realEstateMapper.insert_lessoer_info(lessoer);
 
-    }
 
     public String deal_type(String houseNum) {
         return this.realEstateMapper.deal_type(houseNum);
@@ -188,7 +181,7 @@ public class RealEstateService {
         return this.realEstateMapper.user_house_list_pg_cnt(user_id);
     }
 
-    public List<House_list> user_house_list_pg(House_list searchVO) {
+    public List<HashMap> user_house_list_pg(House_list searchVO) {
         return this.realEstateMapper.user_house_list_pg(searchVO);
     }
 }

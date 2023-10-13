@@ -18,7 +18,7 @@ public class JeongCtrl {
 
     @RequestMapping("/notice_list1")
     public String test(Model model){
-        List<Notice> noticeList = noticeService.noticeList();
+        List<Notice> noticeList = noticeService.notice_list();
         model.addAttribute("noticeList" , noticeList);
         return "notice/notice_list";
     }

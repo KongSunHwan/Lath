@@ -27,6 +27,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -199,7 +200,7 @@ public class KimController {
         System.out.println(context);
 
         if(context == null){
-            List<House_list> house_list = realEstateService.house_list_pg(searchVO);
+            List<HashMap> house_list = realEstateService.house_list_pg(searchVO);
             model.addAttribute("house_list" , house_list);
             int totCnt = realEstateService.house_list_pg_cnt();
             model.addAttribute("totCnt",totCnt);
@@ -215,7 +216,7 @@ public class KimController {
             model.addAttribute("pagination",pagination);
         }
         else if(context != null && context == ""){
-            List<House_list> house_list = realEstateService.house_list_pg(searchVO);
+            List<HashMap> house_list = realEstateService.house_list_pg(searchVO);
             model.addAttribute("house_list" , house_list);
             int totCnt = realEstateService.house_list_pg_cnt();
             model.addAttribute("totCnt",totCnt);
@@ -233,7 +234,7 @@ public class KimController {
         else{
             System.out.println("제대로 검색실행");
             searchVO.setSearch_content(context);
-            List<House_list> house_list = realEstateService.house_search_pg(searchVO);
+            List<HashMap> house_list = realEstateService.house_search_pg(searchVO);
             model.addAttribute("house_list" , house_list);
             int totCnt = realEstateService.house_search_pg_cnt(searchVO);
             model.addAttribute("totCnt",totCnt);

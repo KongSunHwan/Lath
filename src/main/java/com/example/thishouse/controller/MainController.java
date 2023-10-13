@@ -21,7 +21,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,7 +36,7 @@ public class MainController {
     @GetMapping("/map")
     public String map(Model model) {
 //        List<MapVO> mapall = markerService.all_map();
-        List<MapVO> markers = markerService.getMarkers();
+        List<HashMap> markers = markerService.getMarkers();
         System.out.println("--------------------------------------");
         System.out.println(markers.getClass());
         System.out.println(markers.toString());
@@ -48,7 +50,7 @@ public class MainController {
     @GetMapping("/map_test")
     public String map_test(Model model, House_list houseList) {
         System.out.println("맵테스트!!");
-        List<MapVO> markers = markerService.getMarkers();
+        List<HashMap> markers = markerService.getMarkers();
         model.addAttribute("markers", markers);
         return "map/map_test";
     }
@@ -57,8 +59,8 @@ public class MainController {
     public String map_fillter(Model model, House_list house_list) {
         System.out.println("맵테스트!!");
 
-        List<MapVO> mapall = null;
-        List<MapVO> markers = null;
+        List<HashMap> mapall = null;
+        List<HashMap> markers = null;
 
         if(house_list.getHouse_type().equals("전체") && house_list.getDeal_type().equals("전체")){
             System.out.println("모두 전체");
@@ -104,7 +106,7 @@ public class MainController {
 //            session.setAttribute("user_id", member.getUser_id());
 //            return "main/main";
              session.setAttribute("user_id", member.getUser_id());
-            List<House_list> house_list = realEstateService.view_house_list();
+            List<HashMap> house_list = realEstateService.view_house_list();
             model.addAttribute("house_list",house_list);
             return "redirect:/list_main";
         }
@@ -113,7 +115,7 @@ public class MainController {
     @RequestMapping("/logout")
     public String logout(HttpSession session,Model model) {
         session.invalidate();
-        List<House_list> house_list = realEstateService.view_house_list();
+        List<HashMap> house_list = realEstateService.view_house_list();
         model.addAttribute("house_list",house_list);
         return "redirect:/list_main";
     }
@@ -207,7 +209,7 @@ public class MainController {
 
         searchVO.setUser_id(user_id);
 
-        List<House_list> house_list = realEstateService.user_house_list_pg(searchVO);
+        List<HashMap> house_list = realEstateService.user_house_list_pg(searchVO);
         model.addAttribute("house_list" , house_list);
         int totCnt = realEstateService.user_house_list_pg_cnt(user_id);
         model.addAttribute("totCnt",totCnt);

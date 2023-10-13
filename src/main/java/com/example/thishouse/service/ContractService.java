@@ -16,7 +16,6 @@ public class ContractService {
     private final ContractMapper contractMapper;
     @Transactional
     public void contract_request(Contract contract, int lessoer_num,int tenant_num) {
-
         contract.setTenant_idx(tenant_num);
         contract.setLessoer_idx(lessoer_num);
         System.out.println("#3333333333333333333333333333333333333");

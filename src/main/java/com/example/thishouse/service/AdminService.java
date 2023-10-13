@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -45,22 +46,12 @@ public class AdminService {
     public void member_delete(String userNum) {
         this.adminMapper.member_delete(userNum);
     }
-    @Transactional
-    public void board_modify_page(String communityNum) {
-        this.adminMapper.board_modify_admin(communityNum);
-    }
+
     @Transactional
     public void comment_update_admin(String replyNum) {
         this.adminMapper.comment_update_admin(replyNum);
     }
 
-    public Community view_board(Community_reply community_num) {
-        return adminMapper.view_board(community_num);
-    }
-    //view_reply
-    public List<Community_reply> view_reply(Community_reply community_num) {
-        return this.adminMapper.view_reply(community_num);
-    }
     @Transactional
     public void delete_board_reply(String communityNum) {
         this.adminMapper.delete_board_reply(communityNum);
@@ -85,7 +76,7 @@ public class AdminService {
         return this.adminMapper.reply_list_search(searchVO);
     }
 
-    public List<House_list> re_list(House_list searchVO) {
+    public List<HashMap> re_list(House_list searchVO) {
         return this.adminMapper.re_list(searchVO);
     }
 
@@ -112,7 +103,7 @@ public class AdminService {
         this.adminMapper.approval_no_house_list(houseNum);
     }
 
-    public List<House_list> no_re_list(House_list searchVO) {
+    public List<HashMap> no_re_list(House_list searchVO) {
         return this.adminMapper.no_re_list(searchVO);
     }
 
@@ -120,12 +111,4 @@ public class AdminService {
         return this.adminMapper.no_re_list_cnt();
     }
 
-    @Transactional
-    public void no_approval_ok_house_item(String houseNum) {
-        this.adminMapper.no_approval_ok_house_item(houseNum);
-    }
-    @Transactional
-    public void no_approval_ok_house_list(String houseNum) {
-        this.adminMapper.no_approval_ok_house_list(houseNum);
-    }
 }
