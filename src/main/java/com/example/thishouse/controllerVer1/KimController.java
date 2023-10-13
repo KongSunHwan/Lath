@@ -1,4 +1,4 @@
-package com.example.thishouse.controller;
+package com.example.thishouse.controllerVer1;
 
 import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.Report;
@@ -36,7 +36,7 @@ import java.util.UUID;
 public class KimController {
 
     private final MemberService memberService;
-    private final RealEstateService realEstateService;
+    private final HouseService houseService;
     private final ContractService contractService;
     private final ReportService reportService;
     private final String uploadPath = "C:/Timp/img/";
@@ -83,7 +83,7 @@ public class KimController {
                                      HttpServletRequest request) {
 
         System.out.println("Con");
-        int sq = realEstateService.sequence();
+        int sq = houseService.sequence();
 
         System.out.println("C = " + sq);
 
@@ -141,20 +141,20 @@ public class KimController {
             house_picture.setOriginal_name(originalFilename);
             house_picture.setSave_name(saveFilename);
 
-            realEstateService.insert_picture(house_picture);
+            houseService.insert_picture(house_picture);
 
             System.out.println("파일 경로를 활용한 처리: " + filePath);
         }
 
-        realEstateService.insert_house_item(house_item);
-        realEstateService.insert_house_type(house_type);
-        realEstateService.insert_house_location(house_location);
-        realEstateService.insert_house_deal(house_deal);
-        realEstateService.insert_house_info(house_info);
-        realEstateService.insert_house_addinfo(house_addinfo);
-        realEstateService.insert_house_option(house_option);
-        realEstateService.insert_house_detail(house_detail);
-        realEstateService.insert_house_list(house_list);
+        houseService.insert_house_item(house_item);
+        houseService.insert_house_type(house_type);
+        houseService.insert_house_location(house_location);
+        houseService.insert_house_deal(house_deal);
+        houseService.insert_house_info(house_info);
+        houseService.insert_house_addinfo(house_addinfo);
+        houseService.insert_house_option(house_option);
+        houseService.insert_house_detail(house_detail);
+        houseService.insert_house_list(house_list);
         contractService.lessoer_info(lessoer);
 
         return "redirect:/list_main";
@@ -200,9 +200,9 @@ public class KimController {
         System.out.println(context);
 
         if(context == null){
-            List<HashMap> house_list = realEstateService.house_list_pg(searchVO);
+            List<HashMap> house_list = houseService.house_list_pg(searchVO);
             model.addAttribute("house_list" , house_list);
-            int totCnt = realEstateService.house_list_pg_cnt();
+            int totCnt = houseService.house_list_pg_cnt();
             model.addAttribute("totCnt",totCnt);
             System.out.println("전체 매물 수 : " + totCnt);
 
@@ -216,9 +216,9 @@ public class KimController {
             model.addAttribute("pagination",pagination);
         }
         else if(context != null && context == ""){
-            List<HashMap> house_list = realEstateService.house_list_pg(searchVO);
+            List<HashMap> house_list = houseService.house_list_pg(searchVO);
             model.addAttribute("house_list" , house_list);
-            int totCnt = realEstateService.house_list_pg_cnt();
+            int totCnt = houseService.house_list_pg_cnt();
             model.addAttribute("totCnt",totCnt);
             System.out.println("전체 매물 수 : " + totCnt);
 
@@ -234,9 +234,9 @@ public class KimController {
         else{
             System.out.println("제대로 검색실행");
             searchVO.setSearch_content(context);
-            List<HashMap> house_list = realEstateService.house_search_pg(searchVO);
+            List<HashMap> house_list = houseService.house_search_pg(searchVO);
             model.addAttribute("house_list" , house_list);
-            int totCnt = realEstateService.house_search_pg_cnt(searchVO);
+            int totCnt = houseService.house_search_pg_cnt(searchVO);
             model.addAttribute("totCnt",totCnt);
             pagination.setTotalRecordCount(totCnt);
 
@@ -257,17 +257,17 @@ public class KimController {
     @RequestMapping("/real_estate_detail")
     public String real_estate_detail(Model model, String house_num, HttpSession session) {
         System.out.println(house_num);
-        List<House_list> house_list = realEstateService.view_house_list_one(house_num);
-        List<House_item> house_item = realEstateService.list_house_item(house_num);
-        List<House_addinfo> house_addinfo = realEstateService.add_info_list(house_num);
-        List<House_detail> house_detail = realEstateService.house_detail_list(house_num);
-        List<House_option> house_option = realEstateService.house_option_list(house_num);
-        List<House_info> house_info = realEstateService.house_info_list(house_num);
-        List<House_type> house_type = realEstateService.house_type_list(house_num);
-        String road_address = realEstateService.road_address(house_num);
-        List<House_picture> housePictures = realEstateService.house_picture_list(house_num);
+        List<House_list> house_list = houseService.view_house_list_one(house_num);
+        List<House_item> house_item = houseService.list_house_item(house_num);
+        List<House_addinfo> house_addinfo = houseService.add_info_list(house_num);
+        List<House_detail> house_detail = houseService.house_detail_list(house_num);
+        List<House_option> house_option = houseService.house_option_list(house_num);
+        List<House_info> house_info = houseService.house_info_list(house_num);
+        List<House_type> house_type = houseService.house_type_list(house_num);
+        String road_address = houseService.road_address(house_num);
+        List<House_picture> housePictures = houseService.house_picture_list(house_num);
 
-        realEstateService.house_hit_coount(house_num);
+        houseService.house_hit_coount(house_num);
 
         Report r = new Report();
         int house = Integer.parseInt(house_num);
@@ -291,10 +291,10 @@ public class KimController {
     @RequestMapping("/contract_begin")
     public String contract_begin(Model model, String house_num, HttpSession session) {
 
-        String house_deal_type = realEstateService.deal_type(house_num);
-        List<House_location> house_location = realEstateService.house_location(house_num);
-        String house_type = realEstateService.house_type(house_num);
-        List<House_info> house_info = realEstateService.house_info_list(house_num);
+        String house_deal_type = houseService.deal_type(house_num);
+        List<House_location> house_location = houseService.house_location(house_num);
+        String house_type = houseService.house_type(house_num);
+        List<House_info> house_info = houseService.house_info_list(house_num);
 
         model.addAttribute("house_deal_type",house_deal_type);
         model.addAttribute("house_location",house_location);

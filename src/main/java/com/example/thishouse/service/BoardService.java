@@ -2,7 +2,7 @@ package com.example.thishouse.service;
 
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
-import com.example.thishouse.Mapper_Ver1.BoardMapper1;
+import com.example.thishouse.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +16,7 @@ public class BoardService {
 
     //community(커뮤니티), community_reply(커뮤니티 댓글)
 
-    private final BoardMapper1 boardMapper;
+    private final BoardMapper boardMapper;
 
     //게시판 리스트 조회 select_board_list
     public List<Community> select_board_list() {

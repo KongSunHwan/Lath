@@ -1,7 +1,7 @@
-package com.example.thishouse.controller;
+package com.example.thishouse.controllerVer1;
 
 import com.example.thishouse.domain.house.House_picture;
-import com.example.thishouse.service.RealEstateService;
+import com.example.thishouse.service.HouseService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +23,10 @@ public class FileUploadController {
     // 이미지 업로드 경로
     private final String uploadPath = "src/main/resources/static/upload/";
 
-    private final RealEstateService realEstateService;
+    private final HouseService houseService;
 
-    public FileUploadController(RealEstateService realEstateService) {
-        this.realEstateService = realEstateService;
+    public FileUploadController(HouseService houseService) {
+        this.houseService = houseService;
     }
 
     // 파일 업로드 페이지 뷰
@@ -80,7 +80,7 @@ public class FileUploadController {
             house_picture.setOriginal_name(originalFilename);
             house_picture.setSave_name(saveFilename);
 
-            realEstateService.insert_picture(house_picture);
+            houseService.insert_picture(house_picture);
 
             System.out.println("파일 경로를 활용한 처리: " + filePath);
         }
@@ -111,7 +111,7 @@ public class FileUploadController {
     // 업로드된 이미지 목록 페이지 뷰
     @GetMapping("/images")
     public String viewImages(Model model) {
-        List<House_picture> housePictures = realEstateService.getHousePictures();
+        List<House_picture> housePictures = houseService.getHousePictures();
         model.addAttribute("housePictures", housePictures);
 //        model.addAttribute("uploadPath", uploadPath);
 //

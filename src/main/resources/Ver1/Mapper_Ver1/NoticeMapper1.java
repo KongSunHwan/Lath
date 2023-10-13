@@ -1,4 +1,4 @@
-package com.example.thishouse.Mapper_Ver1;
+package Ver1.Mapper_Ver1;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;

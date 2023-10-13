@@ -1,4 +1,4 @@
-package com.example.thishouse.controller;
+package com.example.thishouse.controllerVer1;
 
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Notice;
@@ -25,7 +25,7 @@ public class TestKongController {
     private final BoardService boardService;
     private final AdminService adminService;
     private final NoticeService noticeService;
-    private final RealEstateService realEstateService;
+    private final HouseService houseService;
     private final ReportService reportService;
 
 
@@ -729,15 +729,15 @@ public class TestKongController {
     @RequestMapping("house_info")
     public String house_info (String house_num,Model model) {
 
-        List<House_list> house_list = realEstateService.view_house_list_one(house_num);
-        List<House_item> house_item = realEstateService.list_house_item(house_num);
-        List<House_addinfo> house_addinfo = realEstateService.add_info_list(house_num);
-        List<House_detail> house_detail = realEstateService.house_detail_list(house_num);
-        List<House_option> house_option = realEstateService.house_option_list(house_num);
-        List<House_info> house_info = realEstateService.house_info_list(house_num);
-        List<House_type> house_type = realEstateService.house_type_list(house_num);
-        String road_address = realEstateService.road_address(house_num);
-        List<House_picture> housePictures = realEstateService.house_picture_list(house_num);
+        List<House_list> house_list = houseService.view_house_list_one(house_num);
+        List<House_item> house_item = houseService.list_house_item(house_num);
+        List<House_addinfo> house_addinfo = houseService.add_info_list(house_num);
+        List<House_detail> house_detail = houseService.house_detail_list(house_num);
+        List<House_option> house_option = houseService.house_option_list(house_num);
+        List<House_info> house_info = houseService.house_info_list(house_num);
+        List<House_type> house_type = houseService.house_type_list(house_num);
+        String road_address = houseService.road_address(house_num);
+        List<House_picture> housePictures = houseService.house_picture_list(house_num);
 
 
         model.addAttribute("house_list",house_list);

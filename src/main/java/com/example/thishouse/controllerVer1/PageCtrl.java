@@ -1,4 +1,4 @@
-package com.example.thishouse.controller;
+package com.example.thishouse.controllerVer1;
 
 public class PageCtrl {
     private int currentPageNo;			//현재 페이지 번호

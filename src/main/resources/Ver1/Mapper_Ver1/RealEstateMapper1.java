@@ -1,4 +1,4 @@
-package com.example.thishouse.Mapper_Ver1;
+package Ver1.Mapper_Ver1;
 
 import com.example.thishouse.domain.contract.Lessoer;
 import com.example.thishouse.domain.house.*;

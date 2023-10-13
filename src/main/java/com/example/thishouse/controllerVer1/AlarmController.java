@@ -1,4 +1,4 @@
-package com.example.thishouse.controller;
+package com.example.thishouse.controllerVer1;
 
 
 import com.example.thishouse.domain.Alarm;

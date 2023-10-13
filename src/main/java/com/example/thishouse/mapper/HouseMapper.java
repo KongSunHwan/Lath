@@ -1,8 +1,6 @@
 package com.example.thishouse.mapper;
 
 
-import com.example.thishouse.domain.Marker;
-import com.example.thishouse.domain.contract.Lessoer;
 import com.example.thishouse.domain.house.*;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Mapper
-public interface RealEstateMapper {
+public interface HouseMapper {
     public int sequence();
 
     public void insert_house_item(House_item houseItem);

@@ -1,4 +1,4 @@
-package com.example.thishouse.controller;
+package com.example.thishouse.controllerVer1;
 import com.example.thishouse.domain.Notice;
 import com.example.thishouse.service.NoticeService;
 import jakarta.servlet.http.HttpServletRequest;
