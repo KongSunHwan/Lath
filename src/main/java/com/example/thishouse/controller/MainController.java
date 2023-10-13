@@ -246,7 +246,7 @@ public class MainController {
         model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
         model.addAttribute("pagination",pagination);
 
-        return "user_mypage/user_report_list";
+        return "user_mypage/user_reportList";
     }
 
     @RequestMapping("/real_estate_contract")

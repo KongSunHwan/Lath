@@ -14,7 +14,63 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <link rel="stylesheet" href="/css/style.css" />
   <link rel="stylesheet" href="/css/footer.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/perfect-scrollbar@1.4.0/css/perfect-scrollbar.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@4.7.95/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+
   <meta name="theme-color" content="#7952b3">
+
+  <!-- jquery UI CSS파일 -->
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+  <!-- jquery 기본 js 파일 -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- 기존의 jQuery 로드 부분을 삭제하고 한 번만 로드합니다. -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+  <!-- jquery UI 라이브러리 js파일 -->
+  <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+          crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/css/morioh.css">
+
+  <script>
+
+    $(document).ready(function() {
+      var thisIndex = parseInt([[${searchVO.pageIndex}]]);
+
+      $(".pagination li a").each(function() {
+        var idx = $(this).parent().index();
+        var thistitle = $(this).attr("title");
+
+        if (thistitle === thisIndex.toString()) {
+          $(".pagination").find("li").eq(idx).addClass("active");
+        }
+      });
+    });
+
+
+
+
+    function fn_go_page(pageNo) {
+      $("#pageIndex").val(pageNo);
+      $("#listForm").submit();
+      return false;
+    }
+
+    function fn_search(){
+      $("#pageIndex").val("1");
+      $("#listForm").submit();
+      return false;
+    }
+
+  </script>
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -63,7 +119,6 @@
 </head>
 
 <body>
-  <main>
     <!-- header 시작 -->
     <header th:replace="~{header/header}"></header>
     <!-- header 끝 -->
@@ -71,12 +126,11 @@
       <title>회원 대시보드</title>
       <a th:href="'javascript:Mypage(\'' + ${session.user_id} + '\')'"><span class="fs-4 fw-bold">마이페이지</span></a>
       <hr>
+
       <div class="container-fluid mt-15">
 
         <div class="card mb-15">
-          <div class="card-body" style="
-    height: 526px;
-">
+          <div class="card-body" style="height: 700px;">
             <div class="row">
               <div class="col-12">
                 <div class="food-card">
@@ -85,8 +139,7 @@
                       <div class="row no-gutters">
                         <div class="col-12">
                           <div class="table-responsive">
-                            <br>
-                            <h5 style="text-align:center"><b>신고 내역</b></h5><br>
+                            <h5 style="text-align:center"><b>부동산 매물 신고 관리</b></h5>
                             <table class="table">
                               <thead>
                               <tr>
@@ -96,8 +149,7 @@
                                 <th class="text-center">거래 완료</th>
                                 <th class="text-center">허위 정보</th>
                                 <th class="text-center">시간</th>
-                                <th class="text-center">보기</th>
-
+                                <th class="text-center">관리</th>
                               </tr>
                               </thead>
                               <tbody>
@@ -133,60 +185,64 @@
                                 <!--                                                                    <span class="badge bg-danger">허위 매물</span>-->
                                 <!--                                                                </td>-->
 
-                                <td>
-                                  <button id= "btn-check" class="dropdown-item" type="button" name="itemSelect" th:attr="data-re_list-report_num=${re_list.report_num}" data-bs-toggle="modal" data-bs-target="#staticBackdrop"/>
-                                  <label class="btn btn-primary" for="btn-check" style="margin:auto; display: block; width:60px">보기</label>
+                                <td class="text-center">
+                                  <div class="btn-group">
+                                    <button type="button" class="btn" data-bs-toggle="dropdown"
+                                            data-bs-display="static" aria-expanded="false">
+                                      <i class="mdi mdi-dots-horizontal"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-lg-end">
+                                      <li><button class="dropdown-item" type="button">삭제</button></li>
+                                      <li>
+                                        <button class="dropdown-item" type="button" name="itemSelect" th:attr="data-re_list-report_num=${re_list.report_num}" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                          보기</button></li>
+                                    </ul>
+                                  </div>
                                 </td>
                               </tr>
                               </tbody>
                             </table>
 
+                            <form method="get" id="listForm" action="/user_report_list">
+                              <input type="hidden" id="pageIndex" name="pageIndex" val="" />
+                              <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;"> <!-- 가운데 정렬 스타일을 추가 -->
+                                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                  <ul class="pagination justify-content-center" style="align:center;">
+                                    <li th:if="${searchVO.prev}" class="paginate_button page-item previous" id="dataTable_previous">
+                                      <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.startDate - 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
+                                    </li>
+                                    <li th:each="num: ${#numbers.sequence(searchVO.startDate,searchVO.endDate)}" class="paginate_button page-item">
+                                      <a href="javascript:void(0);" th:text="${num}" th:onclick="'fn_go_page(' + ${num} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" th:title="${num}">d</a>
+                                    </li>
+                                    <li th:if="${searchVO.next}" class="paginate_button page-item next" id="dataTable_next">
+                                      <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.endDate + 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">다음</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </form>
                           </div>
-
                         </div>
-
                       </div>
-
                     </div>
-
                   </div>
-
                 </div>
-
-
               </div>
-
             </div>
+
+
           </div>
         </div>
+
       </div>
 
-      <form method="get" id="listForm" action="/user_report_list">
-        <input type="hidden" id="pageIndex" name="pageIndex" val="" />
-        <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;"> <!-- 가운데 정렬 스타일을 추가 -->
-          <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-            <ul class="pagination justify-content-center" style="align:center;">
-              <li th:if="${searchVO.prev}" class="paginate_button page-item previous" id="dataTable_previous">
-                <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.startDate - 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
-              </li>
-              <li th:each="num: ${#numbers.sequence(searchVO.startDate,searchVO.endDate)}" class="paginate_button page-item">
-                <a href="javascript:void(0);" th:text="${num}" th:onclick="'fn_go_page(' + ${num} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" th:title="${num}">d</a>
-              </li>
-              <li th:if="${searchVO.next}" class="paginate_button page-item next" id="dataTable_next">
-                <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.endDate + 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">다음</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </form>
     </div>
+
     </div>
 
 
-    </div>
-  </main>
 
-  <!-- footer 시작 -->
+    <!-- footer 시작 -->
   <footer th:replace="~{footer/footer}"></footer>
   <!-- footer 끝 -->
 
@@ -211,8 +267,9 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery-knob@1.2.11/dist/jquery.knob.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery-sparkline@2.4.0/jquery.sparkline.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/peity@3.3.0/jquery.peity.min.js"></script>
-
-  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-50750921-19"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
