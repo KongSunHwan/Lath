@@ -136,4 +136,8 @@
         select count(*) from house_list a, house_item b  where a.house_num = b.house_num and a.approval = 0 and b.approval = 0
     </select>
 
+    <select id = "get_community_num" resultType="String">
+        select community_num from community_reply  where reply_num = #{replyNum}
+    </select>
+
 </mapper>

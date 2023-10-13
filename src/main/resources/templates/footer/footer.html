@@ -42,7 +42,7 @@
           <div>
             <button class="btn btn-primary btn-sm">자주묻는 질문</button>
 <!--            <button class="btn btn-primary btn-sm" onclick="@{/inquire}">1:1 문의</button>-->
-            <a th:href="@{'/test2_inquire?user_id=' + ${session.user_id}}"><button class="btn btn-primary btn-sm">1:1문의</button></a>
+            <a th:href="@{'/user_inquire?user_id=' + ${session.user_id}}"><button class="btn btn-primary btn-sm">1:1문의</button></a>
             <a th:href="@{'/Members_Search'}" th:if="${session.user_id == 'asd'}"><button class="btn btn-primary btn-sm">관리자 페이지</button></a>
           </div>
         </div>

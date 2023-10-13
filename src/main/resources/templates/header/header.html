@@ -20,15 +20,15 @@
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
-      <a th:href="@{/list_main}" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+      <a th:href="@{/main}" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
         <img src="/img/logo.png" style="width: 100px; height: 100px; margin-top: -10px;">
       </a>
 
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a th:href="@{/map}" class="nav-link px-4 link-dark">지도</a></li>
-        <li><a th:href="@{/real_estate_add}" class="nav-link px-4 link-dark">매물 등록</a></li>
+        <li><a th:href="@{/Ver1/rgcy/mapVer1}" class="nav-link px-4 link-dark">지도</a></li>
+        <li><a th:href="@{/house_add}" class="nav-link px-4 link-dark">매물 등록</a></li>
         <li><a th:href="@{/property_guide}" class="nav-link px-4 link-dark">부동산 가이드</a></li>
-        <li><a th:href="@{/board_list}" class="nav-link px-4 link-dark">커뮤니티</a></li>
+        <li><a th:href="@{/community}" class="nav-link px-4 link-dark">커뮤니티</a></li>
         <li><a th:href="@{/notice_list}" class="nav-link px-4 link-dark">공지사항</a></li>
         <li><a th:href="@{/chat/room(userId =${session.user_id})}" class="nav-link px-4 link-dark">내 채팅방</a></li>
       </ul>

@@ -19,9 +19,7 @@ public class PageVO {
     private int startDate = 0;			    	//시작데이터
     private int endDate = 0;				    //종료데이터
     private int realEnd = 0;				    //페이징 마지막 숫자
-
-    private int pageUnit_house = 6;				    //메인용페이지갯수
-
+    private int pageUnit_house = 6;				//메인용페이지갯수
     private boolean prev, next;	    			//이전,다음버튼
 
 
@@ -29,7 +27,6 @@ public class PageVO {
     public int getPageIndex() {
         return pageIndex;
     }
-
     public void setPageIndex(int pageIndex) {
         this.pageIndex = pageIndex;
     }
@@ -38,16 +35,8 @@ public class PageVO {
         return pageUnit;
     }
 
-    public void setPageUnit(int pageUnit) {
-        this.pageUnit = pageUnit;
-    }
-
     public int getPageSize() {
         return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
     }
 
     public int getFirstIndex() {
@@ -56,10 +45,6 @@ public class PageVO {
 
     public void setFirstIndex(int firstIndex) {
         this.firstIndex = firstIndex;
-    }
-
-    public int getRecordCountPerPage() {
-        return recordCountPerPage;
     }
 
     public void setRecordCountPerPage(int recordCountPerPage) {
@@ -82,14 +67,6 @@ public class PageVO {
         this.next = next;
     }
 
-    public int getTotCnt() {
-        return totCnt;
-    }
-
-    public void setTotCnt(int totCnt) {
-        this.totCnt = totCnt;
-    }
-
     public int getStartDate() {
         return startDate;
     }
@@ -106,11 +83,4 @@ public class PageVO {
         this.endDate = endDate;
     }
 
-    public int getRealEnd() {
-        return realEnd;
-    }
-
-    public void setRealEnd(int realEnd) {
-        this.realEnd = realEnd;
-    }
 }

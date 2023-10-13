@@ -60,4 +60,5 @@ public interface AdminMapper {
 
     public int no_re_list_cnt();
 
+    String get_community_num(String replyNum);
 }

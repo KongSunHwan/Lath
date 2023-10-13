@@ -92,7 +92,6 @@ public class AdminService {
     @Transactional
     public void approval_ok_house_list(String houseNum) {
         this.adminMapper.approval_ok_house_list(houseNum);
-
     }
     @Transactional
     public void approval_no_house_item(String houseNum) {
@@ -107,8 +106,11 @@ public class AdminService {
         return this.adminMapper.no_re_list(searchVO);
     }
 
+    public String get_community_num(String replyNum) {
+        return this.adminMapper.get_community_num(replyNum);
+    }
+
     public int no_re_list_cnt() {
         return this.adminMapper.no_re_list_cnt();
     }
-
 }
