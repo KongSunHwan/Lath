@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -42,5 +44,9 @@ public class ContractService {
 
     public int get_tenant(int houseNum) {
         return contractMapper.get_tenant(houseNum);
+    }
+
+    public List<Contract> getConList(String id){
+        return contractMapper.getContractList(id);
     }
 }

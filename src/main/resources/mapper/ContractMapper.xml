@@ -31,4 +31,9 @@
         where house_num = #{houseNum}
     </select>
 
+    <select id="getContractList" resultType="com.example.thishouse.domain.contract.Contract">
+        select * from contract
+        where contract.lessoer_idx = any(select lessoer.lessoer_idx from lessoer where user_id = #{user_id})
+           or contract.tenant_idx = any(select tenant.tenant_idx from tenant where user_id = #{user_id});
+    </select>
 </mapper>

@@ -57,7 +57,10 @@ public class ContractController {
     }
 
     @RequestMapping("/contract_Information")
-    public String Contract_Information() {
+    public String Contract_Information(HttpSession session, Model model) {
+        String id = session.getAttribute("user_id").toString();
+        List<Contract> list = contractService.getConList(id);
+        model.addAttribute("contractList", list);
         return "contract/Contract_Information";
     }
 

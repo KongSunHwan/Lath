@@ -37,11 +37,12 @@
           </div>
         </div>
 
-        <div class="row">
+        <div th:each="contractList : ${contractList}" class="row">
           <div class="col-md-6 col-sm-6 col-xs-12">
             <div class="well-left">
               <div class="single-well">
-                <a href="#" th:href="@{/real_estate_contract}">
+                <!--                <a href="#" th:href="@{/real_estate_contract}">-->
+                <a href="#" th:href="@{/contract_management}">
                   <img src="/img/1.jpg" alt="">
                 </a>
               </div>
@@ -60,112 +61,29 @@
                 <hr>
                 <ul>
                   <li>
-                    <i class="bi bi-check"></i> <b>분류 :</b> 다세대/원룸
+                    <i class="bi bi-check"></i> <b>분류 :</b>  [(${contractList.house_type})]
                   </li>
                   <li>
-                    <i class="bi bi-check"></i> <b>면적 :</b> 전용 15.22 m<sup>2</sup> / 공급 20.13 m<sup>2</sup>
+                    <i class="bi bi-check"></i> <b>면적 :</b> 전용 [(${contractList.exclusive_area2})] m<sup>2</sup> / 공급 [(${contractList.supply_area2})] m<sup>2</sup>
                     <button class="btn btn-sm btn-primary"><i class="bi bi-arrow-repeat"></i>평</button>
                   </li>
                   <li>
-                    <i class="bi bi-check"></i> <b>주소 :</b> 서울 관악구 신림로1가 3 505호(신림동,신림빌라)
+                    <i class="bi bi-check"></i> <b>주소 :</b> [(${contractList.road_address})]
                   </li>
                   <li>
                     <i class="bi bi-check"></i> <b>관련서류 :</b> 등기부등본 <i class="bi bi-box-arrow-up-right"></i> 건축물대장 <i
-                      class="bi bi-box-arrow-up-right"></i>
+                          class="bi bi-box-arrow-up-right"></i>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
+          <div>&nbsp;</div>
         </div> <!-- End col-->
 
         &nbsp;
 
-        <div class="row">
-          <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="well-left">
-              <div class="single-well">
-                <a href="#">
-                  <img src="/img/1.jpg" alt="">
-                </a>
-              </div>
-            </div>
-          </div>
 
-          <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="well-middle">
-              <div class="single-well">
-                <a href="#">
-                  <h4 class="sec-head">계약 정보</h4>
-                </a>
-                <p>
-                  <b class="text-danger">서명 및 계약금 확인 중</b>
-                </p>
-                <hr>
-                <ul>
-                  <li>
-                    <i class="bi bi-check"></i> <b>분류 :</b> 다세대/원룸
-                  </li>
-                  <li>
-                    <i class="bi bi-check"></i> <b>면적 :</b> 전용 15.22 m<sup>2</sup> / 공급 20.13 m<sup>2</sup>
-                    <button class="btn btn-sm btn-primary"><i class="bi bi-arrow-repeat"></i>평</button>
-                  </li>
-                  <li>
-                    <i class="bi bi-check"></i> <b>주소 :</b> 서울 관악구 신림로1가 3 505호(신림동,신림빌라)
-                  </li>
-                  <li>
-                    <i class="bi bi-check"></i> <b>관련서류 :</b> 등기부등본 <i class="bi bi-box-arrow-up-right"></i> 건축물대장 <i
-                      class="bi bi-box-arrow-up-right"></i>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div> <!-- End col-->
-
-        &nbsp;
-
-        <div class="row">
-          <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="well-left">
-              <div class="single-well">
-                <a href="#">
-                  <img src="/img/2.jpg" alt="">
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="well-middle">
-              <div class="single-well">
-                <a href="#">
-                  <h4 class="sec-head">계약 정보</h4>
-                </a>
-                <p>
-                  <b class="text-danger">서명 및 계약금 확인 중</b>
-                </p>
-                <hr>
-                <ul>
-                  <li>
-                    <i class="bi bi-check"></i> <b>분류 :</b> 다세대/원룸
-                  </li>
-                  <li>
-                    <i class="bi bi-check"></i> <b>면적 :</b> 전용 15.22 m<sup>2</sup> / 공급 20.13 m<sup>2</sup>
-                    <button class="btn btn-sm btn-primary"><i class="bi bi-arrow-repeat"></i>평</button>
-                  </li>
-                  <li>
-                    <i class="bi bi-check"></i> <b>주소 :</b> 서울 관악구 신림로1가 3 505호(신림동,신림빌라)
-                  </li>
-                  <li>
-                    <i class="bi bi-check"></i> <b>관련서류 :</b> 등기부등본 <i class="bi bi-box-arrow-up-right"></i> 건축물대장 <i
-                      class="bi bi-box-arrow-up-right"></i>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div> <!-- End col-->
 
         &nbsp;
 
