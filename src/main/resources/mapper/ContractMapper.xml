@@ -6,7 +6,7 @@
 
     <insert id="contract_request" parameterType="com.example.thishouse.domain.contract.Contract">
         insert into contract (lessoer_idx,tenant_idx,house_num,contract_state,lease_term_begin,lease_term_end,contract_date,day_of_delivery,special_provisions,deposit,down_payment,balance,balance_deadline,deal_type,house_type,road_address,detail_address,exclusive_area2,supply_area2,middle_payment_deadline,middle_payment)
-        values(#{lessoer_idx},#{tenant_idx},#{house_num},"계약요청",#{lease_term_begin},#{lease_term_begin},now(),#{day_of_delivery},#{special_provisions},#{deposit},#{down_payment},#{balance},#{balance_deadline},#{deal_type},#{house_type},#{road_address},#{detail_address},#{exclusive_area2},#{supply_area2},#{middle_payment_deadline},#{middle_payment})
+        values(#{lessoer_idx},#{tenant_idx},#{house_num},"계약서 작성 완료",#{lease_term_begin},#{lease_term_begin},now(),#{day_of_delivery},#{special_provisions},#{deposit},#{down_payment},#{balance},#{balance_deadline},#{deal_type},#{house_type},#{road_address},#{detail_address},#{exclusive_area2},#{supply_area2},#{middle_payment_deadline},#{middle_payment})
     </insert>
 
     <insert id="tenant_info" parameterType="com.example.thishouse.domain.contract.Tenant">

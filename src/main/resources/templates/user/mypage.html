@@ -107,19 +107,16 @@
                 </h3>
                 <p class="text-center fw-light">매물 등록수</p>
               </div>
-              <div class="mar">
-                <h3>
-                  <p class="fw-bolder text-center">0</p>
-                </h3>
-                <p class="text-center fw-light">완료 계약수</p>
-              </div>
+
+              <div>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+
               <div>
                 <h3>
                   <a th:href="@{'/user_report_list'}">
                     <p class="fw-bolder text-center" th:text="${report_cnt}"></p>
                   </a>
                 </h3>
-                <p class="text-center fw-light">허위매물 신고</p>
+                <p class="text-center fw-light">신고내역</p>
               </div>
             </div>
           </div>
@@ -166,46 +163,57 @@
 
         <div>&nbsp;</div>
 
-<!--        <div class="col-md-5">-->
-<!--          <div class="h-100 p-3 bg-light border rounded-3">-->
-<!--            <div>-->
-<!--              <h4 class="mar-r">❗ 허위매물 신고내역</h4>-->
-<!--            </div>-->
-<!--            <div class="mar-b">-->
-<!--              <button class="btn btn-outline-success" type="button">전체 보기</button>-->
-<!--            </div>-->
-<!--            <div class="d-flex">-->
-<!--              <ul th:each = "replist : ${replist}">-->
-<!--                <li th:text="${replist.report_title}" class="mar-b-6">서울 강남 OO 오피스텔 ~~~~105동 209호-->
-<!--                  <span class="mar2 fw-light">7일 전</span></li>-->
-<!--              </ul>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
+        <div class="col-md-5">
+          <div class="h-100 p-3 bg-light border rounded-3">
+            <h4>🏢 회원과 관련된 계약</h4>
+            <div class="d-flex justify-content-center" style="margin-top: 65px;">
+              <div>
+                <h3>
+                  <a th:href="@{'/contract_Information_request'}">
+                    <p class="fw-bolder text-center">0</p></a>
+                </h3>
+                <p class="text-center fw-light">요청 내역</p>
+              </div>
+              <div class="mar">
+                <h3>
+                  <a th:href="@{'/contract_Information_accept'}">
+                  <p class="fw-bolder text-center">0</p>
+                  </a>
+                </h3>
+                <p class="text-center fw-light">수락 대기</p>
+              </div>
+                <div>
+                <h3>
+                  <a th:href="@{'/#'}">
+                    <p class="fw-bolder text-center">0</p>
+                  </a>
+                </h3>
+                <p class="text-center fw-light">완료</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="h-100 p-3 bg-light border rounded-3">
+            <div>
+              <h4 class="mar-r">💖 최근 관심매물 내역</h4>
+            </div>
+            <div class="mar-b">
+              <button class="btn btn-outline-success" type="button">전체 보기</button>
+            </div>
+            <div class="d-flex">
+              <ul>
+                <li class="mar-b-6">서울 강남 OO 오피스텔 ~~~~105동 209호 <span class="mar2 fw-light">7일 전</span></li>
+                <li class="mar-b-6">서울 강남 OO 오피스텔 ~~~~105동 209호 <span class="mar2 fw-light">7일 전</span></li>
+                <li class="mar-b-6">서울 강남 OO 오피스텔 ~~~~105동 209호 <span class="mar2 fw-light">7일 전</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-<!--        <div class="col-md-5">-->
-<!--          <div class="h-100 p-3 bg-light border rounded-3">-->
-<!--            <div>-->
-<!--              <h4 class="mar-r">💖 최근 관심매물 내역</h4>-->
-<!--            </div>-->
-<!--            <div class="mar-b">-->
-<!--              <button class="btn btn-outline-success" type="button">전체 보기</button>-->
-<!--            </div>-->
-<!--            <div class="d-flex">-->
-<!--              <ul>-->
-<!--                <li class="mar-b-6">서울 강남 OO 오피스텔 ~~~~105동 209호 <span class="mar2 fw-light">7일 전</span></li>-->
-<!--                <li class="mar-b-6">서울 강남 OO 오피스텔 ~~~~105동 209호 <span class="mar2 fw-light">7일 전</span></li>-->
-<!--                <li class="mar-b-6">서울 강남 OO 오피스텔 ~~~~105동 209호 <span class="mar2 fw-light">7일 전</span></li>-->
-<!--                <li class="mar-b-6">서울 강남 OO 오피스텔 ~~~~105동 209호 <span class="mar2 fw-light">7일 전</span></li>-->
-<!--                <li class="mar-b-6">서울 강남 OO 오피스텔 ~~~~105동 209호 <span class="mar2 fw-light">7일 전</span></li>-->
-<!--              </ul>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
+      </div>
 
-<!--      </div>-->
-
-<!--    </div>-->
+    </div>
   </main>
 
   <!-- footer 시작 -->
