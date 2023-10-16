@@ -95,9 +95,7 @@
 
             if(number1 == number2){
                 alert("인증되었습니다.");
-
-                // 인증이 완료되면 /contract_deposit 페이지로 이동
-                window.location.href = '/contract_deposit';
+                sendDataToServer("인증되었습니다.");
             }else{
                 alert("인증번호가 다릅니다.");
             }

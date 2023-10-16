@@ -56,12 +56,29 @@ public class ContractController {
         return "contract/real_estate_contract";
     }
 
+
+    @RequestMapping("/contract_Information_request")
+    public String Contract_Information_request(HttpSession session, Model model) {
+        String id = session.getAttribute("user_id").toString();
+        List<Contract> list = contractService.getConList(id);
+        model.addAttribute("contractList", list);
+        return "contract/contract_Information_request";
+    }
+
+    @RequestMapping("/contract_Information_accept")
+    public String Contract_Information_accept(HttpSession session, Model model) {
+        String id = session.getAttribute("user_id").toString();
+        List<Contract> list = contractService.getConList(id);
+        model.addAttribute("contractList", list);
+        return "contract/contract_Information_accept";
+    }
+
     @RequestMapping("/contract_Information")
     public String Contract_Information(HttpSession session, Model model) {
         String id = session.getAttribute("user_id").toString();
         List<Contract> list = contractService.getConList(id);
         model.addAttribute("contractList", list);
-        return "contract/Contract_Information";
+        return "Contract_Information_request";
     }
 
     @GetMapping("/property_guide")
