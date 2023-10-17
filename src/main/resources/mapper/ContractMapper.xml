@@ -73,4 +73,11 @@
         where contract_idx = #{contract_idx}
     </select>
 
+    <select id="tenant_house_num" resultType="String">
+        select house_num
+        from tenant
+        where user_id = #{user_id}
+    </select>
+
+
 </mapper>

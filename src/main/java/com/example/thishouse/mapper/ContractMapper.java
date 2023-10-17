@@ -1,6 +1,5 @@
 package com.example.thishouse.mapper;
 
-import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.contract.Contract;
 import com.example.thishouse.domain.contract.Lessoer;
 import com.example.thishouse.domain.contract.Tenant;
@@ -35,4 +34,8 @@ public interface ContractMapper {
     int get_contract_id(@Param("lessoer_idx") int lessoerNum,@Param("tenant_idx") int tenantNum,@Param("house_num") String houseNum);
 
     String get_house_num(String contractIdx);
+
+    List<String> tenant_house_num(String id);
+
+    List<HashMap> user_contract_request(List<String> house_num);
 }

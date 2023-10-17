@@ -4,6 +4,7 @@ import com.example.thishouse.domain.contract.Contract;
 import com.example.thishouse.domain.contract.Lessoer;
 import com.example.thishouse.domain.contract.Tenant;
 import com.example.thishouse.mapper.ContractMapper;
+import com.example.thishouse.mapper.HouseMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,8 @@ import java.util.List;
 public class ContractService {
 
     private final ContractMapper contractMapper;
+    private final HouseMapper houseMapper;
+
     @Transactional
     public void contract_request(Contract contract, int lessoer_num,int tenant_num) {
         contract.setTenant_idx(tenant_num);
@@ -68,5 +71,11 @@ public class ContractService {
 
     public String get_house_num(String contractIdx) {
         return contractMapper.get_house_num(contractIdx);
+    }
+
+    public List<HashMap> user_contract_request(String id) {
+        List<String> house_num = contractMapper.tenant_house_num(id);
+        System.out.println(house_num);
+        return houseMapper.user_contract_request(house_num);
     }
 }

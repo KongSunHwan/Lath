@@ -65,6 +65,9 @@ public class ContractController {
         String id = session.getAttribute("user_id").toString();
         List<Contract> list = contractService.getConList(id);
         model.addAttribute("contractList", list);
+//        List<HashMap> request_contract_list = contractService.user_contract_request(id);
+//        System.out.println(request_contract_list);
+
         return "contract/contract_Information_request";
     }
 

@@ -70,4 +70,6 @@ public interface HouseMapper {
     public List<HashMap> user_house_list_pg(House_list searchVO);
 
     HashMap get_house_info(String houseNum);
+
+    List<HashMap> user_contract_request(List<String> houseNum);
 }
