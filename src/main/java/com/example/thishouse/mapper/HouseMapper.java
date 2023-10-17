@@ -71,5 +71,4 @@ public interface HouseMapper {
 
     HashMap get_house_info(String houseNum);
 
-    List<HashMap> user_contract_request(List<String> houseNum);
 }

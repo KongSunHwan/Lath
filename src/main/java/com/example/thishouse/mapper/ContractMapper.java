@@ -35,7 +35,5 @@ public interface ContractMapper {
 
     String get_house_num(String contractIdx);
 
-    List<String> tenant_house_num(String id);
 
-    List<HashMap> user_contract_request(List<String> house_num);
 }

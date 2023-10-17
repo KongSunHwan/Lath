@@ -51,11 +51,6 @@ public class ContractService {
         return contractMapper.getContractList(id);
     }
 
-    public String get_lessoer_id(String userId) {
-        return contractMapper.get_lessoer_id(userId);
-
-    }
-
     public int get_contract_request(String user_id) {
         return contractMapper.get_contract_request(user_id);
     }
@@ -73,9 +68,4 @@ public class ContractService {
         return contractMapper.get_house_num(contractIdx);
     }
 
-    public List<HashMap> user_contract_request(String id) {
-        List<String> house_num = contractMapper.tenant_house_num(id);
-        System.out.println(house_num);
-        return houseMapper.user_contract_request(house_num);
-    }
 }
