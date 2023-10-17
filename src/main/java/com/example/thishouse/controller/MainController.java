@@ -135,6 +135,10 @@ public class MainController {
         return "house/house_add";
     }
 
+    @GetMapping("/property_guide")
+    public String property_guide() {
+        return "guide/property_guide";
+    }
 
 
 

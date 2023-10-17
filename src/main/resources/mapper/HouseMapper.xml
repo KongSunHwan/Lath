@@ -214,4 +214,12 @@
             LIMIT #{recordCountPerPage} OFFSET ${firstIndex}
     </select>
 
+    <select id="get_house_info" resultType="java.util.HashMap">
+        select *
+        from house_list a, (select *
+                                         from house_picture
+                                         where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) b
+        where a.house_num = b.house_num and a.house_num = #{house_num}
+    </select>
+
 </mapper>

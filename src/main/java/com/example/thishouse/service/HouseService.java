@@ -183,4 +183,9 @@ public class HouseService {
     public List<HashMap> user_house_list_pg(House_list searchVO) {
         return this.houseMapper.user_house_list_pg(searchVO);
     }
+
+    public HashMap get_house_info(String houseNum) {
+        return this.houseMapper.get_house_info(houseNum);
+
+    }
 }

@@ -68,4 +68,6 @@ public interface HouseMapper {
     public int user_house_list_pg_cnt(String user_id);
 
     public List<HashMap> user_house_list_pg(House_list searchVO);
+
+    HashMap get_house_info(String houseNum);
 }

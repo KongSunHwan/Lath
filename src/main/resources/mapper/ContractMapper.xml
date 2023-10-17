@@ -28,7 +28,7 @@
     <select id="get_tenant" resultType="integer">
         select tenant_idx
         from tenant
-        where house_num = #{houseNum}
+        where user_id = #{user_id} and house_num = #{house_num}
     </select>
 
     <select id="getContractList" resultType="com.example.thishouse.domain.contract.Contract">
@@ -51,13 +51,26 @@
 
     <select id="get_contract_request" resultType="int">
         select count(*)
-        from contract
-        where tenant_idx = #{tenant}
+        from tenant
+        where user_id = #{user_id}
     </select>
 
     <select id="get_contract_accept" resultType="int">
         select count(*)
         from contract
-        where lessoer_idx = #{lessoer}
+        where lessoer_idx in (select lessoer_idx from lessoer where user_id = #{user_id})
     </select>
+
+    <select id="get_contract_id" resultType="int">
+        select contract_idx
+        from contract
+        where lessoer_idx = #{lessoer_idx} and tenant_idx = #{tenant_idx} and house_num = #{house_num}
+    </select>
+
+    <select id="get_house_num" resultType="String">
+        select house_num
+        from contract
+        where contract_idx = #{contract_idx}
+    </select>
+
 </mapper>

@@ -5,7 +5,9 @@ import com.example.thishouse.domain.contract.Contract;
 import com.example.thishouse.domain.contract.Lessoer;
 import com.example.thishouse.domain.contract.Tenant;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -16,9 +18,9 @@ public interface ContractMapper {
 
     void lessoer_info(Lessoer lessoer);
 
-    int get_lessoer(int houseNum);
+    int get_lessoer(String houseNum);
 
-    int get_tenant(int houseNum);
+    int get_tenant(@Param("user_id") String user_id,@Param("house_num") String house_num);
 
     List<Contract> getContractList(String id);
 
@@ -29,4 +31,8 @@ public interface ContractMapper {
     int get_contract_request(String tenant);
 
     int get_contract_accept(String lessoer);
+
+    int get_contract_id(@Param("lessoer_idx") int lessoerNum,@Param("tenant_idx") int tenantNum,@Param("house_num") String houseNum);
+
+    String get_house_num(String contractIdx);
 }

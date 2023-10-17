@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -25,7 +26,7 @@ public class ContractController {
     private final HouseService houseService;
 
     @RequestMapping("/contract_begin")
-    public String contract_begin(Model model, String house_num, HttpSession session) {
+    public String contract_begin(Model model, String house_num) {
 
         String house_deal_type = houseService.deal_type(house_num);
         List<House_location> house_location = houseService.house_location(house_num);
@@ -37,19 +38,20 @@ public class ContractController {
         model.addAttribute("house_type",house_type);
         model.addAttribute("house_info",house_info);
 
-        return "contract/real_estate_contract_test";
+        return "contract/contract_write";
     }
 
     @PostMapping("/contract_request")
-    public String contract_request(@Valid Contract contract, @Valid Tenant tenant, Model model, HttpSession session) {
+    public String contract_request(String house_num, @Valid Contract contract, @Valid Tenant tenant, Model model, HttpSession session) {
         String user_id = (String) session.getAttribute("user_id"); //구매자
         tenant.setUser_id(user_id);
         contractService.tenant_info(tenant);
-        int lessoer_num = contractService.get_lessoer(contract.getHouse_num());
-        int tenant_num = contractService.get_tenant(contract.getHouse_num());
+        int lessoer_num = contractService.get_lessoer(house_num);
+        int tenant_num = contractService.get_tenant(user_id,house_num);
         contractService.contract_request(contract,lessoer_num,tenant_num);
+        int contract_num = contractService.get_contract_id(lessoer_num,tenant_num,house_num);
 
-        return "redirect:/contract_management";
+        return "redirect:/contract_management?contract_idx="+contract_num;
     }
 
     @RequestMapping("/real_estate_contract")
@@ -82,13 +84,14 @@ public class ContractController {
         return "Contract_Information_request";
     }
 
-    @GetMapping("/property_guide")
-    public String property_guide() {
-        return "guide/property_guide";
-    }
-
     @GetMapping("/contract_management")
-    public String contract_management() {
+    public String contract_management(String contract_idx,Model model) {
+        String house_num = contractService.get_house_num(contract_idx);
+        HashMap house_info = houseService.get_house_info(house_num);
+
+        model.addAttribute("contract_idx",contract_idx);
+        model.addAttribute("house_info",house_info);
+
         return "contract/contract_management";
     }
 
@@ -105,6 +108,6 @@ public class ContractController {
     //계약자 정보 기입창
     @RequestMapping("/real_estate_contract_test")
     public String real_estate_contract_test() {
-        return "contract/real_estate_contract_test";
+        return "contract_write";
     }
 }

@@ -88,27 +88,19 @@ public class MemberController {
         List<Inquire> inquireList = memberService.my_inquire_one(user_id);
         int house_cnt = memberService.house_cnt(user_id);
         int report_cnt = memberService.report_cnt(user_id);
-        String get_tenant_id = contractService.get_tenant_id(user_id);
-        String get_lessoer_id = contractService.get_lessoer_id(user_id);
 
         int contract_request_cnt;
         int contract_accept_cnt;
 
-        if (get_tenant_id==null){
+        if (contractService.get_contract_request(user_id)==0){
             contract_request_cnt = 0;
         }else{
-            contract_request_cnt = contractService.get_contract_request(get_tenant_id);
+            contract_request_cnt = contractService.get_contract_request(user_id);
         }
-
-        if (get_lessoer_id==null){
-            contract_accept_cnt = 0;
-        }else{
-            contract_accept_cnt = contractService.get_contract_accept(get_tenant_id);
-        }
-
+        
+        contract_accept_cnt = contractService.get_contract_accept(user_id);
         model.addAttribute("contract_request_cnt", contract_request_cnt);
         model.addAttribute("contract_accept_cnt", contract_accept_cnt);
-
         model.addAttribute("house_cnt", house_cnt);
         model.addAttribute("report_cnt", report_cnt);
         model.addAttribute("comlist", comlist);

@@ -108,7 +108,6 @@ public class HouseController {
 
     @RequestMapping("/real_estate_detail")
     public String real_estate_detail(Model model, String house_num, HttpSession session) {
-        System.out.println(house_num);
         List<House_list> house_list = houseService.view_house_list_one(house_num);
         List<House_item> house_item = houseService.list_house_item(house_num);
         List<House_addinfo> house_addinfo = houseService.add_info_list(house_num);

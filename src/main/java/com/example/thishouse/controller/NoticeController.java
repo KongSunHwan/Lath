@@ -72,7 +72,6 @@ public class NoticeController {
     }
     @RequestMapping("notice_detail")
     public String NoticeDetail(Model model, String notice_num) {
-        System.out.println(notice_num);
         noticeService.update_notice_hitCount(notice_num);
         model.addAttribute("Notice", noticeService.view_notice(notice_num));
         return "notice/notice_detail";
@@ -80,7 +79,6 @@ public class NoticeController {
     @PostMapping("notice_add")
     public String BoardAdd(Notice notice) {
         noticeService.insert_notice(notice);
-        System.out.println(notice);
         return "redirect:/notice_list";
     }
     @GetMapping("notice_edit")
