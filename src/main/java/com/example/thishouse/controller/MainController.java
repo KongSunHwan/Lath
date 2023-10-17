@@ -86,6 +86,7 @@ public class MainController {
         searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
         String context = request.getParameter("searchValue");
         String user_id = (String) session.getAttribute("user_id");
+        
 
 
         if(context == null){

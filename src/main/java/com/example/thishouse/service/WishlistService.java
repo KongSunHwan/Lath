@@ -43,4 +43,5 @@ public class WishlistService {
         List<Wishlist> wishlistForUser = wishlistMapper.getWishlistForUser(user_id, houseNum);
         return wishlistForUser != null;
     }
+
 }

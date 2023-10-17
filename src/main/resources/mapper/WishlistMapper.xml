@@ -33,4 +33,5 @@
         SELECT * FROM wishlist_items WHERE user_id = #{user_id} AND house_num = #{house_num}
     </select>
 
+
 </mapper>

@@ -58,4 +58,5 @@ public class WishlistController {
         return wishlistService.isHouseLikedByUser(houseNum, user_id);
     }
 
+
 }

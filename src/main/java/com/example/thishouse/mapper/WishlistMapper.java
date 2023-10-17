@@ -19,4 +19,5 @@ public interface WishlistMapper {
     Boolean isHouseLikedByUser(Wishlist wishlist);
 
     List<Wishlist> getWishlistForUser(String user_id, int house_num);
+
 }
