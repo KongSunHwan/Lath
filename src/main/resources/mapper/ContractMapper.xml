@@ -31,10 +31,11 @@
         where user_id = #{user_id} and house_num = #{house_num}
     </select>
 
-    <select id="getContractList" resultType="com.example.thishouse.domain.contract.Contract">
-        select * from contract
-        where contract.lessoer_idx = any(select lessoer.lessoer_idx from lessoer where user_id = #{user_id})
-           or contract.tenant_idx = any(select tenant.tenant_idx from tenant where user_id = #{user_id});
+    <select id="getConReqList" resultType="java.util.HashMap">
+        select * from contract a,  (select *
+                                    from house_picture
+                                    where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) b
+        where a.house_num = b.house_num and a.tenant_idx = any(select c.tenant_idx from tenant c where user_id = #{id})
     </select>
 
     <select id="get_tenant_id" resultType="String">
@@ -73,6 +74,11 @@
         where contract_idx = #{contract_idx}
     </select>
 
-
+    <select id="getConResList" resultType="java.util.HashMap">
+        select * from contract a,  (select *
+                                    from house_picture
+                                    where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) b
+        where a.house_num = b.house_num and a.lessoer_idx = any(select c.lessoer_idx from lessoer c where user_id = #{id})
+    </select>
 
 </mapper>

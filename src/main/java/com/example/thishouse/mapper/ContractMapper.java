@@ -21,7 +21,7 @@ public interface ContractMapper {
 
     int get_tenant(@Param("user_id") String user_id,@Param("house_num") String house_num);
 
-    List<Contract> getContractList(String id);
+    List<HashMap> getConReqList(String id);
 
     String get_tenant_id(String userId);
 
@@ -35,5 +35,5 @@ public interface ContractMapper {
 
     String get_house_num(String contractIdx);
 
-
+    List<HashMap> getConResList(String id);
 }

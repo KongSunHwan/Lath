@@ -47,8 +47,8 @@ public class ContractService {
         return contractMapper.get_tenant(user_id,house_num);
     }
 
-    public List<Contract> getConList(String id){
-        return contractMapper.getContractList(id);
+    public List<HashMap> getConReqList(String id){
+        return contractMapper.getConReqList(id);
     }
 
     public int get_contract_request(String user_id) {
@@ -68,4 +68,7 @@ public class ContractService {
         return contractMapper.get_house_num(contractIdx);
     }
 
+    public List<HashMap> getConResList(String id) {
+        return contractMapper.getConResList(id);
+    }
 }
