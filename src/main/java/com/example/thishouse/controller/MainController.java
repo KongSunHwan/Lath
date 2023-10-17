@@ -1,17 +1,19 @@
 package com.example.thishouse.controller;
 
-import com.example.thishouse.util.PageCtrl;
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.house.House_list;
 import com.example.thishouse.service.HouseService;
 import com.example.thishouse.service.MarkerService;
-import com.example.thishouse.service.MemberService;
+import com.example.thishouse.service.WishlistService;
+import com.example.thishouse.util.PageCtrl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +24,7 @@ public class MainController {
 
     private final MarkerService markerService;
     private final HouseService houseService;
+    private final WishlistService wishlistService;
 
     //지도 Map
     @GetMapping("/map")
@@ -73,7 +76,7 @@ public class MainController {
     
     //부동산 관련
     @RequestMapping("/main")
-    public String main(@ModelAttribute("searchVO") House_list searchVO, HttpServletRequest request, Model model) {
+    public String main(@ModelAttribute("searchVO") House_list searchVO, HttpServletRequest request, Model model, HttpSession session) {
 
         PageCtrl pagination  = new PageCtrl();
         pagination.setCurrentPageNo(searchVO.getPageIndex());
@@ -82,6 +85,8 @@ public class MainController {
         searchVO.setFirstIndex(pagination.getFirstRecordIndex());
         searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
         String context = request.getParameter("searchValue");
+        String user_id = (String) session.getAttribute("user_id");
+
 
         if(context == null){
             List<HashMap> house_list = houseService.house_list_pg(searchVO);
@@ -93,6 +98,7 @@ public class MainController {
             searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
             searchVO.setPrev(pagination.getXprev());
             searchVO.setNext(pagination.getXnext());
+            model.addAttribute("user_id", user_id);
             model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
             model.addAttribute("pagination",pagination);
         }
@@ -106,6 +112,7 @@ public class MainController {
             searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
             searchVO.setPrev(pagination.getXprev());
             searchVO.setNext(pagination.getXnext());
+            model.addAttribute("user_id", user_id);
             model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
             model.addAttribute("pagination",pagination);
         }
@@ -120,6 +127,7 @@ public class MainController {
             searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
             searchVO.setPrev(pagination.getXprev());
             searchVO.setNext(pagination.getXnext());
+            model.addAttribute("user_id", user_id);
             model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
             model.addAttribute("pagination",pagination);
         }

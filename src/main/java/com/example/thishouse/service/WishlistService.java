@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -15,7 +16,7 @@ public class WishlistService {
 
     private final WishlistMapper wishlistMapper;
 
-    public List<Wishlist> getFavoritesByUserId(String user_id) {
+    public List<HashMap> getFavoritesByUserId(String user_id) {
         return wishlistMapper.getFavoritesByUserId(user_id);
     }
 
@@ -23,7 +24,23 @@ public class WishlistService {
         wishlistMapper.addFavoriteItem(wishlist);
     }
 
-    public void removeFavoriteItem(String user_id, int houseNum) {
-        wishlistMapper.removeFavoriteItem(user_id, houseNum);
+    public void removeFavoriteItem(Wishlist wishlist) {
+        wishlistMapper.removeFavoriteItem(wishlist);
+    }
+
+    public boolean isHouseLikedByUser(int houseNum, String userId) {
+        Wishlist wishlist = new Wishlist();
+        wishlist.setHouse_num(houseNum);
+        wishlist.setUser_id(userId);
+        return wishlistMapper.isHouseLikedByUser(wishlist) != null;
+    }
+
+    public List<Wishlist> getWishlistForUser(String user_id, int house_num) {
+        return wishlistMapper.getWishlistForUser(user_id, house_num);
+    }
+
+    public boolean isInWishlist(String user_id, int houseNum) {
+        List<Wishlist> wishlistForUser = wishlistMapper.getWishlistForUser(user_id, houseNum);
+        return wishlistForUser != null;
     }
 }

@@ -164,10 +164,11 @@
                                     <input type="button" class="btn-check" th:id="${house_list.house_num}" autocomplete="off">
                                     <label class="btn btn-primary" th:for="${house_list.house_num}">보기</label>
                                 </a>
-                                &nbsp;&nbsp;
-                                <a href="http://localhost:8082/wish_list?user_id='+$('#user_id').val()+&house_num=${'#house_list.house_num'}">
-                                <input type="checkbox" class="btn-check" th:id="${house_list.house_num}"  autocomplete="off">
-                                <label class="btn btn-outline-secondary" th:for="${house_list.house_num}">찜하기</label><br>
+                                &nbsp;
+                                <a href="javascript:void(0);">
+                                    <input type="checkbox" class="btn-check" autocomplete="off" th:id="'likeCheckbox_' + ${house_list.house_num}" th:data-house-num="${house_list.house_num}">
+                                    <label class="btn btn-outline-secondary" th:for="'likeCheckbox_' + ${house_list.house_num}"
+                                           th:attr="onclick='toggleFavorite(\'' + ${session.user_id} + '\', \'' + ${house_list.house_num} + '\')'">찜하기</label>
                                 </a>
                             </div>
                             <small class="text-muted">조회수 [(${house_list.hits})]</small>
@@ -213,29 +214,86 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script>
-		$('#like_btn').click(function() {
-                console.log("funtion test");
-	        	$.ajax({
-					type : 'GET',
-					url : 'http://localhost:8082/wish_list_ck?user_id='+$('#user_id').val()+&house_num=${'#house_num'},
-					success : function(result) {
-						if (result == '0') {
-						    	$.ajax({
-				            	type : 'GET',
-				            	url : 'http://localhost:8082/wish_list_add?user_id='+$('#user_id').val()+&house_num=${'#house_num'},
-						}
-					},
-					error : function(a, b, c) {
-						console.log(a, b, c);
-					}
-				});
-		});
-	</script>
+
         <!-- footer 시작 -->
         <footer th:replace="~{footer/footer}"></footer>
         <!-- footer 끝 -->
+
+<script th:inline="javascript">
+    // "찜하기" 상태를 토글하고 세션에 저장
+    function toggleFavorite(user_id, house_num) {
+        var checkbox = document.getElementById("likeCheckbox_" + house_num);
+        var isRemove = checkbox.checked; // 찜 제거 여부
+
+        var apiUrl = isRemove ? "/wishlist/remove" : "/wishlist/add"; // 찜하기 또는 찜 제거 URL
+        var httpMethod = isRemove ? "DELETE" : "POST"; // HTTP 메서드
+
+        // 디버깅을 위한 로그 출력
+        console.log("house_num: " + house_num);
+        console.log("user_id: " + user_id);
+        console.log("apiUrl: " + apiUrl);
+        console.log("httpMethod: " + httpMethod);
+
+        var dataToSend = {
+            user_id: user_id,
+            house_num: house_num,
+        };
+
+        $.ajax({
+            type: httpMethod,
+            url: apiUrl,
+            data: JSON.stringify(dataToSend),
+            contentType: "application/json",
+            success: function (response) {
+                if (isRemove) {
+                    console.log(response);
+                } else {
+                    console.log(response);
+                }
+
+                // "찜하기" 상태를 세션에 저장
+                updateSessionFavoriteState(user_id, house_num, !isRemove);
+            },
+            error: function (error) {
+                console.error("요청 실패: " + JSON.stringify(error));
+            }
+        });
+    }
+
+    // "찜하기" 상태를 세션에 저장하는 함수
+    function updateSessionFavoriteState(user_id, house_num, isFavorite) {
+        var sessionFavorites = JSON.parse(sessionStorage.getItem('user_favorites')) || {};
+
+        if (!sessionFavorites[user_id]) {
+            sessionFavorites[user_id] = {};
+        }
+
+        sessionFavorites[user_id][house_num] = isFavorite;
+
+        // 세션에 저장
+        sessionStorage.setItem('user_favorites', JSON.stringify(sessionFavorites));
+    }
+
+    // 페이지 로드 시 "찜하기" 상태를 세션에서 복원
+    window.onload = function () {
+        var user_id = /*[[${user_id}]]*/; // 사용자 아이디를 Thymeleaf 변수로부터 가져옴
+        var sessionFavorites = JSON.parse(sessionStorage.getItem('user_favorites')) || {};
+
+        if (sessionFavorites[user_id]) {
+            for (var house_num in sessionFavorites[user_id]) {
+                if (sessionFavorites[user_id].hasOwnProperty(house_num)) {
+                    // 해당 매물의 "찜하기" 상태를 복원
+                    var checkbox = document.getElementById("likeCheckbox_" + house_num);
+                    if (checkbox) {
+                        checkbox.checked = sessionFavorites[user_id][house_num];
+                    }
+                }
+            }
+        }
+    }
+</script>
 
 </body>
 

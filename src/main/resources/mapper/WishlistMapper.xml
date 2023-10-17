@@ -3,16 +3,34 @@
 
 <mapper namespace="com.example.thishouse.mapper.WishlistMapper">
 
+
     <select id="getFavoritesByUserId" resultType="java.util.HashMap">
-        SELECT * FROM wishlist, house_list WHERE wishlist.house_num = house_list.house_num AND user_id = #{user_id}
+        select *
+        from house_list a, wishlist c,(select *
+        from house_picture
+        where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) b
+        where a.house_num = b.house_num and a.house_num = c.house_num and c.user_id= #{user_id}
     </select>
 
     <insert id="addFavoriteItem" parameterType="com.example.thishouse.domain.Wishlist">
-        INSERT INTO wishlist (user_id, house_num) VALUES (#{user_id}, #{house_num})
+        INSERT INTO wishlist (user_id, house_num)
+        VALUES (#{user_id}, #{house_num})
     </insert>
 
     <delete id="removeFavoriteItem" parameterType="com.example.thishouse.domain.Wishlist">
-        DELETE FROM wishlist WHERE user_id = #{user_id} AND house_num = #{house_num}
+        DELETE FROM wishlist
+        WHERE user_id = #{user_id} AND house_num = #{house_num}
     </delete>
+
+    <select id="isHouseLikedByUser" resultType="java.lang.Boolean">
+        SELECT COUNT(*) > 0
+        FROM wishlist
+        WHERE user_id = #{user_id}
+          AND house_num = #{house_num}
+    </select>
+
+    <select id="getWishlistForUser" resultType="com.example.thishouse.domain.Wishlist">
+        SELECT * FROM wishlist_items WHERE user_id = #{user_id} AND house_num = #{house_num}
+    </select>
 
 </mapper>
