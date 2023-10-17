@@ -4,6 +4,8 @@ import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
+import com.example.thishouse.domain.contract.Contract;
+import com.example.thishouse.service.ContractService;
 import com.example.thishouse.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -24,6 +26,7 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+    private final ContractService contractService;
 
     //회원가입,로그인 로직
     @PostMapping("/signup")
@@ -80,13 +83,31 @@ public class MemberController {
 
     @RequestMapping("/mypage")
     public String mypage(String user_id, Model model) {
-        System.out.println("받아온 user_id 값 : " + user_id);
         List<Community> comlist = memberService.my_community(user_id);
         List<Report> replist = memberService.findInputMemberReport(user_id);
         List<Inquire> inquireList = memberService.my_inquire_one(user_id);
         int house_cnt = memberService.house_cnt(user_id);
         int report_cnt = memberService.report_cnt(user_id);
-//      int contract_cnt = memberService.contract_cnt(user_id);
+        String get_tenant_id = contractService.get_tenant_id(user_id);
+        String get_lessoer_id = contractService.get_lessoer_id(user_id);
+
+        int contract_request_cnt;
+        int contract_accept_cnt;
+
+        if (get_tenant_id==null){
+            contract_request_cnt = 0;
+        }else{
+            contract_request_cnt = contractService.get_contract_request(get_tenant_id);
+        }
+
+        if (get_lessoer_id==null){
+            contract_accept_cnt = 0;
+        }else{
+            contract_accept_cnt = contractService.get_contract_accept(get_tenant_id);
+        }
+
+        model.addAttribute("contract_request_cnt", contract_request_cnt);
+        model.addAttribute("contract_accept_cnt", contract_accept_cnt);
 
         model.addAttribute("house_cnt", house_cnt);
         model.addAttribute("report_cnt", report_cnt);

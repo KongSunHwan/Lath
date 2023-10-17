@@ -49,4 +49,8 @@ public interface MemberMapper {
     public int contract_cnt(String userId);
 
     public int report_cnt(String userId);
+
+    int get_tenant_id(String userId);
+
+    int get_lessoer_id(String userId);
 }

@@ -21,4 +21,12 @@ public interface ContractMapper {
     int get_tenant(int houseNum);
 
     List<Contract> getContractList(String id);
+
+    String get_tenant_id(String userId);
+
+    String get_lessoer_id(String userId);
+
+    int get_contract_request(String tenant);
+
+    int get_contract_accept(String lessoer);
 }

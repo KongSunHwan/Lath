@@ -169,15 +169,15 @@
             <div class="d-flex justify-content-center" style="margin-top: 65px;">
               <div>
                 <h3>
-                  <a th:href="@{'/contract_Information_request'}">
-                    <p class="fw-bolder text-center">0</p></a>
+                  <a th:href="@{'/contract_Information_request?user_id='+ ${session.user_id}}">
+                    <p class="fw-bolder text-center" th:text="${contract_request_cnt}"></p></a>
                 </h3>
                 <p class="text-center fw-light">요청 내역</p>
               </div>
               <div class="mar">
                 <h3>
                   <a th:href="@{'/contract_Information_accept'}">
-                  <p class="fw-bolder text-center">0</p>
+                  <p class="fw-bolder text-center" >0</p>
                   </a>
                 </h3>
                 <p class="text-center fw-light">수락 대기</p>

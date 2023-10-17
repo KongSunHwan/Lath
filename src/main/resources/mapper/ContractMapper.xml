@@ -36,4 +36,28 @@
         where contract.lessoer_idx = any(select lessoer.lessoer_idx from lessoer where user_id = #{user_id})
            or contract.tenant_idx = any(select tenant.tenant_idx from tenant where user_id = #{user_id});
     </select>
+
+    <select id="get_tenant_id" resultType="String">
+        select tenant_idx
+        from tenant
+        where user_id = #{userId}
+    </select>
+
+    <select id="get_lessoer_id" resultType="String">
+        select lessoer_idx
+        from lessoer
+        where user_id = #{userId}
+    </select>
+
+    <select id="get_contract_request" resultType="int">
+        select count(*)
+        from contract
+        where tenant_idx = #{tenant}
+    </select>
+
+    <select id="get_contract_accept" resultType="int">
+        select count(*)
+        from contract
+        where lessoer_idx = #{lessoer}
+    </select>
 </mapper>

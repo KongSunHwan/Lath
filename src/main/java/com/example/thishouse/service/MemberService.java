@@ -102,6 +102,8 @@ public class MemberService {
         return memberMapper.report_cnt(userId);
     }
 
+
+
 //    public int memberList_cnt() {
 //        return memberMapper.memberList_cnt();
 //    }

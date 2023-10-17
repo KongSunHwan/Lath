@@ -110,16 +110,23 @@
         where user_id = #{user_id}
     </select>
 
-    <select id = "contract_cnt" resultType="integer">
-        select count(*)
-        from contact
-        where lessor_idx = #{user_id} or tenant_dix = #{user_id}
-    </select>
 
     <select id = "report_cnt" resultType="integer">
         select count(*)
         from report
         where user_id = #{user_id}
+    </select>
+
+    <select id = "get_tenant_id" resultType="integer">
+        select tenant_idx
+        from tenant
+        where user_id = #{userId}
+    </select>
+
+    <select id = "get_lessoer_id" resultType="integer">
+        select lessoer_idx
+        from lessoer
+        where user_id = #{userId}
     </select>
 
     <!--    <select id = "memberList_cnt" resultType="integer">-->

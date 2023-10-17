@@ -46,4 +46,21 @@ public class ContractService {
     public List<Contract> getConList(String id){
         return contractMapper.getContractList(id);
     }
+
+    public String get_tenant_id(String userId) {
+        return contractMapper.get_tenant_id(userId);
+    }
+
+    public String get_lessoer_id(String userId) {
+        return contractMapper.get_lessoer_id(userId);
+
+    }
+
+    public int get_contract_request(String getTenantId) {
+        return contractMapper.get_contract_request(getTenantId);
+    }
+
+    public int get_contract_accept(String getLessoerId) {
+        return contractMapper.get_contract_accept(getLessoerId);
+    }
 }
