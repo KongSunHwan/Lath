@@ -65,23 +65,25 @@ public class ContractController {
         String id = session.getAttribute("user_id").toString();
         List<HashMap> list = contractService.getConReqList(id);
         model.addAttribute("contractList", list);
+        System.out.println(list);
         return "contract/contract_Information_request";
     }
 
-    @RequestMapping("/contract_Information_accept")
+    @RequestMapping("/contract_Information_response")
     public String Contract_Information_accept(HttpSession session, Model model) {
         String id = session.getAttribute("user_id").toString();
         List<HashMap> list = contractService.getConResList(id);
         model.addAttribute("contractList", list);
-        return "contract/contract_Information_accept";
+
+        return "contract/contract_Information_response";
     }
 
     @RequestMapping("/contract_Information")
     public String Contract_Information(HttpSession session, Model model) {
-        String id = session.getAttribute("user_id").toString();
+//        String id = session.getAttribute("user_id").toString();
 //        List<Contract> list = contractService.getConList(id);
 //        model.addAttribute("contractList", list);
-        return "Contract_Information_request";
+        return "contract/Contract_Information_request";
     }
 
     @GetMapping("/contract_management")

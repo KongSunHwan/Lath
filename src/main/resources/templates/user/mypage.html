@@ -176,7 +176,7 @@
               </div>
               <div class="mar">
                 <h3>
-                  <a th:href="@{'/contract_Information_accept'}">
+                  <a th:href="@{'/contract_Information_response?user_id='+ ${session.user_id}}">
                   <p class="fw-bolder text-center" th:text="${contract_accept_cnt}">0</p>
                   </a>
                 </h3>
