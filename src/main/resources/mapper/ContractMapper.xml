@@ -83,9 +83,4 @@
           and a.tenant_idx = d.tenant_idx
     </select>
 
-    <select id="get_tenantIdx_from_lessoer" resultType="String">
-        select tenant_idx
-        from contract a, lessoer b, tenant c
-        where a.lessoer_idx = b.lessoer_idx and a.tenant_idx = c.tenant_idx
-    </select>
 </mapper>

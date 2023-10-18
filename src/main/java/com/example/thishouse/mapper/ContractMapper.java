@@ -36,4 +36,5 @@ public interface ContractMapper {
     String get_house_num(String contractIdx);
 
     List<HashMap> getConResList(String id);
+
 }
