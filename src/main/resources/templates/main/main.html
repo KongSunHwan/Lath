@@ -165,7 +165,7 @@
                                     <label class="btn btn-primary" th:for="${house_list.house_num}">보기</label>
                                 </a>
                                 &nbsp;
-                                <a href="javascript:void(0);">
+                                <a href="javascript:void(0);" th:if="${session.user_id != null}">
                                     <input type="checkbox" class="btn-check" autocomplete="off" th:id="'likeCheckbox_' + ${house_list.house_num}" th:data-house-num="${house_list.house_num}">
                                     <label class="btn btn-outline-secondary" th:for="'likeCheckbox_' + ${house_list.house_num}"
                                            th:attr="onclick='toggleFavorite(\'' + ${session.user_id} + '\', \'' + ${house_list.house_num} + '\')'">찜하기</label>

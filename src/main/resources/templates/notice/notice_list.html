@@ -169,7 +169,7 @@ return false;
                             <input type="search" name="searchValue">
                         </span>
                         <button type="submit">검색하기</button>
-                        <a th:href="@{/notice_add}"><button type="button">작성하기</button></a>
+                        <a th:href="@{/notice_add}" th:if="${session.user_id == 'asd'}"><button type="button">작성하기</button></a>
                         </form>
                 </div>
 
