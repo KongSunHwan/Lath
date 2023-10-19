@@ -535,7 +535,7 @@
           <!-- 총평리뷰 끝 -->
           <br><br>
           <div class="d-grid gap-2 col-6 mx-auto">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">허위매물 신고하기</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" th:if="${session.user_id != null}">허위매물 신고하기</button>
           </div>
           <br><br>
         </ul>
@@ -550,12 +550,12 @@
             <b th:if="${house_list.deal_type == '전세'}">전세 [(${house_list.y_price})] 만원 </b>
             <br>[(${house_list.road_address})]
           </div>
-          <a th:href="@{/chat/{houseNum}/chat_info(houseNum=${house_list.house_num})}"><button type="button" style="width: 200px; margin-top: 10px;" class="btn btn-primary">채팅하기</button></a>
+          <a th:href="@{/chat/{houseNum}/chat_info(houseNum=${house_list.house_num})}" th:if="${session.user_id != null}"><button type="button" style="width: 200px; margin-top: 10px;" class="btn btn-primary">채팅하기</button></a>
           <div style="margin-top: 10px;">
-            <a th:href="@{'/contract_begin?house_num=' + ${house_list.house_num}}"><button type="button" style="width: 200px;" class="btn btn-outline-secondary">계약 하기</button></a>
+            <a th:href="@{'/contract_begin?house_num=' + ${house_list.house_num}}" th:if="${session.user_id != null}"><button type="button" style="width: 200px;" class="btn btn-outline-secondary">계약 하기</button></a>
           </div>
           <div style="margin-top: 10px;">
-            <button id="addToWishlistButton" type="button" style="width: 200px;" class="btn btn-outline-secondary">찜하기</button>
+            <button id="addToWishlistButton" type="button" style="width: 200px;" class="btn btn-outline-secondary" th:if="${session.user_id != null}">찜하기</button>
           </div>
           <hr>
           <div>
