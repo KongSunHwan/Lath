@@ -55,14 +55,15 @@
                   <h4 class="sec-head">계약 정보</h4>
                 </a>
                 <p>
-                  <b class="text-danger">서명 및 계약금 확인 중</b>
+                  <b class="text-warning" th:if="${contractList.contract_state == '계약 요청'}">계약 요청 승인대기</b>
+                  <b class="text-danger" th:if="${contractList.contract_state == '계약서 작성 완료'}">서명 및 계약금 확인 중</b>
+
                 </p>
                 <hr>
                 <ul>
                     <br>
                   <li>
                     <i class="bi bi-check"></i> <b>면적 :</b> 전용 [(${contractList.exclusive_area2})] m<sup>2</sup> / 공급 [(${contractList.supply_area2})] m<sup>2</sup>
-                    <button class="btn btn-sm btn-primary"><i class="bi bi-arrow-repeat"></i>평</button>
                   </li>
                   <li>
                     <i class="bi bi-check"></i> <b>주소 :</b> [(${contractList.road_address})]
@@ -71,6 +72,10 @@
                     <i class="bi bi-check"></i> <b>관련서류 :</b> 계약서 <i class="bi bi-box-arrow-up-right"></i>
                   </li>
                 </ul>
+                <br><br>
+              </div>
+              <div style="float: right; margin-right: 30px">
+                <button type="submit" class="btn btn-primary" th:if="${contractList.contract_state == '계약서 작성 완료'}">이메일 인증</button>
               </div>
             </div>
           </div>
