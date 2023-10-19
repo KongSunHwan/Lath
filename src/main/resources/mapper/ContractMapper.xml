@@ -83,4 +83,10 @@
           and a.tenant_idx = d.tenant_idx
     </select>
 
+    <select id="exist_contract" resultType="int">
+      select count(*)
+      from contract a ,tenant b
+      where a.tenant_idx = b.tenant_idx and a.house_num= #{house_num} and b.user_id = #{user_id}
+    </select>
+
 </mapper>

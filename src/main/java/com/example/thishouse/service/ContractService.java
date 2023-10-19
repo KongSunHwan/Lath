@@ -72,4 +72,7 @@ public class ContractService {
         return contractMapper.getConResList(id);
     }
 
+    public int exist_contract(String house_num,String userId) {
+        return contractMapper.exist_contract(house_num,userId);
+    }
 }

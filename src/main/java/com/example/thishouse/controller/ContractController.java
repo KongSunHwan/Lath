@@ -26,7 +26,12 @@ public class ContractController {
     private final HouseService houseService;
 
     @RequestMapping("/contract_begin")
-    public String contract_begin(Model model, String house_num) {
+    public String contract_begin(Model model, String house_num,HttpSession session) {
+        String user_id = (String) session.getAttribute("user_id");
+
+        if(contractService.exist_contract(house_num,user_id) >=1 ){
+            return "redirect:/contract_Information_request";
+        }
 
         String house_deal_type = houseService.deal_type(house_num);
         List<House_location> house_location = houseService.house_location(house_num);

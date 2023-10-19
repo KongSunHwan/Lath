@@ -37,4 +37,5 @@ public interface ContractMapper {
 
     List<HashMap> getConResList(String id);
 
+    int exist_contract(@Param("house_num") String house_num,@Param("user_id") String user_id);
 }
