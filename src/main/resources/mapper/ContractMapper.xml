@@ -60,7 +60,7 @@
         select count(*) from contract a,  (select *
                                     from house_picture
                                     where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) b
-        where a.house_num = b.house_num and a.contract_state = '계약 요청' and a.lessoer_idx = any(select c.lessoer_idx from lessoer c where user_id = 'asd')
+        where a.house_num = b.house_num and a.contract_state = '계약 요청' and a.lessoer_idx = any(select c.lessoer_idx from lessoer c where user_id = #{user_id})
     </select>
 
     <select id="get_contract_id" resultType="int">
@@ -88,5 +88,11 @@
       from contract a ,tenant b
       where a.tenant_idx = b.tenant_idx and a.house_num= #{house_num} and b.user_id = #{user_id}
     </select>
+
+    <update id="state_update_request">
+        update contract
+        set contract_state = "계약 요청"
+        where contract_idx = #{contract_idx}
+    </update>
 
 </mapper>

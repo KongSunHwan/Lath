@@ -18,7 +18,6 @@ import java.util.List;
 public class ContractService {
 
     private final ContractMapper contractMapper;
-    private final HouseMapper houseMapper;
 
     @Transactional
     public void contract_request(Contract contract, int lessoer_num,int tenant_num) {
@@ -55,8 +54,8 @@ public class ContractService {
         return contractMapper.get_contract_request(user_id);
     }
 
-    public int get_contract_accept(String getLessoerId) {
-        return contractMapper.get_contract_accept(getLessoerId);
+    public int get_contract_accept(String user_id) {
+        return contractMapper.get_contract_accept(user_id);
     }
 
 
@@ -74,5 +73,11 @@ public class ContractService {
 
     public int exist_contract(String house_num,String userId) {
         return contractMapper.exist_contract(house_num,userId);
+    }
+
+    @Transactional
+    public void state_update_request(String contractIdx) {
+        contractMapper.state_update_request(contractIdx);
+
     }
 }

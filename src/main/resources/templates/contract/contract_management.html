@@ -73,7 +73,7 @@
         function sendNumber(){
             $("#mail_number").css("display","block");
             $.ajax({
-                url:"/mail",
+                url:"/mail?contract_idx=\"+$('#contract_idx').val()",
                 type:"post",
                 crossDomain: true,
                 headers: {  'Access-Control-Allow-Origin': 'http://The web site allowed to access' },
@@ -96,9 +96,16 @@
             if (number2 !== "") {
                 // 이미 인증번호를 받은 경우
                 if (number1 == number2) {
+                    $.ajax({
+                        url:"/contract_state?contract_idx="+$('#contract_idx').val(),
+                        type:"post",
+                        dataType:"json",
+                        success: function(){
+                            alert("인증되었습니다.");
+                        }
+                    })
                     alert("인증되었습니다.");
-                    // 인증 성공 시 페이지 이동
-                    window.location.href = "/main"; // 원하는 URL로 변경
+                    window.location.href = "/contract_Information_request"; // 원하는 URL로 변경
                 } else {
                     alert("인증번호가 다릅니다.");
                 }
@@ -186,6 +193,8 @@
                 <div>&nbsp;</div>
                 <hr>
                 <div class="row">
+                    <input type="hidden" name="contract_idx" id="contract_idx" th:value="${contract_idx}">
+
                     <div class="col-md-6">
                         <div class="well-left">
                             <div class="single-well">

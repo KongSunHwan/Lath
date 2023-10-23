@@ -15,9 +15,91 @@
 
 
   <link href="/css/contract_in.css" rel="stylesheet">
+  <script type="text/javascript">
+    function sendNumber(){
+      $("#mail_number").css("display","block");
+      $.ajax({
+        url:"/mail",
+        type:"post",
+        crossDomain: true,
+        headers: {  'Access-Control-Allow-Origin': 'http://The web site allowed to access' },
+        dataType:"json",
+        data:{"mail" : $("#mail").val()},
+        success: function(data){
+          alert("인증번호 발송");
+          $("#Confirm").attr("value",data);
+        },
+        error:function(request, status, error){
+          alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
+      })
+    }
+
+    function confirmNumber(){
+      var number1 = $("#number").val();
+      var number2 = $("#Confirm").val();
+
+      if (number2 !== "") {
+        // 이미 인증번호를 받은 경우
+        if (number1 == number2) {
+          $.ajax({
+            url:"/contract_state?contract_idx="+$('#contract_idx').val(),
+            type:"post",
+            dataType:"json",
+            success: function(){
+              alert("인증되었습니다.");
+            }
+          })
+          alert("인증되었습니다.");
+          window.location.href = "/contract_Information_request"; // 원하는 URL로 변경
+        } else {
+          alert("인증번호가 다릅니다.");
+        }
+      } else {
+        // 인증번호를 아직 받지 않은 경우
+        alert("이메일 인증번호를 먼저 받아주세요.");
+      }
+    }
+  </script>
+
 </head>
 
+
+
 <body>
+  <!-- 모달 창 -->
+  <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="emailModalLabel">이메일 인증</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <span class="text-muted" style="font-size: 13px;">고객님의 이메일을 입력하면 인증번호를 발송합니다.</span> <br>
+            <span class="text-muted" style="font-size: 13px;">절차에 따라 <span class="text-primary">인증번호 인증을 완료</span>해 주세요</span>
+          </div>
+          <br>
+          <!-- 인증 입력 폼 -->
+          <div id="mail_input" name="mail_input" class="d-flex">
+            <input type="text" class="form-control" name="mail" id="mail" placeholder="이메일을 입력해주세요." style="width: 800px;">
+            <button type="button" class="btn btn-primary btn-sm text-center" id="sendBtn" name="sendBtn" onclick="sendNumber()">인증번호 요청</button>
+          </div>
+          <br>
+          <div id="mail_number" name="mail_number" style="display: none">
+            <input type="text" class="form-control" name="number" id="number" placeholder="인증번호 입력">
+          </div>
+          <br>
+          <input type="text" class="form-control" id="Confirm" name="Confirm" style="display: none" value="">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary text-center" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">인증 완료</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <main id="main">
 
@@ -37,6 +119,7 @@
         </div>
 
         <div th:each="contractList : ${contractList}" class="row">
+          <input type="hidden" name="contract_idx" id="contract_idx" th:value="${contractList.contract_idx}">
           <div class="col-md-6 col-sm-6 col-xs-12">
             <div class="well-left">
               <div class="single-well">
@@ -75,7 +158,7 @@
                 <br><br>
               </div>
               <div style="float: right; margin-right: 30px">
-                <button type="submit" class="btn btn-primary" th:if="${contractList.contract_state == '계약서 작성 완료'}">이메일 인증</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#emailModal" th:if="${contractList.contract_state == '계약서 작성 완료'}">이메일 인증</button>
               </div>
             </div>
           </div>

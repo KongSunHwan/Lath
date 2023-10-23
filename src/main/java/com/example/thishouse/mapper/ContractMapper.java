@@ -29,7 +29,7 @@ public interface ContractMapper {
 
     int get_contract_request(String tenant);
 
-    int get_contract_accept(String lessoer);
+    int get_contract_accept(String user_id);
 
     int get_contract_id(@Param("lessoer_idx") int lessoerNum,@Param("tenant_idx") int tenantNum,@Param("house_num") String houseNum);
 
@@ -38,4 +38,6 @@ public interface ContractMapper {
     List<HashMap> getConResList(String id);
 
     int exist_contract(@Param("house_num") String house_num,@Param("user_id") String user_id);
+
+    void state_update_request(String contractIdx);
 }

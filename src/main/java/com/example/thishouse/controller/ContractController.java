@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.List;
@@ -59,6 +60,13 @@ public class ContractController {
         return "redirect:/contract_management?contract_idx="+contract_num;
     }
 
+    @ResponseBody
+    @PostMapping("/contract_state")
+    public void contract_state(String contract_idx){
+        System.out.println(contract_idx + "AA SEND ========================");
+        contractService.state_update_request(contract_idx);
+    }
+
     @RequestMapping("/real_estate_contract")
     public String real_estate_contract() {
         return "contract/real_estate_contract";
@@ -70,7 +78,6 @@ public class ContractController {
         String id = session.getAttribute("user_id").toString();
         List<HashMap> list = contractService.getConReqList(id);
         model.addAttribute("contractList", list);
-        System.out.println(list);
         return "contract/contract_Information_request";
     }
 
