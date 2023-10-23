@@ -20,7 +20,7 @@
         from alarm, chtroom
         where alarm.al_chk = 0 AND alarm.user_id = #{user_id} and alarm.roomid = chtroom.roomid and alarm.roomid =
             any(select roomid from alarm where user_id = #{user_id})
-        Group by alarm.roomid;
+        Group by alarm.roomid
     </select>
 
     <update id="alchecked">

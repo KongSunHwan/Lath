@@ -7,7 +7,7 @@
         SELECT * FROM notice
     </select>
     <!--    페이징   -->
-    <select id="pg_list" parameterType="com.example.thishouse.domain.Notice" resultType="com.example.thishouse.domain.Notice">
+    <select id="pg_list" resultType="com.example.thishouse.domain.Notice">
         select * from notice Order by notice_num desc LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
     </select>
     <select id="pg_listCnt" resultType="int">
@@ -65,8 +65,41 @@
         where
         notice_num = #{notice_num}
     </update>
-    <!--   공지사항 검색  -->
-    <select id="notice_search">
-        select * from notice where #{서치.옵션변수} like '%#{서치.텍스트변수}%'
+
+    <!--검색 조건 -->
+    <sql id="criteria">
+        <trim prefix=" AND (" suffix=")" prefixOverrides="OR" >
+            <foreach item="type" collection ="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'T'.toString()">
+                            notice_title like concat ('%',#{keyword},'%')
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            notice_content like concat ('%',#{keyword},'%')
+                        </when>
+                        <when test="type == 'W'.toString()">
+                            admin_id like concat ('%',#{keyword},'%')
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
+    <select id="findList" resultType="com.example.thishouse.domain.Notice">
+        select *
+        from notice
+        <where>
+            <include refid="criteria"></include>
+        </where>
+        order by notice_num desc
+        limit #{skip} , #{amount}
+    </select>
+
+    <select id="findCount" resultType="int">
+        select count(*) from notice
+        <where>
+            <include refid="criteria"></include>
+        </where>
     </select>
 </mapper>

@@ -1,12 +1,9 @@
 package com.example.thishouse.mapper;
 
 
-import com.example.thishouse.domain.Marker;
+import com.example.thishouse.domain.Criteria;
 import com.example.thishouse.domain.Notice;
-import com.example.thishouse.domain.house.House_list;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -31,4 +28,8 @@ public interface NoticeMapper {
     public List<Notice> pg_list_search(Notice searchVO);
 
     public int pg_list_searchcnt(Notice searchVO);
+
+    List<Notice> findList(Criteria criteria);
+
+    int findCount(Criteria criteria);
 }

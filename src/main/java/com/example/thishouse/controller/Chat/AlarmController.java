@@ -25,7 +25,7 @@ public class AlarmController {
         System.out.println(alarm.getUser_id());
         List<Alarm> alarms = alarmService.alarmList(alarm.getUser_id());
         for (Alarm alarm1 : alarms) {
-            System.out.println("alarm1 = " + alarm1.getAl_content());
+            System.out.println("alarm 내용 = " + alarm1.getAl_content());
         }
 
         template.convertAndSend("/sub/chat/a1list/"+alarm.getUser_id() ,alarms);
