@@ -116,7 +116,7 @@
       </div>
       <div class="row" style="margin-top:10px;">
 
-        <div class="card-back mb-2 col-lg-3" style="cursor:pointer;" th:each="favorites : ${favorites}">
+        <div class="card-back mb-2 col-lg-3" style="cursor:pointer;" th:each="favorites : ${favorites.wishPageList}">
           <div class="card-img">
             <img src="/img/1.jpg" th:src="|/images/${favorites.save_name}|" style="width: 230px; height:150px;">
           </div>
@@ -145,18 +145,39 @@
 
 
       <ul class="pagination mt-2" style="justify-content : center;">
-        <li class="page-item"><a class="page-link" href="#">이전</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">다음</a></li>
+        <li th:if="${favorites.pageDTO.isPrev()}" class="paginate_button page-item previous">
+          <a class="page-link" th:href="${favorites.pageDTO.startPage -1}">이전</a>
+        </li>
+        <li th:each="num: ${#numbers.sequence(favorites.pageDTO.startPage,favorites.pageDTO.endPage)}" class="paginate_button page-item">
+          <a class="page-link" th:href="${num}" th:value="${num}" th:text="${num}"></a>
+        </li>
+        <li th:if="${favorites.pageDTO.isNext()}" class="paginate_button page-item next" >
+          <a class="page-link" th:href="${favorites.pageDTO.endPage + 1}">다음</a>
+        </li>
       </ul>
     </div>
   </div>
+  <form method="get"  id="actionForm" th:action="@{/wishlist/{user_id}(user_id=${session.user_id})}">
+    <input type="hidden" name="pageNum" th:value="${favorites.pageDTO.cri.getPageNum()}">
+    <input type="hidden" name="amount" th:value="${favorites.pageDTO.cri.getAmount()}">
+    <input type="hidden" name="type" th:value="${favorites.pageDTO.cri.getType()}">
+    <input type="hidden" name="keyword" th:value="${favorites.pageDTO.cri.getKeyword()}">
+  </form>
+</div>
+<script>
+  $(function() {
+    var actionForm = $("#actionForm");
 
-</div>
+    $(".page-item a").on("click", function (e) {
+      e.preventDefault();  //전송을 막음
+      console.log('click');
+      actionForm.find("input[name='pageNum']")
+              .val($(this).attr("href"));
+      actionForm.submit();
+    });
+  });
+</script>
 <!--컨테이너종료-->
-</div>
 
 <!-- footer 시작 -->
 <footer th:replace="~{footer/footer}"></footer>

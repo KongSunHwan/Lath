@@ -1,5 +1,7 @@
 package com.example.thishouse.controller;
 
+import com.example.thishouse.domain.Criteria;
+import com.example.thishouse.domain.DTO.WishDTO;
 import com.example.thishouse.domain.Wishlist;
 import com.example.thishouse.service.WishlistService;
 import jakarta.servlet.http.HttpSession;
@@ -18,8 +20,10 @@ public class WishlistController {
     private final WishlistService wishlistService;
 
     @GetMapping("/wishlist/{user_id}")
-    public String getFavoritesByUserId(@PathVariable String user_id, Model model) {
-        List<HashMap> favorites = wishlistService.getFavoritesByUserId(user_id);
+    public String getFavoritesByUserId(@PathVariable String user_id,
+                                       Criteria criteria,
+                                       Model model) {
+        WishDTO.PageResponseList favorites = wishlistService.getFavoritesByUserId(user_id, criteria);
         model.addAttribute("favorites", favorites);
         return "steamed/steamed_list";
     }

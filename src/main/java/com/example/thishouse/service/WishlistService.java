@@ -1,8 +1,14 @@
 package com.example.thishouse.service;
 
+import com.example.thishouse.domain.Criteria;
+import com.example.thishouse.domain.DTO.NoticeDTO;
+import com.example.thishouse.domain.DTO.WishDTO;
+import com.example.thishouse.domain.Notice;
+import com.example.thishouse.domain.PageDTO;
 import com.example.thishouse.domain.Wishlist;
 import com.example.thishouse.mapper.WishlistMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,12 +18,18 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class WishlistService {
 
     private final WishlistMapper wishlistMapper;
 
-    public List<HashMap> getFavoritesByUserId(String user_id) {
-        return wishlistMapper.getFavoritesByUserId(user_id);
+    public WishDTO.PageResponseList getFavoritesByUserId(String user_id, Criteria criteria) {
+        Criteria cs = new Criteria(criteria.getPageNum(), 14);
+        List<WishDTO> pageList = wishlistMapper.getFavoritesByUserId(user_id, cs);
+        log.info("pageList={}", pageList);
+        int total = wishlistMapper.findCount(cs);
+        PageDTO pageDTO = new PageDTO(cs,total);
+        return new WishDTO.PageResponseList(pageList, pageDTO);
     }
 
     public void addFavoriteItem(Wishlist wishlist) {

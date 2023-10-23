@@ -4,12 +4,18 @@
 <mapper namespace="com.example.thishouse.mapper.WishlistMapper">
 
 
-    <select id="getFavoritesByUserId" resultType="java.util.HashMap">
-        select *
+    <select id="getFavoritesByUserId" resultType="com.example.thishouse.domain.DTO.WishDTO">
+        select house_type, deal_type, n_floors, m_cost, h_title, hits, exclusive_area2, save_name, deposit, m_price, y_price, total_m_cost
         from house_list a, wishlist c,(select *
         from house_picture
         where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) b
         where a.house_num = b.house_num and a.house_num = c.house_num and c.user_id= #{user_id}
+        limit ${criteria.skip}, ${criteria.amount};
+    </select>
+
+    <select id="findCount" resultType="integer">
+        select count(*)
+        from wishlist
     </select>
 
     <insert id="addFavoriteItem" parameterType="com.example.thishouse.domain.Wishlist">
