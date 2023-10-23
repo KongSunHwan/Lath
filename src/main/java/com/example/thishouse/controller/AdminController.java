@@ -1,5 +1,7 @@
 package com.example.thishouse.controller;
 
+import com.example.thishouse.domain.Criteria;
+import com.example.thishouse.domain.DTO.NoticeDTO;
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.Report;
@@ -86,26 +88,9 @@ public class AdminController {
     }
 
     @GetMapping("admin/notice")
-    public String Notice_Control(@ModelAttribute("searchVO") Notice searchVO, HttpServletRequest request, Model model) {
-        PageCtrl pagination  = new PageCtrl();
-        pagination.setCurrentPageNo(searchVO.getPageIndex());
-        pagination.setRecordCountPerPage(searchVO.getPageUnit());
-        pagination.setPageSize(searchVO.getPageSize());
-        searchVO.setFirstIndex(pagination.getFirstRecordIndex());
-        searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
-
-        List<Notice> pg_list = noticeService.pg_list(searchVO);
-        model.addAttribute("pg_list" , pg_list);
-        int totCnt = noticeService.pg_listCnt();
-        model.addAttribute("totCnt",totCnt);
-        pagination.setTotalRecordCount(totCnt);
-        searchVO.setEndDate(pagination.getLastPageNoOnPageList());
-        searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
-        searchVO.setPrev(pagination.getXprev());
-        searchVO.setNext(pagination.getXnext());
-        model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
-        model.addAttribute("pagination",pagination);
-
+    public String Notice_Control(Criteria criteria, Model model) {
+        NoticeDTO.PageResponseList pageResponseList = noticeService.pageResponseList(criteria);
+        model.addAttribute("pageList", pageResponseList);
         return "admin/notice";
     }
 
