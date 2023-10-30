@@ -5,19 +5,18 @@ import com.example.thishouse.domain.contract.Lessoer;
 import com.example.thishouse.domain.house.*;
 import com.example.thishouse.service.ContractService;
 import com.example.thishouse.service.HouseService;
-import com.example.thishouse.service.MailService;
 import com.example.thishouse.util.FileUpload;
 import com.example.thishouse.util.PageCtrl;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -129,17 +128,17 @@ public class HouseController {
         String session_id = (String) session.getAttribute("user_id");
         System.out.println(session_id+ "세션아이디");
 
-        String eql = null;
-        if(user_id_lessoer.equals(session_id)){
-            eql = "o";
-            System.out.println("같은값 판정" + eql);
-        }else{
-            eql = "x";
-            System.out.println("다른값 판정" + eql);
-        }
-        System.out.println(eql);
+//        String eql = null;
+//        if(user_id_lessoer.equals(session_id)){
+//            eql = "o";
+//            System.out.println("같은값 판정" + eql);
+//        }else{
+//            eql = "x";
+//            System.out.println("다른값 판정" + eql);
+//        }
+//        System.out.println(eql);
 
-        model.addAttribute("eql",eql);
+//        model.addAttribute("eql",eql);
         model.addAttribute("house_list",house_list);
         model.addAttribute("house_item",house_item);
         model.addAttribute("house_addinfo",house_addinfo);
@@ -151,6 +150,7 @@ public class HouseController {
         model.addAttribute("housePictures",housePictures);
         model.addAttribute("report", r);
         model.addAttribute("house_num", house_num);
+        model.addAttribute("user_id_lessoer", user_id_lessoer);
         return "house/house_detail";
     }
 

@@ -13,6 +13,13 @@
         limit ${criteria.skip}, ${criteria.amount};
     </select>
 
+    <select id="getMyPageFavoritesByUserId" resultType="java.util.HashMap">
+        select *
+        from house_list a, wishlist c
+        where a.house_num = c.house_num and c.user_id= #{user_id}
+        limit 0,3
+    </select>
+
     <select id="findCount" resultType="integer">
         select count(*)
         from wishlist

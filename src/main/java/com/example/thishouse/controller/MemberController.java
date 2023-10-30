@@ -4,9 +4,9 @@ import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
-import com.example.thishouse.domain.contract.Contract;
 import com.example.thishouse.service.ContractService;
 import com.example.thishouse.service.MemberService;
+import com.example.thishouse.service.WishlistService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -27,6 +28,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final ContractService contractService;
+    private final WishlistService wishlistService;
 
     //회원가입,로그인 로직
     @PostMapping("/signup")
@@ -86,6 +88,7 @@ public class MemberController {
         List<Community> comlist = memberService.my_community(user_id);
         List<Report> replist = memberService.findInputMemberReport(user_id);
         List<Inquire> inquireList = memberService.my_inquire_one(user_id);
+        List<HashMap> favorites = wishlistService.getMyPageFavoritesByUserId(user_id);
         int house_cnt = memberService.house_cnt(user_id);
         int report_cnt = memberService.report_cnt(user_id);
 
@@ -107,6 +110,9 @@ public class MemberController {
         model.addAttribute("replist", replist);
         model.addAttribute("Member", memberService.findInputMember(user_id));
         model.addAttribute("inquireList", inquireList);
+        model.addAttribute("favorites", favorites);
+
+        System.out.println("favorites = " + favorites);
         return "user/mypage";
     }
 

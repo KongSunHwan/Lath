@@ -1,9 +1,7 @@
 package com.example.thishouse.service;
 
 import com.example.thishouse.domain.Criteria;
-import com.example.thishouse.domain.DTO.NoticeDTO;
 import com.example.thishouse.domain.DTO.WishDTO;
-import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.PageDTO;
 import com.example.thishouse.domain.Wishlist;
 import com.example.thishouse.mapper.WishlistMapper;
@@ -30,6 +28,10 @@ public class WishlistService {
         int total = wishlistMapper.findCount(cs);
         PageDTO pageDTO = new PageDTO(cs,total);
         return new WishDTO.PageResponseList(pageList, pageDTO);
+    }
+
+    public List<HashMap> getMyPageFavoritesByUserId(String user_id) {
+        return wishlistMapper.getMyPageFavoritesByUserId(user_id);
     }
 
     public void addFavoriteItem(Wishlist wishlist) {

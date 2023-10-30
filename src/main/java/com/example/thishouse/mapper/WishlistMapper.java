@@ -16,6 +16,8 @@ public interface WishlistMapper {
     List<WishDTO> getFavoritesByUserId(@Param("user_id") String user_id,
                                                 @Param("criteria") Criteria criteria);
 
+    List<HashMap> getMyPageFavoritesByUserId(String user_id);
+
     int findCount(Criteria criteria);
 
     void addFavoriteItem(Wishlist wishlist);

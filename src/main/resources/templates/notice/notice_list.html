@@ -90,13 +90,13 @@
 
                     <ul th:each="pageList : ${pageList.noticePageList}" onclick="">
                         <li th:text="${pageList.notice_num}"> </li>
-                        <li style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
+                        <li class="category" style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
                         <a class="move" th:href="${pageList.notice_num}">
                             <li th:text="${pageList.notice_title}">이집봐라 사용자 이용 가이드</li>
                         </a>
                         <li th:text="${pageList.admin_id}">공김정</li>
                         <li th:text="${pageList.notice_hit}">10</li>
-                        <li th:text="${#strings.substring(pageList.notice_date, 0, 10)}">2023-04-19</li>
+                        <li th:text="${#strings.substring(pageList.notice_date, 0, 9)}">2023-04-19</li>
                     </ul>
 
                 </div>

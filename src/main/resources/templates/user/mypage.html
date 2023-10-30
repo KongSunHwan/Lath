@@ -202,11 +202,33 @@
               <button class="btn btn-outline-success" type="button">전체 보기</button>
             </div>
             <div class="d-flex">
-              <ul>
-                <li class="mar-b-6">서울 강남 OO 오피스텔 ~~~~105동 209호 <span class="mar2 fw-light">7일 전</span></li>
-                <li class="mar-b-6">서울 강남 OO 오피스텔 ~~~~105동 209호 <span class="mar2 fw-light">7일 전</span></li>
-                <li class="mar-b-6">서울 강남 OO 오피스텔 ~~~~105동 209호 <span class="mar2 fw-light">7일 전</span></li>
-              </ul>
+<!--              <ul>-->
+<!--                <li class="mar-b-6" th:each="favorites : ${favorites}">-->
+<!--                  <span th:text="${favorites.road_address}"></span>&nbsp;-->
+<!--                  <span th:text="${favorites.house_type}"></span>&nbsp;-->
+<!--                  <span th:text="${favorites.deal_type}"></span>-->
+<!--                </li>-->
+<!--              </ul>-->
+              <table
+                      summary="This table shows how to create responsive tables using Datatables' extended functionality"
+                      class="table table-bordered .table-hover dt-responsive" >
+                <thead>
+                <tr style="text-align: center">
+                  <th class="email" colspan="3" > 주소 </th>
+                  <th class="email" colspan="3" >  </th>
+                  <th class="email" colspan="3" > </th>
+                </tr>
+                </thead>
+                <tbody >
+                <tr>
+                <tr height="30px"th:each="favorites : ${favorites}">
+                  <td th:text="${favorites.road_address}" style="width:60%">ㅁ</td>
+                  <td th:text="${favorites.deal_type}" style="width:20%">ㅁ</td>
+                  <td th:text="${favorites.house_type}" style="width:20%">ㅁ</td>
+                </tr>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
