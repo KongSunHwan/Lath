@@ -71,4 +71,5 @@ public interface HouseMapper {
 
     HashMap get_house_info(String houseNum);
 
+    String get_user_id(String houseNum);
 }

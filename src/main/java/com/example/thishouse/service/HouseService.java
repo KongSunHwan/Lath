@@ -188,4 +188,9 @@ public class HouseService {
         return this.houseMapper.get_house_info(houseNum);
 
     }
+
+    public String get_user_id(String houseNum) {
+        return this.houseMapper.get_user_id(houseNum);
+
+    }
 }

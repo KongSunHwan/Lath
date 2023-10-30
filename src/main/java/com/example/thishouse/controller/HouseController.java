@@ -108,7 +108,6 @@ public class HouseController {
 
     @RequestMapping("/real_estate_detail")
     public String real_estate_detail(Model model, String house_num, HttpSession session) {
-        System.out.println(house_num);
         List<House_list> house_list = houseService.view_house_list_one(house_num);
         List<House_item> house_item = houseService.list_house_item(house_num);
         List<House_addinfo> house_addinfo = houseService.add_info_list(house_num);
@@ -120,10 +119,27 @@ public class HouseController {
         List<House_picture> housePictures = houseService.house_picture_list(house_num);
         houseService.house_hit_coount(house_num);
 
+
         Report r = new Report();
         int house = Integer.parseInt(house_num);
         r.setHouse_num(house);
 
+        String user_id_lessoer = houseService.get_user_id(house_num);
+        System.out.println(user_id_lessoer + "판매자");
+        String session_id = (String) session.getAttribute("user_id");
+        System.out.println(session_id+ "세션아이디");
+
+        String eql = null;
+        if(user_id_lessoer.equals(session_id)){
+            eql = "o";
+            System.out.println("같은값 판정" + eql);
+        }else{
+            eql = "x";
+            System.out.println("다른값 판정" + eql);
+        }
+        System.out.println(eql);
+
+        model.addAttribute("eql",eql);
         model.addAttribute("house_list",house_list);
         model.addAttribute("house_item",house_item);
         model.addAttribute("house_addinfo",house_addinfo);
@@ -135,7 +151,6 @@ public class HouseController {
         model.addAttribute("housePictures",housePictures);
         model.addAttribute("report", r);
         model.addAttribute("house_num", house_num);
-
         return "house/house_detail";
     }
 
