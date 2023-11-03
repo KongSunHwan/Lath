@@ -40,4 +40,6 @@ public interface ContractMapper {
     int exist_contract(@Param("house_num") String house_num,@Param("user_id") String user_id);
 
     void state_update_request(String contractIdx);
+
+    List<HashMap> getCompleteList(String id);
 }

@@ -63,7 +63,6 @@ public class ContractController {
     @ResponseBody
     @PostMapping("/contract_state")
     public void contract_state(String contract_idx){
-        System.out.println(contract_idx + "AA SEND ========================");
         contractService.state_update_request(contract_idx);
     }
 
@@ -90,11 +89,16 @@ public class ContractController {
         return "contract/contract_Information_response";
     }
 
+    @RequestMapping("/contract_complete")
+    public String contract_complete(HttpSession session, Model model) {
+        String id = session.getAttribute("user_id").toString();
+        List<HashMap> list = contractService.getCompleteList(id);
+        model.addAttribute("contractList", list);
+        return "contract/contract_complete";
+    }
+
     @RequestMapping("/contract_Information")
     public String Contract_Information(HttpSession session, Model model) {
-//        String id = session.getAttribute("user_id").toString();
-//        List<Contract> list = contractService.getConList(id);
-//        model.addAttribute("contractList", list);
         return "contract/Contract_Information_request";
     }
 

@@ -80,4 +80,8 @@ public class ContractService {
         contractMapper.state_update_request(contractIdx);
 
     }
+
+    public List<HashMap> getCompleteList(String id) {
+        return contractMapper.getCompleteList(id);
+    }
 }

@@ -311,10 +311,9 @@ public class AdminController {
     }
 
     @RequestMapping("admin/house_approval/false")
-    public String approval_no(String house_num, Model model) {
+    public String approval_no(String house_num) {
         adminService.approval_no_house_item(house_num);
         adminService.approval_no_house_list(house_num);
-
         return "redirect:/admin/house_approval";
     }
 
