@@ -4,7 +4,7 @@
 <mapper namespace="com.example.thishouse.mapper.AdminMapper">
     <!--qry-->
     <!--문의사항 답변 -->
-    <update id="insert_reply" parameterType="com.example.thishouse.domain.Inquire">
+    <update id="insert_reply" parameterType="Inquire">
         update inquire set inquire_answer = #{inquire_answer}
         where inquire_num = #{inquire_num}
     </update>

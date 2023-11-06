@@ -4,7 +4,7 @@
 <mapper namespace="com.example.thishouse.mapper.WishlistMapper">
 
 
-    <select id="getFavoritesByUserId" resultType="com.example.thishouse.domain.DTO.WishDTO">
+    <select id="getFavoritesByUserId" resultType="WishDTO">
         select house_type, deal_type, n_floors, m_cost, h_title, hits, exclusive_area2, save_name, deposit, m_price, y_price, total_m_cost
         from house_list a, wishlist c,(select *
         from house_picture

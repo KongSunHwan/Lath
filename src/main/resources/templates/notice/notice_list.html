@@ -64,6 +64,31 @@
             searchForm.submit();
 
         });
+
+        $("#searchForm").on("keydown", function(e) {
+            // 화면에서 키워드가 없다면 검색을 하지 않도록 제어
+            if ((e.type === "keydown" && e.keyCode === 13)) {
+                if (!searchForm.find("option:selected").val()) {
+                    alert("검색종류를 선택하세요");
+                    return false;
+                }
+
+                if (!searchForm.find("input[name='keyword']").val()) {
+                    alert("키워드를 입력하세요");
+                    return false;
+                }
+
+                // 페이지 번호를 1로 처리
+                searchForm.find("input[name='pageNum']").val("1");
+
+                // 폼 태그의 전송을 막음
+                e.preventDefault();
+
+                searchForm.submit();
+            }
+        });
+
+
     });
 </script>
 </head>
@@ -90,13 +115,13 @@
 
                     <ul th:each="pageList : ${pageList.noticePageList}" onclick="">
                         <li th:text="${pageList.notice_num}"> </li>
-                        <li class="category" style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
+                        <li style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
                         <a class="move" th:href="${pageList.notice_num}">
                             <li th:text="${pageList.notice_title}">이집봐라 사용자 이용 가이드</li>
                         </a>
                         <li th:text="${pageList.admin_id}">공김정</li>
                         <li th:text="${pageList.notice_hit}">10</li>
-                        <li th:text="${#strings.substring(pageList.notice_date, 0, 9)}">2023-04-19</li>
+                        <li th:text="${#strings.substring(pageList.notice_date, 0, 14)}">2023-04-19</li>
                     </ul>
 
                 </div>
@@ -129,17 +154,17 @@
                 </form>
 
                 <form id="searchForm" action="/notice_list" method="get">
+                    <input type="hidden" name="pageNum" th:value="${pageList.pageDTO.cri.getPageNum()}">
+                    <input type="hidden" name="amount" th:value="${pageList.pageDTO.cri.getAmount()}">
                 <div class="search_area">
                         <select name="type" class="border border-secondary">
-                            <option value="T">제목</option>
-                            <option value="c">내용</option>
-                            <option value="w">작성자</option>
+                            <option value="T" th:selected="${pageList.pageDTO.cri.getType()} == 'T'">제목</option>
+                            <option value="C" th:selected="${pageList.pageDTO.cri.getType()} == 'C'">내용</option>
+                            <option value="W" th:selected="${pageList.pageDTO.cri.getType()} == 'W'">작성자</option>
                         </select>
 
                         <span class="input_area">
                             <input type="text" name="keyword" th:value="${pageList.pageDTO.cri.getKeyword()}">
-                            <input type="hidden" name="pageNum" th:value="${pageList.pageDTO.cri.getPageNum()}">
-                            <input type="hidden" name="amount" th:value="${pageList.pageDTO.cri.getAmount()}">
                         </span>
                         <button type="button">검색하기</button>
                         <a th:href="@{/notice_add}" th:if="${session.user_id == 'asd'}"><button type="button">작성하기</button></a>
