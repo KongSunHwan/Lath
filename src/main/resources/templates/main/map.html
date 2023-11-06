@@ -697,9 +697,9 @@
 
                     var mapname = null;
 
-                    if (markerData.deal_type == '월세') {
+                    if (markerData.deal_type === '월세') {
                         mapname = markerData.deal_type + ': ' + markerData.deposit + '/' + markerData.m_price + "만원";
-                    } else if (markerData.deal_type == '전세') {
+                    } else if (markerData.deal_type === '전세') {
                         mapname = markerData.deal_type + ': ' + markerData.y_price + "만원";
                     }
 
@@ -872,13 +872,19 @@
                                 var marker = markersInCluster[i];
                                 var markerData = marker.properties; // 마커 데이터 가져오기
 
+                                if (markerData.deal_type === '월세') {
+                                    mapname = markerData.deal_type + ': ' + markerData.deposit + '/' + markerData.m_price + "만원";
+                                } else if (markerData.deal_type === '전세') {
+                                    mapname = markerData.deal_type + ': ' + markerData.y_price + "만원";
+                                }
+
                                 // 리스트 아이템 내용 설정
                                 var itemContent =
                                     '<a aria-current="true" class="list-group-item list-group-item-action"' +
                                     'href="/real_estate_detail?house_num='+ markerData.house_num + '">' +
                                     '<div class="d-flex align-items-start">' +
                                     '<div class="mb-1">' +
-                                    '<strong class="mb-1" if = "' + markerData.deal_type + '==월세">' + markerData.deal_type + ' ' + markerData.deposit + '/' + markerData.m_price + '</strong><br>' +
+                                    '<strong class="mb-1">' + mapname + '</strong><br>' +
                                     '<strong class="col-10 mb-1 small" style="font-size: 13px;">' + markerData.road_address + '</strong><br>' +
                                     '<strong class="col-10 mb-1 small" style="font-size: 13px;">' + markerData.detail_address + '</strong><br>' +
                                     '<strong class="col-10 mb-1 small" style="font-size: 13px;">' + markerData.house_type + ' ' + markerData.exclusive_area2 + 'm</strong><br>' +
