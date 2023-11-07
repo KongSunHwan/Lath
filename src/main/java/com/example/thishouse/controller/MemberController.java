@@ -94,14 +94,19 @@ public class MemberController {
 
         int contract_request_cnt;
         int contract_accept_cnt;
+        int contract_complete_lessoer;
+        int contract_complete_tenant;
 
         if (contractService.get_contract_request(user_id)==0){
             contract_request_cnt = 0;
         }else{
             contract_request_cnt = contractService.get_contract_request(user_id);
         }
-        
+        contract_complete_tenant = contractService.contract_complete_cnt_tenant(user_id);
+        contract_complete_lessoer = contractService.contract_complete_cnt(user_id);
         contract_accept_cnt = contractService.get_contract_accept(user_id);
+        model.addAttribute("contract_complete_lessoer", contract_complete_lessoer);
+        model.addAttribute("contract_complete_tenant", contract_complete_tenant);
         model.addAttribute("contract_request_cnt", contract_request_cnt);
         model.addAttribute("contract_accept_cnt", contract_accept_cnt);
         model.addAttribute("house_cnt", house_cnt);

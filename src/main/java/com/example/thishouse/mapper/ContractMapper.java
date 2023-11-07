@@ -42,4 +42,10 @@ public interface ContractMapper {
     void state_update_request(String contractIdx);
 
     List<HashMap> getCompleteList(String id);
+
+    int contract_complete_cnt(String id);
+
+    int contract_complete_cnt_tenant(String id);
+
+    List<HashMap> get_complete_tenant(String id);
 }

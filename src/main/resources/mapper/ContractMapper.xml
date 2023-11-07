@@ -35,7 +35,7 @@
         select * from contract a,  (select *
                                     from house_picture
                                     where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) b
-        where a.house_num = b.house_num and a.tenant_idx = any(select c.tenant_idx from tenant c where user_id = #{id})
+        where a.house_num = b.house_num and a.contract_state in ("계약서 작성 완료","계약 요청") and a.tenant_idx = any(select c.tenant_idx from tenant c where user_id = #{id})
     </select>
 
     <select id="get_tenant_id" resultType="String">
@@ -102,5 +102,26 @@
         where a.house_num = b.house_num and a.contract_state like '완료%' and a.lessoer_idx = any(select c.lessoer_idx from lessoer c where c.user_id = #{id})
           and a.tenant_idx = d.tenant_idx
     </select>
+
+    <select id="contract_complete_cnt" resultType="int">
+        select count(*) from contract a, lessoer d
+        where a.lessoer_idx = d.lessoer_idx and a.contract_state like '완료%' and
+                a.lessoer_idx = any(select c.lessoer_idx from lessoer c where c.user_id = #{id})
+    </select>
+
+    <select id="contract_complete_cnt_tenant" resultType="int">
+        select count(*) from contract a, tenant d
+        where a.tenant_idx = d.tenant_idx and a.contract_state like '완료%' and
+                a.tenant_idx = any(select c.tenant_idx from tenant c where c.user_id = #{id})
+    </select>
+
+    <select id="get_complete_tenant" resultType="java.util.HashMap">
+        select * from contract a,  (select *
+                                    from house_picture
+                                    where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) b, lessoer d
+        where a.house_num = b.house_num and a.contract_state like '완료%' and a.tenant_idx = any(select c.tenant_idx from tenant c where c.user_id = #{id})
+          and a.lessoer_idx = d.lessoer_idx
+    </select>
+
 
 </mapper>

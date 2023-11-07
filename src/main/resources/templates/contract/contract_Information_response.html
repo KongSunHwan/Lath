@@ -40,7 +40,6 @@
         <div class="col-md-6 col-sm-6 col-xs-12">
           <div class="well-left">
             <div class="single-well">
-              <!--                <a href="#" th:href="@{/real_estate_contract}">-->
               <a href="#">
                 <img th:src="|/images/${contractList.save_name}|" style="width: 600px; height:350px;">
               </a>
@@ -76,7 +75,8 @@
               </ul>
               <br>
               <div style="float:right; margin-right: 30px">
-              <button type="submit" class="btn btn-primary">수락</button> &nbsp;<button type="button" class="btn btn-danger">거절</button>
+                <button type="submit" class="btn btn-primary" id="accept">수락</button>&nbsp;
+                <button type="button" class="btn btn-danger" id="reject">거절</button>
               </div>
               </div>
           </div>

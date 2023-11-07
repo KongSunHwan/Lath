@@ -182,13 +182,21 @@
                 </h3>
                 <p class="text-center fw-light">수락 대기</p>
               </div>
-                <div>
+              <div class="mar">
                 <h3>
-                  <a th:href="@{'/#'}">
-                    <p class="fw-bolder text-center">0</p>
+                  <a th:href="@{'/contract_complete_tenant?user_id='+ ${session.user_id}}">
+                    <p class="fw-bolder text-center" th:text="${contract_complete_tenant}">0</p>
                   </a>
                 </h3>
-                <p class="text-center fw-light">완료</p>
+                <p class="text-center fw-light">완료(임대)</p>
+              </div>
+                <div>
+                <h3>
+                  <a th:href="@{'/contract_complete_lessoer?user_id='+ ${session.user_id}}">
+                    <p class="fw-bolder text-center" th:text="${contract_complete_lessoer}">0</p>
+                  </a>
+                </h3>
+                <p class="text-center fw-light">완료(임차)</p>
               </div>
             </div>
           </div>
@@ -214,9 +222,9 @@
                       class="table table-bordered .table-hover dt-responsive" >
                 <thead>
                 <tr style="text-align: center">
-                  <th class="email" colspan="3" > 주소 </th>
-                  <th class="email" colspan="3" >  </th>
-                  <th class="email" colspan="3" > </th>
+                  <th class="email"> 주소 </th>
+                  <th class="email"> 거래</th>
+                  <th class="email"> 형태</th>
                 </tr>
                 </thead>
                 <tbody >

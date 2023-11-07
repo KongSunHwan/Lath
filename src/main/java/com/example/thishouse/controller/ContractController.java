@@ -56,7 +56,6 @@ public class ContractController {
         int tenant_num = contractService.get_tenant(user_id,house_num);
         contractService.contract_request(contract,lessoer_num,tenant_num);
         int contract_num = contractService.get_contract_id(lessoer_num,tenant_num,house_num);
-
         return "redirect:/contract_management?contract_idx="+contract_num;
     }
 
@@ -89,12 +88,20 @@ public class ContractController {
         return "contract/contract_Information_response";
     }
 
-    @RequestMapping("/contract_complete")
+    @RequestMapping("/contract_complete_lessoer")
     public String contract_complete(HttpSession session, Model model) {
         String id = session.getAttribute("user_id").toString();
         List<HashMap> list = contractService.getCompleteList(id);
         model.addAttribute("contractList", list);
-        return "contract/contract_complete";
+        return "contract/contract_complete_lessoer";
+    }
+
+    @RequestMapping("/contract_complete_tenant")
+    public String contract_complete_tenant(HttpSession session, Model model) {
+        String id = session.getAttribute("user_id").toString();
+        List<HashMap> complete_tenant = contractService.get_complete_tenant(id);
+        model.addAttribute("contractList", complete_tenant);
+        return "contract/contract_complete_tenant";
     }
 
     @RequestMapping("/contract_Information")

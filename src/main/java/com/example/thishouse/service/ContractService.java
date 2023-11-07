@@ -84,4 +84,18 @@ public class ContractService {
     public List<HashMap> getCompleteList(String id) {
         return contractMapper.getCompleteList(id);
     }
+
+    public List<HashMap> get_complete_tenant(String id) {
+        return contractMapper.get_complete_tenant(id);
+    }
+
+    public int contract_complete_cnt_tenant(String userId) {
+        return contractMapper.contract_complete_cnt_tenant(userId);
+
+    }
+
+    public int contract_complete_cnt(String userId) {
+        return contractMapper.contract_complete_cnt(userId);
+
+    }
 }
