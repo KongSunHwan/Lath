@@ -110,8 +110,8 @@
                       <input type="button" class="btn-check" th:id="${house_list.house_num}" autocomplete="off">
                       <label class="btn btn-primary" th:for="${house_list.house_num}">보기</label>
                     &nbsp;
-                      <span class="badge bg-success" th:if="${house_list.approval == 1}">승인</span>
-                      <span class="badge bg-danger" th:if="${house_list.approval == 0}">미승인</span>
+                      <span class="badge bg-success fs-5" th:if="${house_list.approval == 1}">승인</span>
+                      <span class="badge bg-danger fs-5" th:if="${house_list.approval == 0}">미승인</span>
                   </div>
                   <small class="text-muted">조회수 [(${house_list.hits})]</small>
                 </div>
