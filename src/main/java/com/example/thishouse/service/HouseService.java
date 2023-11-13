@@ -1,6 +1,7 @@
 package com.example.thishouse.service;
 
 import com.example.thishouse.domain.house.*;
+import com.example.thishouse.mapper.ContractMapper;
 import com.example.thishouse.mapper.HouseMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
@@ -21,6 +22,7 @@ import java.util.List;
 public class HouseService {
 
     private final HouseMapper houseMapper;
+    private final ContractMapper contractMapper;
     //시퀸스 생성
     public int sequence() {
         int result = houseMapper.sequence();
@@ -191,6 +193,15 @@ public class HouseService {
 
     public String get_user_id(String houseNum) {
         return this.houseMapper.get_user_id(houseNum);
+
+    }
+
+    @Transactional
+    public void approval_contract_complete(String contract_idx) {
+        String house_num = contractMapper.get_house_num(contract_idx);
+        houseMapper.approval_contract_complete_item(house_num);
+        contractMapper.reject_same_house_contract(house_num);
+        houseMapper.approval_contract_complete(house_num);
 
     }
 }

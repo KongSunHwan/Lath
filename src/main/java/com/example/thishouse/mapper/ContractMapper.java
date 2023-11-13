@@ -48,4 +48,21 @@ public interface ContractMapper {
     int contract_complete_cnt_tenant(String id);
 
     List<HashMap> get_complete_tenant(String id);
+
+    void contract_complete(String contract_idx);
+
+    String getLessoerIdByContractIdx(String contractIdx);
+
+    String getTenantIdByContractIdx(String contractIdx);
+
+
+    void delete_contarct(String contractIdx);
+
+    void delete_lessoer(String lessoerIdx);
+
+    void delete_tenant(String tenantIdx);
+
+    void contract_reject(String contractIdx);
+
+    void reject_same_house_contract(String houseNum);
 }

@@ -88,6 +88,20 @@ public class ContractController {
         return "contract/contract_Information_response";
     }
 
+    @RequestMapping("/contract_complete_process")
+    public String contract_complete_process(String contract_idx) {
+        houseService.approval_contract_complete(contract_idx);
+        contractService.contract_complete(contract_idx);
+        return "redirect:/contract_Information_response";
+    }
+
+    @RequestMapping("/contract_reject_process")
+    public String contract_reject_process(String contract_idx) {
+        contractService.contract_reject(contract_idx);
+
+        return "redirect:/contract_Information_response";
+    }
+
     @RequestMapping("/contract_complete_lessoer")
     public String contract_complete(HttpSession session, Model model) {
         String id = session.getAttribute("user_id").toString();
@@ -119,6 +133,7 @@ public class ContractController {
 
         return "contract/contract_management";
     }
+
 
     @GetMapping("/contract_deposit")
     public String contract_deposit() {

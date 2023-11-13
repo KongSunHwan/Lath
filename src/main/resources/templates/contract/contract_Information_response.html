@@ -75,8 +75,8 @@
               </ul>
               <br>
               <div style="float:right; margin-right: 30px">
-                <button type="submit" class="btn btn-primary" id="accept">수락</button>&nbsp;
-                <button type="button" class="btn btn-danger" id="reject">거절</button>
+                <button type="button" class="btn btn-primary" id="accept"  th:onclick="|location.href = '/contract_complete_process?contract_idx=${contractList.contract_idx}'|">수락</button>&nbsp;
+                <button type="button" class="btn btn-danger" id="reject" th:onclick="|location.href = '/contract_reject_process?contract_idx=${contractList.contract_idx}'|">거절</button>
               </div>
               </div>
           </div>

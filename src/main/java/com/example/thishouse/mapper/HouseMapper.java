@@ -72,4 +72,8 @@ public interface HouseMapper {
     HashMap get_house_info(String houseNum);
 
     String get_user_id(String houseNum);
+
+    void approval_contract_complete(String house_num);
+
+    void approval_contract_complete_item(String house_num);
 }

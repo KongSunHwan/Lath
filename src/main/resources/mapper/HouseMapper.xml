@@ -213,6 +213,7 @@
         order by house_list_num desc
             LIMIT #{recordCountPerPage} OFFSET ${firstIndex}
     </select>
+
     <select id="get_house_info" resultType="java.util.HashMap">
         select *
         from house_list a, (select *
@@ -226,5 +227,21 @@
         from house_item
         where house_num = #{house_num}
     </select>
+
+    <update id="approval_contract_complete">
+        update house_list
+        SET
+            approval = 2
+        where
+            house_num=#{house_num}
+    </update>
+
+    <update id="approval_contract_complete_item">
+        update house_item
+        SET
+            approval = 2
+        where
+            house_num=#{house_num}
+    </update>
 
 </mapper>

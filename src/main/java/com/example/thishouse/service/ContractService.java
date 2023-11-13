@@ -96,6 +96,25 @@ public class ContractService {
 
     public int contract_complete_cnt(String userId) {
         return contractMapper.contract_complete_cnt(userId);
+    }
+    @Transactional
+    public void contract_complete(String contract_idx) {
+        contractMapper.contract_complete(contract_idx);
 
     }
+
+    @Transactional
+    public void contract_reject(String contractIdx) {
+        contractMapper.contract_reject(contractIdx);
+    }
+
+    //데이터 삭제
+//    @Transactional
+//    public void delete_contract_data(String contractIdx) {
+//        String lessoer_idx = contractMapper.getLessoerIdByContractIdx(contractIdx);
+//        String tenant_idx = contractMapper.getTenantIdByContractIdx(contractIdx);
+//        contractMapper.delete_contarct(contractIdx);
+//        contractMapper.delete_lessoer(lessoer_idx);
+//        contractMapper.delete_tenant(tenant_idx);
+//    }
 }

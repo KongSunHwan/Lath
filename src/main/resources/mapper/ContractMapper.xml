@@ -123,5 +123,48 @@
           and a.lessoer_idx = d.lessoer_idx
     </select>
 
+    <update id="contract_complete">
+        update contract
+        set contract_state = "완료 성공"
+        where contract_idx = #{contract_idx}
+    </update>
 
+    <select id="getLessoerIdByContractIdx" resultType="String">
+        select lessoer_idx
+        from contract
+        where contract_idx = #{contract_idx}
+    </select>
+
+    <select id="getTenantIdByContractIdx" resultType="String">
+        select tenant_idx
+        from contract
+        where contract_idx = #{contract_idx}
+    </select>
+
+    <delete id="delete_contarct">
+        delete from contract
+        where contract_idx = #{contract_idx}
+    </delete>
+
+    <delete id="delete_lessoer">
+        delete from contract
+        where contract_idx = #{lessoerIdx}
+    </delete>
+
+    <delete id="delete_tenant">
+        delete from contract
+        where contract_idx = #{tenantIdx}
+    </delete>
+
+    <update id="contract_reject">
+        update contract
+        set contract_state = "완료 실패"
+        where contract_idx = #{contract_idx}
+    </update>
+
+    <update id="reject_same_house_contract">
+        update contract
+        set contract_state = "완료 실패"
+        where house_num = #{houseNum}
+    </update>
 </mapper>
