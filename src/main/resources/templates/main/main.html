@@ -278,7 +278,7 @@
 
     // 페이지 로드 시 "찜하기" 상태를 세션에서 복원
     window.onload = function () {
-        var user_id = /*[[${user_id}]]*/; // 사용자 아이디를 Thymeleaf 변수로부터 가져옴
+        var user_id = [[${user_id}]]; // 사용자 아이디를 Thymeleaf 변수로부터 가져옴
         var sessionFavorites = JSON.parse(sessionStorage.getItem('user_favorites')) || {};
 
         if (sessionFavorites[user_id]) {
