@@ -125,7 +125,7 @@
 
     <update id="contract_complete">
         update contract
-        set contract_state = "완료 성공"
+        set contract_state = "완료 성공", contract_date = now()
         where contract_idx = #{contract_idx}
     </update>
 
