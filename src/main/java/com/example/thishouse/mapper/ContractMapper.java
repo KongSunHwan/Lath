@@ -65,4 +65,10 @@ public interface ContractMapper {
     void contract_reject(String contractIdx);
 
     void reject_same_house_contract(String houseNum);
+
+    Contract getContractDetail(String contractIdx);
+
+    Lessoer getLessoerInfo(int lessoer_idx);
+
+    Tenant getTenantInfo(int tenant_idx);
 }

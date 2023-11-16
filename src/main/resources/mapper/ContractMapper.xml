@@ -167,4 +167,22 @@
         set contract_state = "완료 실패"
         where house_num = #{houseNum}
     </update>
+
+    <select id="getContractDetail" resultType="Contract">
+        select *
+        from contract
+        where contract_idx = #{contractIdx}
+    </select>
+
+    <select id="getLessoerInfo" resultType="Lessoer">
+        select *
+        from lessoer
+        where lessoer_idx = #{lessoer_idx}
+    </select>
+
+    <select id="getTenantInfo" resultType="Tenant">
+        select *
+        from tenant
+        where tenant_idx = #{tenant_idx}
+    </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.example.thishouse.controller;
 
 import com.example.thishouse.domain.contract.Contract;
+import com.example.thishouse.domain.contract.Lessoer;
 import com.example.thishouse.domain.contract.Tenant;
 import com.example.thishouse.domain.house.House_info;
 import com.example.thishouse.domain.house.House_location;
@@ -84,7 +85,6 @@ public class ContractController {
         String id = session.getAttribute("user_id").toString();
         List<HashMap> list = contractService.getConResList(id);
         model.addAttribute("contractList", list);
-
         return "contract/contract_Information_response";
     }
 
@@ -98,7 +98,6 @@ public class ContractController {
     @RequestMapping("/contract_reject_process")
     public String contract_reject_process(String contract_idx) {
         contractService.contract_reject(contract_idx);
-
         return "redirect:/contract_Information_response";
     }
 
@@ -134,6 +133,18 @@ public class ContractController {
         return "contract/contract_management";
     }
 
+    @GetMapping("/contract_detail")
+    public String contract_detail(String contract_idx, Model model) {
+        Contract contract =  contractService.getContractDetail(contract_idx);
+
+        System.out.println(contract.getContract_idx());
+
+        model.addAttribute("contract",contract);
+        model.addAttribute("lessoer",contractService.getLessoerInfo(contract.getLessoer_idx()));
+        model.addAttribute("tenant",contractService.getTenantInfo(contract.getTenant_idx()));
+
+        return "contract/contract_detail";
+    }
 
     @GetMapping("/contract_deposit")
     public String contract_deposit() {
@@ -145,9 +156,4 @@ public class ContractController {
         return "contract/contract_progress";
     }
 
-    //계약자 정보 기입창
-    @RequestMapping("/real_estate_contract_test")
-    public String real_estate_contract_test() {
-        return "contract_write";
-    }
 }

@@ -108,6 +108,19 @@ public class ContractService {
         contractMapper.contract_reject(contractIdx);
     }
 
+    public Contract getContractDetail(String contractIdx) {
+        return contractMapper.getContractDetail(contractIdx);
+    }
+
+    public Lessoer getLessoerInfo(int lessoerIdx) {
+        return contractMapper.getLessoerInfo(lessoerIdx);
+    }
+
+    public Tenant getTenantInfo(int tenantIdx) {
+        return contractMapper.getTenantInfo(tenantIdx);
+
+    }
+
     //데이터 삭제
 //    @Transactional
 //    public void delete_contract_data(String contractIdx) {
