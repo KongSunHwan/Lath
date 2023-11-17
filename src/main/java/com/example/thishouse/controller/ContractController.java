@@ -7,6 +7,7 @@ import com.example.thishouse.domain.house.House_info;
 import com.example.thishouse.domain.house.House_location;
 import com.example.thishouse.service.ContractService;
 import com.example.thishouse.service.HouseService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -49,7 +50,7 @@ public class ContractController {
     }
 
     @PostMapping("/contract_request")
-    public String contract_request(String house_num, @Valid Contract contract, @Valid Tenant tenant, Model model, HttpSession session) {
+    public String contract_request(String house_num, @Valid Contract contract, @Valid Tenant tenant, HttpServletRequest request, HttpSession session) {
         String user_id = (String) session.getAttribute("user_id"); //구매자
         tenant.setUser_id(user_id);
         contractService.tenant_info(tenant);

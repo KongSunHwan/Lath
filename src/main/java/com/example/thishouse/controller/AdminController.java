@@ -2,6 +2,7 @@ package com.example.thishouse.controller;
 
 import com.example.thishouse.domain.Criteria;
 import com.example.thishouse.domain.DTO.NoticeDTO;
+import com.example.thishouse.domain.DTO.ResponsePageDTO;
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.Report;
@@ -28,6 +29,7 @@ public class AdminController {
     private final NoticeService noticeService;
     private final HouseService houseService;
     private final ReportService reportService;
+    private final ContractService contractService;
     @GetMapping("admin/member")
     public String Members_Search(@ModelAttribute("searchVO") Member searchVO, HttpServletRequest request, Model model) {
         PageCtrl pagination  = new PageCtrl();
@@ -371,8 +373,11 @@ public class AdminController {
     }
 
     @GetMapping("Contract_Details")
-    public String Contract_Details() {
-        return "Admin_Dashboard/Contract_Details";
+    public String Contract_Details(Criteria criteria, Model model) {
+        ResponsePageDTO.ResponseContract list = contractService.contract_list(criteria);
+        System.out.println(list);
+//        model.addAttribute("pageList", list);
+        return "admin/contract_manage";
     }
 
     @GetMapping("Event_Check")

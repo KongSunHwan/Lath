@@ -1,10 +1,12 @@
 package com.example.thishouse.service;
 
+import com.example.thishouse.domain.Criteria;
+import com.example.thishouse.domain.DTO.ResponsePageDTO;
+import com.example.thishouse.domain.PageDTO;
 import com.example.thishouse.domain.contract.Contract;
 import com.example.thishouse.domain.contract.Lessoer;
 import com.example.thishouse.domain.contract.Tenant;
 import com.example.thishouse.mapper.ContractMapper;
-import com.example.thishouse.mapper.HouseMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -119,6 +121,14 @@ public class ContractService {
     public Tenant getTenantInfo(int tenantIdx) {
         return contractMapper.getTenantInfo(tenantIdx);
 
+    }
+
+    public ResponsePageDTO.ResponseContract contract_list(Criteria criteria) {
+        Criteria cs = new Criteria(criteria.getPageNum(), criteria.getAmount(), criteria.getType(), criteria.getKeyword());
+        List<HashMap> paymentPageList = contractMapper.contract_list(cs);
+        int total = contractMapper.contract_list_cnt(cs);
+        PageDTO pageDTO = new PageDTO(cs,total);
+        return new ResponsePageDTO.ResponseContract(paymentPageList, pageDTO);
     }
 
     //데이터 삭제

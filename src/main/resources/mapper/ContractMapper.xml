@@ -51,9 +51,10 @@
     </select>
 
     <select id="get_contract_request" resultType="int">
-        select count(*)
-        from tenant
-        where user_id = #{user_id}
+        select count(*) from contract a,  (select *
+                                    from house_picture
+                                    where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) b
+        where a.house_num = b.house_num and a.contract_state in ("계약서 작성 완료","계약 요청") and a.tenant_idx = any(select c.tenant_idx from tenant c where user_id = #{id})
     </select>
 
     <select id="get_contract_accept" resultType="int">
@@ -184,5 +185,16 @@
         select *
         from tenant
         where tenant_idx = #{tenant_idx}
+    </select>
+
+    <select id="contract_list" resultType="HashMap">
+        select *
+        from contract a ,lessoer b, tenant c
+        where a.lessoer_idx = b.lessoer_idx and a.tenant_idx = c.tenant_idx
+    </select>
+
+    <select id="contract_list_cnt" resultType="int">
+        select count(*)
+        from contract
     </select>
 </mapper>

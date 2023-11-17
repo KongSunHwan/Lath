@@ -1,5 +1,6 @@
 package com.example.thishouse.mapper;
 
+import com.example.thishouse.domain.Criteria;
 import com.example.thishouse.domain.contract.Contract;
 import com.example.thishouse.domain.contract.Lessoer;
 import com.example.thishouse.domain.contract.Tenant;
@@ -71,4 +72,8 @@ public interface ContractMapper {
     Lessoer getLessoerInfo(int lessoer_idx);
 
     Tenant getTenantInfo(int tenant_idx);
+
+    List<HashMap> contract_list(Criteria cs);
+
+    int contract_list_cnt(Criteria cs);
 }

@@ -66,7 +66,9 @@
                     <i class="bi bi-check"></i> <b>주소 :</b> [(${contractList.road_address})]
                   </li>
                   <li>
-                    <i class="bi bi-check"></i> <b>관련서류 :</b> 계약서 <i class="bi bi-box-arrow-up-right"></i>
+                    <i class="bi bi-check"></i>
+                    <a target='_blank' th:href="@{'/contract_detail?contract_idx=' + ${contractList.contract_idx}}">
+                      <b>관련서류 :</b> 계약서 <i class="bi bi-box-arrow-up-right"></i></a>
                   </li>
                 </ul>
                 <br><br>

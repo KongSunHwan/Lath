@@ -47,7 +47,7 @@ public class NoticeService {
     }
 
     public NoticeDTO.PageResponseList pageResponseList(Criteria criteria){
-        Criteria cs = new Criteria(criteria.getPageNum(), criteria.getType(), criteria.getKeyword());
+        Criteria cs = new Criteria(criteria.getPageNum(),criteria.getAmount() ,criteria.getType(), criteria.getKeyword());
         List<Notice> pageList = noticeMapper.findList(cs);
         int total = noticeMapper.findCount(cs);
         PageDTO pageDTO = new PageDTO(cs,total);
