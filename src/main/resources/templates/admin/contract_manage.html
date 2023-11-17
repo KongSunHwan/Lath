@@ -118,8 +118,23 @@
         <div class="container-fluid mt-15">
             <div class="card mb-15">
                 <div class="card-body">
-                    <h4 class="card-title"><b>회원 계약내역</b></h4>
+                    <h4 class="card-title" style="text-align: center"><b>회원 계약내역</b></h4>
+                    <br>
                     <div class="row">
+                        <form class="form-inline" method="get" action="/admin/community">
+                            <div class="input-group">
+                                <div style="width: 200px;">
+                                    <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="searchName">
+                                        <option value="user_id" selected>아이디</option>
+                                        <option value="location">지역</option>
+                                    </select>
+                                </div>
+                                <input class="form-control" type="input" name="searchValue"  aria-label="Search" style="height: 48px;">
+                                <button class="btn btn-outline-primary" type="submit" style="height: 48px;">
+                                    <i class="fas fa-search" ></i>
+                                </button>
+                            </div>
+                        </form>
                         <div class="col-12">
                             <div class="col-12">
                                 <div class="row no-gutters">
