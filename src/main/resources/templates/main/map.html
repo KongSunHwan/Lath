@@ -263,8 +263,13 @@
                                 오피스텔 19.89m</strong><br>
                             <strong class="col-10 mb-1 small" style="font-size: 13px;" th:text="|${markers.b_floors}/${markers.n_floors}층|">
                                 5/6층</strong><br>
-                            <strong class="col-10 mb-1 small" style="font-size: 13px;" th:text="|조회수:${markers.hits}|">
-                                신축 컨디션 좋음</strong><br>
+                            <strong class="col-10 mb-1 small" style="font-size: 13px;" >
+                                  <span class="badge bg-secondary"  th:text="|조회수:${markers.hits}|">
+                                            123
+                                        </span>
+
+
+                             </strong><br>
                         </div>
                         <div class="border">
                             <img src="/img/img001.jpeg" th:src="|/images/${markers.save_name}|" style="width: 180px;height: 140px;float: right;">
@@ -889,7 +894,9 @@
                                     '<strong class="col-10 mb-1 small" style="font-size: 13px;">' + markerData.detail_address + '</strong><br>' +
                                     '<strong class="col-10 mb-1 small" style="font-size: 13px;">' + markerData.house_type + ' ' + markerData.exclusive_area2 + 'm</strong><br>' +
                                     '<strong class="col-10 mb-1 small" style="font-size: 13px;">' + markerData.b_floors + '/' + markerData.n_floors + 'm</strong><br>' +
-                                    '<strong class="col-10 mb-1 small" style="font-size: 13px;">' + markerData.h_title + '</strong><br>' +
+                                    '<strong class="col-10 mb-1 small" style="font-size: 13px;">' +
+                                    '<span class="badge bg-secondary">' +
+                                    "조회수:" + markerData.hits + '</span></strong><br>' +
                                     '</div>' +
                                     '<div class="border ms-auto">' +
                                     '<img src="http://localhost:8082/images/' + markerData.save_name + '" style="width: 200px; height: 150px;">' +
