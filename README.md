@@ -50,7 +50,7 @@
 ### 부동산 계약
 <img width="811" alt="2023-11-14_140322" src="https://github.com/KongSunHwan/Lath/assets/85215507/083805da-014d-4921-8917-69d8c8055922">
 
-## 핵심 기능 UI
+## 핵심 기능
 
 ### 매물 목록 페이지
 <img width="1280" alt="Untitled" src="https://github.com/KongSunHwan/Lath/assets/85215507/626f1e3b-d32f-4d80-9ad9-4f84660a11de">
