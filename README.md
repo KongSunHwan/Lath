@@ -35,7 +35,7 @@
 ### - 지리 정보 - QGIS
 
 ## ERD 전체 설계
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8f7e4853-e5a1-407f-8ba6-eb98c0817728/Untitled.png)
+<img width="692" alt="Untitled (6)" src="https://github.com/KongSunHwan/Lath/assets/85215507/723104a1-4f93-4711-a57b-66170466aa0f">
 
 ## ERD 회원 구분
 ### 문의사항 & 커뮤니티
@@ -53,30 +53,31 @@
 ## 핵심 기능 UI
 
 ### 매물 목록 페이지
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c5363e17-ae76-4677-9763-07290292bb66/Untitled.png)
+<img width="1280" alt="Untitled" src="https://github.com/KongSunHwan/Lath/assets/85215507/626f1e3b-d32f-4d80-9ad9-4f84660a11de">
 
 ### 판매 상세 페이지 (1)
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b9c614ea-a0d7-4192-bbe0-810e46ff4598/Untitled.png)
+<img width="1280" alt="Untitled (1)" src="https://github.com/KongSunHwan/Lath/assets/85215507/e0ee7f51-0851-4dbe-b0c5-1080b9c909aa">
 
 ### 판매 상세 페이지 (2)
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ec44d5fd-c065-4e47-82e7-28e9836ed916/Untitled.png)
+<img width="1280" alt="Untitled (2)" src="https://github.com/KongSunHwan/Lath/assets/85215507/50a5b6f9-81be-4392-95bb-2caa3558f202">
 
 ### 판매 상세 페이지 (3)
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1a58b037-96aa-4e35-935c-92184fa64a67/Untitled.png)
+<img width="1278" alt="Untitled (3)" src="https://github.com/KongSunHwan/Lath/assets/85215507/3649fee8-19b3-4cf4-8f3f-579c07e41507">
 
 ### 매물 지도 페이지
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9c314761-bf25-4a07-a9f2-49c5c16747c2/Untitled.png)
+<img width="1278" alt="Untitled (4)" src="https://github.com/KongSunHwan/Lath/assets/85215507/8abbf850-106b-4380-82a8-cb0f7007ec11">
 
 ### 채팅방 페이지
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/93b0e557-f59f-433f-a63a-4b9d2a56030c/Untitled.png)
+<img width="1279" alt="Untitled (5)" src="https://github.com/KongSunHwan/Lath/assets/85215507/a78dbc1e-ec7a-4d7c-8833-d30cbe942d52">
 
 ### 채팅 페이지
-![채팅방.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8c9946f5-d7d2-4d9b-8d86-068ed794f505/%EC%B1%84%ED%8C%85%EB%B0%A9.png)
+![채팅방](https://github.com/KongSunHwan/Lath/assets/85215507/48e71bbf-7631-4ae8-a8c2-95a284448582)
 
 ### 알림 페이지
-![알림.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c7f5f206-a35c-45b6-8ed6-74832ce59bdf/%EC%95%8C%EB%A6%BC.png)
+![알림](https://github.com/KongSunHwan/Lath/assets/85215507/67903e5a-36c7-49f0-9ae2-9503294b9a47)
 
 ### 관리자 페이지 (구현중)
-![관리자.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4fcff7ed-a446-43a4-9e42-8396310c17b0/%EA%B4%80%EB%A6%AC%EC%9E%90.png)
+![관리자](https://github.com/KongSunHwan/Lath/assets/85215507/d5ad7a29-6fa0-46d9-b1dc-b23e7e7648b1)
+
 
 
