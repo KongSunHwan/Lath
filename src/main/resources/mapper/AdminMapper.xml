@@ -130,7 +130,7 @@
         select * from house_list a, house_item b  where a.house_num = b.house_num and a.approval = 0 and b.approval = 0 Order by regist_time desc LIMIT #{recordCountPerPage} OFFSET ${firstIndex}
     </select>
 
-    <select id = "no_re_list_cnt" resultType="integer">
+    <select id = "no_re_list_cnt" resultType="int">
         select count(*) from house_list a, house_item b  where a.house_num = b.house_num and a.approval = 0 and b.approval = 0
     </select>
 

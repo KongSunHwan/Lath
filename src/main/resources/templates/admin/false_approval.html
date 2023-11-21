@@ -82,7 +82,7 @@
 <body class="menubar-enabled navbar-top-fixed">
 
 <!-- header 시작 -->
-<header th:replace="~{header/Admin_header}"></header>
+<header th:replace="~{header/admin_header}"></header>
 <!-- header 끝 -->
 
         <div class="container-fluid mt-15">
@@ -159,7 +159,6 @@
                                                                             </div>
                                                                         </td>
                                                                     </tr>
-
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -167,8 +166,8 @@
 
 
                                                         </div>
-
-                                                <form method="get" id="listForm" action="/false_approval">
+<!--                                                <th:block th:if="${searchVO.totCnt >=}">-->
+                                                <form method="get" id="listForm" action="/admin/false_approval">
                                                     <input type="hidden" id="pageIndex" name="pageIndex" val="" />
                                                     <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;"> <!-- 가운데 정렬 스타일을 추가 -->
                                                         <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
@@ -186,27 +185,7 @@
                                                         </div>
                                                     </div>
                                                 </form>
-<!--                                                        <nav aria-label="Page navigation example">-->
-<!--                                                        <ul class="pagination" style="justify-content: center;">-->
-<!--                                                            <li class="page-item">-->
-<!--                                                                <a class="page-link" href="#" aria-label="Previous">-->
-<!--                                                                    <span aria-hidden="true">&laquo;</span>-->
-<!--                                                                </a>-->
-<!--                                                            </li>-->
-<!--                                                            <li class="page-item"><a class="page-link" href="#">1</a>-->
-<!--                                                            </li>-->
-<!--                                                            <li class="page-item"><a class="page-link" href="#">2</a>-->
-<!--                                                            </li>-->
-<!--                                                            <li class="page-item"><a class="page-link" href="#">3</a>-->
-<!--                                                            </li>-->
-<!--                                                            <li class="page-item">-->
-<!--                                                                <a class="page-link" href="#" aria-label="Next">-->
-<!--                                                                    <span aria-hidden="true">&raquo;</span>-->
-<!--                                                                </a>-->
-<!--                                                            </li>-->
-<!--                                                        </ul>-->
-<!--                                                    </nav>-->
-
+<!--                                                </th:block>-->
                                                 </div>
                                             </div>
                                         </div>

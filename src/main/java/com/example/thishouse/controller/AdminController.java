@@ -372,11 +372,11 @@ public class AdminController {
         return "admin/house_info";
     }
 
-    @GetMapping("Contract_Details")
+    @GetMapping("admin/contract_list")
     public String Contract_Details(Criteria criteria, Model model) {
         ResponsePageDTO.ResponseContract list = contractService.contract_list(criteria);
         System.out.println(list);
-//        model.addAttribute("pageList", list);
+        model.addAttribute("pageList", list);
         return "admin/contract_manage";
     }
 
