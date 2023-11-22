@@ -64,7 +64,7 @@
                 console.log('click');
                 var pageNum = $(this).text();
 
-                var href = '/game_management?pageNum=' + pageNum + '&amount=10&keyword=' + keyword;
+                var href = '/admin/contract_list?pageNum=' + pageNum + '&amount=10&keyword=' + keyword;
                 $(this).attr("href", href); // 속성을 변경하여 href 값을 설정
                 window.location.href = href;
             });
@@ -121,7 +121,7 @@
                     <h4 class="card-title" style="text-align: center"><b>회원 계약내역</b></h4>
                     <br>
                     <div class="row">
-                        <form class="form-inline" method="get" action="/admin/community">
+                        <form class="form-inline" method="get" action="/admin/contract_list">
                             <div class="input-group">
                                 <div style="width: 200px;">
                                     <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="searchName">
@@ -150,7 +150,7 @@
                                                         <th scope="col" >계약일</th>
                                                         <th scope="col" >계약서</th>
                                                         <th scope="col" >상태</th>
-                                                        <th scope="col" >관리</th>
+<!--                                                        <th scope="col" >관리</th>-->
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -165,29 +165,29 @@
                                                         </td>
                                                         <td>
                                                             <span class="badge bg-success" th:if="${pageList.contract_state == '완료 성공'}">계약 완료</span>
-                                                            <span class="badge bg-danger" th:if="${pageList.contract_state == '완료 실패'}">계약 완료</span>
+                                                            <span class="badge bg-danger" th:if="${pageList.contract_state == '완료 실패'}">계약 취소</span>
                                                             <span class="badge bg-secondary" th:if="${pageList.contract_state == '계약서 작성 완료'}">진행중</span>
                                                             <span class="badge bg-secondary" th:if="${pageList.contract_state == '계약 요청'}">진행중</span>
 
                                                         </td>
-                                                        <td>
-                                                            <div class="btn-group">
-                                                                <button type="button" class="btn" data-bs-toggle="dropdown"
-                                                                        data-bs-display="static" aria-expanded="false">
-                                                                    <i class="mdi mdi-dots-horizontal"></i>
-                                                                </button>
-                                                                <ul class="dropdown-menu dropdown-menu-lg-end">
-                                                                    <li>
-                                                                        <button class="dropdown-item" type="button">
-                                                                            수정</button></li>
-                                                                    <li>
-                                                                        <button class="dropdown-item" type="button">
-                                                                            삭제</button></li>
+<!--                                                        <td>-->
+<!--                                                            <div class="btn-group">-->
+<!--                                                                <button type="button" class="btn" data-bs-toggle="dropdown"-->
+<!--                                                                        data-bs-display="static" aria-expanded="false">-->
+<!--                                                                    <i class="mdi mdi-dots-horizontal"></i>-->
+<!--                                                                </button>-->
+<!--                                                                <ul class="dropdown-menu dropdown-menu-lg-end">-->
+<!--                                                                    <li>-->
+<!--                                                                        <button class="dropdown-item" type="button">-->
+<!--                                                                            수정</button></li>-->
+<!--                                                                    <li>-->
+<!--                                                                        <button class="dropdown-item" type="button">-->
+<!--                                                                            삭제</button></li>-->
 
-                                                                </ul>
-                                                            </div>
+<!--                                                                </ul>-->
+<!--                                                            </div>-->
 
-                                                        </td>
+<!--                                                        </td>-->
                                                     </tr>
                                                 </tbody>
                                             </table>

@@ -135,6 +135,9 @@
 <div class="album py-5 bg-light" >
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div th:if="${#lists.isEmpty(house_list)}" style="justify-items: center">
+                <h3 style="text-align: center">매물이 존재하지 않습니다.</h3>
+            </div>
 
             <div class="col" th:each="house_list : ${house_list}">
                 <input type="hidden" name="house_num" value="house_num" th:value="${house_list.house_num}">
@@ -181,10 +184,10 @@
 
         <br>
         <div class="d-flex justify-content-center align-items-center">
-            <form method="get" id="listForm" action="/main">
+            <form method="get" id="listForm" action="/admin/false_approval">
                 <input type="hidden" id="pageIndex" name="pageIndex" val="" />
-                <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;"> <!-- 가운데 정렬 스타일을 추가 -->
-                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;">
+                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate" th:if="${not #lists.isEmpty(yourList)}">
                         <ul class="pagination justify-content-center" style="align:center;">
                             <li th:if="${searchVO.prev}" class="paginate_button page-item previous" id="dataTable_previous">
                                 <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.startDate - 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">이전</a>

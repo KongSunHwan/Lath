@@ -206,7 +206,9 @@
               <h4 class="mar-r">💖 최근 관심매물 내역</h4>
             </div>
             <div class="mar-b">
+              <a th:href="@{/wishlist/{user_id}(user_id=${session.user_id})}">
               <button class="btn btn-outline-success" type="button">전체 보기</button>
+              </a>
             </div>
             <div class="d-flex">
 <!--              <ul>-->
