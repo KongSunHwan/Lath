@@ -64,7 +64,7 @@
                 console.log('click');
                 var pageNum = $(this).text();
 
-                var href = '/admin/contract_list?pageNum=' + pageNum + '&amount=10&keyword=' + keyword;
+                var href = '/admin_contract_list?pageNum=' + pageNum + '&amount=10&keyword=' + keyword;
                 $(this).attr("href", href); // 속성을 변경하여 href 값을 설정
                 window.location.href = href;
             });
@@ -75,15 +75,11 @@
                     alert("키워드를 입력하세요");
                     return false;
                 }
-
                 // 페이지 번호를 1로 처리
                 searchForm.find("input[name='pageNum']").val("1");
-
                 // 폼 태그의 전송을 막음
                 e.preventDefault();
-
                 searchForm.submit();
-
             });
 
             $("#searchForm").on("keydown", function(e) {
@@ -93,13 +89,10 @@
                         alert("키워드를 입력하세요");
                         return false;
                     }
-
                     // 페이지 번호를 1로 처리
                     searchForm.find("input[name='pageNum']").val("1");
-
                     // 폼 태그의 전송을 막음
                     e.preventDefault();
-
                     searchForm.submit();
                 }
             });
@@ -121,15 +114,16 @@
                     <h4 class="card-title" style="text-align: center"><b>회원 계약내역</b></h4>
                     <br>
                     <div class="row">
-                        <form class="form-inline" method="get" action="/admin/contract_list">
+                        <form class="form-inline" method="get" id="searchForm" ction="/admin_contract_list">
+                            <input type="hidden" name="pageNum" th:value="${pageList.pageDTO.cri.getPageNum()}">
                             <div class="input-group">
                                 <div style="width: 200px;">
-                                    <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="searchName">
-                                        <option value="user_id" selected>아이디</option>
-                                        <option value="location">지역</option>
+                                    <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="type">
+                                        <option th:value="user_id" selected>아이디</option>
+                                        <option th:value="location">지역</option>
                                     </select>
                                 </div>
-                                <input class="form-control" type="input" name="searchValue"  aria-label="Search" style="height: 48px;">
+                                <input class="form-control" type="input" name="keyword" th:value="${pageList.pageDTO.cri.getKeyword()}" aria-label="Search" style="height: 48px;">
                                 <button class="btn btn-outline-primary" type="submit" style="height: 48px;">
                                     <i class="fas fa-search" ></i>
                                 </button>
@@ -161,33 +155,17 @@
                                                         <td th:text="${pageList.road_address}">속초 하이디타운하우스 202호</td>
                                                         <td th:text="${pageList.contract_date}">2023-08-02</td>
                                                         <td>
+                                                            <a target='_blank' th:href="@{'/admin_contract_detail?contract_idx=' + ${pageList.contract_idx}}">
                                                             <b>계약서 <i class="bi bi-box-arrow-up-right"></i></b>
+                                                            </a>
                                                         </td>
                                                         <td>
                                                             <span class="badge bg-success" th:if="${pageList.contract_state == '완료 성공'}">계약 완료</span>
                                                             <span class="badge bg-danger" th:if="${pageList.contract_state == '완료 실패'}">계약 취소</span>
                                                             <span class="badge bg-secondary" th:if="${pageList.contract_state == '계약서 작성 완료'}">진행중</span>
                                                             <span class="badge bg-secondary" th:if="${pageList.contract_state == '계약 요청'}">진행중</span>
-
                                                         </td>
-<!--                                                        <td>-->
-<!--                                                            <div class="btn-group">-->
-<!--                                                                <button type="button" class="btn" data-bs-toggle="dropdown"-->
-<!--                                                                        data-bs-display="static" aria-expanded="false">-->
-<!--                                                                    <i class="mdi mdi-dots-horizontal"></i>-->
-<!--                                                                </button>-->
-<!--                                                                <ul class="dropdown-menu dropdown-menu-lg-end">-->
-<!--                                                                    <li>-->
-<!--                                                                        <button class="dropdown-item" type="button">-->
-<!--                                                                            수정</button></li>-->
-<!--                                                                    <li>-->
-<!--                                                                        <button class="dropdown-item" type="button">-->
-<!--                                                                            삭제</button></li>-->
 
-<!--                                                                </ul>-->
-<!--                                                            </div>-->
-
-<!--                                                        </td>-->
                                                     </tr>
                                                 </tbody>
                                             </table>

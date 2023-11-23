@@ -137,13 +137,9 @@ public class ContractController {
     @GetMapping("/contract_detail")
     public String contract_detail(String contract_idx, Model model) {
         Contract contract =  contractService.getContractDetail(contract_idx);
-
-        System.out.println(contract.getContract_idx());
-
         model.addAttribute("contract",contract);
         model.addAttribute("lessoer",contractService.getLessoerInfo(contract.getLessoer_idx()));
         model.addAttribute("tenant",contractService.getTenantInfo(contract.getTenant_idx()));
-
         return "contract/contract_detail";
     }
 

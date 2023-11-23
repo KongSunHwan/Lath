@@ -8,6 +8,7 @@ import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
+import com.example.thishouse.domain.contract.Contract;
 import com.example.thishouse.domain.house.*;
 import com.example.thishouse.service.*;
 import com.example.thishouse.util.PageCtrl;
@@ -298,7 +299,7 @@ public class AdminController {
             model.addAttribute("pagination",pagination);
         }
         else{
-          //검색창ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ
+
         }
 
         return "admin/house_approval";
@@ -372,12 +373,21 @@ public class AdminController {
         return "admin/house_info";
     }
 
-    @GetMapping("admin/contract_list")
+    @GetMapping("admin_contract_list")
     public String Contract_Details(Criteria criteria, Model model) {
         ResponsePageDTO.ResponseContract list = contractService.contract_list(criteria);
-        System.out.println(list);
         model.addAttribute("pageList", list);
         return "admin/contract_manage";
+    }
+
+    @GetMapping("admin_contract_detail")
+    public String admin_contract_detail(String contract_idx, Model model) {
+        Contract contract =  contractService.getContractDetail(contract_idx);
+        model.addAttribute("contract",contract);
+        model.addAttribute("lessoer",contractService.getLessoerInfo(contract.getLessoer_idx()));
+        model.addAttribute("tenant",contractService.getTenantInfo(contract.getTenant_idx()));
+
+        return "admin/admin_contract_detail";
     }
 
     @GetMapping("Event_Check")
