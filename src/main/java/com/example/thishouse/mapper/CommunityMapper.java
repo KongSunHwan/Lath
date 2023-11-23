@@ -1,7 +1,11 @@
 package com.example.thishouse.mapper;
 
+import com.example.thishouse.domain.Criteria;
+import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.community.Community;
+import com.example.thishouse.domain.community.CommunityDTO;
 import com.example.thishouse.domain.community.Community_reply;
+import com.example.thishouse.domain.community.ReplyCount;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -34,5 +38,11 @@ public interface CommunityMapper {
     public List<Community> bd_list_search(Community searchVO);
 
     public int bd_list_search_Cnt(Community searchVO);
+
+    List<CommunityDTO> findList(Criteria criteria);
+
+    int findCount(Criteria criteria);
+
+    List<ReplyCount> findReplyCountbycommunityNum();
 
 }

@@ -81,8 +81,43 @@
     </select>
     <select id="bd_list_search_Cnt" parameterType="com.example.thishouse.domain.community.Community" resultType="int">
         select count(*) from community where ${search_name} like CONCAT('%',#{search_content},'%')
-
     </select>
 
+    <!--검색 조건 -->
+    <sql id="criteria">
+        <trim prefix=" AND (" suffix=")" prefixOverrides="OR" >
+            <foreach item="type" collection ="typeArr">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'T'.toString()">
+                            community_title like concat ('%',#{keyword},'%')
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            community_contents like concat ('%',#{keyword},'%')
+                        </when>
+                        <when test="type == 'W'.toString()">
+                            user_id like concat ('%',#{keyword},'%')
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
+    <select id="findList" resultType="com.example.thishouse.domain.community.CommunityDTO">
+        select community_num, community_title, user_id, community_contents, community_date, community_hits,
+        (select count(*) from community_reply where community.community_num = community_reply.community_num) as 'replyCount'
+        from community
+        <where>
+            <include refid="criteria"></include>
+        </where>
+        order by community_num desc
+        limit #{skip}, #{amount}
+    </select>
 
+    <select id="findCount" resultType="int">
+        select count(*) from community
+        <where>
+            <include refid="criteria"></include>
+        </where>
+    </select>
 </mapper>
