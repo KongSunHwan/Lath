@@ -4,7 +4,6 @@ import com.example.thishouse.domain.Criteria;
 import com.example.thishouse.domain.DTO.NoticeDTO;
 import com.example.thishouse.domain.DTO.ResponsePageDTO;
 import com.example.thishouse.domain.Member;
-import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
@@ -84,8 +83,13 @@ public class AdminController {
         return "admin/member";
     }
 
+    @RequestMapping("member_detail")
+    public String member_detail(String user_num) {
+        return "admin/member_detail";
+    }
+
     @RequestMapping("member_delete")
-    public String member_delete(String user_num, @ModelAttribute("searchVO") Member searchVO, HttpServletRequest request, Model model) {
+    public String member_delete(String user_num) {
         adminService.member_delete(user_num);
         return "redirect:/member";
     }
@@ -150,6 +154,8 @@ public class AdminController {
         }
         return "admin/community";
     }
+
+
     @RequestMapping("admin/community/delete")
     public String communoty_delete(String community_num,@ModelAttribute("searchVO") Community searchVO, HttpServletRequest request, Model model) {
         communityService.delete_board(community_num);
