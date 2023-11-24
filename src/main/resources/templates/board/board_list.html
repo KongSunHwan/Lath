@@ -18,36 +18,76 @@
         }
     </style>
     <script>
+        $(function() {
+            var actionForm = $("#actionForm");
 
-$(document).ready(function() {
-    var thisIndex = parseInt([[${searchVO.pageIndex}]]);
+            $(".page-item a").on("click", function (e) {
+                e.preventDefault();  //전송을 막음
+                console.log('click');
+                actionForm.find("input[name='pageNum']")
+                    .val($(this).attr("href"));
+                actionForm.submit();
+            });
+            // id.move는 상세정보에 pageNum과 amount를 가져가서 목록으로 돌아올 때 쓸 페이징 정보를 함께 넘김
+            $(".move").on("click", function(e) {
+                e.preventDefault();
+                actionForm
+                    .append("<input type='hidden' name='community_num' value='"
+                        + $(this).attr("href") + "'>");
+                actionForm.attr("action", "/board_detail");
+                actionForm.submit();
+            });
 
-$(".pagination li a").each(function() {
-    var idx = $(this).parent().index();
-    var thistitle = $(this).attr("title");
+            var searchForm = $("#searchForm");
 
-    if (thistitle === thisIndex.toString()) {
-        $(".pagination").find("li").eq(idx).addClass("active");
-    }
-});
-});
+            $("#searchForm button #search").on("click",function(e) {
+                // 화면에서 키워드가 없다면 검색을 하지 않도록 제어
+                if (!searchForm.find("option:selected").val()) {
+                    alert("검색종류를 선택하세요");
+                    return false;
+                }
+
+                if (!searchForm.find("input[name='keyword']").val()) {
+                    alert("키워드를 입력하세요");
+                    return false;
+                }
+
+                // 페이지 번호를 1로 처리
+                searchForm.find("input[name='pageNum']").val("1");
+
+                // 폼 태그의 전송을 막음
+                e.preventDefault();
+
+                searchForm.submit();
+
+            });
+
+            $("#searchForm").on("keydown", function(e) {
+                // 화면에서 키워드가 없다면 검색을 하지 않도록 제어
+                if ((e.type === "keydown" && e.keyCode === 13)) {
+                    if (!searchForm.find("option:selected").val()) {
+                        alert("검색종류를 선택하세요");
+                        return false;
+                    }
+
+                    if (!searchForm.find("input[name='keyword']").val()) {
+                        alert("키워드를 입력하세요");
+                        return false;
+                    }
+
+                    // 페이지 번호를 1로 처리
+                    searchForm.find("input[name='pageNum']").val("1");
+
+                    // 폼 태그의 전송을 막음
+                    e.preventDefault();
+
+                    searchForm.submit();
+                }
+            });
 
 
-
-
-function fn_go_page(pageNo) {
-$("#pageIndex").val(pageNo);
-$("#listForm").submit();
-return false;
-}
-
-function fn_search(){
-$("#pageIndex").val("1");
-$("#listForm").submit();
-return false;
-}
-
-</script>
+        });
+    </script>
 </head>
 <body>
 <!-- header 시작 -->
@@ -66,52 +106,60 @@ return false;
                     <li class="title">제목</li>
                     <li class="writer">작성자</li>
                     <li class="count">조회수</li>
+                    <li class="replycount">댓글수</li>
                     <li class="date">작성일</li>
                 </ul>
 
-                <ul th:each="mapall : ${bd_list}" class="board_ul" onclick="">
-                    <li th:text="${bd_list.community_num}" class="id">1</li>
+                <ul th:each="pageList : ${pageList.communityPageList}" class="board_ul" onclick="">
+                    <li th:text="${pageList.community_num}" class="id">1</li>
                     <li class="category" style="width: 200px;"><span class="badge bg-primary">커뮤니티</span></li>
-                    <a class="move" th:href="@{'/board_detail?community_num=' + ${bd_list.community_num}}"><li th:text="${bd_list.community_title}" class="title">이집봐라 사용자 이용 가이드</li></a>
-                    <li th:text="${bd_list.user_id}" class="writer">공김정</li>
-                    <li th:text="${bd_list.community_hits}" class="count">10</li>
-                    <li th:text="${bd_list.community_date}" class="date">2023-04-19</li>
+                    <a class="move" th:href="${pageList.community_num}"><li th:text="${pageList.community_title}" class="title">이집봐라 사용자 이용 가이드</li></a>
+                    <li th:text="${pageList.user_id}" class="writer">공김정</li>
+                    <li th:text="${pageList.community_hits}" class="count">10</li>
+                    <li th:text="${pageList.replyCount}" class="replycount">10</li>
+                    <li th:text="${#strings.substring(pageList.community_date, 0 , 10)}" class="date">2023-04-19</li>
                 </ul>
             </div>
 
             <!-- Paging[s] -->
             <form method="get" id="listForm" action="/board_list">
-                <input type="hidden" id="pageIndex" name="pageIndex" val="" />
                 <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;"> <!-- 가운데 정렬 스타일을 추가 -->
                     <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                         <ul class="pagination justify-content-center" style="align:center;">
-                            <li th:if="${searchVO.prev}" class="paginate_button page-item previous" id="dataTable_previous">
-                                <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.startDate - 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
+                            <li th:if="${pageList.pageDTO.isPrev()}" class="paginate_button page-item previous">
+                                <a class="page-link" th:href="${pageList.pageDTO.startPage -1}">이전</a>
                             </li>
-                            <li th:each="num: ${#numbers.sequence(searchVO.startDate,searchVO.endDate)}" class="paginate_button page-item">
-                                <a href="javascript:void(0);" th:text="${num}" th:onclick="'fn_go_page(' + ${num} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" th:title="${num}">d</a>
+                            <li th:each="num: ${#numbers.sequence(pageList.pageDTO.startPage,pageList.pageDTO.endPage)}" class="paginate_button page-item">
+                                <a class="page-link" th:href="${num}" th:value="${num}" th:text="${num}"></a>
                             </li>
-                            <li th:if="${searchVO.next}" class="paginate_button page-item next" id="dataTable_next">
-                                <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.endDate + 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">다음</a>
+                            <li th:if="${pageList.pageDTO.isNext()}" class="paginate_button page-item next" >
+                                <a class="page-link" th:href="${pageList.pageDTO.endPage + 1}">다음</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </form>
 
+            <form method="get"  id="actionForm" action="/board_list">
+                <input type="hidden" name="pageNum" th:value="${pageList.pageDTO.cri.getPageNum()}">
+                <input type="hidden" name="amount" th:value="${pageList.pageDTO.cri.getAmount()}">
+                <input type="hidden" name="type" th:value="${pageList.pageDTO.cri.getType()}">
+                <input type="hidden" name="keyword" th:value="${pageList.pageDTO.cri.getKeyword()}">
+            </form>
+
             <div class="search_area">
-                <form method="get" action="/board_list">
-                    <select id="searchCondition" name="searchName" class="border border-secondary">
-                        <option value="community_title">제목</option>
-                        <option value="community_contents">내용</option>
-                        <option value="user_id">작성자</option>
+                <form method="get"  id="searchForm" action="/board_list">
+                    <select id="searchCondition" name="type" class="border border-secondary">
+                        <option value="T" th:selected="${pageList.pageDTO.cri.getType()} == 'T'">제목</option>
+                        <option value="C" th:selected="${pageList.pageDTO.cri.getType()} == 'C'">내용</option>
+                        <option value="W" th:selected="${pageList.pageDTO.cri.getType()} == 'W'">작성자</option>
                     </select>
 
                     <span class="input_area">
-                            <input type="search" name="searchValue">
+                            <input type="search" id="search" name="keyword" th:value="${pageList.pageDTO.cri.getKeyword()}">
                         </span>
                     <button type="submit">검색하기</button>
-                    <a th:href="@{/board_add}"><button type="button">작성하기</button></a>
+                    <a th:if="${session.user_id != null}" th:href="@{/board_add}"><button type="button" id="write">작성하기</button></a>
                 </form>
             </div>
         </div>

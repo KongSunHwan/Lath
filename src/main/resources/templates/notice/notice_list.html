@@ -6,68 +6,43 @@
     <title>공지사항 게시판</title>
     <link rel="stylesheet" href="/css/Notice.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/footer.css"/>
 
-<!--    제이쿼리-->
+    <!--    제이쿼리-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style>
         a {
-        text-decoration-line: none;
+            text-decoration-line: none;
         }
     </style>
-<script>
-    $(function() {
-        var actionForm = $("#actionForm");
+    <script>
+        $(function () {
+            var actionForm = $("#actionForm");
 
-        $(".page-item a").on("click", function (e) {
-            e.preventDefault();  //전송을 막음
-            console.log('click');
-            actionForm.find("input[name='pageNum']")
-                .val($(this).attr("href"));
-            actionForm.submit();
-        });
-        // id.move는 상세정보에 pageNum과 amount를 가져가서 목록으로 돌아올 때 쓸 페이징 정보를 함께 넘김
-        $(".move").on("click", function(e) {
+            $(".page-item a").on("click", function (e) {
+                e.preventDefault();  //전송을 막음
+                console.log('click');
+                actionForm.find("input[name='pageNum']")
+                    .val($(this).attr("href"));
+                actionForm.submit();
+            });
+            // id.move는 상세정보에 pageNum과 amount를 가져가서 목록으로 돌아올 때 쓸 페이징 정보를 함께 넘김
+            $(".move").on("click", function (e) {
+                e.preventDefault();
+                actionForm
+                    .append("<input type='hidden' name='notice_num' value='"
+                        + $(this).attr("href") + "'>");
+                actionForm.attr("action", "/notice_detail");
+                actionForm.submit();
+            });
 
-            e.preventDefault();
-            actionForm
-                .append("<input type='hidden' name='notice_num' value='"
-                    + $(this).attr("href") + "'>");
-            actionForm.attr("action", "/notice_detail");
-            actionForm.submit();
+            var searchForm = $("#searchForm");
 
-        });
-
-        var searchForm = $("#searchForm");
-
-        $("#searchForm button").on("click",function(e) {
-            // 화면에서 키워드가 없다면 검색을 하지 않도록 제어
-            if (!searchForm.find("option:selected").val()) {
-                alert("검색종류를 선택하세요");
-                return false;
-            }
-
-            if (!searchForm.find("input[name='keyword']").val()) {
-                alert("키워드를 입력하세요");
-                return false;
-            }
-
-            // 페이지 번호를 1로 처리
-            searchForm.find("input[name='pageNum']").val("1");
-
-            // 폼 태그의 전송을 막음
-            e.preventDefault();
-
-            searchForm.submit();
-
-        });
-
-        $("#searchForm").on("keydown", function(e) {
-            // 화면에서 키워드가 없다면 검색을 하지 않도록 제어
-            if ((e.type === "keydown" && e.keyCode === 13)) {
+            $("#searchForm button #search").on("click", function (e) {
+                // 화면에서 키워드가 없다면 검색을 하지 않도록 제어
                 if (!searchForm.find("option:selected").val()) {
                     alert("검색종류를 선택하세요");
                     return false;
@@ -85,98 +60,121 @@
                 e.preventDefault();
 
                 searchForm.submit();
-            }
+
+            });
+
+            $("#searchForm #search").on("keydown", function (e) {
+                // 화면에서 키워드가 없다면 검색을 하지 않도록 제어
+                if ((e.type === "keydown" && e.keyCode === 13)) {
+                    if (!searchForm.find("option:selected").val()) {
+                        alert("검색종류를 선택하세요");
+                        return false;
+                    }
+
+                    if (!searchForm.find("input[name='keyword']").val()) {
+                        alert("키워드를 입력하세요");
+                        return false;
+                    }
+
+                    // 페이지 번호를 1로 처리
+                    searchForm.find("input[name='pageNum']").val("1");
+
+                    // 폼 태그의 전송을 막음
+                    e.preventDefault();
+
+                    searchForm.submit();
+                }
+            });
+
+
         });
-
-
-    });
-</script>
+    </script>
 </head>
 <body>
 <!-- header 시작 -->
 <header th:replace="~{header/header}"></header>
 <!-- header 끝 -->
-    <div class="outer">
-        <div class="wrap">
-            <div class="board_area">
-                <div class="board_title">
-                    <h1>공지사항</h1>
-                </div>
+<div class="outer">
+    <div class="wrap">
+        <div class="board_area">
+            <div class="board_title">
+                <h1>공지사항</h1>
+            </div>
 
-                <div class="board_list">
-                    <ul class="board_header">
-                        <li class="id">글번호</li>
-                        <li class="category" style="width: 200px;">분류</li>
-                        <li class="title">제목</li>
-                        <li class="writer">작성자</li>
-                        <li class="count">조회수</li>
-                        <li class="date">작성일</li>
+            <div class="board_list">
+                <ul class="board_header">
+                    <li class="id">글번호</li>
+                    <li class="category" style="width: 200px;">분류</li>
+                    <li class="title">제목</li>
+                    <li class="writer">작성자</li>
+                    <li class="count">조회수</li>
+                    <li class="date">작성일</li>
+                </ul>
+
+                <ul th:each="pageList : ${pageList.noticePageList}" onclick="">
+                    <li class="id" th:text="${pageList.notice_num}"></li>
+                    <li class="category" style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
+                    <a class="move" th:href="${pageList.notice_num}">
+                        <li class="title" th:text="${pageList.notice_title}">이집봐라 사용자 이용 가이드</li>
+                    </a>
+                    <li class="writer" th:text="${pageList.admin_id}">공김정</li>
+                    <li class="count" th:text="${pageList.notice_hit}">10</li>
+                    <li class="date" th:text="${#strings.substring(pageList.notice_date, 0, 8)}">2023-04-19</li>
+                </ul>
+
+            </div>
+            <!-- Paging[s] -->
+            <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;">
+
+                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                    <ul class="pagination justify-content-center" style="align:center;">
+                        <li th:if="${pageList.pageDTO.isPrev()}" class="paginate_button page-item previous">
+                            <a class="page-link" th:href="${pageList.pageDTO.startPage -1}">이전</a>
+                        </li>
+                        <li th:each="num: ${#numbers.sequence(pageList.pageDTO.startPage,pageList.pageDTO.endPage)}"
+                            class="paginate_button page-item">
+                            <a class="page-link" th:href="${num}" th:value="${num}" th:text="${num}"></a>
+                        </li>
+                        <li th:if="${pageList.pageDTO.isNext()}" class="paginate_button page-item next">
+                            <a class="page-link" th:href="${pageList.pageDTO.endPage + 1}">다음</a>
+                        </li>
+
                     </ul>
-
-                    <ul th:each="pageList : ${pageList.noticePageList}" onclick="">
-                        <li class="id" th:text="${pageList.notice_num}"> </li>
-                        <li class="category" style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
-                        <a th:href="${pageList.notice_num}">
-                            <li class="title" th:text="${pageList.notice_title}">이집봐라 사용자 이용 가이드</li>
-                        </a>
-                        <li class="writer" th:text="${pageList.admin_id}">공김정</li>
-                        <li class="count" th:text="${pageList.notice_hit}">10</li>
-                        <li class="date" th:text="${#strings.substring(pageList.notice_date, 0, 14)}">2023-04-19</li>
-                    </ul>
-
                 </div>
-                <!-- Paging[s] -->
-                <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;">
+            </div>
+            <form method="get" id="actionForm">
+                <input type="hidden" name="pageNum" th:value="${pageList.pageDTO.cri.getPageNum()}">
+                <input type="hidden" name="amount" th:value="${pageList.pageDTO.cri.getAmount()}">
+                <input type="hidden" name="type" th:value="${pageList.pageDTO.cri.getType()}">
+                <input type="hidden" name="keyword" th:value="${pageList.pageDTO.cri.getKeyword()}">
+            </form>
 
-                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                        <ul class="pagination justify-content-center" style="align:center;">
-                            <li th:if="${pageList.pageDTO.isPrev()}" class="paginate_button page-item previous">
-                                <a class="page-link" th:href="${pageList.pageDTO.startPage -1}">이전</a>
-                            </li>
-<!--                            <li th:each="num: ${#numbers.sequence(searchVO.startDate,searchVO.endDate)}" class="paginate_button page-item">-->
-<!--                                <a href="javascript:void(0);" th:text="${num}" onclick="fn_go_page(num); return false;" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" title="${num}">${num}</a>-->
-<!--                            </li>-->
-                            <li th:each="num: ${#numbers.sequence(pageList.pageDTO.startPage,pageList.pageDTO.endPage)}" class="paginate_button page-item">
-                                <a class="page-link" th:href="${num}" th:value="${num}" th:text="${num}"></a>
-                            </li>
-                            <li th:if="${pageList.pageDTO.isNext()}" class="paginate_button page-item next" >
-                                <a class="page-link" th:href="${pageList.pageDTO.endPage + 1}">다음</a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-                <form method="get"  id="actionForm" action="/notice_list">
-                    <input type="hidden" name="pageNum" th:value="${pageList.pageDTO.cri.getPageNum()}">
-                    <input type="hidden" name="amount" th:value="${pageList.pageDTO.cri.getAmount()}">
-                    <input type="hidden" name="type" th:value="${pageList.pageDTO.cri.getType()}">
-                    <input type="hidden" name="keyword" th:value="${pageList.pageDTO.cri.getKeyword()}">
-                </form>
-
-                <form id="searchForm" action="/notice_list" method="get">
-                    <input type="hidden" name="pageNum" th:value="${pageList.pageDTO.cri.getPageNum()}">
-                    <input type="hidden" name="amount" th:value="${pageList.pageDTO.cri.getAmount()}">
+            <form id="searchForm" method="get">
+                <input type="hidden" name="pageNum" th:value="${pageList.pageDTO.cri.getPageNum()}">
+                <input type="hidden" name="amount" th:value="${pageList.pageDTO.cri.getAmount()}">
                 <div class="search_area">
-                        <select name="type" class="border border-secondary">
-                            <option value="T" th:selected="${pageList.pageDTO.cri.getType()} == 'T'">제목</option>
-                            <option value="C" th:selected="${pageList.pageDTO.cri.getType()} == 'C'">내용</option>
-                            <option value="W" th:selected="${pageList.pageDTO.cri.getType()} == 'W'">작성자</option>
-                        </select>
+                    <select name="type" class="border border-secondary">
+                        <option value="T" th:selected="${pageList.pageDTO.cri.getType()} == 'T'">제목</option>
+                        <option value="C" th:selected="${pageList.pageDTO.cri.getType()} == 'C'">내용</option>
+                        <option value="W" th:selected="${pageList.pageDTO.cri.getType()} == 'W'">작성자</option>
+                    </select>
 
-                        <span class="input_area">
+                    <span class="input_area">
                             <input type="text" name="keyword" th:value="${pageList.pageDTO.cri.getKeyword()}">
                         </span>
-                        <button type="button">검색하기</button>
-                        <a th:href="@{/notice_add}" th:if="${session.user_id == 'asd'}"><button type="button">작성하기</button></a>
+                    <button type="button" id="search">검색하기</button>
+                    <a th:href="@{/notice_add}" th:if="${session.user_id == 'asd'}">
+                        <button type="button" id="write">작성하기</button>
+                    </a>
 
                 </div>
-                </form>
-            </div>
+            </form>
         </div>
     </div>
-    <!-- footer 시작 -->
-    <footer th:replace="~{footer/footer}"></footer>
-    <!-- footer 끝 -->
+</div>
+<!-- footer 시작 -->
+<footer th:replace="~{footer/footer}"></footer>
+<!-- footer 끝 -->
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"

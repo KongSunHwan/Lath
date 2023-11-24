@@ -1,5 +1,8 @@
 package com.example.thishouse.controller;
 
+import com.example.thishouse.domain.Criteria;
+import com.example.thishouse.domain.DTO.NoticeDTO;
+import com.example.thishouse.domain.community.CommunityDTO;
 import com.example.thishouse.util.PageCtrl;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
@@ -7,79 +10,30 @@ import com.example.thishouse.service.CommunityService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class CommunityController {
 
     private final CommunityService communityService;
 
-    @RequestMapping("community")
-    public String community(@ModelAttribute("searchVO") Community searchVO, HttpServletRequest request, Model model) {
-        PageCtrl pagination  = new PageCtrl();
-        pagination.setCurrentPageNo(searchVO.getPageIndex());
-        pagination.setRecordCountPerPage(searchVO.getPageUnit());
-        pagination.setPageSize(searchVO.getPageSize());
-        searchVO.setFirstIndex(pagination.getFirstRecordIndex());
-        searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
-        String search = request.getParameter("searchName");
-        String context = request.getParameter("searchValue");
-        if(context == null){
-            List<Community> bd_list = communityService.bd_list(searchVO);
-            model.addAttribute("bd_list" , bd_list);
-            int totCnt = communityService.bd_listCnt();
-            model.addAttribute("totCnt",totCnt);
-            pagination.setTotalRecordCount(totCnt);
-            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
-            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
-            searchVO.setPrev(pagination.getXprev());
-            searchVO.setNext(pagination.getXnext());
-            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
-            model.addAttribute("pagination",pagination);
-        }
-        else if(context != null && context == ""){
-            List<Community> bd_list = communityService.bd_list(searchVO);
-            model.addAttribute("bd_list" , bd_list);
-            int totCnt = communityService.bd_listCnt();
-            model.addAttribute("totCnt",totCnt);
-            pagination.setTotalRecordCount(totCnt);
-            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
-            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
-            searchVO.setPrev(pagination.getXprev());
-            searchVO.setNext(pagination.getXnext());
-            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
-            model.addAttribute("pagination",pagination);
-        }
-        else{
-            searchVO.setSearch_name(search);
-            searchVO.setSearch_content(context);
-            List<Community> pg_list = communityService.bd_list_search(searchVO);
-            int totCnt = communityService.bd_list_search_Cnt(searchVO);
-            pagination.setTotalRecordCount(totCnt);
-            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
-            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
-            searchVO.setPrev(pagination.getXprev());
-            searchVO.setNext(pagination.getXnext());
-            model.addAttribute("bd_list" , pg_list);
-            model.addAttribute("totCnt",totCnt);
-            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
-            model.addAttribute("pagination",pagination);
-        }
-        return "main/community";
-    }
-
-
     //게시판 상세 조회
-    @RequestMapping("board_detail")
-    public String board_detail(Model model, String community_num) {
+    @RequestMapping("/board_detail")
+    public String board_detail(Model model, String community_num,
+                               @ModelAttribute("Cri") Criteria criteria) {
         communityService.update_board_hitCount(community_num);
         model.addAttribute("Board", communityService.view_board(community_num));
         model.addAttribute("reply", communityService.view_reply(community_num));
@@ -87,7 +41,9 @@ public class CommunityController {
     }
 
     @RequestMapping("reply_add")
-    public String ReplyAdd(HttpServletRequest request){
+    public String ReplyAdd(HttpServletRequest request,
+                           @ModelAttribute("Cri") Criteria criteria,
+                           RedirectAttributes redirectAttributes){
         String x = request.getParameter("reply_text");
         String id = request.getParameter("user_id");
         String num = request.getParameter("community_num");
@@ -101,6 +57,10 @@ public class CommunityController {
         else{
             communityService.insert_reply(cr);
         }
+        redirectAttributes.addAttribute("pageNum", criteria.getPageNum());
+        redirectAttributes.addAttribute("amount", criteria.getAmount());
+        redirectAttributes.addAttribute("type", criteria.getType());
+        redirectAttributes.addAttribute("keyword", criteria.getKeyword());
         return "redirect:/board_detail?community_num=" + num;
     }
 
@@ -122,16 +82,25 @@ public class CommunityController {
     }
     //게시판 수정 View
     @GetMapping("board_edit")
-    public String board_edit(Model model, String community_num) {
+    public String board_edit(Model model, String community_num,
+                             @ModelAttribute("Cri") Criteria criteria) {
+        log.info("Cri={}", criteria);
         model.addAttribute("Board", communityService.view_board(community_num));
         return "board/board_edit";
     }
 
     //게시판 수정 기능
     @PostMapping("board_edit")
-    public String board_edit(@ModelAttribute Community community) {
+    public String board_edit(@ModelAttribute("Cri") Criteria criteria, Community community,
+                             RedirectAttributes redirectAttributes) {
         communityService.update_board(community);
-        return "redirect:/board_list";
+        log.info("criteria={}", criteria);
+        redirectAttributes.addAttribute("community_num", community.getCommunity_num());
+        redirectAttributes.addAttribute("pageNum", criteria.getPageNum());
+        redirectAttributes.addAttribute("amount", criteria.getAmount());
+        redirectAttributes.addAttribute("type", criteria.getType());
+        redirectAttributes.addAttribute("keyword", criteria.getKeyword());
+        return "redirect:/board_detail";
     }
 
     @RequestMapping("board_delete")
@@ -139,5 +108,10 @@ public class CommunityController {
         communityService.delete_board(community_num);
         return "redirect:/board_list";
     }
-
+    @RequestMapping("/board_list")
+    public String pgList(Criteria criteria, Model model) {
+        CommunityDTO.PageResponseList pageResponseList = communityService.pageResponseLists(criteria);
+        model.addAttribute("pageList", pageResponseList);
+        return "board/board_list";
+    }
 }

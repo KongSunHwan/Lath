@@ -1,14 +1,21 @@
 package com.example.thishouse.service;
 
+import com.example.thishouse.domain.Criteria;
+import com.example.thishouse.domain.Notice;
+import com.example.thishouse.domain.PageDTO;
 import com.example.thishouse.domain.community.Community;
+import com.example.thishouse.domain.community.CommunityDTO;
 import com.example.thishouse.domain.community.Community_reply;
+import com.example.thishouse.domain.community.ReplyCount;
 import com.example.thishouse.mapper.CommunityMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -74,4 +81,10 @@ public class CommunityService {
     // List 검색 search
     // List 페이징 리스트 page_list
 
+    public CommunityDTO.PageResponseList pageResponseLists(Criteria criteria) {
+        Criteria cs = new Criteria(criteria.getPageNum(), criteria.getAmount(), criteria.getType(), criteria.getKeyword());
+        int total = communityMapper.findCount(cs);
+        PageDTO pageDTO = new PageDTO(cs,total);
+        return new CommunityDTO.PageResponseList(communityMapper.findList(cs), pageDTO);
+    }
 }

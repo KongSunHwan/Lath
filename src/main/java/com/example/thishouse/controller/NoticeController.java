@@ -21,6 +21,7 @@ public class NoticeController {
     @RequestMapping("/notice_detail")
     public String NoticeDetail(Model model, String notice_num,
                                @ModelAttribute("Cri") Criteria criteria) {
+        log.info("critera={}", criteria);
         noticeService.update_notice_hitCount(notice_num);
         model.addAttribute("Notice", noticeService.view_notice(notice_num));
         return "notice/notice_detail";
