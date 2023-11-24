@@ -62,9 +62,6 @@
             });
         });
 
-
-
-
         function fn_go_page(pageNo) {
             $("#pageIndex").val(pageNo);
             $("#listForm").submit();
@@ -170,29 +167,31 @@
 
 
                                                 </div>
-
-                                                <form method="get" id="listForm" action="/admin/false_approval">
-                                                    <input type="hidden" id="pageIndex" name="pageIndex" val="" />
-                                                    <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;">
-                                                        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate" th:if="${not #lists.isEmpty(yourList)}">
-                                                            <ul class="pagination justify-content-center" style="align:center;">
-                                                                <li th:if="${searchVO.prev}" class="paginate_button page-item previous" id="dataTable_previous">
-                                                                    <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.startDate - 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
-                                                                </li>
-                                                                <li th:each="num: ${#numbers.sequence(searchVO.startDate,searchVO.endDate)}" class="paginate_button page-item">
-                                                                    <a href="javascript:void(0);" th:text="${num}" th:onclick="'fn_go_page(' + ${num} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" th:title="${num}">d</a>
-                                                                </li>
-                                                                <li th:if="${searchVO.next}" class="paginate_button page-item next" id="dataTable_next">
-                                                                    <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.endDate + 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">다음</a>
-                                                                </li>
-                                                            </ul>
+                                                <block th:if="${totCnt} > 0">
+                                                    <form method="get" id="listForm" action="/admin/false_approval">
+                                                        <input type="hidden" id="pageIndex" name="pageIndex" val="" />
+                                                        <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;">
+                                                            <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                                                                <ul class="pagination justify-content-center" style="align:center;">
+                                                                    <li th:if="${searchVO.prev}" class="paginate_button page-item previous" id="dataTable_previous">
+                                                                        <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.startDate - 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
+                                                                    </li>
+                                                                    <li th:each="num: ${#numbers.sequence(searchVO.startDate,searchVO.endDate)}" class="paginate_button page-item">
+                                                                        <a href="javascript:void(0);" th:text="${num}" th:onclick="'fn_go_page(' + ${num} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" th:title="${num}">d</a>
+                                                                    </li>
+                                                                    <li th:if="${searchVO.next}" class="paginate_button page-item next" id="dataTable_next">
+                                                                        <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.endDate + 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">다음</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </form>
+                                                    </form>
+                                                </block>
 
 
 
-<!--                                                <form method="get" id="listForm" action="/admin/false_approval">-->
+
+                                                <!--                                                <form method="get" id="listForm" action="/admin/false_approval">-->
 <!--                                                    <input type="hidden" id="pageIndex" name="pageIndex" val="" />-->
 <!--                                                    <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;"> &lt;!&ndash; 가운데 정렬 스타일을 추가 &ndash;&gt;-->
 <!--                                                        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">-->

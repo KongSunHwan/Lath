@@ -191,10 +191,50 @@
         select a.contract_idx, b.user_id as lessoer_id, c.user_id as tenant_id, a.road_address, a.detail_address,a.contract_date,a.contract_state
         from contract a ,lessoer b, tenant c
         where a.lessoer_idx = b.lessoer_idx and a.tenant_idx = c.tenant_idx
+        limit #{cs.skip} , #{cs.amount}
     </select>
 
     <select id="contract_list_cnt" resultType="int">
         select count(*)
         from contract
+    </select>
+
+    <select id="contract_list_user_id" resultType="HashMap">
+        select * from(
+                            select a.contract_idx, b.user_id as lessoer_id, c.user_id as tenant_id, a.road_address, a.detail_address,a.contract_date,a.contract_state
+                            from contract a ,lessoer b, tenant c
+                            where a.lessoer_idx = b.lessoer_idx and a.tenant_idx = c.tenant_idx and b.user_id = #{cs.keyword}
+                            union
+                            select a.contract_idx, b.user_id as lessoer_id, c.user_id as tenant_id, a.road_address, a.detail_address,a.contract_date,a.contract_state
+                            from contract a ,lessoer b, tenant c
+                            where a.lessoer_idx = b.lessoer_idx and a.tenant_idx = c.tenant_idx and c.user_id= #{cs.keyword}
+                            )  AS subquery
+            limit #{cs.skip} , #{cs.amount}
+    </select>
+
+    <select id="contract_list_user_id_cnt" resultType="int">
+        SELECT count(*) FROM (
+                                 select a.contract_idx, b.user_id as lessoer_id, c.user_id as tenant_id, a.road_address, a.detail_address,a.contract_date,a.contract_state
+                                 from contract a ,lessoer b, tenant c
+                                 where a.lessoer_idx = b.lessoer_idx and a.tenant_idx = c.tenant_idx and b.user_id = 'asd'
+                                 union
+                                 select a.contract_idx, b.user_id as lessoer_id, c.user_id as tenant_id, a.road_address, a.detail_address,a.contract_date,a.contract_state
+                                 from contract a ,lessoer b, tenant c
+                                 where a.lessoer_idx = b.lessoer_idx and a.tenant_idx = c.tenant_idx and c.user_id= 'asd'
+                             ) AS subquery;
+    </select>
+
+    <select id="contract_list_location" resultType="HashMap">
+        select a.contract_idx, b.user_id as lessoer_id, c.user_id as tenant_id, a.road_address, a.detail_address,a.contract_date,a.contract_state
+        from contract a ,lessoer b, tenant c
+        where a.lessoer_idx = b.lessoer_idx and a.tenant_idx = c.tenant_idx and a.road_address like CONCAT('%',#{cs.keyword},'%')
+        limit #{cs.skip} , #{cs.amount}
+
+    </select>
+
+    <select id="contract_list_location_cnt" resultType="int">
+        select count(*)
+        from contract a ,lessoer b, tenant c
+        where a.lessoer_idx = b.lessoer_idx and a.tenant_idx = c.tenant_idx and a.road_address like CONCAT('%',#{cs.keyword},'%')
     </select>
 </mapper>

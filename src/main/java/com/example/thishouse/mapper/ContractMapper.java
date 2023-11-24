@@ -73,7 +73,15 @@ public interface ContractMapper {
 
     Tenant getTenantInfo(int tenant_idx);
 
-    List<HashMap> contract_list(Criteria cs);
+    List<HashMap> contract_list(@Param("cs") Criteria cs);
 
-    int contract_list_cnt(Criteria cs);
+    int contract_list_cnt(@Param("cs") Criteria cs);
+
+    List<HashMap> contract_list_user_id(@Param("cs") Criteria cs);
+
+    int contract_list_user_id_cnt(@Param("cs") Criteria cs);
+
+    List<HashMap> contract_list_location(@Param("cs") Criteria cs);
+
+    int contract_list_location_cnt(@Param("cs") Criteria cs);
 }

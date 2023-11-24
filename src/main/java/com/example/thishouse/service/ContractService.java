@@ -125,9 +125,26 @@ public class ContractService {
 
     public ResponsePageDTO.ResponseContract contract_list(Criteria criteria) {
         Criteria cs = new Criteria(criteria.getPageNum(), criteria.getAmount(), criteria.getType(), criteria.getKeyword());
-        List<HashMap> paymentPageList = contractMapper.contract_list(cs);
-        int total = contractMapper.contract_list_cnt(cs);
-        PageDTO pageDTO = new PageDTO(cs,total);
+
+        List<HashMap> paymentPageList = null;
+        int total = 0;
+        PageDTO pageDTO = null;
+
+        if(criteria.getType() == null){
+            paymentPageList = contractMapper.contract_list(cs);
+            total = contractMapper.contract_list_cnt(cs);
+            pageDTO = new PageDTO(cs,total);
+        }else if(criteria.getType().equals("user_id")) {
+            paymentPageList = contractMapper.contract_list_user_id(cs);
+            total = contractMapper.contract_list_user_id_cnt(cs);
+            pageDTO = new PageDTO(cs,total);
+
+        }else if(criteria.getType().equals("location")){
+            paymentPageList = contractMapper.contract_list_location(cs);
+            total = contractMapper.contract_list_location_cnt(cs);
+            pageDTO = new PageDTO(cs,total);
+        }
+
         return new ResponsePageDTO.ResponseContract(paymentPageList, pageDTO);
     }
 
