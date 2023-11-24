@@ -84,7 +84,21 @@ public class AdminController {
     }
 
     @RequestMapping("member_detail")
-    public String member_detail(String user_num) {
+    public String member_detail(String user_num,Model model) {
+
+        Member user_info = adminService.user_info(user_num);
+        List<HashMap> user_house = adminService.user_house(user_num);
+        List<Community> user_community = adminService.user_community(user_num);
+        List<Community_reply> user_reply = adminService.user_reply(user_num);
+        List<Report> user_report = adminService.user_report(user_num);
+        List<HashMap> user_contract = adminService.user_contract(user_num);
+        model.addAttribute("user_info",user_info);
+        model.addAttribute("user_house",user_house);
+        model.addAttribute("user_community",user_community);
+        model.addAttribute("user_reply",user_reply);
+        model.addAttribute("user_report",user_report);
+        model.addAttribute("user_contract",user_contract);
+
         return "admin/member_detail";
     }
 

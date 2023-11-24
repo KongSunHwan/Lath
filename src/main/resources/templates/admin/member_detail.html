@@ -32,15 +32,27 @@
     <link href="/css/contract_in.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/perfect-scrollbar@1.4.0/css/perfect-scrollbar.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@4.7.95/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/morioh.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <!-- jquery UI CSS파일 -->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+    <!-- jquery 기본 js 파일 -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- 기존의 jQuery 로드 부분을 삭제하고 한 번만 로드합니다. -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
+    <!-- jquery UI 라이브러리 js파일 -->
+    <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/css/morioh.css">
     </head>
 
 
@@ -63,25 +75,26 @@
 
                                         <div class="col">
                                             <div class="card">
-                                                <div class="card-body"style="height: 383px;">
+                                                <div class="card-body"style="height: 420px;">
                                                     <h5 class="card-title">회원 정보</h5>
                                                     <br>
                                                     <form id="userForm">
                                                         <div class="mb-3">
                                                             <label for="emailText" class="form-label">아이디</label>
-                                                            <input id="emailText" type="text" class="form-control" value="#" disabled>
+                                                            <input id="emailText" type="text" class="form-control" value="#" th:value="${user_info.user_id}" disabled>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="nameText" class="form-label">이름</label>
-                                                            <input id="nameText" type="text" class="form-control" name="name" value="#" aria-describedby="emailHelp" disabled>
+                                                            <input id="nameText" type="text" class="form-control" name="name" value="#"
+                                                                   th:value="${user_info.user_name}"  aria-describedby="emailHelp" disabled>
                                                         </div>
 
                                                         <div class="mb-3">
                                                             <label for="nickNameText" class="form-label">등록일</label>
-                                                            <input id="nickNameText" type="text" class="form-control" value="#" disabled    >
+                                                            <input id="nickNameText" type="text" class="form-control" value="#" th:value="${user_info.user_create_time}" disabled>
                                                         </div>
 
-                                                        <button type="submit" class="btn btn-primary">수정</button> &nbsp;<button type="submit" class="btn btn-primary">비밀번호 초기화</button>&nbsp;
+                                                        <button type="submit" class="btn btn-primary">비밀번호 초기화</button>&nbsp;
                                                         <button type="button" class="btn btn-danger">삭제</button>
                                                     </form>
 
@@ -91,21 +104,64 @@
 
                                         <div class="col">
                                             <div class="card">
-                                                <div class="card-body" style="height: 383px;">
+                                                <div class="card-body" style="height: 420px;">
                                                     <h5 class="card-title">등록 매물</h5>
                                                     <table class="table" id="lb1">
                                                         <thead>
                                                         <tr>
                                                             <th class="text-center">번호</th>
                                                             <th class="text-center">가격</th>
-                                                            <th class="text-center">매물 위치</th>
-                                                            <th class="text-center">등록인</th>
-                                                            <th class="text-center">등록일</th>
-                                                            <th class="text-center">승인 현황</th>
+                                                            <th class="text-center">위치</th>
+                                                            <th class="text-center">날짜</th>
+                                                            <th class="text-center">상태</th>
                                                             <th class="text-center">관리</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
+                                                        <tr th:each="user_house : ${user_house}">
+                                                            <td class="text-center"  th:text="${user_house.house_num}">
+                                                                1
+                                                            </td>
+
+                                                            <td class="text-center">
+                                                                <div th:if="${user_house.deal_type == '월세'}">월세 [(${user_house.deposit})] / [(${user_house.m_price})]만원</div>
+                                                                <div th:if="${user_house.deal_type == '전세'}">전세 [(${user_house.y_price})] 만원 </div>                                                                    </td>
+
+                                                            <td class="text-center" th:text="${user_house.road_address}">
+                                                                서울시 은평구 27-3번지
+                                                            </td>
+
+
+
+                                                            <td class="text-center" th:text="${user_house.regist_time}">
+                                                                2023/08/03
+                                                            </td>
+
+                                                            <td class="text-center">
+                                                                <span class="badge bg-success" th:if="${user_house.approval == 1}">승인</span>
+                                                                <span class="badge bg-danger" th:if="${user_house.approval == 0}">미승인</span>
+                                                            </td>
+
+                                                            <td class="text-center">
+                                                                <div class="btn-group">
+                                                                    <button type="button" class="btn" data-bs-toggle="dropdown"
+                                                                            data-bs-display="static" aria-expanded="false">
+                                                                        <i class="mdi mdi-dots-horizontal"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu dropdown-menu-lg-end">
+                                                                        <li> <a target='_blank' th:href="@{'/house_info?house_num=' + ${user_house.house_num}}"> <button class="dropdown-item" type="button">
+                                                                            보기</button></a></li>
+                                                                        <li><a th:href="@{'house_approval/true?house_num=' + ${user_house.house_num}}">
+                                                                            <button class="dropdown-item" type="button">
+                                                                                승인</button></a></li>
+                                                                        <li><a th:href="@{'house_approval/false?house_num=' + ${user_house.house_num}}">
+                                                                            <button class="dropdown-item" type="button">취소</button></a></li>
+                                                                        <li><button class="dropdown-item" type="button">삭제</button></li>
+
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
 
                                                         </tbody>
                                                     </table>
@@ -117,21 +173,53 @@
 
                                         <div class="col">
                                             <div class="card">
-                                                <div class="card-body" style="height: 383px;">
+                                                <div class="card-body" style="height: 400px;">
                                                     <h5 class="card-title">게시글 내역</h5>
                                                     <table class="table">
                                                         <thead>
                                                         <tr>
                                                             <th class="text-center">번호</th>
                                                             <th class="text-center" >제목</th>
-                                                            <th class="text-center" >작성자</th>
                                                             <th class="text-center">작성일</th>
                                                             <th class="text-center">조회수</th>
                                                             <th class="text-center">관리</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
+                                                        <tr th:each="user_community : ${user_community}">
+                                                            <td class="text-center"  th:text="${user_community.community_num}">
+                                                                1
+                                                            </td>
 
+                                                            <td class="text-center" th:text="${user_community.community_title}">
+                                                                관리자 가이드 공지사항
+                                                            </td>
+
+                                                            <td class="text-center" th:text="${user_community.community_date}">
+                                                                2023/08/03
+                                                            </td>
+                                                            <td class="text-center"  th:text="${user_community.community_hits}">
+                                                                5
+                                                            </td>
+
+                                                            <td class="text-center">
+                                                                <div class="btn-group">
+                                                                    <button type="button" class="btn" data-bs-toggle="dropdown"
+                                                                            data-bs-display="static" aria-expanded="false">
+                                                                        <i class="mdi mdi-dots-horizontal"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu dropdown-menu-lg-end">
+                                                                        <li><a th:href="@{'/admin/community/modify?community_num=' + ${user_community.community_num}}">
+                                                                            <button class="dropdown-item" type="button">
+                                                                                수정</button></a></li>
+                                                                        <li>  <a th:href="@{'/admin/community/delete?community_num=' + ${user_community.community_num}}">
+                                                                            <button class="dropdown-item" type="button">
+                                                                                삭제</button></a></li>
+
+                                                                    </ul>
+                                                              </div>
+                                                            </td>
+                                                        </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -143,9 +231,41 @@
 
                                         <div class="col">
                                             <div class="card">
-                                                <div class="card-body" style="height: 383px;">
+                                                <div class="card-body" style="height: 390px;">
                                                     <h5 class="card-title">댓글 내역</h5>
+                                                    <div th:each="reply : ${user_reply}" class="card mb-2">
+                                                        <form method="post" action="reply/update">
+                                                            <input type="hidden" name="reply_num" th:value="${reply.reply_num}">
+                                                            <input type="hidden" name="community_num" th:value="${reply.community_num}">
 
+                                                            <div class="card-header bg-light">
+                                                                <i class="fa fa-comment fa"></i>  댓글 &nbsp;
+                                                                <a th:href="@{'/admin/community/modify?community_num=' + ${reply.community_num}}">게시글</a>
+                                                                <input type="submit" class="btn btn-secondary" id="btnCheck"
+                                                                       value="필터" style="height: 36px;float: right; margin: -7px;">
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <ul class="list-group list-group-flush">
+                                                                    <li class="list-group-item">
+                                                                        <div class="form-inline mb-2">
+                                                                            <label class="fw-bolder"><i class="fa fa-user-circle-o fa-2x"></i>
+                                                                                <span th:text="'작성자 : ' + ${reply.user_id}"
+                                                                                      style="color:gray;">&nbsp; 공선환</span>
+
+                                                                            </label>
+                                                                        </div>
+                                                                        <div th:text="'내용 : ' + ${reply.reply_contents}" class="fw-bolder">
+                                                                            1인 가구를 위한 원룸 매물입니다!!
+                                                                        </div>
+                                                                        <div th:text="'작성일 : ' + ${reply.reply_date}" class="fw-bolder" style="color:gray; padding-top: 10px;">
+                                                                            2023-04-11
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
 
                                                 </div>
                                             </div>
@@ -168,7 +288,53 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
+                                                        <tr th:each="user_report : ${user_report}">
+                                                            <td class="text-center"th:text="${user_report.report_num}">
+                                                                1
+                                                            </td>
 
+                                                            <td class="text-center" th:text="${user_report.house_num}">
+                                                                재호네 민박
+                                                            </td>
+
+                                                            <td class="text-center" th:text="${user_report.report_content}">
+                                                                서울시 은평구 27-3번지
+                                                            </td>
+
+                                                            <td class="text-center">
+                                                                <span class="badge bg-danger" th:if="${user_report.close_house == 1}">거래완료</span>
+                                                                <span class="badge bg-success" th:if="${user_report.close_house == 0}">이상없음</span>
+                                                            </td>
+                                                            <td class="text-center" >
+
+                                                                <span class="badge bg-danger" th:if="${user_report.information_distinct == 1}">허위정보</허위정보></span>
+                                                                <span class="badge bg-success" th:if="${user_report.information_distinct == 0}">이상없음</span>
+                                                            </td>
+                                                            </td>
+                                                            <td class="text-center" th:text="${user_report.report_date}">
+                                                                3
+                                                            </td>
+
+
+                                                            <!--                                                                <td class="text-center">-->
+                                                            <!--                                                                    <span class="badge bg-danger">허위 매물</span>-->
+                                                            <!--                                                                </td>-->
+
+                                                            <td class="text-center">
+                                                                <div class="btn-group">
+                                                                    <button type="button" class="btn" data-bs-toggle="dropdown"
+                                                                            data-bs-display="static" aria-expanded="false">
+                                                                        <i class="mdi mdi-dots-horizontal"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu dropdown-menu-lg-end">
+                                                                        <li><button class="dropdown-item" type="button">승인 취소</button></li>
+                                                                        <li>
+                                                                            <button class="dropdown-item" type="button" name="itemSelect" th:attr="data-re_list-report_num=${user_report.report_num}" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                                                상세 보기</button></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -191,7 +357,25 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
+                                                        <tr th:each="user_contract : ${user_contract}">
+                                                            <th scope="row" th:text="${user_contract.contract_idx}">1</th>
+                                                            <td th:text="${user_contract.lessoer_id}">tjsghks78@gmail.com</td>
+                                                            <td th:text="${user_contract.tenant_id}">a@a</td>
+                                                            <td th:text="${user_contract.road_address}">속초 하이디타운하우스 202호</td>
+                                                            <td th:text="${user_contract.contract_date}">2023-08-02</td>
+                                                            <td>
+                                                                <a target='_blank' th:href="@{'/admin_contract_detail?contract_idx=' + ${user_contract.contract_idx}}">
+                                                                    <b>계약서 <i class="bi bi-box-arrow-up-right"></i></b>
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <span class="badge bg-success" th:if="${user_contract.contract_state == '완료 성공'}">계약 완료</span>
+                                                                <span class="badge bg-danger" th:if="${user_contract.contract_state == '완료 실패'}">계약 취소</span>
+                                                                <span class="badge bg-secondary" th:if="${user_contract.contract_state == '계약서 작성 완료'}">진행중</span>
+                                                                <span class="badge bg-secondary" th:if="${user_contract.contract_state == '계약 요청'}">진행중</span>
+                                                            </td>
 
+                                                        </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -213,10 +397,14 @@
 </div>
 
 </div>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/perfect-scrollbar@1.4.0/dist/perfect-scrollbar.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highcharts@8.0.0/highcharts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-knob@1.2.11/dist/jquery.knob.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-sparkline@2.4.0/jquery.sparkline.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/peity@3.3.0/jquery.peity.min.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-50750921-19"></script>
@@ -227,7 +415,134 @@
 
     gtag('config', 'UA-50750921-19');
 </script>
-<script src="/js/morioh.js"></script>
+
+<script src="../../js/morioh.js"></script>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true" data-re_list-report_num="1">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">허위매물신고</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h2 class="fs-6 text-primary"><b>매물에 대한 잘못된 정보를 신고해주세요!</b></h2>
+                <p style="font-size: 12px;">※ 확인 후 허위매물일 경우 해당 매물은 삭제되거나 이용이 제재됩니다<br>
+                    ※ 허위 신고일 시 신고자는 법적인 책임을 질 수 있습니다.<br>
+                    ※ 이집봐라는 자체 검열을 통해 허위매물 근절에 노력하고 있습니다.</p>
+                <hr>
+                <h2 class="fs-5"><b>허위매물 신고 정보</b></h2>
+                <div class="mb-3">
+                    <label class="col-form-label">매물번호</label>
+                    <input type="text" id="houseNum" class="form-control" disabled>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" id="closeHouse" type="checkbox" value="1" disabled>
+                    <label class="form-check-label" th:for="closeHouse">
+                        <b>거래가 완료 된 매물</b>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" id="infoDistinct" type="checkbox" value="1" disabled>
+                    <label class="form-check-label" th:for="infoDistinct">
+                        <b>정보가 다른 매물 (가격 / 사진 / 위치 / 옵션 등)</b>
+                    </label>
+                </div>
+                <hr>
+                <div class="mb-3">
+            <textarea class="form-control" id="reportContent" placeholder="선택한 항목에 대한 추가 설명을 입력해주세요."
+                      style="height: 180px;" disabled></textarea>
+                </div>
+                <hr>
+                <div class="mb-3">
+                    <h3 class="fs-5"><b>증빙 자료</b> <b class="fs-6 text-primary">(선택사항)</b></h3>
+                    <p style="font-size: 12px;">※ 내용이 잘 보이도록 사진을 캡처하여 이곳에 첨부해 주세요.<br></p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <span style="margin-bottom: 12px;"><b>채팅내용 사진</b></span>
+                                <img id="report_content_pic" src="#" alt="Content Pic" style="max-width: 100%; max-height: 100px; width: 150px; height: 150px; display: none;">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <span style="margin-bottom: 12px;"><b>판매자 사진</b></span>
+                                <img id="report_seller_pic" src="#" alt="Seller Pic" style="max-width: 100%; max-height: 100px; width: 150px; height: 150px; display: none;">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <span style="margin-bottom: 12px;"><b>방 사진</b></span>
+                                <img id="report_house_pic" src="#" alt="House Pic" style="max-width: 100%; max-height: 100px; width: 150px; height: 150px; display: none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
+<script>
+    $(document).ready(function() {
+        // 버튼 클릭 시 이벤트 처리
+        $("button[data-bs-target='#staticBackdrop']").click(function () {
+            var postId = $(this).data("re_list-report_num"); // 버튼에서 report_num 데이터 가져오기
+
+            // AJAX 요청을 통해 게시글 정보를 가져옴
+            $.ajax({
+                type: "GET",
+                url: "/api/getReport",
+                data: { reportNum: postId }, // reportNum 매개변수만 전달하고 houseNum 매개변수를 전달하지 않음
+                success: function(response) {
+                    // 데이터를 모달 내의 엘리먼트에 표시
+                    $("#reportNum").text(response.report_num);
+                    $("#houseNum").val(response.house_num);
+                    $("#reportContent").text(response.report_content);
+                    $("#closeHouse").prop("checked", response.close_house === 1);
+                    $("#infoDistinct").prop("checked", response.information_distinct === 1);
+
+                    // 이미지 경로 확인 및 설정
+                    if (response.report_content_pic) {
+                        $("#report_content_pic").attr("src", "http://localhost:8082/images/" + response.report_content_pic);
+                        $("#report_content_pic").show();
+                    } else {
+                        // 이미지가 없으면 대체 이미지를 사용
+                        $("#report_content_pic").attr("src", "/img/img_null.png");
+                        $("#report_content_pic").show();
+                    }
+
+                    if (response.report_seller_pic) {
+                        $("#report_seller_pic").attr("src", "http://localhost:8082/images/" + response.report_seller_pic);
+                        $("#report_seller_pic").show();
+                    } else {
+                        // 이미지가 없으면 대체 이미지를 사용
+                        $("#report_seller_pic").attr("src", "/img/img_null.png");
+                        $("#report_seller_pic").show();
+                    }
+
+                    if (response.report_house_pic) {
+                        $("#report_house_pic").attr("src", "http://localhost:8082/images/" + response.report_house_pic);
+                        $("#report_house_pic").show();
+                    } else {
+                        // 이미지가 없으면 대체 이미지를 사용
+                        $("#report_house_pic").attr("src", "/img/img_null.png");
+                        $("#report_house_pic").show();
+                    }
+
+
+                },
+                error: function(error) {
+                }
+            });
+        });
+    });
+</script>
 
 </html>

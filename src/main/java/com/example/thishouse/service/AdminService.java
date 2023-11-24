@@ -2,6 +2,7 @@ package com.example.thishouse.service;
 
 import com.example.thishouse.domain.Inquire;
 import com.example.thishouse.domain.Member;
+import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
 import com.example.thishouse.domain.house.House_list;
@@ -17,9 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class AdminService {
+
     private final AdminMapper adminMapper;
-    //table 전체
-    //공지사항 작성
     @Transactional
     public void insert_reply(Inquire inquire) {
         this.adminMapper.insert_reply(inquire);
@@ -112,5 +112,32 @@ public class AdminService {
 
     public int no_re_list_cnt() {
         return this.adminMapper.no_re_list_cnt();
+    }
+
+    public Member user_info(String userNum) {
+            return this.adminMapper.user_info(userNum);
+    }
+
+    public List<HashMap> user_house(String userNum) {
+        return this.adminMapper.user_house(userNum);
+    }
+
+    public List<Community> user_community(String userNum) {
+        return this.adminMapper.user_community(userNum);
+
+    }
+
+    public List<Report> user_report(String userNum) {
+        return this.adminMapper.user_report(userNum);
+    }
+
+    public List<Community_reply> user_reply(String userNum) {
+        return this.adminMapper.user_reply(userNum);
+
+    }
+
+    public List<HashMap> user_contract(String userNum) {
+        return this.adminMapper.user_contract(userNum);
+
     }
 }

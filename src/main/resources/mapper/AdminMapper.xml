@@ -130,12 +130,46 @@
         select * from house_list a, house_item b  where a.house_num = b.house_num and a.approval = 0 and b.approval = 0 Order by regist_time desc LIMIT #{recordCountPerPage} OFFSET ${firstIndex}
     </select>
 
-    <select id = "no_re_list_cnt" resultType="int">
+    <select id ="no_re_list_cnt" resultType="int">
         select count(*) from house_list a, house_item b  where a.house_num = b.house_num and a.approval = 0 and b.approval = 0
     </select>
 
-    <select id = "get_community_num" resultType="String">
+    <select id ="get_community_num" resultType="String">
         select community_num from community_reply  where reply_num = #{replyNum}
     </select>
 
+    <select id="user_info" resultType="Member">
+        select * from member  where user_num = #{userNum}
+    </select>
+
+    <select id="user_house" resultType="HashMap">
+        select * from house_list, house_item  where house_list.house_num=house_item.house_num
+                                                and house_item.user_id = (select user_id from member where user_num=#{userNum})
+        limit 5
+    </select>
+
+    <select id="user_community" resultType="Community">
+        select * from community  where user_id = (select user_id from member where user_num = #{userNum}) limit 5
+    </select>
+
+    <select id="user_report" resultType="Report">
+        select * from report  where user_id = (select user_id from member where user_num = #{userNum}) limit 5
+    </select>
+
+    <select id="user_reply" resultType="Community_reply">
+        select * from Community_reply  where user_id = (select user_id from member where user_num = #{userNum}) limit 2
+    </select>
+
+    <select id="user_contract" resultType="HashMap">
+        select * from(
+                         select a.contract_idx, b.user_id as lessoer_id, c.user_id as tenant_id, a.road_address, a.detail_address,a.contract_date,a.contract_state
+                         from contract a ,lessoer b, tenant c
+                         where a.lessoer_idx = b.lessoer_idx and a.tenant_idx = c.tenant_idx and b.user_id = (select user_id from member where user_num = #{userNum})
+                         union
+                         select a.contract_idx, b.user_id as lessoer_id, c.user_id as tenant_id, a.road_address, a.detail_address,a.contract_date,a.contract_state
+                         from contract a ,lessoer b, tenant c
+                         where a.lessoer_idx = b.lessoer_idx and a.tenant_idx = c.tenant_idx and c.user_id=  (select user_id from member where user_num = #{userNum})
+                     )  AS subquery
+        limit 5
+    </select>
 </mapper>
