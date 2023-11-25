@@ -172,4 +172,13 @@
                      )  AS subquery
         limit 5
     </select>
+
+    <update id="pw_change">
+        update member
+        SET
+            user_pw = '1234'
+        where
+            user_num = #{user_num}
+
+    </update>
 </mapper>

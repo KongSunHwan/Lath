@@ -94,8 +94,9 @@
                                                             <input id="nickNameText" type="text" class="form-control" value="#" th:value="${user_info.user_create_time}" disabled>
                                                         </div>
 
-                                                        <button type="submit" class="btn btn-primary">비밀번호 초기화</button>&nbsp;
-                                                        <button type="button" class="btn btn-danger">삭제</button>
+                                                        <button id="pw_change"type="button" class="btn btn-primary">비밀번호 초기화</button>
+                                                        &nbsp;
+                                                        <button id="member_delete" type="button" class="btn btn-danger" >삭제</button>
                                                     </form>
 
                                                 </div>
@@ -118,6 +119,9 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
+                                                        <tr th:if="${user_house == null or #lists.isEmpty(user_house)}">
+                                                            <td colspan="6" class="text-center">등록된 매물이 존재하지 않습니다.</td>
+                                                        </tr>
                                                         <tr th:each="user_house : ${user_house}">
                                                             <td class="text-center"  th:text="${user_house.house_num}">
                                                                 1
@@ -186,6 +190,9 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
+                                                        <tr th:if="${user_community == null or #lists.isEmpty(user_community)}">
+                                                            <td colspan="6" class="text-center">등록된 게시글 존재하지 않습니다.</td>
+                                                        </tr>
                                                         <tr th:each="user_community : ${user_community}">
                                                             <td class="text-center"  th:text="${user_community.community_num}">
                                                                 1
@@ -233,6 +240,11 @@
                                             <div class="card">
                                                 <div class="card-body" style="height: 390px;">
                                                     <h5 class="card-title">댓글 내역</h5>
+                                                    <div th:if="${user_reply == null or #lists.isEmpty(user_reply)}" style="text-align: center">
+                                                        <br>
+                                                        <hr>
+                                                        댓글내역이 존재하지 않습니다.
+                                                    </div>
                                                     <div th:each="reply : ${user_reply}" class="card mb-2">
                                                         <form method="post" action="reply/update">
                                                             <input type="hidden" name="reply_num" th:value="${reply.reply_num}">
@@ -288,6 +300,10 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
+
+                                                        <tr th:if="${user_report == null or #lists.isEmpty(user_report)}">
+                                                            <td colspan="6" class="text-center">신고내역이 존재하지 않습니다.</td>
+                                                        </tr>
                                                         <tr th:each="user_report : ${user_report}">
                                                             <td class="text-center"th:text="${user_report.report_num}">
                                                                 1
@@ -357,6 +373,9 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
+                                                        <tr th:if="${user_contract == null or #lists.isEmpty(user_contract)}">
+                                                            <td colspan="6" class="text-center">계약내역이 존재하지 않습니다.</td>
+                                                        </tr>
                                                         <tr th:each="user_contract : ${user_contract}">
                                                             <th scope="row" th:text="${user_contract.contract_idx}">1</th>
                                                             <td th:text="${user_contract.lessoer_id}">tjsghks78@gmail.com</td>
@@ -415,6 +434,29 @@
 
     gtag('config', 'UA-50750921-19');
 </script>
+
+
+<!-- 버튼을 클릭했을 때 실행될 스크립트를 작성합니다. -->
+<script>
+    // 버튼 요소를 가져옵니다.
+    var deleteButton = document.getElementById('member_delete');
+    var user_num=[[${user_info.user_num}]];
+    var channgeButton = document.getElementById('pw_change')
+
+    // 버튼에 클릭 이벤트 리스너를 추가합니다.
+    deleteButton.addEventListener('click', function () {
+        alert("회원이 삭제되었습니다.");
+        location.href = '/member_delete?user_num='+user_num;
+    });
+
+    channgeButton.addEventListener('click', function () {
+        alert("비밀번호가 초기화 되었습니다.");
+        location.href = '/pw_change?user_num='+user_num;
+    });
+
+
+</script>
+
 
 <script src="../../js/morioh.js"></script>
 

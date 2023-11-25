@@ -101,11 +101,17 @@ public class AdminController {
 
         return "admin/member_detail";
     }
+    @RequestMapping("pw_change")
+    public String pw_change(String user_num) {
+        adminService.pw_change(user_num);
+        return "redirect:/member_detail?user_num="+user_num;
+    }
+
 
     @RequestMapping("member_delete")
     public String member_delete(String user_num) {
         adminService.member_delete(user_num);
-        return "redirect:/member";
+        return "redirect:/admin/member";
     }
 
     @GetMapping("admin/notice")
@@ -120,6 +126,7 @@ public class AdminController {
         PageCtrl pagination  = new PageCtrl();
         pagination.setCurrentPageNo(searchVO.getPageIndex());
         pagination.setRecordCountPerPage(searchVO.getPageUnit());
+        pagination.setPageSize(searchVO.getPageSize());
         pagination.setPageSize(searchVO.getPageSize());
         searchVO.setFirstIndex(pagination.getFirstRecordIndex());
         searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());

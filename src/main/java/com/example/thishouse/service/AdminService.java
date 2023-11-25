@@ -140,4 +140,8 @@ public class AdminService {
         return this.adminMapper.user_contract(userNum);
 
     }
+    @Transactional
+    public void pw_change(String userNum) {
+        this.adminMapper.pw_change(userNum);
+    }
 }
