@@ -26,48 +26,45 @@
   <div class="row">
 
     <div class="col-lg-3" style=" max-width: 240px;">
-      <div class="accordion" id="accordionPanelsStayOpenExample">
+<!--      <div class="accordion" id="accordionPanelsStayOpenExample">-->
+
+<!--        <div class="accordion-item">-->
+<!--          <button type="button" class="btn"-->
+<!--                  style="width:214px; height:52px; text-align: left; padding:16px 20px;">전체 찜목록</button>-->
+<!--        </div>-->
+
+<!--        <div class="accordion-item">-->
+<!--          <h2 class="accordion-header" id="headingOne">-->
+<!--            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"-->
+<!--                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"-->
+<!--                    aria-controls="panelsStayOpen-collapseOne">-->
+<!--              방종류-->
+<!--            </button>-->
+<!--          </h2>-->
+
+<!--          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse"-->
+<!--               aria-labelledby="panelsStayOpen-headingOne">-->
+<!--            <ul class="list-group list-group-flush">-->
+<!--              <li class="list-group-item list-group-item-action" name="category"-->
+<!--                  style="cursor:pointer">원룸</li>-->
+<!--              <li class="list-group-item list-group-item-action" name="category"-->
+<!--                  style="cursor:pointer">투룸</li>-->
+<!--              <li class="list-group-item list-group-item-action" name="category"-->
+<!--                  style="cursor:pointer">오피스텔</li>-->
+
+<!--            </ul>-->
+<!--          </div>-->
+
+<!--        </div>-->
 
         <div class="accordion-item">
-          <button type="button" class="btn"
-                  style="width:214px; height:52px; text-align: left; padding:16px 20px;">전체 찜목록</button>
-        </div>
-
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
-                    aria-controls="panelsStayOpen-collapseOne">
-              방종류
-            </button>
-          </h2>
-
-          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse"
-               aria-labelledby="panelsStayOpen-headingOne">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item list-group-item-action" name="category"
-                  style="cursor:pointer">원룸</li>
-              <li class="list-group-item list-group-item-action" name="category"
-                  style="cursor:pointer">투룸</li>
-              <li class="list-group-item list-group-item-action" name="category"
-                  style="cursor:pointer">쓰리룸</li>
-              <li class="list-group-item list-group-item-action" name="category"
-                  style="cursor:pointer">오피스텔</li>
-              <li class="list-group-item list-group-item-action" name="category"
-                  style="cursor:pointer">아파트</li>
-            </ul>
-          </div>
-
-        </div>
-
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
-                    aria-controls="panelsStayOpen-collapseTwo">
-              매물유형
-            </button>
-          </h2>
+<!--          <h2 class="accordion-header" id="headingTwo">-->
+<!--            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"-->
+<!--                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"-->
+<!--                    aria-controls="panelsStayOpen-collapseTwo">-->
+<!--              매물유형-->
+<!--            </button>-->
+<!--          </h2>-->
 
           <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
                aria-labelledby="panelsStayOpen-headingTwo">
@@ -76,8 +73,6 @@
                   style="cursor:pointer">월세</li>
               <li class="list-group-item list-group-item-action" name="category"
                   style="cursor:pointer">전세</li>
-              <li class="list-group-item list-group-item-action" name="category"
-                  style="cursor:pointer">매매</li>
             </ul>
           </div>
 
@@ -88,32 +83,70 @@
     <div class="col" style="margin-right: 10px; min-height: 818px;">
       <div class="row py-2">
         <div class="col-lg-8"></div>
-        <form>
-          <div class="input-group col-lg-4 mt-2" style="width:350px">
-            <select name="keyWord">
-              <option value="#">지역</option>
-              <option value="#">가격</option>
-            </select>
-            <input type="text" class=" form-control" name="searchWord">
-            <span class="input-group-btn">
-                                <button class="btn btn-primary" type="submit">검색</button>
-                            </span>
-          </div>
-        </form>
-      </div>
 
+      </div>
       <div>
-        <hr style="margin:5px 0px;">
         <div style="font-weight:bold; font-size:20px;">전체 찜목록</div>
+        <br>
+        <div class="btn-toolbar">
+          <form class="form-inline" method="get" action="/map_filter">
+            <div class="input-group">
+              <div style="width: 200px;">
+                <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="house_type">
+                  <option value="전체" selecte>방 종류(전체)</option>
+                  <option value="원룸">원룸</option>
+                  <option value="투룸">투룸</option>
+                  <option value="오피스텔">오피스텔</option>
+                </select>
+              </div>
+              &nbsp;
+              <div style="width: 200px;">
+                <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="deal_type">
+                  <option value="전체" selected>거래 방법(전체)</option>
+                  <option value="월세">월세</option>
+                  <option value="전세">전세</option>
+                </select>
+              </div>
+              &nbsp;
+              <div style="width: 200px;">
+                <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="exclusive_area2" >
+                  <option value="10000" selected>방크기(전체)</option>
+                  <option value="33">0m²~33m² (10평 이하)</option>
+                  <option value="66">33m²~66m² (20평 이하)</option>
+                  <option value="99">66m²~99m²(30평 이하)</option>
+                  <option value="130">130m² (40평 이하)</option>
+                </select>
+              </div>
+              &nbsp;
+              <div style="width: 200px;">
+                <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="exclusive_area2" >
+                  <option value="10000" selected>정렬</option>
+                  <option value="33">최신순</option>
+                  <option value="66">조회순</option>
+                </select>
+              </div>
+              &nbsp;
+              <div>
+                <input type="submit" class="btn btn-secondary" id="btnCheck" style="height: 50px;"
+                       value="적용">
 
-        <select class="form-select form-select-sm mt-2" style="width: 100px;"
-                aria-label=".form-select-sm example">
-          <option selected>정렬</option>
-          <option value="1">인기순</option>
-          <option value="2">최신순</option>
-          <option value="3">조회순</option>
-        </select>
+                <input type="reset" class="btn btn-secondary" style="height: 50px;"
+                       value="초기화">
+              </div>
+            </div>
+          </form>
+        </div>
+
+<!--        <select class="form-select form-select-sm mt-2" style="width: 100px;"-->
+<!--                aria-label=".form-select-sm example">-->
+<!--          <option selected>정렬</option>-->
+<!--          <option value="1">인기순</option>-->
+<!--          <option value="2">최신순</option>-->
+<!--          <option value="3">조회순</option>-->
+<!--        </select>-->
       </div>
+      <hr>
+      <br>
       <div class="row" style="margin-top:10px;">
 
         <div class="card-back mb-2 col-lg-3" style="cursor:pointer;" th:each="favorites : ${favorites.wishPageList}">
@@ -155,6 +188,7 @@
           <a class="page-link" th:href="${favorites.pageDTO.endPage + 1}">다음</a>
         </li>
       </ul>
+    <br><br>
     </div>
   </div>
   <form method="get"  id="actionForm" th:action="@{/wishlist/{user_id}(user_id=${session.user_id})}">
