@@ -21,12 +21,28 @@ public class WishlistService {
 
     private final WishlistMapper wishlistMapper;
 
-    public WishDTO.PageResponseList getFavoritesByUserId(String user_id, Criteria criteria) {
+    public WishDTO.PageResponseList getFavoritesByUserId(String user_id, Criteria criteria,
+                                                         String houseType, String dealType,
+                                                         String area) {
+        String sqlOption = "";
+
+        if (houseType != null && !houseType.equals("전체")) {
+            sqlOption += "AND a.house_type = #{houseType}";
+        }
+
+        if (dealType != null && !dealType.equals("전체")) {
+            sqlOption += "AND a.deal_type = #{dealType}";
+        }
+        if (area != null && !area.equals(10000)) {
+            sqlOption += "AND a.exclusive_area2 < #{dealType}";
+        }
+        System.out.println("테스트할 내용 sql : " + sqlOption);
+
         Criteria cs = new Criteria(criteria.getPageNum(), 14);
-        List<WishDTO> pageList = wishlistMapper.getFavoritesByUserId(user_id, cs);
+        List<WishDTO> pageList = wishlistMapper.getFavoritesByUserId(user_id, cs, sqlOption, houseType, dealType, area);
         log.info("pageList={}", pageList);
         int total = wishlistMapper.findCount(cs);
-        PageDTO pageDTO = new PageDTO(cs,total);
+        PageDTO pageDTO = new PageDTO(cs, total);
         return new WishDTO.PageResponseList(pageList, pageDTO);
     }
 
@@ -57,5 +73,4 @@ public class WishlistService {
         List<Wishlist> wishlistForUser = wishlistMapper.getWishlistForUser(user_id, houseNum);
         return wishlistForUser != null;
     }
-
 }

@@ -22,8 +22,12 @@ public class WishlistController {
     @GetMapping("/wishlist/{user_id}")
     public String getFavoritesByUserId(@PathVariable String user_id,
                                        Criteria criteria,
-                                       Model model) {
-        WishDTO.PageResponseList favorites = wishlistService.getFavoritesByUserId(user_id, criteria);
+                                       Model model,
+                                       String houseType,
+                                       String dealType,
+                                       String area) {
+        WishDTO.PageResponseList favorites = wishlistService.getFavoritesByUserId(user_id, criteria,
+                houseType, dealType, area);
         model.addAttribute("favorites", favorites);
         return "steamed/steamed_list";
     }
@@ -62,5 +66,16 @@ public class WishlistController {
         return wishlistService.isHouseLikedByUser(houseNum, user_id);
     }
 
-
+//    @GetMapping()
+//    public String filterWishList(@PathVariable String user_id,
+//                                 Criteria criteria,
+//                                 String dealType,
+//                                 String houseType,
+//                                 String order,
+//                                 Model model) {
+//        WishDTO.PageResponseList favorites = wishlistService.getFavoritesByUserId(user_id, criteria,
+//                houseType, dealType, order);
+//        model.addAttribute("favorites", favorites);
+//        return "steamed/steamed_list";
+//    }
 }
