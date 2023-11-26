@@ -417,6 +417,38 @@ public class AdminController {
         return "admin/admin_contract_detail";
     }
 
+    @GetMapping("member_house_approve")
+    public String member_house_approve(String house_num,String user_id) {
+        adminService.approval_ok_house_item(house_num);
+        adminService.approval_ok_house_list(house_num);
+        String user_num = adminService.find_user_num(user_id);
+        return "redirect:/member_detail?user_num="+user_num;
+    }
+
+    @GetMapping("member_house_cencel")
+    public String member_house_cencel(String house_num,String user_id) {
+        adminService.approval_no_house_item(house_num);
+        adminService.approval_no_house_list(house_num);
+        String user_num = adminService.find_user_num(user_id);
+        return "redirect:/member_detail?user_num="+user_num;
+    }
+
+    @GetMapping("blind_reply")
+    public String blind_reply(String reply_num,String user_id) {
+        adminService.comment_update_admin(reply_num);
+        String user_num = adminService.find_user_num(user_id);
+
+        return "redirect:/member_detail?user_num="+user_num;
+    }
+
+    @GetMapping("/admin/house_cancel")
+    public String house_cencel(String house_num) {
+        System.out.println("asdf");
+        adminService.approval_no_house_item(house_num);
+        adminService.approval_no_house_list(house_num);
+        return "redirect:/admin/report";
+    }
+
     @GetMapping("Event_Check")
     public String Event_Check() {
         return "Admin_Dashboard/Event_Check";

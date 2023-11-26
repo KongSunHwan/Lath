@@ -153,10 +153,11 @@
                                                                             <i class="mdi mdi-dots-horizontal"></i>
                                                                         </button>
                                                                         <ul class="dropdown-menu dropdown-menu-lg-end">
-                                                                            <li><button class="dropdown-item" type="button">승인 취소</button></li>
-                                                                            <li>
+                                                                            <a th:href="@{'house_cancel?house_num=' + ${re_list.house_num}}">
+                                                                                <button class="dropdown-item" type="button">취소</button>
+                                                                            </a>                                                                            <li>
                                                                                 <button class="dropdown-item" type="button" name="itemSelect" th:attr="data-re_list-report_num=${re_list.report_num}" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                                                                    상세 보기</button></li>
+                                                                                    보기</button></li>
                                                                         </ul>
                                                                     </div>
                                                                 </td>

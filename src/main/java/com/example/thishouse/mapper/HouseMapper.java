@@ -86,4 +86,5 @@ public interface HouseMapper {
     List<HashMap> house_list_search(@Param("cs") Criteria cs);
 
     int house_list_search_cnt(@Param("cs") Criteria cs);
+
 }

@@ -144,4 +144,13 @@ public class AdminService {
     public void pw_change(String userNum) {
         this.adminMapper.pw_change(userNum);
     }
+
+    public String find_user_num(String userId) {
+        return this.adminMapper.find_user_num(userId);
+    }
+
+    @Transactional
+    public void blind_reply(String replyNum) {
+
+    }
 }

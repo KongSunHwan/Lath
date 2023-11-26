@@ -155,13 +155,12 @@
                                                                     <ul class="dropdown-menu dropdown-menu-lg-end">
                                                                         <li> <a target='_blank' th:href="@{'/house_info?house_num=' + ${user_house.house_num}}"> <button class="dropdown-item" type="button">
                                                                             보기</button></a></li>
-                                                                        <li><a th:href="@{'house_approval/true?house_num=' + ${user_house.house_num}}">
+                                                                        <a th:href="@{'member_house_approve?house_num=' + ${user_house.house_num} + '&user_id=' + ${user_house.user_id}}">
                                                                             <button class="dropdown-item" type="button">
                                                                                 승인</button></a></li>
-                                                                        <li><a th:href="@{'house_approval/false?house_num=' + ${user_house.house_num}}">
+                                                                        <li><a th:href="@{'member_house_cencel?house_num=' + ${user_house.house_num} + '&user_id=' + ${user_house.user_id}}">
                                                                             <button class="dropdown-item" type="button">취소</button></a></li>
-                                                                        <li><button class="dropdown-item" type="button">삭제</button></li>
-
+<!--                                                                        <li><button class="dropdown-item" type="button">삭제</button></li>-->
                                                                     </ul>
                                                                 </div>
                                                             </td>
@@ -246,13 +245,12 @@
                                                         댓글내역이 존재하지 않습니다.
                                                     </div>
                                                     <div th:each="reply : ${user_reply}" class="card mb-2">
-                                                        <form method="post" action="reply/update">
+                                                        <form method="get" action="blind_reply">
                                                             <input type="hidden" name="reply_num" th:value="${reply.reply_num}">
-                                                            <input type="hidden" name="community_num" th:value="${reply.community_num}">
+                                                            <input type="hidden" name="user_id" th:value="${reply.user_id}">
 
                                                             <div class="card-header bg-light">
                                                                 <i class="fa fa-comment fa"></i>  댓글 &nbsp;
-                                                                <a th:href="@{'/admin/community/modify?community_num=' + ${reply.community_num}}">게시글</a>
                                                                 <input type="submit" class="btn btn-secondary" id="btnCheck"
                                                                        value="필터" style="height: 36px;float: right; margin: -7px;">
                                                             </div>
@@ -343,10 +341,11 @@
                                                                         <i class="mdi mdi-dots-horizontal"></i>
                                                                     </button>
                                                                     <ul class="dropdown-menu dropdown-menu-lg-end">
-                                                                        <li><button class="dropdown-item" type="button">승인 취소</button></li>
+                                                                        <li><a th:href="@{'member_house_cencel?house_num=' + ${user_report.house_num} + '&user_id=' + ${user_report.user_id}}">
+                                                                            <button class="dropdown-item" type="button">취소</button></a></li>
                                                                         <li>
                                                                             <button class="dropdown-item" type="button" name="itemSelect" th:attr="data-re_list-report_num=${user_report.report_num}" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                                                                상세 보기</button></li>
+                                                                                보기</button></li>
                                                                     </ul>
                                                                 </div>
                                                             </td>

@@ -74,4 +74,6 @@ public interface AdminMapper {
     List<HashMap> user_contract(String userNum);
 
     void pw_change(String userNum);
+
+    String find_user_num(String userId);
 }

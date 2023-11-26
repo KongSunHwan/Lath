@@ -230,4 +230,5 @@ public class HouseService {
         }
         return new ResponsePageDTO.ResponseHouse(house_list, pageDTO);
     }
+
 }

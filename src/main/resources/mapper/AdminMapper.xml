@@ -98,7 +98,7 @@
         SET
             approval = 1
         where
-            house_num = #{house_num}
+            house_num = #{houseNum}
     </update>
 
     <update id="approval_ok_house_list" parameterType="String">
@@ -181,4 +181,10 @@
             user_num = #{user_num}
 
     </update>
+
+    <select id="find_user_num" resultType="String">
+        select user_num
+        from member
+        where user_id = #{userId}
+    </select>
 </mapper>
