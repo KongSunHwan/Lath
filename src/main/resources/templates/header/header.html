@@ -40,7 +40,7 @@
                     <img alt="user" class="rounded-circle" height="32" src="/img/user.png" width="32">
                     <span class="fs-6" th:text="${session.user_id}">회원아이디</span>
                 </a>
-                <ul class="dropdown-menu text-small">
+                <ul class="dropdown-menu text-small" style="z-index: 2000;">
                     <li>
                         <!--            <a th:if="${session.user_id != null}" class="dropdown-item" th:href="@{'/mypage?user_id=' + ${session.user_id}}">-->
                         <a class="dropdown-item" th:href="'javascript:Mypage(\'' + ${session.user_id} + '\')'"

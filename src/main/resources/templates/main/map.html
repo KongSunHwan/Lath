@@ -25,7 +25,6 @@
             height: 100%;
             overflow: hidden;
         }
-
         .top {
             height: 80px;
             margin: 0;
@@ -213,27 +212,31 @@
 
 <body>
 
-<header class="top">
-    <div clas="box2">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+<!--<header class="top">-->
+<!--    <div clas="box2">-->
+<!--        <div class="container">-->
+<!--            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">-->
 
-                <a th:href="@{/main}" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-                    <img src="/img/logo.png" style="width: 100px; height: 100px; margin-top: -10px;">
-                </a>
+<!--                <a th:href="@{/main}" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">-->
+<!--                    <img src="/img/logo.png" style="width: 100px; height: 100px; margin-top: -10px;">-->
+<!--                </a>-->
 
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a th:href="@{/map}" class="nav-link px-4 link-dark">지도</a></li>
-                    <li><a th:href="@{/house_add}" class="nav-link px-4 link-dark">매물 등록</a></li>
-                    <li><a href="#" class="nav-link px-4 link-dark">부동산 가이드</a></li>
-                    <li><a th:href="@{/board_list}" class="nav-link px-4 link-dark">커뮤니티</a></li>
-                    <li><a th:href="@{/notice_list}" class="nav-link px-4 link-dark">공지사항</a></li>
-                </ul>
+<!--                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">-->
+<!--                    <li><a th:href="@{/map}" class="nav-link px-4 link-dark">지도</a></li>-->
+<!--                    <li><a th:href="@{/house_add}" class="nav-link px-4 link-dark">매물 등록</a></li>-->
+<!--                    <li><a href="#" class="nav-link px-4 link-dark">부동산 가이드</a></li>-->
+<!--                    <li><a th:href="@{/board_list}" class="nav-link px-4 link-dark">커뮤니티</a></li>-->
+<!--                    <li><a th:href="@{/notice_list}" class="nav-link px-4 link-dark">공지사항</a></li>-->
+<!--                </ul>-->
 
-            </div>
-        </div>
-    </div>
-</header>
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</header>-->
+
+<!-- header 시작 -->
+<header th:replace="~{header/header}"></header>
+<!-- header 끝 -->
 
 <div class="panel-container">
     <div class="panel-left">
