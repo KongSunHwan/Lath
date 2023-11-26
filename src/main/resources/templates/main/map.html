@@ -254,6 +254,10 @@
                      data-bs-spy="scroll">
                     <a aria-current="true" class="list-group-item list-group-item-action d-flex"
                        th:each="markers : ${markers}" th:href="@{'/real_estate_detail?house_num=' + ${markers.house_num}}">
+                        <div class="border">
+                            <img src="/img/img001.jpeg" th:src="|/images/${markers.save_name}|" style="width: 180px;height: 140px;float: right;">
+                        </div>
+                        <div>&nbsp;</div>
                         <div class="mb-1">
                             <strong class="col-10 mb-1 small" th:if="${markers.deal_type == '월세'}"><b>월세 [(${markers.deposit})] / [(${markers.m_price})]만원</b></strong>
                             <strong class="col-10 mb-1 small" th:if="${markers.deal_type == '전세'}"><b>전세 [(${markers.y_price})] 만원</b></strong>
@@ -270,12 +274,7 @@
                                   <span class="badge bg-secondary"  th:text="|조회수:${markers.hits}|">
                                             123
                                         </span>
-
-
                              </strong><br>
-                        </div>
-                        <div class="border">
-                            <img src="/img/img001.jpeg" th:src="|/images/${markers.save_name}|" style="width: 180px;height: 140px;float: right;">
                         </div>
                     </a>
                 </div>
@@ -891,6 +890,8 @@
                                     '<a aria-current="true" class="list-group-item list-group-item-action"' +
                                     'href="/real_estate_detail?house_num='+ markerData.house_num + '">' +
                                     '<div class="d-flex align-items-start">' +
+                                    '<img src="http://localhost:8082/images/' + markerData.save_name + '" style="width: 200px; height: 150px;">' +
+                                    '<div>&nbsp;</div>' +
                                     '<div class="mb-1">' +
                                     '<strong class="mb-1">' + mapname + '</strong><br>' +
                                     '<strong class="col-10 mb-1 small" style="font-size: 13px;">' + markerData.road_address + '</strong><br>' +
@@ -902,7 +903,6 @@
                                     "조회수:" + markerData.hits + '</span></strong><br>' +
                                     '</div>' +
                                     '<div class="border ms-auto">' +
-                                    '<img src="http://localhost:8082/images/' + markerData.save_name + '" style="width: 200px; height: 150px;">' +
                                     '</div>' +
                                     '</div>' +
                                     '</a>';
