@@ -244,4 +244,41 @@
             house_num=#{house_num}
     </update>
 
+    <select id="house_list" resultType="java.util.HashMap">
+        select *
+        from house_list a, (select *
+                            from house_picture
+                            where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) b
+        where a.house_num = b.house_num and a.approval = 1
+        order by house_list_num desc
+        limit #{cs.skip} , #{cs.amount}
+    </select>
+
+    <select id="house_list_cnt" resultType="int">
+        select count(*)
+        from house_list a, (select *
+                            from house_picture
+                            where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) b
+        where a.house_num = b.house_num and a.approval = 1
+    </select>
+
+    <select id="house_list_search" resultType="java.util.HashMap">
+        select *
+        from house_list a, (select *
+                            from house_picture
+                            where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) b
+        where a.house_num = b.house_num and a.approval = 1 and a.road_address like CONCAT('%',#{cs.keyword},'%')
+        order by house_list_num desc
+        limit #{cs.skip} , #{cs.amount}
+    </select>
+
+    <select id="house_list_search_cnt" resultType="int">
+        select count(*)
+        from house_list a, (select *
+                            from house_picture
+                            where house_picture_num in (select max(house_picture_num) from house_picture group by house_num)) b
+        where a.house_num = b.house_num and a.approval = 1 and a.road_address like CONCAT('%',#{cs.keyword},'%')
+    </select>
+
+
 </mapper>

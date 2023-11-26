@@ -67,39 +67,69 @@
             -webkit-overflow-scrolling: touch;
         }
     </style>
+
+    <link href="/css/headers.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <script>
+        function get_query(){
+            var url = document.location.href;
+            var qs = url.substring(url.indexOf('?') + 1).split('&');
+            for(var i = 0, result = {}; i < qs.length; i++){
+                qs[i] = qs[i].split('=');
+                result[qs[i][0]] = decodeURIComponent(qs[i][1]);
+            }
+            return result;
+        }
+        var result = get_query();
+        var type = result.type;
+        var keyword = result.keyword;
 
-        $(document).ready(function() {
-            var thisIndex = parseInt([[${searchVO.pageIndex}]]);
+        if(keyword==undefined){
+            keyword ="";
+        }
 
-            $(".pagination li a").each(function() {
-                var idx = $(this).parent().index();
-                var thistitle = $(this).attr("title");
+        $(function() {
+            $(".page-item a").on("click", function (e) {
+                e.preventDefault();  //전송을 막음
+                console.log('click');
+                var pageNum = $(this).text();
 
-                if (thistitle === thisIndex.toString()) {
-                    $(".pagination").find("li").eq(idx).addClass("active");
+                var href = '/main?pageNum=' + pageNum + '&amount=6&keyword=' + keyword;
+                $(this).attr("href", href); // 속성을 변경하여 href 값을 설정
+                window.location.href = href;
+            });
+            var searchForm = $("#searchForm");
+            $("#searchForm button").on("click",function(e) {
+                // 화면에서 키워드가 없다면 검색을 하지 않도록 제어
+                if (!searchForm.find("input[name='keyword']").val()) {
+                    alert("키워드를 입력하세요");
+                    return false;
+                }
+                // 페이지 번호를 1로 처리
+                searchForm.find("input[name='pageNum']").val("1");
+                // 폼 태그의 전송을 막음
+                e.preventDefault();
+                searchForm.submit();
+            });
+
+            $("#searchForm").on("keydown", function(e) {
+                // 화면에서 키워드가 없다면 검색을 하지 않도록 제어
+                if ((e.type === "keydown" && e.keyCode === 13)) {
+                    if (!searchForm.find("input[name='keyword']").val()) {
+                        alert("키워드를 입력하세요");
+                        return false;
+                    }
+                    // 페이지 번호를 1로 처리
+                    searchForm.find("input[name='pageNum']").val("1");
+                    // 폼 태그의 전송을 막음
+                    e.preventDefault();
+                    searchForm.submit();
                 }
             });
         });
 
-
-
-
-        function fn_go_page(pageNo) {
-            $("#pageIndex").val(pageNo);
-            $("#listForm").submit();
-            return false;
-        }
-
-        function fn_search(){
-            $("#pageIndex").val("1");
-            $("#listForm").submit();
-            return false;
-        }
-
     </script>
-
-    <link href="/css/headers.css" rel="stylesheet">
 </head>
 <body>
 
@@ -118,10 +148,10 @@
 <!--            <a href="#" class="btn btn-sm btn-light">월세</a>-->
 <!--            <a href="#" class="btn btn-sm btn-light">전세</a>-->
         </p>
-        <form action="main" method="get">
+        <form action="/main" method="get" id="searchForm">
         <p class="lead text-muted">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="지역을 입력해주세요." name="searchValue" aria-describedby="button-addon2"
+            <input type="text" class="form-control" placeholder="지역을 입력해주세요." name="keyword" aria-describedby="button-addon2"
                    style="height: 75px; font-size: 20px; max-width: 85%;">
             <button class="btn btn-dark" type="button" id="button-addon2" style="width: 80px;"><i
                     class="bi bi-search"></i></button>
@@ -135,7 +165,7 @@
 <div class="album py-5 bg-light" >
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <div th:if="${#lists.isEmpty(house_list)}" style="justify-items: center">
+            <div th:if="${#lists.isEmpty(pageList.house)}" style="justify-items: center">
                 <br>
                 <br>
                 <br>
@@ -157,7 +187,7 @@
                 <br>
             </div>
 
-            <div class="col" th:each="house_list : ${house_list}">
+            <div class="col" th:each="house_list : ${pageList.house}">
                 <input type="hidden" name="house_num" value="house_num" th:value="${house_list.house_num}">
                 <input type="hidden" name="user_id" value="user_id" th:value="${session.user_id}">
                 <div class="card shadow-sm">
@@ -201,29 +231,23 @@
         </div>
 
         <br>
-        <block th:if="${totCnt} > 0">
-        <div class="d-flex justify-content-center align-items-center">
-            <form method="get" id="listForm" action="/main">
-                <input type="hidden" id="pageIndex" name="pageIndex" val="" />
-                <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;">
-                    <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                        <ul class="pagination justify-content-center" style="align:center;">
-                            <li th:if="${searchVO.prev}" class="paginate_button page-item previous" id="dataTable_previous">
-                                <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.startDate - 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">이전</a>
-                            </li>
-                            <li th:each="num: ${#numbers.sequence(searchVO.startDate, searchVO.endDate)}" class="paginate_button page-item">
-                                <a href="javascript:void(0);" th:text="${num}" th:onclick="'fn_go_page(' + ${num} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link" th:title="${num}">d</a>
-                            </li>
-                            <li th:if="${searchVO.next}" class="paginate_button page-item next" id="dataTable_next">
-                                <a href="javascript:void(0);" th:onclick="'fn_go_page(' + ${searchVO.endDate + 1} + '); return false;'" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">다음</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </form>
-        </div>
-        </block>
+        <th:block th:if="${pageList.pageDTO.totalCount} > 0">
+            <nav aria-label="Page navigation example" th:if="${pageList != null}">
+                <ul class="pagination justify-content-center" style="text-align: center;">
+                    <li th:if="${pageList.pageDTO.isPrev()}" class="paginate_button page-item">
+                        <a class="page-link" th:href="${pageList.pageDTO.startPage - 1}">이전</a>
+                    </li>
 
+                    <li th:each="num: ${#numbers.sequence(pageList.pageDTO.startPage, pageList.pageDTO.endPage)}" class="paginate_button page-item">
+                        <a class="page-link" th:href="${num}" th:value="${num}" th:text="${num}"></a>
+                    </li>
+
+                    <li th:if="${pageList.pageDTO.isNext()}" class="paginate_button page-item">
+                        <a class="page-link" th:href="${pageList.pageDTO.endPage + 1}">다음</a>
+                    </li>
+                </ul>
+            </nav>
+        </th:block>
 
         <!-- <div class="b-example-divider"></div> -->
     </div>

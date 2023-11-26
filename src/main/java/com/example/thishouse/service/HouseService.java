@@ -1,5 +1,8 @@
 package com.example.thishouse.service;
 
+import com.example.thishouse.domain.Criteria;
+import com.example.thishouse.domain.DTO.ResponsePageDTO;
+import com.example.thishouse.domain.PageDTO;
 import com.example.thishouse.domain.house.*;
 import com.example.thishouse.mapper.ContractMapper;
 import com.example.thishouse.mapper.HouseMapper;
@@ -203,5 +206,28 @@ public class HouseService {
         contractMapper.reject_same_house_contract(house_num);
         houseMapper.approval_contract_complete(house_num);
 
+    }
+
+    public ResponsePageDTO.ResponseHouse house_list(Criteria criteria) {
+        Criteria cs = new Criteria(criteria.getPageNum(), criteria.getAmount(), criteria.getType(), criteria.getKeyword());
+
+//        List<HashMap> house_list = houseMapper.house_list(cs);
+//        int total = houseMapper.house_list_cnt();
+//        PageDTO pageDTO = new PageDTO(cs, total);
+
+        List<HashMap> house_list = null;
+        int total = 0;
+        PageDTO pageDTO = null;
+
+        if(criteria.getKeyword() == null){
+            house_list = houseMapper.house_list(cs);
+            total = houseMapper.house_list_cnt();
+            pageDTO = new PageDTO(cs,total);
+        }else{
+            house_list = houseMapper.house_list_search(cs);
+            total = houseMapper.house_list_search_cnt(cs);
+            pageDTO = new PageDTO(cs,total);
+        }
+        return new ResponsePageDTO.ResponseHouse(house_list, pageDTO);
     }
 }

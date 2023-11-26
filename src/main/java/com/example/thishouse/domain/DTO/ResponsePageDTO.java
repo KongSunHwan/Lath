@@ -16,4 +16,10 @@ public class ResponsePageDTO {
         private List<HashMap> contract;
         private PageDTO pageDTO;
     }
+    @Data
+    @AllArgsConstructor
+    public static class ResponseHouse {
+        private List<HashMap> house;
+        private PageDTO pageDTO;
+    }
 }

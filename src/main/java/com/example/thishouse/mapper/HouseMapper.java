@@ -1,8 +1,10 @@
 package com.example.thishouse.mapper;
 
 
+import com.example.thishouse.domain.Criteria;
 import com.example.thishouse.domain.house.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
@@ -76,4 +78,12 @@ public interface HouseMapper {
     void approval_contract_complete(String house_num);
 
     void approval_contract_complete_item(String house_num);
+
+    List<HashMap> house_list(@Param("cs") Criteria cs);
+
+    int house_list_cnt();
+
+    List<HashMap> house_list_search(@Param("cs") Criteria cs);
+
+    int house_list_search_cnt(@Param("cs") Criteria cs);
 }

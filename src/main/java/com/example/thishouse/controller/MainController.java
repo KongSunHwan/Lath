@@ -1,5 +1,7 @@
 package com.example.thishouse.controller;
 
+import com.example.thishouse.domain.Criteria;
+import com.example.thishouse.domain.DTO.ResponsePageDTO;
 import com.example.thishouse.domain.Member;
 import com.example.thishouse.domain.house.House_list;
 import com.example.thishouse.service.HouseService;
@@ -76,62 +78,63 @@ public class MainController {
     
     //부동산 관련
     @RequestMapping("/main")
-    public String main(@ModelAttribute("searchVO") House_list searchVO, HttpServletRequest request, Model model, HttpSession session) {
+    public String main(Criteria criteria, Model model) {
 
-        PageCtrl pagination  = new PageCtrl();
-        pagination.setCurrentPageNo(searchVO.getPageIndex());
-        pagination.setRecordCountPerPage(searchVO.getPageUnit_house());
-        pagination.setPageSize(searchVO.getPageSize());
-        searchVO.setFirstIndex(pagination.getFirstRecordIndex());
-        searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
-        String context = request.getParameter("searchValue");
-        String user_id = (String) session.getAttribute("user_id");
-        
-
-
-        if(context == null){
-            List<HashMap> house_list = houseService.house_list_pg(searchVO);
-            model.addAttribute("house_list" , house_list);
-            int totCnt = houseService.house_list_pg_cnt();
-            model.addAttribute("totCnt",totCnt);
-            pagination.setTotalRecordCount(totCnt);
-            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
-            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
-            searchVO.setPrev(pagination.getXprev());
-            searchVO.setNext(pagination.getXnext());
-            model.addAttribute("user_id", user_id);
-            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
-            model.addAttribute("pagination",pagination);
-        }
-        else if(context != null && context == ""){
-            List<HashMap> house_list = houseService.house_list_pg(searchVO);
-            model.addAttribute("house_list" , house_list);
-            int totCnt = houseService.house_list_pg_cnt();
-            model.addAttribute("totCnt",totCnt);
-            pagination.setTotalRecordCount(totCnt);
-            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
-            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
-            searchVO.setPrev(pagination.getXprev());
-            searchVO.setNext(pagination.getXnext());
-            model.addAttribute("user_id", user_id);
-            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
-            model.addAttribute("pagination",pagination);
-        }
-        else{
-            searchVO.setSearch_content(context);
-            List<HashMap> house_list = houseService.house_search_pg(searchVO);
-            model.addAttribute("house_list" , house_list);
-            int totCnt = houseService.house_search_pg_cnt(searchVO);
-            model.addAttribute("totCnt",totCnt);
-            pagination.setTotalRecordCount(totCnt);
-            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
-            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
-            searchVO.setPrev(pagination.getXprev());
-            searchVO.setNext(pagination.getXnext());
-            model.addAttribute("user_id", user_id);
-            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
-            model.addAttribute("pagination",pagination);
-        }
+//        PageCtrl pagination  = new PageCtrl();
+//        pagination.setCurrentPageNo(searchVO.getPageIndex());
+//        pagination.setRecordCountPerPage(searchVO.getPageUnit_house());
+//        pagination.setPageSize(searchVO.getPageSize());
+//        searchVO.setFirstIndex(pagination.getFirstRecordIndex());
+//        searchVO.setRecordCountPerPage(pagination.getRecordCountPerPage());
+//        String context = request.getParameter("searchValue");
+//        String user_id = (String) session.getAttribute("user_id");
+//
+//        if(context == null){
+//            List<HashMap> house_list = houseService.house_list_pg(searchVO);
+//            model.addAttribute("house_list" , house_list);
+//            int totCnt = houseService.house_list_pg_cnt();
+//            model.addAttribute("totCnt",totCnt);
+//            pagination.setTotalRecordCount(totCnt);
+//            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+//            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+//            searchVO.setPrev(pagination.getXprev());
+//            searchVO.setNext(pagination.getXnext());
+//            model.addAttribute("user_id", user_id);
+//            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+//            model.addAttribute("pagination",pagination);
+//        }
+//        else if(context != null && context == ""){
+//            List<HashMap> house_list = houseService.house_list_pg(searchVO);
+//            model.addAttribute("house_list" , house_list);
+//            int totCnt = houseService.house_list_pg_cnt();
+//            model.addAttribute("totCnt",totCnt);
+//            pagination.setTotalRecordCount(totCnt);
+//            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+//            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+//            searchVO.setPrev(pagination.getXprev());
+//            searchVO.setNext(pagination.getXnext());
+//            model.addAttribute("user_id", user_id);
+//            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+//            model.addAttribute("pagination",pagination);
+//        }
+//        else{
+//            searchVO.setSearch_content(context);
+//            List<HashMap> house_list = houseService.house_search_pg(searchVO);
+//            model.addAttribute("house_list" , house_list);
+//            int totCnt = houseService.house_search_pg_cnt(searchVO);
+//            model.addAttribute("totCnt",totCnt);
+//            pagination.setTotalRecordCount(totCnt);
+//            searchVO.setEndDate(pagination.getLastPageNoOnPageList());
+//            searchVO.setStartDate(pagination.getFirstPageNoOnPageList());
+//            searchVO.setPrev(pagination.getXprev());
+//            searchVO.setNext(pagination.getXnext());
+//            model.addAttribute("user_id", user_id);
+//            model.addAttribute("totalPageCnt",(int)Math.ceil(totCnt / (double)searchVO.getPageUnit()));
+//            model.addAttribute("pagination",pagination);
+//        }
+        ResponsePageDTO.ResponseHouse house = houseService.house_list(criteria);
+        System.out.println(house);
+        model.addAttribute("pageList", house);
         return "main/main";
     }
 

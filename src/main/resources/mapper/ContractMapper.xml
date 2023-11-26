@@ -216,11 +216,11 @@
         SELECT count(*) FROM (
                                  select a.contract_idx, b.user_id as lessoer_id, c.user_id as tenant_id, a.road_address, a.detail_address,a.contract_date,a.contract_state
                                  from contract a ,lessoer b, tenant c
-                                 where a.lessoer_idx = b.lessoer_idx and a.tenant_idx = c.tenant_idx and b.user_id = 'asd'
+                                 where a.lessoer_idx = b.lessoer_idx and a.tenant_idx = c.tenant_idx and b.user_id = #{cs.keyword}
                                  union
                                  select a.contract_idx, b.user_id as lessoer_id, c.user_id as tenant_id, a.road_address, a.detail_address,a.contract_date,a.contract_state
                                  from contract a ,lessoer b, tenant c
-                                 where a.lessoer_idx = b.lessoer_idx and a.tenant_idx = c.tenant_idx and c.user_id= 'asd'
+                                 where a.lessoer_idx = b.lessoer_idx and a.tenant_idx = c.tenant_idx and c.user_id= #{cs.keyword}
                              ) AS subquery;
     </select>
 
