@@ -10,6 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class WishDTO {
+    private int house_num;
     private String house_type;
     private String deal_type;
     private int n_floors;

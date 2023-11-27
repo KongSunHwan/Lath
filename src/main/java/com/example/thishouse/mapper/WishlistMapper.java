@@ -14,7 +14,11 @@ import java.util.List;
 public interface WishlistMapper {
 
     List<WishDTO> getFavoritesByUserId(@Param("user_id") String user_id,
-                                                @Param("criteria") Criteria criteria);
+                                       @Param("criteria") Criteria criteria,
+                                       @Param("sqlOption") String sqlOption,
+                                       @Param("houseType") String houseType,
+                                       @Param("dealType") String dealType,
+                                       @Param("area") String area);
 
     List<HashMap> getMyPageFavoritesByUserId(String user_id);
 
@@ -27,5 +31,4 @@ public interface WishlistMapper {
     Boolean isHouseLikedByUser(Wishlist wishlist);
 
     List<Wishlist> getWishlistForUser(String user_id, int house_num);
-
 }

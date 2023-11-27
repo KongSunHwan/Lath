@@ -89,10 +89,10 @@
         <div style="font-weight:bold; font-size:20px;">전체 찜목록</div>
         <br>
         <div class="btn-toolbar">
-          <form class="form-inline" method="get" action="/map_filter">
+          <form class="form-inline" method="get" th:action="@{/wishlist/{user_id}(user_id=${session.user_id})}">
             <div class="input-group">
               <div style="width: 200px;">
-                <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="house_type">
+                <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="houseType">
                   <option value="전체" selecte>방 종류(전체)</option>
                   <option value="원룸">원룸</option>
                   <option value="투룸">투룸</option>
@@ -101,7 +101,7 @@
               </div>
               &nbsp;
               <div style="width: 200px;">
-                <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="deal_type">
+                <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="dealType">
                   <option value="전체" selected>거래 방법(전체)</option>
                   <option value="월세">월세</option>
                   <option value="전세">전세</option>
@@ -115,14 +115,6 @@
                   <option value="66">33m²~66m² (20평 이하)</option>
                   <option value="99">66m²~99m²(30평 이하)</option>
                   <option value="130">130m² (40평 이하)</option>
-                </select>
-              </div>
-              &nbsp;
-              <div style="width: 200px;">
-                <select class="form-select form-select-lg mb-3" aria-label="Large select example" name="exclusive_area2" >
-                  <option value="10000" selected>정렬</option>
-                  <option value="33">최신순</option>
-                  <option value="66">조회순</option>
                 </select>
               </div>
               &nbsp;
@@ -148,10 +140,11 @@
       <hr>
       <br>
       <div class="row" style="margin-top:10px;">
-
         <div class="card-back mb-2 col-lg-3" style="cursor:pointer;" th:each="favorites : ${favorites.wishPageList}">
           <div class="card-img">
+            <a th:href="@{'/real_estate_detail?house_num='+${favorites.house_num}}">
             <img src="/img/1.jpg" th:src="|/images/${favorites.save_name}|" style="width: 230px; height:150px;">
+            </a>
           </div>
           <div class="card-teacher">
             <b class="text-muted" th:text="${favorites.house_type}" style="font-size: 13px;">오피스텔 • 강남역솔라티움시티</b>
