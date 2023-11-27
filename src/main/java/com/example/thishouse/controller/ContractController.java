@@ -36,12 +36,12 @@ public class ContractController {
             return "redirect:/contract_Information_request";
         }
 
-        String house_deal_type = houseService.deal_type(house_num);
+        String deal_type = houseService.deal_type(house_num);
         List<House_location> house_location = houseService.house_location(house_num);
         String house_type = houseService.house_type(house_num);
         List<House_info> house_info = houseService.house_info_list(house_num);
 
-        model.addAttribute("house_deal_type",house_deal_type);
+        model.addAttribute("deal_type",deal_type);
         model.addAttribute("house_location",house_location);
         model.addAttribute("house_type",house_type);
         model.addAttribute("house_info",house_info);
@@ -53,6 +53,9 @@ public class ContractController {
     public String contract_request(String house_num, @Valid Contract contract, @Valid Tenant tenant, HttpServletRequest request, HttpSession session) {
         String user_id = (String) session.getAttribute("user_id"); //구매자
         tenant.setUser_id(user_id);
+
+        System.out.println(contract.getHouse_type() + contract.getDeal_type());
+
         contractService.tenant_info(tenant);
         int lessoer_num = contractService.get_lessoer(house_num);
         int tenant_num = contractService.get_tenant(user_id,house_num);

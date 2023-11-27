@@ -20,7 +20,7 @@ public class Contract {
 
     private String house_type;
     private String contract_type;
-    private String house_deal_type;
+    private String deal_type;
 
     private String contract_state;
 
@@ -38,7 +38,6 @@ public class Contract {
     private long balance;
     private String balance_deadline;
 
-    private String deal_type;
 
     private String exclusive_area2;
     private String supply_area2;
