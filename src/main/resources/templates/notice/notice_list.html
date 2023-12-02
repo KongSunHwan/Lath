@@ -111,6 +111,11 @@
                     <li class="date">작성일</li>
                 </ul>
 
+                <div th:if="${pageList.noticePageList.isEmpty()}">
+                    <br>
+                    <p style="text-align: center">등록된 공지사항이 없습니다.</p>
+                </div>
+
                 <ul th:each="pageList : ${pageList.noticePageList}" onclick="">
                     <li class="id" th:text="${pageList.notice_num}"></li>
                     <li class="category" style="width: 200px;"><span class="badge bg-primary">공지사항</span></li>
@@ -125,6 +130,7 @@
             </div>
             <!-- Paging[s] -->
             <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;">
+                <th:block th:if="${pageList.pageDTO.totalCount>0}" >
 
                 <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                     <ul class="pagination justify-content-center" style="align:center;">
@@ -141,6 +147,7 @@
 
                     </ul>
                 </div>
+                </th:block>
             </div>
             <form method="get" id="actionForm">
                 <input type="hidden" name="pageNum" th:value="${pageList.pageDTO.cri.getPageNum()}">

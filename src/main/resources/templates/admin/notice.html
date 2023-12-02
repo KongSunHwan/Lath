@@ -62,10 +62,9 @@
                                             <div class="col-12">
                                                 <div class="table-responsive">
                                                     <h5 style="text-align:center"><b>공지사항 관리</b></h5>
-                                                    <button class="btn btn-primary"
-                                                            style="margin-right: 20px;margin-top: 0px;margin-bottom: 10px;font-size: 13px;float: right;"
-                                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop">새로운 공지사항
-                                                        작성</button>
+<!--                                                    <button class="btn btn-primary" style="margin-right: 20px;margin-top: 0px;margin-bottom: 10px;font-size: 13px;float: right;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">새로운 공지사항 작성</button>-->
+                                                    <button class="btn btn-primary" style="margin-right: 20px;margin-top: 0px;margin-bottom: 10px;font-size: 13px;float: right;" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick='location.href="/notice_add"'>공지사항 작성</button>
+
                                                     <table class="table">
                                                         <thead>
                                                             <tr>
@@ -78,7 +77,12 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr th:each="pg_list : ${pageList.noticePageList}">
+
+                                                        <tr th:if="${pageList.noticePageList.isEmpty()}">
+                                                            <td colspan="6" style="text-align: center">등록된 공지사항이 없습니다.</td>
+                                                        </tr>
+
+                                                        <tr th:each="pg_list : ${pageList.noticePageList}">
                                                                 <td class="text-center" th:text="${pg_list.notice_num}">
                                                                     1
                                                                 </td>
@@ -118,8 +122,8 @@
                                                     </table>
                                                 </div>
                                                 <!-- Paging[s] -->
+                                                <th:block th:if="${pageList.pageDTO.totalCount>0}">
                                                 <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;">
-
                                                     <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                                                         <ul class="pagination justify-content-center" style="align:center;">
                                                             <li th:if="${pageList.pageDTO.isPrev()}" class="paginate_button page-item previous">
@@ -134,10 +138,10 @@
                                                             <li th:if="${pageList.pageDTO.isNext()}" class="paginate_button page-item next" >
                                                                 <a class="page-link" th:href="${pageList.pageDTO.endPage + 1}">다음</a>
                                                             </li>
-
                                                         </ul>
                                                     </div>
                                                 </div>
+                                                </th:block>
                                                 <form method="get"  id="actionForm" action="/admin/notice">
                                                     <input type="hidden" name="pageNum" th:value="${pageList.pageDTO.cri.getPageNum()}">
                                                     <input type="hidden" name="amount" th:value="${pageList.pageDTO.cri.getAmount()}">
@@ -150,7 +154,7 @@
                                                         <select name="type" class="border border-secondary">
                                                             <option value="T">제목</option>
                                                             <option value="c">내용</option>
-                                                            <option value="w">작성자</option>
+<!--                                                            <option value="w">작성자</option>-->
                                                         </select>
 
                                                         <span class="input_area">
