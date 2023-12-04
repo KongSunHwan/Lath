@@ -109,7 +109,8 @@
                                                                     <ul class="dropdown-menu dropdown-menu-lg-end">
                                                                         <li>
 
-                                                                            <button class="dropdown-item" type="button"><a th:href="@{'/notice_modify?notice_num=' + ${pg_list.notice_num}}">수정</a></button>
+                                                                            <button class="dropdown-item" type="button"><a th:href="@{'/admin/notice_modify?notice_num=' + ${pg_list.notice_num} + '&title='
+                                                                            + ${pg_list.notice_title} + '&contents=' + ${pg_list.notice_content}}">수정</a></button>
                                                                         </li>
                                                                         <li>
                                                                             <button class="dropdown-item" type="button"><a th:href="@{'/admin_notice_delete?notice_num=' + ${pg_list.notice_num}}">

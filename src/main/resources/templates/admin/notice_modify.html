@@ -21,22 +21,23 @@
 <h1 class="visually-hidden"></h1>
 <div class="px-4 py-5 my-5 text-lg-start">
     <h2 class="fw-bold text-center">공지사항 수정</h2>
-    <form th:action="@{/notice_update}" method="get">
+    <form th:action="@{/admin/notice_modifys}" method="get">
+        <input type="hidden" name="notice_num" th:value="${notice_num}">
         <div class="col-lg-6 mx-auto">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label fs-4 fw-bold">제목</label>
-                <input type="title" class="form-control" id="exampleFormControlInput1" name="notice_title" placeholder="제목을 입력하세요.">
+                <input type="title" class="form-control" id="exampleFormControlInput1" name="title" th:value="${title}" placeholder="제목을 입력하세요.">
             </div>
 
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label fs-4 fw-bold">내용</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" name="notice_content" rows="10"
-                          placeholder="내용을 입력하세요."></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="contents" rows="10"
+                          th:text="${contents}" placeholder="내용을 입력하세요."></textarea>
             </div>
 
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-                <button type="submit" class="btn btn-primary">등록하기</button>
-                <a th:href="@{/notice_list}"><button type="button" class="btn btn-primary">목록으로</button></a>
+                <button type="submit" class="btn btn-primary">수정하기</button>
+                <a th:href="@{/admin/notice}"><button type="button" class="btn btn-primary">목록으로</button></a>
             </div>
         </div>
     </form>

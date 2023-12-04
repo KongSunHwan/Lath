@@ -26,11 +26,11 @@ public class NoticeController {
         model.addAttribute("Notice", noticeService.view_notice(notice_num));
         return "notice/notice_detail";
     }
-    @GetMapping("/notice_add")
-    public String BoardAdd(Notice notice) {
-        noticeService.insert_notice(notice);
-        return "redirect:/notice_list";
-    }
+//    @GetMapping("/notice_add")
+//    public String BoardAdd(Notice notice) {
+//        noticeService.insert_notice(notice);
+//        return "redirect:/notice_list";
+//    }
     @RequestMapping("/notice_edit")
     public String NoticeUpdateView(Model model, String notice_num,
                                    @ModelAttribute("Cri") Criteria criteria) {

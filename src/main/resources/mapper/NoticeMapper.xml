@@ -46,7 +46,7 @@
     <!-- 공지사항 작성 -->
     <insert id="insert_notice" parameterType="com.example.thishouse.domain.Notice">
         insert into notice(admin_id, notice_title, notice_content, notice_date, notice_hit)
-        values ('pmJ', #{notice_title}, #{notice_content}, now(), 0)
+        values ('pmJ', #{title}, #{contents}, now(), 0)
     </insert>
 
 
@@ -58,9 +58,9 @@
     <update id="update_notice">
         update notice
         SET
-        notice_title = #{notice_title},
+        notice_title = #{title},
         admin_id = 'pmJ',
-        notice_content = #{notice_content},
+        notice_content = #{contents},
         notice_date = now()
         where
         notice_num = #{notice_num}

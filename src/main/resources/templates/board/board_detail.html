@@ -65,7 +65,7 @@
                 <input type="hidden" name="keyword" th:value="${Cri.keyword}">
                 <button th:if="${session.user_id == Board.user_id}" data-oper="modify" type="button" class="btn btn-primary">수정하기</button>
                 <button data-oper="list" id="list" class="btn btn-primary">목록으로</button>
-                <button data-oper="delete" type="button" class="btn btn-danger" id="btnDelete">삭제하기</button>
+                <button th:if="${session.user_id == Board.user_id}" data-oper="delete" type="button" class="btn btn-danger" id="btnDelete">삭제하기</button>
             </div>
         </form>
     </div>

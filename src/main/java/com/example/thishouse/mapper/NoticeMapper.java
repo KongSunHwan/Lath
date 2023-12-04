@@ -4,6 +4,8 @@ package com.example.thishouse.mapper;
 import com.example.thishouse.domain.Criteria;
 import com.example.thishouse.domain.Notice;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 @Mapper
@@ -19,9 +21,9 @@ public interface NoticeMapper {
 
     public void update_notice_hitCount(String noticeNum);
 
-    public void insert_notice(Notice notice);
+    public void insert_notice(@Param("title") String title, @Param("contents") String contents);
 
-    public void update_notice(Notice notice);
+    public void update_notice(@Param("title") String title, @Param("contents") String contents, @Param("notice_num") String num);
 
     public void delete_notice(String noticeNum);
 

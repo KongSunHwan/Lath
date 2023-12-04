@@ -34,10 +34,11 @@ public class NoticeService {
     public void update_notice_hitCount(String notice_num) {
         this.noticeMapper.update_notice_hitCount(notice_num);
     }
+
     //공지사항 등록
     @Transactional
-    public void insert_notice(Notice notice) {
-        this.noticeMapper.insert_notice(notice);
+    public void insert_notice(String title, String contents) {
+        this.noticeMapper.insert_notice(title, contents);
     }
 
 
@@ -55,7 +56,8 @@ public class NoticeService {
         return new NoticeDTO.PageResponseList(responses, pageDTO);
     }
 
-//    public update_notice() {
-//
-//    }
+    @Transactional
+    public void update_notice(String title, String contents, String num){
+        noticeMapper.update_notice(title, contents, num);
+    }
 }

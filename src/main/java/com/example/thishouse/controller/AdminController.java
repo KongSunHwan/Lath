@@ -493,9 +493,9 @@ public class AdminController {
     }
 
     @GetMapping("/admin/notice_adds")
-    public String BoardAdd(Notice notice) {
-        noticeService.insert_notice(notice);
-        return "redirect:/admin/notice_add";
+    public String BoardAdd(String title, String contents) {
+        noticeService.insert_notice(title, contents);
+        return "redirect:/admin/notice";
     }
 
     @GetMapping("/admin/notice_delete")
@@ -504,12 +504,14 @@ public class AdminController {
         return "redirect:/admin/notice";}
 
     @GetMapping("/admin/notice_modify")
-    public String AdminNoticeModify(Notice notice) {
-        return null;}
+    public String AdminNoticeModify(@ModelAttribute("notice_num") int notice_num,
+                                    @ModelAttribute("title") String title,
+                                    @ModelAttribute("contents") String contents) {
+        return "/admin/notice_modify";}
 
     @GetMapping("/admin/notice_modifys")
-    public String AdminNoticeModifies(Notice notice){
-
-        return "redirect:/admin/notice_modify";
+    public String AdminNoticeModifies(String title, String contents, String notice_num){
+        noticeService.update_notice(title, contents, notice_num);
+        return "redirect:/admin/notice";
     }
 }

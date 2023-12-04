@@ -1,8 +1,11 @@
 package com.example.thishouse.domain;
 
+import jakarta.validation.constraints.NegativeOrZero;
 import lombok.*;
 
 import java.time.LocalDateTime;
+
+
 
 @Getter
 public class Notice {
