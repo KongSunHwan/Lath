@@ -200,7 +200,7 @@
                         </tr>
 
                         <tr th:each="house_location : ${house_location}">
-                            <td class="deliverytd text-center">임대할 부분&nbsp;<span style="color:red;">*</td>
+                            <td class="deliverytd text-center">임대할 부분&nbsp;<span style="color:red;">*</span></td>
                             <td>
                                 <span th:text="${house_location.road_address}"></span> &nbsp; <span th:text="${house_location.detail_address}"></span>
                             </td>
@@ -354,6 +354,28 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
+
+    <script>
+        // 중도금과 원금 비교 함수
+        function verifyIntermediatePayment() {
+            var deposit = parseFloat(document.getElementsByName("deposit")[0].value);
+            var intermediatePayment = parseFloat(document.getElementsByName("middle_payment")[0].value);
+
+            if (intermediatePayment > deposit) {
+                alert('중도금은 보증금보다 높을 수 없습니다.');
+                // 필요한 추가 처리를 여기에 추가하세요.
+                return false; // 중도금이 보증금보다 높은 경우 처리
+            }
+            return true; // 중도금이 보증금보다 낮거나 같은 경우 처리
+        }
+
+        // 폼 제출 시 중도금과 원금 비교 함수 호출
+        $(document).ready(function () {
+            $("form").submit(function () {
+                return verifyIntermediatePayment();
+            });
+        });
+    </script>
 </body>
 
 </html>

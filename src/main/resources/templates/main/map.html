@@ -250,7 +250,7 @@
                     <span class="fs-5 fw-semibold">등록된 매물</span>
                 </a>
 
-                <div class="list-group list-group-flush border-bottom scrollarea" data-bs-smooth-scroll="true"
+                <div id="listgroup" class="list-group list-group-flush border-bottom scrollarea" data-bs-smooth-scroll="true"
                      data-bs-spy="scroll">
                     <a aria-current="true" class="list-group-item list-group-item-action d-flex"
                        th:each="markers : ${markers}" th:href="@{'/real_estate_detail?house_num=' + ${markers.house_num}}">
@@ -868,7 +868,7 @@
                     // 클러스터 클릭 이벤트 리스너 등록
                     kakao.maps.event.addListener(clusterer, 'clusterclick', function (cluster) {
                         var markersInCluster = cluster.getMarkers(); // 클러스터 내의 마커들을 가져옴
-                        var listContainer = document.querySelector('.list-group');
+                        var listContainer = document.querySelector('#listgroup');
 
                         console.log('현재 클러스터에는 총 ' + markersInCluster.length + '개의 마커가 있습니다.');
 
@@ -890,7 +890,7 @@
                                     '<a aria-current="true" class="list-group-item list-group-item-action"' +
                                     'href="/real_estate_detail?house_num='+ markerData.house_num + '">' +
                                     '<div class="d-flex align-items-start">' +
-                                    '<img src="http://localhost:8082/images/' + markerData.save_name + '" style="width: 200px; height: 150px;">' +
+                                    '<img src="http://localhost:8082/images/' + markerData.save_name + '" style="width: 200px; height: 150px;"/>' +
                                     '<div>&nbsp;</div>' +
                                     '<div class="mb-1">' +
                                     '<strong class="mb-1">' + mapname + '</strong><br>' +
@@ -908,9 +908,12 @@
                                     '</a>';
 
                                 // 리스트 아이템 생성
+                                // var listItem = document.createElement('div');
+                                // listItem.className = 'list-group';
                                 var listItem = document.createElement('div');
-                                listItem.className = 'list-group';
+                                listItem.className = 'list-item-container'; // 유일한 클래스 이름
                                 listItem.innerHTML = itemContent;
+                                listContainer.appendChild(listItem);
 
                                 // 마커 정보 출력
                                 console.log('마커 ' + (i + 1) + ' 정보:');
