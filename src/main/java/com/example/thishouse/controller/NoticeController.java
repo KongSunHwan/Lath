@@ -26,7 +26,7 @@ public class NoticeController {
         model.addAttribute("Notice", noticeService.view_notice(notice_num));
         return "notice/notice_detail";
     }
-    @PostMapping("/notice_add")
+    @GetMapping("/notice_add")
     public String BoardAdd(Notice notice) {
         noticeService.insert_notice(notice);
         return "redirect:/notice_list";

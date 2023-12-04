@@ -474,4 +474,8 @@ public class AdminController {
         return "Admin_Dashboard/Statistics_Chart";
     }
 
+    @GetMapping("/admin/notice_add")
+    public String AdminNoticeAdd() {
+        return "admin/notice_add";
+    }
 }

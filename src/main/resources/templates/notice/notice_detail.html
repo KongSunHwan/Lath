@@ -69,9 +69,9 @@
 <script>
     $(document).ready(function () {
         var goForm = $("#goForm");
-        $("button[data-oper='modify']").on("click", function (e) {
-            goForm.attr("action", "/notice_edit").submit();
-        });
+        // $("button[data-oper='modify']").on("click", function (e) {
+        //     goForm.attr("action", "/notice_edit").submit();
+        // });
 
         $("button[data-oper='list']").on("click", function (e) {
             goForm.find("#notice_num").remove();

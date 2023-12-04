@@ -63,7 +63,7 @@
                                                 <div class="table-responsive">
                                                     <h5 style="text-align:center"><b>공지사항 관리</b></h5>
 <!--                                                    <button class="btn btn-primary" style="margin-right: 20px;margin-top: 0px;margin-bottom: 10px;font-size: 13px;float: right;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">새로운 공지사항 작성</button>-->
-                                                    <button class="btn btn-primary" style="margin-right: 20px;margin-top: 0px;margin-bottom: 10px;font-size: 13px;float: right;" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick='location.href="/notice_add"'>공지사항 작성</button>
+                                                    <button class="btn btn-primary" style="margin-right: 20px;margin-top: 0px;margin-bottom: 10px;font-size: 13px;float: right;" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick='location.href="/admin/notice_add"'>공지사항 작성</button>
 
                                                     <table class="table">
                                                         <thead>
@@ -100,23 +100,25 @@
                                                                     1
                                                                 </td>
 
-                                                                <td class="text-center">
-                                                                    <div class="dropdown">
-                                                                        <button
-                                                                            class="btn btn-default btn-sm btn-icon btn-transparent font-xl"
-                                                                            type="button" id="d350ad"
-                                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                                            aria-expanded="false">
-                                                                            <i class="mdi mdi-dots-horizontal"></i>
-                                                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="d350ad">
-                                                                                <a class="dropdown-item" href="#">긴급</a>
-                                                                                <a class="dropdown-item"
-                                                                                    href="#">공지사항</a>
-                                                                                <a class="dropdown-item" href="#">중요</a>
-                                                                            </div>
-                                                                        </button>
-                                                                    </div>
-                                                                </td>
+                                                            <td class="text-center">
+                                                                <div class="btn-group">
+                                                                    <button type="button" class="btn" data-bs-toggle="dropdown"
+                                                                            data-bs-display="static" aria-expanded="false">
+                                                                        <i class="mdi mdi-dots-horizontal"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu dropdown-menu-lg-end">
+                                                                        <li>
+
+                                                                            <button class="dropdown-item" type="button">
+                                                                                수정</button>
+                                                                        </li>
+                                                                        <li>
+                                                                            <button class="dropdown-item" type="button">
+                                                                                삭제</button></li>
+
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
