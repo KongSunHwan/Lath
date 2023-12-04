@@ -130,7 +130,7 @@ xmlns:th="http://www.thymeleaf.org">
                     <br />
                     <div class="d-flex">
                         <input type="text" class="form-control" id="sample6_extraAddress" name="detail_address"
-                               placeholder="상세주소       예)101동 201호"  >
+                               placeholder="상세주소       예)101동 201호"  required>
 
                     </div>
 
@@ -218,8 +218,8 @@ xmlns:th="http://www.thymeleaf.org">
                     <p>건물크기</p><span>(1P = 3.3058m<sup>2</sup>)</span>
                 </td>
                 <td style="width: 35%;" class="align-middle">공급면적
-                    <input type="text" name="supply_area1" size="10" value="0"> 평
-                    <input type="text" name="supply_area2" size="10" value="0.0"> m<sup>2</sup></td>
+                    <input type="text" name="supply_area1" size="10" value="0" required> 평
+                    <input type="text" name="supply_area2" size="10" value="0.0" required> m<sup>2</sup></td>
                 <td rowspan="2" class="align-middle text-center" style="width:15%;">
                     건물층수</td>
                 <td style="width: 35%;" class="align-middle">건물층수 <select name="b_floors">
@@ -247,8 +247,8 @@ xmlns:th="http://www.thymeleaf.org">
             </tr>
             <tr>
                 <td>전용면적
-                    <input type="text" name="exclusive_area1" size="10" value="0"> 평
-                    <input type="text"  name="exclusive_area2" size="10" value="0.0"> m<sup>2</sup> </td>
+                    <input type="text" name="exclusive_area1" size="10" value="0" required> 평
+                    <input type="text"  name="exclusive_area2" size="10" value="0.0" required> m<sup>2</sup> </td>
                 <td>해당층수 <select name="n_floors">
                     <option value="1">1층</option>
                     <option value="2">2층</option>
@@ -276,8 +276,7 @@ xmlns:th="http://www.thymeleaf.org">
                 <td class="align-middle text-center">난방종류</td>
                 <td colspan="3">
                     <select class="form-select" name="heating_type" aria-label="Default select example" style="width: 170px">
-                        <option selected>난방 종류 선택</option>
-                        <option value="중앙 난방">중앙 난방</option>
+                        <option value="중앙 난방" selected>중앙 난방</option>
                         <option value="지역 난방">지역 난방</option>
                         <option value="개별 난방">개별 난방</option>
                     </select>
@@ -300,9 +299,8 @@ xmlns:th="http://www.thymeleaf.org">
 
                     <input type="radio" class="btn-check"  name="move_in_date" id="move_in3" autocomplete="off"
                            onclick="document.getElementById('text1').style.display='block';">
-                    <label class="btn btn-outline-primary" for="move_in3" >날짜 선택</label>
-
-                    <input type="date" lass="form-control"  id="text1" style="display:none" >
+<!--                    <label class="btn btn-outline-primary" for="move_in3" >날짜 선택</label>-->
+<!--                    <input type="date" lass="form-control"  id="text1" style="display:none" >-->
                 </td>
             </tr>
             </tbody>
@@ -546,7 +544,7 @@ xmlns:th="http://www.thymeleaf.org">
                 <td class="text-center align-middle" style="width: 150px;">제목</td>
                 <td>
                     <input type="text" class="form-control" id="firstName" name="h_title"
-                           placeholder="예)의정부역 도보3분거리, 혼자 살기 좋은 방 입니다." style="width: 100%;">
+                           placeholder="예)의정부역 도보3분거리, 혼자 살기 좋은 방 입니다." style="width: 100%;" required>
 
                 </td>
             </tr>
@@ -595,7 +593,7 @@ xmlns:th="http://www.thymeleaf.org">
                             <img src="/img/img_null.png" class="img-thumbnail" alt="#" style="max-width: 800px; max-height: 800px; display: block; margin: 0 auto;">
                         </div>
                         <hr>
-                        <input type="file" name="files" accept=".png, .jpg" multiple data-max-files="15" data-min-files="3" onchange="checkFileCount(this)" id="fileInput">
+                        <input type="file" name="files" accept=".png, .jpg" multiple data-max-files="15" data-min-files="3" onchange="checkFileCount(this)" id="fileInput" required>
                         <span style="padding-top: 10px;"></span>
                         <!-- <button type="submit" class="btn btn-secondary">등록</button> -->
                     </div>
@@ -621,11 +619,11 @@ xmlns:th="http://www.thymeleaf.org">
                 <td class="deliverytd text-center">주소&nbsp;<span style="color:red;">*</span></td>
                 <td colspan="5">
                     <div class="d-flex">
-                        <input type="text" name="l_road_address" class="form-control" placeholder="도로명 주소" style="width: 950px;">
+                        <input type="text" name="l_road_address" class="form-control" placeholder="도로명 주소" style="width: 950px;" required>
                     </div>
 
                     <div class="d-flex">
-                        <input type="text" name="l_detail_address" class="form-control" placeholder="상세주소" style="width: 950px;">
+                        <input type="text" name="l_detail_address" class="form-control" placeholder="상세주소" style="width: 950px;" required>
                     </div>
                 </td>
             </tr>
@@ -634,14 +632,14 @@ xmlns:th="http://www.thymeleaf.org">
                 <td class="deliverytd text-center">주민등록번호&nbsp;<span style="color:red;">*</span></td>
                 <td>
                     <div class="d-flex">
-                        <input type="text" name="lessoer_resident_number_f" class="form-control" style="width: 150px;" maxlength="6"> &nbsp;-&nbsp;
-                        <input type="password" name="lessoer_resident_number_b" class="form-control" style="width: 150px;"maxlength="7">
+                        <input type="text" name="lessoer_resident_number_f" class="form-control" style="width: 150px;" maxlength="6" required> &nbsp;-&nbsp;
+                        <input type="password" name="lessoer_resident_number_b" class="form-control" style="width: 150px;"maxlength="7" required>
                     </div>
                 </td>
                 <td>전화&nbsp;<span style="color:red;">*</span></td>
-                <td>  <input type="text" name="lessoer_phone" class="form-control" style="width: 150px;" maxlength="11"></td>
+                <td>  <input type="text" name="lessoer_phone" class="form-control" style="width: 150px;" maxlength="11" required></td>
                 <td>성명&nbsp;<span style="color:red;">*</span></td>
-                <td>  <input type="text" name="lessoer_name" class="form-control" style="width: 150px;" maxlength="10"></td>
+                <td>  <input type="text" name="lessoer_name" class="form-control" style="width: 150px;" maxlength="10" required></td>
             </tr>
 
 

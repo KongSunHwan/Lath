@@ -29,7 +29,7 @@
                 <li><a class="nav-link px-4 link-dark" th:if="${session.user_id != null}" th:href="@{/house_add}">매물 등록</a></li>
                 <li><a class="nav-link px-4 link-dark" th:href="@{/property_guide}">부동산 가이드</a></li>
                 <li><a class="nav-link px-4 link-dark" th:href="@{/board_list}">커뮤니티</a></li>
-                <li><a class="nav-link px-4 link-dark" th:href="@{/notice_list}">공지사항</a></li>
+<!--                <li><a class="nav-link px-4 link-dark" th:href="@{/notice_list}">공지사항</a></li>-->
                 <li><a class="nav-link px-4 link-dark" th:if="${session.user_id != null}" th:href="@{/chat/room(userId =${session.user_id})}">내 채팅방</a>
                 </li>
             </ul>

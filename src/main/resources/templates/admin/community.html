@@ -120,6 +120,9 @@
                                                                 <th class="text-center">관리</th>
                                                             </tr>
                                                         </thead>
+                                                        <tr th:if="${#lists.isEmpty(bd_list)}">
+                                                            <td colspan="6" class="text-center">게시글이 존재하지 않습니다.</td>
+                                                        </tr>
                                                         <tbody>
                                                             <tr th:each="bd_list : ${bd_list}">
                                                                 <td class="text-center"  th:text="${bd_list.community_num}">
@@ -161,6 +164,8 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
+
+                                                <block th:if="${totCnt} > 0">
                                                 <form method="get" id="listForm" action="/admin/community">
                                                     <input type="hidden" id="pageIndex" name="pageIndex" val="" />
                                                     <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;"> <!-- 가운데 정렬 스타일을 추가 -->
@@ -179,6 +184,7 @@
                                                         </div>
                                                     </div>
                                                 </form>
+                                                </block>
 
                                             </div>
                                         </div>

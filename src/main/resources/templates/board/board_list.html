@@ -110,6 +110,11 @@
                     <li class="date">작성일</li>
                 </ul>
 
+                <div th:if="${pageList.communityPageList.isEmpty()}">
+                    <br>
+                    <p style="text-align: center">등록된 게시글이 없습니다.</p>
+                </div>
+
                 <ul th:each="pageList : ${pageList.communityPageList}" class="board_ul" onclick="">
                     <li th:text="${pageList.community_num}" class="id">1</li>
                     <li class="category" style="width: 200px;"><span class="badge bg-primary">커뮤니티</span></li>
@@ -122,6 +127,7 @@
             </div>
 
             <!-- Paging[s] -->
+            <th:block th:if="${pageList.pageDTO.totalCount>0}" >
             <form method="get" id="listForm" action="/board_list">
                 <div class="col-sm-12 col-md-7" style="text-align:center; margin: 0 auto;"> <!-- 가운데 정렬 스타일을 추가 -->
                     <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
@@ -139,6 +145,7 @@
                     </div>
                 </div>
             </form>
+            </th:block>
 
             <form method="get"  id="actionForm" action="/board_list">
                 <input type="hidden" name="pageNum" th:value="${pageList.pageDTO.cri.getPageNum()}">

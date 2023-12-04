@@ -112,9 +112,8 @@
                                 </td>
                                 <td colspan="5"
                                     style="border-right : none; text-align : left; padding-left : 10px; background-color: #fff;"
-                                    th:text="${house_deal_type}">
-                                    전/월세 db
-                                    <input type="hidden" name="deal_type" th:value="${house_deal_type}">
+                                    th:text="${deal_type}">
+                                    전/월세
                                 </td>
 
                             </tr>
@@ -171,6 +170,8 @@
                         <tr  th:each="house_info : ${house_info}">
                             <input type="hidden"  name="supply_area2" th:value="${house_info.supply_area2}">
                             <input type="hidden"  name="exclusive_area2" th:value="${house_info.exclusive_area2}">
+                            <input type="hidden" name="deal_type" th:value="${deal_type}">
+                            <input type="hidden" name="house_type" th:value="${house_type}">
 
 
                             <td class="deliverytd text-center">전용면적<span style="color:red;">*</span></td>
@@ -219,7 +220,7 @@
                             <td>
                                 <div class="d-flex">
                                     <input type="text" class="form-control" name="deposit" placeholder="보증금"
-                                        style="width: 400px;"><span class="fs-5">원정</span>
+                                        style="width: 400px;" required><span class="fs-5">원정</span>
                                 </div>
                             </td>
                         </tr>
@@ -229,7 +230,7 @@
                             <td>
                                 <div class="d-flex">
                                     <input type="text" class="form-control" name="down_payment" placeholder="계약금"
-                                        style="width: 400px;"><span class="fs-5">원정은 계약시에지불하고 영수함.</span>
+                                        style="width: 400px;" required><span class="fs-5">원정은 계약시에지불하고 영수함.</span>
                                     &nbsp;&nbsp;&nbsp;
                                     <input class="form-check-input" type="checkbox" id="flexCheckDefault" required>
                                     &nbsp;
@@ -244,9 +245,9 @@
                             <td>
                                 <div class="d-flex">
                                     <input type="text" class="form-control" name="middle_payment" placeholder="중도금"
-                                        style="width: 400px;"><span class="fs-5">원정은</span>
+                                        style="width: 400px;" required><span class="fs-5">원정은</span>
                                     &nbsp;&nbsp;
-                                    <input type="date" name="middle_payment_deadline">&nbsp;일에 지불한다.
+                                    <input type="date" name="middle_payment_deadline"required>&nbsp;일에 지불한다.
                                 </div>
                             </td>
                         </tr>
@@ -256,9 +257,9 @@
                             <td>
                                 <div class="d-flex">
                                     <input type="text" name="balance" class="form-control" id="floatingInput" placeholder="잔금"
-                                        style="width: 400px;"><span class="fs-5">원정은</span>
+                                        style="width: 400px;" required><span class="fs-5">원정은</span>
                                     &nbsp;&nbsp;
-                                    <input type="date" name="balance_deadline">일에 지불한다.
+                                    <input type="date" name="balance_deadline" required>일에 지불한다.
                                 </div>
                             </td>
                         </tr>
@@ -267,7 +268,7 @@
                             <td class="deliverytd text-center">임대차 기간<span style="color:red;">*</span></td>
                             <td>
                                 <div class="d-flex">
-                                    선택일 선택 : &nbsp;<input type="date" name="lease_term_begin">&nbsp;~&nbsp;종료일 선택 : &nbsp;<input type="date" name="lease_term_end">
+                                    선택일 선택 : &nbsp;<input type="date" name="lease_term_begin" required>&nbsp;~&nbsp;종료일 선택 : &nbsp;<input type="date" name="lease_term_end" required>
                                 </div>
                             </td>
                         </tr>
@@ -276,7 +277,7 @@
                             <td class="deliverytd text-center">인도일&nbsp;<span style="color:red;">*</span></td>
                             <td>
                                 <div class="d-flex">
-                                    부동산 인도일 : &nbsp;<input type="date" name="day_of_delivery">&nbsp;
+                                    부동산 인도일 : &nbsp;<input type="date" name="day_of_delivery" required>&nbsp;
                                 </div>
                             </td>
                         </tr>
@@ -318,14 +319,14 @@
                         <td class="deliverytd text-center">주민등록번호&nbsp;<span style="color:red;">*</span></td>
                         <td>
                             <div class="d-flex">
-                                <input type="text" maxlength="6" name="tenant_resident_number_f" class="form-control" style="width: 150px;"> &nbsp;-&nbsp;
-                            <input type="password" maxlength="7" name="tenant_resident_number_b" class="form-control" style="width: 150px;">
+                                <input type="text" maxlength="6" name="tenant_resident_number_f" class="form-control" style="width: 150px;" required> &nbsp;-&nbsp;
+                            <input type="password" maxlength="7" name="tenant_resident_number_b" class="form-control" style="width: 150px;" required>
                             </div>
                         </td>
                         <td>전화&nbsp;<span style="color:red;">*</span></td>
-                        <td>  <input type="text" name="tenant_phone" class="form-control" style="width: 150px;"></td>
+                        <td>  <input type="text" name="tenant_phone" class="form-control" style="width: 150px;" maxlength="11" required></td>
                         <td>성명&nbsp;<span style="color:red;">*</span></td>
-                        <td>  <input type="text" name="tenant_name" class="form-control" style="width: 150px;"></td>
+                        <td>  <input type="text" name="tenant_name" class="form-control" style="width: 150px;" required></td>
                     </tr>
 
                     </thead>

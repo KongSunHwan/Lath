@@ -209,7 +209,7 @@ public class HouseService {
     }
 
     public ResponsePageDTO.ResponseHouse house_list(Criteria criteria) {
-        Criteria cs = new Criteria(criteria.getPageNum(), criteria.getAmount(), criteria.getType(), criteria.getKeyword());
+        Criteria cs = new Criteria(criteria.getPageNum(), 6, criteria.getType(), criteria.getKeyword());
 
 //        List<HashMap> house_list = houseMapper.house_list(cs);
 //        int total = houseMapper.house_list_cnt();
