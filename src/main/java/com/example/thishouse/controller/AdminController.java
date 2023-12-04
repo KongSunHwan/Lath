@@ -4,6 +4,7 @@ import com.example.thishouse.domain.Criteria;
 import com.example.thishouse.domain.DTO.NoticeDTO;
 import com.example.thishouse.domain.DTO.ResponsePageDTO;
 import com.example.thishouse.domain.Member;
+import com.example.thishouse.domain.Notice;
 import com.example.thishouse.domain.Report;
 import com.example.thishouse.domain.community.Community;
 import com.example.thishouse.domain.community.Community_reply;
@@ -489,5 +490,26 @@ public class AdminController {
     @GetMapping("/admin/notice_add")
     public String AdminNoticeAdd() {
         return "admin/notice_add";
+    }
+
+    @GetMapping("/admin/notice_adds")
+    public String BoardAdd(Notice notice) {
+        noticeService.insert_notice(notice);
+        return "redirect:/admin/notice_add";
+    }
+
+    @GetMapping("/admin/notice_delete")
+    public String AdminNoticeDelete(String noticeNum) {
+        noticeService.delete_notice(noticeNum);
+        return "redirect:/admin/notice";}
+
+    @GetMapping("/admin/notice_modify")
+    public String AdminNoticeModify(Notice notice) {
+        return null;}
+
+    @GetMapping("/admin/notice_modifys")
+    public String AdminNoticeModifies(Notice notice){
+
+        return "redirect:/admin/notice_modify";
     }
 }

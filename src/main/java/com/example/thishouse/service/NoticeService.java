@@ -54,4 +54,8 @@ public class NoticeService {
         List<NoticeDTO.Response> responses = NoticeDTO.Response.ListNoticeToNoticeDto(pageList);
         return new NoticeDTO.PageResponseList(responses, pageDTO);
     }
+
+//    public update_notice() {
+//
+//    }
 }
