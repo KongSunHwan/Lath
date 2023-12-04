@@ -76,4 +76,6 @@ public interface AdminMapper {
     void pw_change(String userNum);
 
     String find_user_num(String userId);
+
+    void notice_delete(String noticeNum);
 }

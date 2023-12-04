@@ -187,4 +187,9 @@
         from member
         where user_id = #{userId}
     </select>
+
+    <delete id="notice_delete">
+        delete from notice
+        where notice_num = #{noticeNum}
+    </delete>
 </mapper>

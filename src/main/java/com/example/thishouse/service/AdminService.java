@@ -153,4 +153,9 @@ public class AdminService {
     public void blind_reply(String replyNum) {
 
     }
+
+    @Transactional
+    public void notice_delete(String noticeNum) {
+        this.adminMapper.notice_delete(noticeNum);
+    }
 }

@@ -121,6 +121,18 @@ public class AdminController {
         return "admin/notice";
     }
 
+    @RequestMapping("/admin_notice_delete")
+    public String admin_notice_delete(String notice_num) {
+        adminService.notice_delete(notice_num);
+        return "redirect:/admin/notice";
+    }
+
+    @RequestMapping("/notice_modify")
+    public String notice_modify(String notice_num, Model model) {
+        model.addAttribute("Notice", communityService.view_board(notice_num));
+        return "admin/notice_modify";
+    }
+
     @GetMapping("admin/community")
     public String admin_community(@ModelAttribute("searchVO") Community searchVO, HttpServletRequest request, Model model) {
         PageCtrl pagination  = new PageCtrl();

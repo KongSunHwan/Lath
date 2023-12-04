@@ -9,7 +9,7 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <title>공지사항 등록</title>
+    <title>공지사항 수정</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.min.js"></script>
 
 </head>
@@ -20,9 +20,8 @@
 <!-- header 끝 -->
 <h1 class="visually-hidden"></h1>
 <div class="px-4 py-5 my-5 text-lg-start">
-    <h2 class="fw-bold text-center">공지사항 등록</h2>
-    <form th:action="@{notice_add}" method="get">
-        <input type="hidden" name="admin_id" value="admin_id" th:value="${session.user_id}">
+    <h2 class="fw-bold text-center">공지사항 수정</h2>
+    <form th:action="@{/notice_update}" method="get">
         <div class="col-lg-6 mx-auto">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label fs-4 fw-bold">제목</label>
@@ -37,7 +36,7 @@
 
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
                 <button type="submit" class="btn btn-primary">등록하기</button>
-                <a th:href="@{/admin/notice}"><button type="button" class="btn btn-primary">목록으로</button></a>
+                <a th:href="@{/notice_list}"><button type="button" class="btn btn-primary">목록으로</button></a>
             </div>
         </div>
     </form>
