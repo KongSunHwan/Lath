@@ -91,9 +91,7 @@
                             <button class="btn btn-primary position-relative" type="button">
                                 <i class="bi bi-bell"></i>
                                 알림
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                                      id="a1">
-                                    5
+                                <span  id="a1" class="position-absolute top-0 start-100 translate-middle">
                                     <span class="visually-hidden">알림 개수</span>
                                 </span>
                             </button>
@@ -136,13 +134,8 @@
 
 <script>
     $(document).ready(function () {
-
-
         var username = "[[${session.user_id}]]";
-
-
         if (username.length > 0) {
-            $("#a1").text("1");
             console.log("testsfads");
             var sockJS = new SockJS(`/stomp/a1`);
             var stomp = Stomp.over(sockJS);
@@ -208,6 +201,9 @@
                 stomp.subscribe("/sub/chat/a1list/" + username, function (a1) {
                     $('#a1Group').empty();
                     var list = JSON.parse(a1.body);
+                    if(list.length > 0){
+                        $('#a1').addClass('p-2 bg-danger border border-light rounded-circle');
+                    }
                     for (var i = 0; i < list.length; i++) {
 
                         var sender = list[i].sender;
@@ -216,7 +212,6 @@
                         var roomid = list[i].roomid;
                         var houseNum = list[i].housenum;
                         var count = list[i].roomid_count;
-
 
                         var dateString = new Date(date);
                         dateString.setUTCHours(dateString.getHours() + 9);
